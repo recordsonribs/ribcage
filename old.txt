@@ -1,0 +1,5 @@
+<?php while ( have_artists() ) : the_artist();	?>
+	
+	<a href="<?php echo ARTISTS_PLUGIN; ?><?php echo $artist['artist_slug']; ?>"><h1><?php echo $artist['artist_name']; ?></h1></a>
+	<p><?php if ($artist['artist_picture_1']) : ?><img src="<?php echo $artist['artist_picture_1']; ?>" alt="<?php echo $artist['artist_name']; ?>" /><br /><?php endif; ?><?php echo $artist['artist_blurb_tiny']; ?></p>
+<?php endwhile; ?>
