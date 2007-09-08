@@ -14,19 +14,26 @@ $wpdb->ribcage_log = $wpdb->prefix."ribcage_log";
 function is_ribcage_page() {
 	global $wp_query;
 	
-	return (
-		!empty($wp_query->query_vars['artist_id'])	||
-		!empty($wp_query->query_vars['artist_slug'])	||
-		!empty($wp_query->query_vars['artist_page'])		||
-		!empty($wp_query->query_vars['artist_index']) ||
-		!empty($wp_query->query_vars['ribcage_download']) ||
-		!empty($wp_query->query_vars['ribcage_stream'])
-	);
+	$qvars = ribcage_queryvars('');
+	
+	foreach ($qvars as $qvar) {
+		if (isset($wp_query->query_vars["$qvar"])) {
+			return TRUE;
+		}
+	}	
+	return FALSE;
 }
 
-// list_recent_release_blurb
+// list_recent_releases_blurb
 // Input amount of releases you want back.
 // Returns recent releases as associative array.
+function list_recent_releases_blurb ()
+{
+	global $wpdb;
+	
+	//$return = $wpdb->get_results($querystr, ARRAY_A);
+	return $return;
+}
 
 // list_artists
 // No input. 

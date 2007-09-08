@@ -28,6 +28,7 @@
 define ("ARTISTS_PLUGIN", "/~music/artists/");
 
 require_once dirname(__FILE__) . '/ribcage-includes/functions.php';
+require_once dirname(__FILE__) . '/ribcage-includes/log.php';
 require_once dirname(__FILE__) . '/ribcage-includes/track.php';
 require_once dirname(__FILE__) . '/ribcage-includes/template.php';
 
@@ -65,15 +66,16 @@ function ribcage_init (){
 		$releases = list_artist_releases ($artist['artist_id']);
 		
 		$load = ribcage_load_template ('artist.php');
-		
-		if ( is_wp_error($load) ) {
-			echo $load->get_error_message();
-		}
-		die();
 	}
 	
-	// Releases Page
+	// Releases Index
+	if (isset($wp_query->query_vars['release_index'])) {
+		$releases = list_recent_releases_blurb();
+		
+		$load = ribcage_load_template ('release-index.php');
+	}
 	
+	// Downloads
 	if (isset($wp_query->query_vars['ribcage_download'])) {	
 		// Download whole release.
 		if (isset($wp_query->query_vars['release_slug'])) {
@@ -103,11 +105,12 @@ function ribcage_init (){
 		echo $load->get_error_message();
 	}
 	
+	// Don't output anything else.
 	die();
 }
 
 function ribcage_load_template ( $filename ) {
-	// Fucking dangerous stuff ...sort this out...
+	// Dangerous stuff ...sort this out...
 	// $filename = basename($filename);
 	$template = TEMPLATEPATH ."/ribcage/$filename";
 	
@@ -128,6 +131,8 @@ function ribcage_add_rewrite_rules ( $wp_rewrite ) {
 		"(artists)/(.*)/(.*)" => 'index.php?artist_slug='.$wp_rewrite->preg_index(2).'&artist_page='.$wp_rewrite->preg_index(3),
 		"(artists)/(.*)" => 'index.php?artist_slug=' . $wp_rewrite->preg_index(2),
 		"(artists)" => 'index.php?artist_index=1',
+		
+		"(releases)" => 'index.php?release_index=1',
 			
 		"(download)/(track)/(.*)/(.*)" => 'index.php?ribcage_download=1&track_slug='.$wp_rewrite->preg_index(3).'&format='.$wp_rewrite->preg_index(4),
 		"(download)/(.*)/(.*)" => 'index.php?ribcage_download=1&release_slug='.$wp_rewrite->preg_index(2).'&format='.$wp_rewrite->preg_index(3),
@@ -153,6 +158,9 @@ function ribcage_queryvars ( $qvars ){
 	$qvars[] = 'artist_slug';
 	$qvars[] = 'artist_id';
 	$qvars[] = 'artist_page';
+	
+	// Release Listings
+	$qvars[] = 'release_index';
 	
 	// Downloads
 	$qvars[] = 'ribcage_download';
