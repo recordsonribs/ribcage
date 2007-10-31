@@ -1,3 +1,8 @@
 <?php
-// Ribcage logging related functions.
+
+function ribcage_log()
+{
+	return (1);
+}
+
 ?>
