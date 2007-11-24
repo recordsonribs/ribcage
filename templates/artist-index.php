@@ -1,5 +1,4 @@
 <?php get_header(); ?>
-<?php get_sidebar(); ?>
 <!-- Add a microformats dumb ass!!!-->
 <div id="container">
 	<div id="content">
@@ -10,4 +9,5 @@
 <?php endwhile; ?>
 	</div>
 </div>
+<?php get_sidebar(); ?>
 <?php get_footer(); ?>

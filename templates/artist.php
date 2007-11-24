@@ -1,6 +1,6 @@
 <?php get_header(); ?>
-<?php get_sidebar(); ?>
-<div class="post">
+<div id="container">
+		<div id="content">
 	 
 	<h2><a href="<?php echo ARTISTS_PLUGIN; ?>">Artists</a></h2>
 	<a href="<?php echo ARTISTS_PLUGIN; ?><?php artist_slug(); ?>"><h1><?php artist_name(); ?></h1></a>
@@ -31,4 +31,6 @@
 	<?php endwhile; ?>
 	<?php endif; ?>
 </div>
-	<?php get_footer();?>
+</div>
+<?php get_sidebar(); ?>
+<?php get_footer();?>
