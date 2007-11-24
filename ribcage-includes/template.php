@@ -52,9 +52,6 @@ function release_slug ( $echo = true ) {
 // -----------
 // Various artist_ template tags.
 
-// release_title
-// Input false if you want no echo.
-// Returns the contents of $artist['artist_name']
 function artist_name ( $echo = true ) {
 	global $artist;
 	
@@ -74,6 +71,7 @@ function artist_bio( $echo = true )
 	
 	return $artist['artist_bio'];
 }
+
 function artist_slug ( $echo = true ) {
 	global $artist;
 	
@@ -81,6 +79,53 @@ function artist_slug ( $echo = true ) {
 		echo $artist['artist_slug'];
 	
 	return $artist['artist_slug'];
+}
+
+function artist_press_link ( $echo = true ) {
+	global $artist;
+	$presslink = get_option('siteurl').'/artists/'.$artist['artist_slug'].'/press/';
+	
+	if ($echo)
+		echo $presslink;
+	
+	return $presslink;
+}
+
+function artist_website_link ( $echo = true ) {
+	global $artist;
+	
+	if ($echo)
+		echo $artist['artist_link_website'];
+	
+	return $artist['artist_link_website'];
+}
+
+function artist_myspace_link ( $echo = true ) {
+	global $artist;
+	
+	if ($echo)
+		echo $artist['artist_link_myspace'];
+	
+	return $artist['artist_link_myspace'];
+}
+
+function artist_facebook_link ( $echo = true ) {
+	global $artist;
+	
+	if ($echo)
+		echo $artist['artist_link_facebook'];
+	
+	return $artist['artist_link_facebook'];
+}
+
+function artist_lastfm_link ( $echo = true ) {
+	global $artist;
+	
+	$lastfmlink = 'http://www.last.fm/music/'.str_replace(' ', '+',$artist['artist_name']);
+	if ($echo)
+		echo $lastfmlink;
+	
+	return $lastfmlink;
 }
 
 function artist_blurb_tiny ( $echo = true ) {

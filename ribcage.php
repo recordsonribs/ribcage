@@ -53,11 +53,6 @@ function ribcage_init (){
 		$artist = $artists [$current_artist];
 
 		$load = ribcage_load_template ('artist-index.php');
-		
-		if ( is_wp_error($load) ) {
-			echo $load->get_error_message();
-		}
-		die();
 	}
 	
 	// Individual Artist (including bio, contact et al)
@@ -67,7 +62,7 @@ function ribcage_init (){
 		
 		$load = ribcage_load_template ('artist.php');
 	}
-	
+		
 	// Releases Index
 	if (isset($wp_query->query_vars['release_index'])) {
 		$releases = list_recent_releases_blurb();

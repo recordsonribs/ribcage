@@ -1,13 +1,21 @@
 <?php get_header(); ?>
 <?php get_sidebar(); ?>
-<div id="container">
+<div class="post">
+	 
 	<h2><a href="<?php echo ARTISTS_PLUGIN; ?>">Artists</a></h2>
 	<a href="<?php echo ARTISTS_PLUGIN; ?><?php artist_slug(); ?>"><h1><?php artist_name(); ?></h1></a>
 	<?php if (is_artist_page()) : ?>
-	<h2>Biography</h2>
-	<p><?php artist_bio(); ?></p>
+	<h2>Press</h2>
+	<p></p>
+	<p><?php echo $wp_query->query_vars['artist_page']; ?></p>
 	<?php else : ?>
-		<p><?php artist_blurb_short(); ?></p>
+		<p><?php artist_bio(); ?></p>
+		<p>
+		<?php if (artist_website_link(0)) : ?><a href="<?php artist_website_link(); ?>">Offical Webpage</a><br /><?php endif ?>
+		<?php if (artist_myspace_link(0)) : ?><a href="<?php artist_myspace_link(); ?>">My Space</a><br /><?php endif ?>
+		<?php if (artist_facebook_link(0)) : ?><a href="<?php artist_facebook_link(); ?>">Facebook</a><br /><?php endif ?>
+		<a href="<?php artist_lastfm_link(); ?>">Last.fm</a><br />
+		<a href="<?php artist_press_link(); ?>">Press Photos and Information</a></p>
 	<?php endif; ?>
 	<?php if (!is_artist_page() && have_releases() ) : ?>
 	<h2>Releases</h2>
