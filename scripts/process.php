@@ -1,18 +1,12 @@
 <?php
-/*
 
-This script scans a directory for FLAC files and then converts them to various file formats in a
-specific directory tree, adding to the Ribcage database in the process.
-
-*/
-
-$flacpath = '';
-$lamepath = '';
-$oggpath = '';
+$flacpath = '/home/recordsonribs/bin/flac';
+$lamepath = '/home/recordsonribs/bin/lame';
+$oggpath = '/home/recordsonribs/bin/oggenc';
 
 ini_set('memory_limit', '18M');
 system ('clear');
-require_once('../ribcage-includes/getid3/getid3.php');
+require_once('getid3/getid3.php');
 
 if ($argv[1] == null){
 	$dir = getcwd();
@@ -39,7 +33,7 @@ foreach ($files as $filename) {
 	if ($ext == 'flac'){
 		$file = $getID3->analyze("$dir/$filename");
 		getid3_lib::CopyTagsToComments($file);
-		print_r ($file);
+
 		$tracks [] = array (
 			'path' => addslashes("$dir/$filename"),
 			'filename' => addslashes($filename),
@@ -88,7 +82,7 @@ mkdir (join ('/', array($storage, 'stream')));
 mkdir (join ('/', array($storage, 'download', 'flac')));
 mkdir (join ('/', array($storage, 'download', 'mp3')));
 mkdir (join ('/', array($storage, 'download', 'ogg')));
-mkdir (join ('/', array($storage, 'zip')));
+mkdir (join ('/', array($storage, 'download','zip')));
 
 print "done\n\n";
 
@@ -108,7 +102,7 @@ foreach ($tracks as $track) {
 	$mp3 = join ('.',array($track['filename_name'], 'mp3'));
 	$ogg = join ('.',array($track['filename_name'], 'ogg'));
 
-	$lametag= "--ta '".$release['artist']."' --tl '".$release['title']."' --ty '".$release['year']."' --tn '".$track['track']."' --tt '".$track['title']."'";
+	$lametag= "--ta '".addslashes($release['artist'])."' --tl '".addslashes($release['title'])."' --ty '".$release['year']."' --tn '".$track['track']."' --tt '".addslashes($track['title'])."'";
 	
 	print "Converting to high quality mp3...";
 	system ("$lamepath $lametag --quiet -V 0 --vbr-new '".$dir."/".$wav."' '".join ('/', array($storage, 'download','mp3',$mp3))."'");
@@ -118,7 +112,7 @@ foreach ($tracks as $track) {
 	system ("$lamepath $lametag --quiet --cbr -b 128 '".$dir."/".$wav."' '".join ('/', array($storage, 'stream',$mp3 ))."'");
 	print "done\n";
 	
-	$oggtag= "-a '".$release['artist']."' -l '".$release['title']."' -d '".$release['year']."' -N '".$track['track']."' -t '".$track['title']."'";
+	$oggtag= "-a '".addslashes($release['artist'])."' -l '".addslashes($release['title'])."' -d '".$release['year']."' -N '".$track['track']."' -t '".addslashes($track['title'])."'";
 	
 	print "Converting to ogg file...";
 	system ("$oggpath $oggtag -Q -q 5 -o '".join ('/', array($storage, 'download','ogg',$ogg ))."' '".$dir."/".$wav."'");
@@ -141,11 +135,11 @@ foreach ($tracks as $track) {
 }
 
 print "Making zip release bundles...flac...";
-system ("zip -9 -jqr '".$storage."/zip/".$release['artist']."_".$release['title']."_flac.zip' '".$storage."/download/flac'");
+system ("zip -9 -jqr '".$storage."/download/zip/".$release['artist']."_".$release['title']."_flac.zip' '".$storage."/download/flac'");
 echo "mp3...";
-system ("zip -9 -jqr '".$storage."/zip/".$release['artist']."_".$release['title']."_mp3.zip' '".$storage."/download/mp3'");
+system ("zip -9 -jqr '".$storage."/download/zip/".$release['artist']."_".$release['title']."_mp3.zip' '".$storage."/download/mp3'");
 echo "ogg...";
-system ("zip -9 -jqr '".$storage."/zip/".$release['artist']."_".$release['title']."_ogg.zip' '".$storage."/download/ogg'");
+system ("zip -9 -jqr '".$storage."/download/zip/".$release['artist']."_".$release['title']."_ogg.zip' '".$storage."/download/ogg'");
 print "done \n";
 
 print "All done!\n";
