@@ -5,9 +5,6 @@
 	<h2><a href="<?php echo ARTISTS_PLUGIN; ?>">Artists</a></h2>
 	<a href="<?php echo ARTISTS_PLUGIN; ?><?php artist_slug(); ?>"><h1><?php artist_name(); ?></h1></a>
 	<?php if (is_artist_page()) : ?>
-	<h2>Press</h2>
-	<p></p>
-	<p><?php echo $wp_query->query_vars['artist_page']; ?></p>
 	<?php else : ?>
 		<p><?php artist_bio(); ?></p>
 		<p>
@@ -17,16 +14,11 @@
 		<a href="<?php artist_lastfm_link(); ?>">Last.fm</a><br />
 		<a href="<?php artist_press_link(); ?>">Press Photos and Information</a></p>
 	<?php endif; ?>
-	<?php if (!is_artist_page() && have_releases() ) : ?>
-	<h2>Releases</h2>
+	<?php if (have_releases() ) : ?>
+	<?php if (!is_artist_page() ) : ?><h2>Releases</h2><?php endif; ?>
 	<?php while ( have_releases  () ) : the_release (); ?>
 	<div>
-	<h3><?php release_title(); ?></h3>
-	<ol>
-		<?php while ( have_tracks () ) : the_track() ; ?>
-			<li><?php track_title(); ?></li>
-		<?php endwhile; ?>
-	</ol>
+	<h3><a href="<?php get_option('siteurl').'/artists/'.$artist['artist_slug'].release_slug(); ?>"><?php release_title(); ?></a></h3>
 	</div>
 	<?php endwhile; ?>
 	<?php endif; ?>

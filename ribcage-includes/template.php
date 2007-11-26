@@ -15,7 +15,7 @@ $current_track = 0;
 $reviews = null;
 $review = null;
 
-function is_artist_page()
+function is_artist_page ()
 {
 	global $wp_query;
 	
@@ -27,9 +27,7 @@ function is_artist_page()
 		return (FALSE);
 	}
 }
-// release_title
-// Input false if you want no echo.
-// Returns the contents of $release['release_title']
+
 function release_title ( $echo = true ) {
 	global $release;
 	
@@ -48,6 +46,50 @@ function release_slug ( $echo = true ) {
 	return $release['release_slug'];
 }
 
+function release_download_link ( $echo = true ) {
+	global $release;
+	
+	if ( $echo )
+		echo get_option('siteurl').'/download/'.$release['release_slug'];
+	
+	return get_option('siteurl').'/download/'.$release['release_slug'];
+}
+function release_download_link_mp3 ( $echo = true ) {
+	global $release;
+	
+	if ( $echo )
+		echo get_option('siteurl').'/download/'.$release['release_slug'].'/mp3';
+	
+	return get_option('siteurl').'/download/'.$release['release_slug'].'/mp3';
+}
+
+function release_download_link_flac ( $echo = true ) {
+	global $release;
+	
+	if ( $echo )
+		echo get_option('siteurl').'/download/'.$release['release_slug'].'/flac';
+	
+	return get_option('siteurl').'/download/'.$release['release_slug'].'/flac';
+}
+
+function release_download_link_ogg ( $echo = true ) {
+	global $release;
+	
+	if ( $echo )
+		echo get_option('siteurl').'/download/'.$release['release_slug'].'/ogg';
+	
+	return get_option('siteurl').'/download/'.$release['release_slug'].'/ogg';
+}
+
+function release_cover_large ( $echo = true ) {
+	global $release;
+	
+	if ( $echo )
+		echo $release['release_cover_image_large'];
+	
+	return $release['release_cover_image_large'];
+}
+
 // artist_*
 // -----------
 // Various artist_ template tags.
@@ -61,7 +103,7 @@ function artist_name ( $echo = true ) {
 	return $artist['artist_name'];
 }
 
-function artist_bio( $echo = true )
+function artist_bio ( $echo = true )
 {
 	global $artist;
 	
@@ -195,13 +237,24 @@ function track_stream ( $echo = true ) {
 	return $track['track_stream'];
 }
 
-function track_number ( $echo = true ) {
+function track_no ( $echo = true ) {
 	global $track;
 	
 	if ($echo)
 		echo $track['track_number'];
 	
 	return $track['track_number'];
+}
+
+function track_time ( $echo = true ) {
+	global $track;
+	
+ 	$timesplit = explode (':', $track['track_time']);
+	
+	if ($echo)
+		echo $timesplit[1].'.'.$timesplit[2];
+	
+	return $timesplit[1].'.'.$timesplit[2];
 }
 
 function have_tracks () {
@@ -242,4 +295,5 @@ function the_release (){
 	$GLOBALS['tracks'] = $release ['release_tracks'];
 	$GLOBALS['current_release']++;
 }
+
 ?>

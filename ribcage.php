@@ -43,7 +43,7 @@ function ribcage_init (){
 	global $releases, $release, $current_release;
 	global $tracks, $track, $current_track;
 
-	if( is_ribcage_page () == 0){
+	if ( is_ribcage_page () == 0){
 		return;
 	}
 	
@@ -58,9 +58,28 @@ function ribcage_init (){
 	// Individual Artist (including bio, contact et al)
 	if (isset($wp_query->query_vars['artist_slug'])) {
 		$artist = get_artist_by_slug ($wp_query->query_vars['artist_slug']);
-		$releases = list_artist_releases ($artist['artist_id']);
 		
-		$load = ribcage_load_template ('artist.php');
+		if (is_artist_page()){
+			switch ($wp_query->query_vars['artist_page']) {
+				case 'press':
+					$releases = list_artist_releases ($artist['artist_id']);
+					$load = ribcage_load_template('press.php');
+					break;
+					
+				case 'bio':
+					$load  = ribcage_load_template('bio.php');
+					break;
+					
+				default :
+					$release = get_release_by_slug ($wp_query->query_vars['artist_page'], TRUE, TRUE);
+					$tracks = $release ['release_tracks'];
+					$load = ribcage_load_template ('release.php');				
+			}
+		}
+		else {
+			$releases = list_artist_releases ($artist['artist_id']);
+			$load = ribcage_load_template ('artist.php');
+		}
 	}
 		
 	// Releases Index
@@ -71,15 +90,44 @@ function ribcage_init (){
 	}
 	
 	// Downloads
-	if (isset($wp_query->query_vars['ribcage_download'])) {	
-		// Download whole release.
+	if (isset($wp_query->query_vars['ribcage_download'])) {
+		
+		// Download nag/links page.
 		if (isset($wp_query->query_vars['release_slug'])) {
+			$release = get_release_by_slug ($wp_query->query_vars['release_slug'], FALSE, FALSE);
+			$artist = get_artist ($release['release_artist']);
+			
+			// If we haven't seen the user before, then nag them about the download.
+			if (!isset($_COOKIE["ask_donate"])){
+				setcookie("ask_donate", "1", time()+3600);
+				$load = ribcage_load_template('nag.php');
+			}
+			
+			// If we have seen the user before, then there is a one in five chance they will see the nag.
+			elseif (isset($_COOKIE["ask_donate"])) {
+				$random = rand(1, 5);
+				if ($random == 5) {
+					$load = ribcage_load_template('nag.php');
+				}
+				else {
+					$load = ribcage_load_template('download.php');
+				}
+			}
+			
+			// If the user has just got back from Paypal congratulate them on their brillance and given them
+			// the download. Maybe lower the chance of a nag?
+			
+		}
+		
+		// Download whole release.
+		if (isset($wp_query->query_vars['release_slug']) && isset($wp_query->query_vars['format'])) {
 			$load = download_release ($wp_query->query_vars['release_slug'], $wp_query->query_vars['format']);
 		}
+		
 		// Download individual track.
 		if (isset($wp_query->query_vars['track_slug'])) {
 			$load = download_track ($wp_query->query_vars['track_slug'], $wp_query->query_vars['format']);
-		}		
+		}
 	}
 	
 		
@@ -101,7 +149,7 @@ function ribcage_init (){
 	}
 	
 	// Don't output anything else.
-	die();
+	die ();
 }
 
 function ribcage_load_template ( $filename ) {
@@ -113,7 +161,7 @@ function ribcage_load_template ( $filename ) {
 		$template = dirname(__FILE__)."/templates/$filename";
 	
 	if ( !file_exists($template) )
-		return new WP_Error('template-missing', sprintf(__("Oops! The template file %s could not be found in either the Now Reading template directory or your theme's Ribcage directory.", NRTD), "<code>$filename</code>"));
+		return new WP_Error('template-missing', sprintf(__("Oops! The template file %s could not be found in either the Ribcage template directory or your theme's Ribcage directory.", NRTD), "<code>$filename</code>"));
 	
 	load_template($template);
 }
@@ -131,6 +179,7 @@ function ribcage_add_rewrite_rules ( $wp_rewrite ) {
 			
 		"(download)/(track)/(.*)/(.*)" => 'index.php?ribcage_download=1&track_slug='.$wp_rewrite->preg_index(3).'&format='.$wp_rewrite->preg_index(4),
 		"(download)/(.*)/(.*)" => 'index.php?ribcage_download=1&release_slug='.$wp_rewrite->preg_index(2).'&format='.$wp_rewrite->preg_index(3),
+		"(download)/(.*)" => 'index.php?ribcage_download=1&release_slug='.$wp_rewrite->preg_index(2),
 		"(download)" => 'index.php?ribcage_download=1',
 		
 		"(stream)/(track)/(.*)/(.*)/(.*)" => 'index.php?ribcage_stream=1&track_slug='.$wp_rewrite->preg_index(3).'&stream_format='.$wp_rewrite->preg_index(4),
@@ -143,7 +192,6 @@ function ribcage_add_rewrite_rules ( $wp_rewrite ) {
 }
 
 // Add a Query Var, This allows us to access the query var via $wp_query
-// Without this the rwwrite rules wont affect us, All arguments you specify via WP's Rewrite engine do not appear in $_GET/$_REQUEST, they only appear in $wp_query->query_vars
 add_filter('query_vars', 'ribcage_queryvars' );
 
 function ribcage_queryvars ( $qvars ){
