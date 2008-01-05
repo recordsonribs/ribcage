@@ -28,6 +28,8 @@ function is_artist_page ()
 	}
 }
 
+//
+
 function release_title ( $echo = true ) {
 	global $release;
 	
@@ -46,6 +48,32 @@ function release_slug ( $echo = true ) {
 	return $release['release_slug'];
 }
 
+function release_blurb_tiny ( $echo = true ) {
+	global $release;
+	
+	if ( $echo )
+		echo $release['release_blurb_tiny'];
+	
+	return $release['release_blurb_tiny'];
+}
+
+function release_blurb_short ( $echo = true ) {
+	global $release;
+	
+	if ( $echo )
+		echo $release['release_blurb_short'];
+	
+	return $release['release_blurb_short'];
+}
+
+function release_blurb_long ( $echo = true ) {
+	global $release;
+	
+	if ( $echo )
+		echo $release['release_blurb_long'];
+	
+	return $release['release_blurb_long'];
+}
 function release_download_link ( $echo = true ) {
 	global $release;
 	
@@ -88,6 +116,24 @@ function release_cover_large ( $echo = true ) {
 		echo $release['release_cover_image_large'];
 	
 	return $release['release_cover_image_large'];
+}
+
+function release_cover_tiny ( $echo = true ) {
+	global $release;
+	
+	if ( $echo )
+		echo $release['release_cover_image_tiny'];
+	
+	return $release['release_cover_image_tiny'];
+}
+
+function release_player_link ( $echo = true ) {
+	global $release;
+	
+	if ( $echo )
+		echo get_option('siteurl').'/player/'.$release['release_slug'].'/';
+	
+	return get_option('siteurl').'/download/'.$release['release_slug'].'/';
 }
 
 // artist_*

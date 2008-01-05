@@ -30,8 +30,14 @@ function is_ribcage_page() {
 function list_recent_releases_blurb ()
 {
 	global $wpdb;
+	$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases", ARRAY_A);
 	
-	//$return = $wpdb->get_results($querystr, ARRAY_A);
+	if (isset($releases)) {
+		foreach ($releases as $release){
+			$return[] = get_release($release['release_id']);		
+		}
+	}
+	
 	return $return;
 }
 

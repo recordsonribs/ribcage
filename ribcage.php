@@ -34,6 +34,7 @@ require_once dirname(__FILE__) . '/ribcage-includes/template.php';
 
 require_once dirname(__FILE__) . '/download.php';
 require_once dirname(__FILE__) . '/stream.php';
+require_once dirname(__FILE__) . '/player.php';
 
 add_action('template_redirect','ribcage_init');
 
@@ -85,6 +86,7 @@ function ribcage_init (){
 	// Releases Index
 	if (isset($wp_query->query_vars['release_index'])) {
 		$releases = list_recent_releases_blurb();
+		$artists = list_artists_blurb();
 		
 		$load = ribcage_load_template ('release-index.php');
 	}
@@ -143,6 +145,11 @@ function ribcage_init (){
 		}
 	}
 	
+	if (isset($wp_query->query_vars['ribcage_player']))	{
+		$load = show_player($wp_query->query_vars['release_slug']);
+	}
+	
+	
 	// Did we get an error by the end of all this? If so let the user know.
 	if (is_wp_error($load)) {
 		echo $load->get_error_message();
@@ -184,7 +191,9 @@ function ribcage_add_rewrite_rules ( $wp_rewrite ) {
 		
 		"(stream)/(track)/(.*)/(.*)/(.*)" => 'index.php?ribcage_stream=1&track_slug='.$wp_rewrite->preg_index(3).'&stream_format='.$wp_rewrite->preg_index(4),
 		"(stream)/(.*)/(.*)" => 'index.php?ribcage_stream=1&release_slug='.$wp_rewrite->preg_index(2).'&stream_format='.$wp_rewrite->preg_index(3),
-		"(stream)" => 'index.php?ribcage_stream=1'
+		"(stream)" => 'index.php?ribcage_stream=1',
+		
+		"(player)/(.*)" => 'index.php?ribcage_player=1&release_slug='.$wp_rewrite->preg_index(2)
 		
 	);
 
@@ -217,6 +226,7 @@ function ribcage_queryvars ( $qvars ){
 	$qvars[] = 'track_slug';
 	
 	$qvars[] = 'format';
+	$qvars[] = 'ribcage_player';
 
 	return $qvars;
 }
