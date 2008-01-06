@@ -2,8 +2,8 @@
 <div id="container">
 		<div id="content">
 	 
-	<h2><a href="<?php echo ARTISTS_PLUGIN; ?>">Artists</a></h2>
-	<a href="<?php echo ARTISTS_PLUGIN; ?><?php artist_slug(); ?>"><h1><?php artist_name(); ?></h1></a>
+	<h2><a href="<?php echo get_option('siteurl'); ?>">Artists</a></h2>
+	<a href="<?php echo get_option('siteurl'); ?><?php artist_slug(); ?>"><h1><?php artist_name(); ?></h1></a>
 		<p><?php artist_bio(); ?></p>
 		<p>
 		<?php if (artist_website_link(0)) : ?><a href="<?php artist_website_link(); ?>">Offical Webpage</a><br /><?php endif ?>
