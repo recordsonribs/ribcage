@@ -70,7 +70,7 @@ function release_blurb_long ( $echo = true ) {
 	global $release;
 	
 	if ( $echo )
-		echo $release['release_blurb_long'];
+		echo htmlentities($release['release_blurb_long'], ISO8859-15);
 	
 	return $release['release_blurb_long'];
 }
@@ -82,6 +82,7 @@ function release_download_link ( $echo = true ) {
 	
 	return get_option('siteurl').'/download/'.$release['release_slug'];
 }
+
 function release_download_link_mp3 ( $echo = true ) {
 	global $release;
 	
@@ -146,7 +147,7 @@ function artist_name ( $echo = true ) {
 	if ($echo)
 		echo htmlentities($artist['artist_name'], ISO8859-15);
 	
-	return htmlentities($artist['artist_name'], ISO8859-15);
+	return $artist['artist_name'];
 }
 
 function artist_bio ( $echo = true )
