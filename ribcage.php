@@ -49,6 +49,8 @@ function ribcage_init (){
 		return;
 	}
 	
+	add_filter('wp_title', 'ribcage_page_title');
+	
 	// Artist Index
 	if (isset($wp_query->query_vars['artist_index'])) {
 		$artists = list_artists_blurb();
@@ -241,5 +243,21 @@ function ribcage_flush_rules (){
 	global $wp_rewrite;
 	$wp_rewrite->flush_rules();
 }
+
+function ribcage_page_title( $title ) {
+	global $wp;
+	$wp->parse_request();
+	
+	$title = '';
+	
+	if ( !empty($wp->query_vars['release_index']) )
+		$title = 'Library';
+	
+	if ( !empty($title) ) {
+		return $separator.$title;
+	}
+	return '';
+}
+
 
 ?>
