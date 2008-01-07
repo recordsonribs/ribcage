@@ -114,6 +114,13 @@ function get_release_by_slug ($release_slug, $tracks, $reviews){
 	return $return;
 }
 
+function get_releasename_by_slug ($release_slug){
+	global $wpdb;
+	$return = $wpdb->get_var("SELECT release_title FROM $wpdb->ribcage_releases WHERE release_slug = '$release_slug'");
+	
+	return $return;
+}
+
 // get_artist
 // Input the artist id.
 // Returns artist information as associative array.
@@ -173,6 +180,14 @@ function get_track_by_slug ($track_slug) {
 function get_artistname_by_id ($artist_id) {
 	global $wpdb;
 	$return = $wpdb->get_var("SELECT artist_name FROM $wpdb->ribcage_artists WHERE artist_id = $artist_id");	
+	return $return;
+}
+
+// get_artistname_by_id
+// Input artist id.
+function get_artistname_by_slug ($artist_slug) {
+	global $wpdb;
+	$return = $wpdb->get_var("SELECT artist_name FROM $wpdb->ribcage_artists WHERE artist_slug = '$artist_slug'");	
 	return $return;
 }
 ?>

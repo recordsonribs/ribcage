@@ -39,6 +39,8 @@ require_once dirname(__FILE__) . '/player.php';
 
 add_action('template_redirect','ribcage_init');
 
+$seperator = " - ";
+
 function ribcage_init (){
 	global $wp_query;
 	global $artists, $artist, $current_artist;
@@ -49,6 +51,7 @@ function ribcage_init (){
 		return;
 	}
 	
+	// Add our bits to the page title.
 	add_filter('wp_title', 'ribcage_page_title');
 	
 	// Artist Index
@@ -245,6 +248,42 @@ function ribcage_flush_rules (){
 }
 
 function ribcage_page_title ($title) {
+	global $wp_query, $seperator;
+	
+	$title .= $seperator;
+	
+	if (isset($wp_query->query_vars['release_index'])) {
+		$title .= "Releases";
+	}
+	
+	if (isset($wp_query->query_vars['artist_index'])) {
+		$title .= "Artists";
+	}
+	
+	if (isset($wp_query->query_vars['artist_slug'])) {
+		$title .= "Artists".$seperator.get_artistname_by_slug($wp_query->query_vars['artist_slug']);
+	}
+	
+	if (is_artist_page()){
+		switch ($wp_query->query_vars['artist_page']) {
+			case 'press':
+				$title .= 'Press';
+				break;
+
+			case 'bio':
+				$title .= 'Biography';
+				break;
+
+			default :	
+				$title .= get_releasename_by_slug($wp_query->query_vars['artist_page']);
+		}
+	}
+	
+	if (isset($wp_query->query_vars['ribcage_download'])){
+		// Do something else here...
+		$title .= "Download";
+	}
+	
 	return ($title);
 }
 

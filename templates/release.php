@@ -19,6 +19,7 @@ eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=0,lo
 			<?php track_no(); ?>. <?php track_title(); ?> (<?php track_time(); ?>)<br />
 		<?php endwhile; ?>
 	</div>
+	<p><?php release_blurb_long(); ?></p>
 	<div>
 		<a href="<?php release_download_link (); ?>">Free Download</a> - <a href="javascript:popUp('<?php release_player_link (); ?>')">Listen Now</a> - <a href="">Buy</a>
 	</div>
