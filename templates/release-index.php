@@ -17,7 +17,7 @@ eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=0,lo
 	<?php while ( have_releases () ) : the_release() ; ?>
 	<div>
 	<img src="<?php release_cover_tiny ();?>" align="right" />
-	<h3><?php echo get_artistname_by_id($release['release_artist']); ?> - <?php release_title(); ?></h3>
+	<h3><?php echo htmlentities(get_artistname_by_id($release['release_artist'])); ?> - <?php release_title(); ?></h3>
 	<p><?php release_blurb_short(); ?></p>
 	<p><a href="javascript:popUp('<?php release_player_link (); ?>')">Listen Now</a></p>
 	</div>
