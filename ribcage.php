@@ -244,19 +244,8 @@ function ribcage_flush_rules (){
 	$wp_rewrite->flush_rules();
 }
 
-function ribcage_page_title( $title ) {
-	global $wp;
-	$wp->parse_request();
-	
-	$title = '';
-	
-	if ( !empty($wp->query_vars['release_index']) )
-		$title = 'Library';
-	
-	if ( !empty($title) ) {
-		return $separator.$title;
-	}
-	return '';
+function ribcage_page_title ($title) {
+	return (0);
 }
 
 
