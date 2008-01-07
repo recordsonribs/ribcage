@@ -245,7 +245,7 @@ function ribcage_flush_rules (){
 }
 
 function ribcage_page_title ($title) {
-	return (0);
+	return $title.'I added a title';
 }
 
 
