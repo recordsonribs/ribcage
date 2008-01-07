@@ -144,9 +144,9 @@ function artist_name ( $echo = true ) {
 	global $artist;
 	
 	if ($echo)
-		echo $artist['artist_name'];
+		echo htmlentities($artist['artist_name'], ISO8859-15);
 	
-	return $artist['artist_name'];
+	return htmlentities($artist['artist_name'], ISO8859-15);
 }
 
 function artist_bio ( $echo = true )
