@@ -9,7 +9,6 @@
 			<location><?php track_stream(); ?></location>
 			<title><?php track_title(); ?></title>
 			<image><?php release_cover_tiny(); ?></image>
-			<id><?php track_id(); ?></id>
 		</track>
 <?php endwhile; ?>
 	</trackList>
