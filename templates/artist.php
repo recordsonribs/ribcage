@@ -13,7 +13,7 @@
 	<?php if (have_releases() ) : ?>
 	<?php if (!is_artist_page() ) : ?><h2>Releases</h2><?php endif; ?>
 	<?php while ( have_releases  () ) : the_release (); ?>
-	<div>
+	<div style="margin-bottom:10px">
 	<img src="<?php release_cover_tiny ();?>" style="float:left; margin-right:20px; margin-bottom:20px" />
 	<h3><a href="<?php get_option('siteurl').'/artists/'.$artist['artist_slug'].release_slug(); ?>"><?php release_title(); ?></a></h3>
 	</div>
