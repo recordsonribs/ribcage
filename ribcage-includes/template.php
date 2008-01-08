@@ -221,7 +221,7 @@ function artist_blurb_tiny ( $echo = true ) {
 	global $artist;
 	
 	if ($echo)
-		echo $artist['artist_blurb_tiny'];
+		echo wptexturize(['artist_blurb_tiny']);
 	
 	return $artist['artist_blurb_tiny'];
 }
@@ -230,7 +230,7 @@ function artist_blurb_short ( $echo = true ) {
 	global $artist;
 	
 	if ($echo)
-		echo $artist['artist_blurb_short'];
+		echo wptexturize($artist['artist_blurb_short']);
 	
 	return $artist['artist_blurb_short'];
 }
@@ -270,7 +270,7 @@ function track_title ( $echo = true ) {
 	global $track;
 	
 	if ($echo)
-		echo $track['track_title'];
+		echo wptexturize($track['track_title']);
 	
 	return $track['track_title'];
 }
