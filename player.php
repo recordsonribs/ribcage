@@ -12,7 +12,7 @@ function show_player ($release_slug) {
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>ROR Player</title>
 <style type="text/css" media="screen">
 	* {

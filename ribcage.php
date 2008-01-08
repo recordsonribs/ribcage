@@ -100,8 +100,18 @@ function ribcage_init (){
 	// Downloads
 	if (isset($wp_query->query_vars['ribcage_download'])) {
 		
+		// Download whole release.
+		if (isset($wp_query->query_vars['release_slug']) && isset($wp_query->query_vars['format'])) {
+			$load = download_release ($wp_query->query_vars['release_slug'], $wp_query->query_vars['format']);
+		}
+		
+		// Download individual track.
+		else if (isset($wp_query->query_vars['track_slug'])) {
+			$load = download_track ($wp_query->query_vars['track_slug'], $wp_query->query_vars['format']);
+		}
+		
 		// Download nag/links page.
-		if (isset($wp_query->query_vars['release_slug'])) {
+		else if (isset($wp_query->query_vars['release_slug'])) {
 			$release = get_release_by_slug ($wp_query->query_vars['release_slug'], FALSE, FALSE);
 			$artist = get_artist ($release['release_artist']);
 			
@@ -119,23 +129,15 @@ function ribcage_init (){
 				}
 				else {
 					$load = ribcage_load_template('download.php');
-				}
-			}
-			
+				}	
+		}
+		
 			// If the user has just got back from Paypal congratulate them on their brillance and given them
 			// the download. Maybe lower the chance of a nag?
 			
 		}
 		
-		// Download whole release.
-		if (isset($wp_query->query_vars['release_slug']) && isset($wp_query->query_vars['format'])) {
-			$load = download_release ($wp_query->query_vars['release_slug'], $wp_query->query_vars['format']);
-		}
 		
-		// Download individual track.
-		if (isset($wp_query->query_vars['track_slug'])) {
-			$load = download_track ($wp_query->query_vars['track_slug'], $wp_query->query_vars['format']);
-		}
 	}
 	
 		

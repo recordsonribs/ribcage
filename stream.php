@@ -16,7 +16,7 @@ function stream_release ($release_slug, $stream_format) {
 	if (is_wp_error ($release)) {
 			return $release;
 	}
-	
+
 	if ($stream_format == 'xspf') {	
 		$load = ribcage_load_template('./stream/xspf.php');
 	}

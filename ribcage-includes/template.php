@@ -293,6 +293,15 @@ function track_no ( $echo = true ) {
 	return $track['track_number'];
 }
 
+function track_id ( $echo = true ) {
+	global $track;
+	
+	if ($echo)
+		echo $track['track_id'];
+	
+	return $track['track_id'];
+}
+
 function track_time ( $echo = true ) {
 	global $track;
 	
