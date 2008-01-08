@@ -1,5 +1,4 @@
-<?php //header('Content-Type: application/xspf+xml'); ?>
-<?php //header("Content-disposition: attachment; filename=".release_slug(1).".xspf".";"); ?>
+<?php header('Content-Type: application/xspf+xml'); ?>
 <? echo '<?xml version="1.0" encoding="UTF-8"?>'."\n"; ?>
 <playlist version="1" xmlns="http://xspf.org/ns/0/">
 	<trackList>

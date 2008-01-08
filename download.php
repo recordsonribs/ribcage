@@ -18,9 +18,6 @@ function download_release ($release_slug, $format) {
 		return $release;
 	}
 		
-	// Log the download.
-	ribcage_log();
-		
 	if ($format == 'mp3') {
 		$file = $release['release_mp3'];
 	} 
@@ -33,7 +30,8 @@ function download_release ($release_slug, $format) {
 	else {
 		return new WP_Error ('incorrect-format', __("$format isn't a format I am aware of.<br />Hence it isn't a format you can download, sorry."));
 	}
-				
+	
+	ribcage_log();			
 	ribcage_download($file);
 }
 
@@ -53,9 +51,6 @@ function download_track ($track_slug, $format) {
 		return $release;
 	}
 	
-	// Log the download.
-	ribcage_log (TRUE);
-	
 	if ($format == 'mp3') {
 			$file = $track['track_mp3'];
 	} 
@@ -68,16 +63,43 @@ function download_track ($track_slug, $format) {
 	else {
 		return new WP_Error('incorrect-format', __("$format isn't a format I am aware of.<br />Hence it isn't a format you can download."));
 	}
-		
+	
+	ribcage_log (TRUE);	
 	ribcage_download($file);
 }
 
 // ribcage_download
-// Input the download file path.
-// Outputs the files for download using various methods.
+// Input the download file path (which is usually from the database).
+// Outputs the files for download.
+// Borrowed a good deal of code from Lester 'GaMerZ' Chan's WP-DownloadManager (http://lesterchan.net/portfolio/programming.php)
+// Mostly in the headers to output.
 function ribcage_download ($file) {
+	global $wpdb, $user_ID;
 	echo 'Downloading:'.$file;
-	return;
+	
+	// The full path is the site root plus whatever is in the database.
+	$path = ABSPATH.$file;
+	
+	// If we don't have a file size on database then work it out.
+
+			
+	if(!is_file($file_path.$file_name)) {
+		header('HTTP/1.0 404 Not Found');
+		die(__('File does not exist.', 'wp-downloadmanager'));
+	}
+				
+	header("Pragma: public");
+	header("Expires: 0");
+	header("Cache-Control: must-revalidate, post-check=0, pre-check=0"); 
+	header("Content-Type: application/force-download");
+	header("Content-Type: application/octet-stream");
+	header("Content-Type: application/download");
+	header("Content-Disposition: attachment; filename=".basename($file_name).";");
+	header("Content-Transfer-Encoding: binary");					
+	header("Content-Length: ".filesize($file_path.$file_name));
+	@readfile($file_path.$file_name);
+
+	return(0);
 }
 
 ?>
