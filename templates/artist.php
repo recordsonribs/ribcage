@@ -16,6 +16,7 @@
 	<div style="margin-bottom:10px">
 	<img src="<?php release_cover_tiny ();?>" style="float:left; margin-right:20px; margin-bottom:20px" />
 	<h3><a href="<?php get_option('siteurl').'/artists/'.$artist['artist_slug'].release_slug(); ?>"><?php release_title(); ?></a></h3>
+	<p><?php release_blurb_tiny(); ?>
 	</div>
 	<?php endwhile; ?>
 	<?php endif; ?>
