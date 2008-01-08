@@ -34,7 +34,7 @@ function release_title ( $echo = true ) {
 	global $release;
 	
 	if ( $echo )
-		echo $release['release_title'];
+		echo wptexturize($release['release_title']);
 	
 	return $release['release_title'];
 }
@@ -52,7 +52,7 @@ function release_blurb_tiny ( $echo = true ) {
 	global $release;
 	
 	if ( $echo )
-		echo $release['release_blurb_tiny'];
+		echo wptexturize($release['release_blurb_tiny']);
 	
 	return $release['release_blurb_tiny'];
 }
@@ -61,7 +61,7 @@ function release_blurb_short ( $echo = true ) {
 	global $release;
 	
 	if ( $echo )
-		echo $release['release_blurb_short'];
+		echo wptexturize($release['release_blurb_short']);
 	
 	return $release['release_blurb_short'];
 }
@@ -70,7 +70,7 @@ function release_blurb_long ( $echo = true ) {
 	global $release;
 	
 	if ( $echo )
-		echo htmlentities($release['release_blurb_long'], ISO8859-15);
+		echo wptexturize($release['release_blurb_long']);
 	
 	return $release['release_blurb_long'];
 }
@@ -144,9 +144,9 @@ function release_player_link ( $echo = true ) {
 function artist_name ( $echo = true ) {
 	global $artist;
 	
-	if ($echo)
-		echo htmlentities($artist['artist_name'], ISO8859-15);
-	
+	if ($echo) 
+		echo wptexturize($artist['artist_name']);
+
 	return $artist['artist_name'];
 }
 
