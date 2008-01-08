@@ -12,7 +12,7 @@ eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=0,lo
 		<div id="content">
 	 
 	<h2><a href="<?php echo get_option('siteurl'); ?>/artists/">Artists</a></h2>
-	<h1><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>"><?php artist_name(); ?></a> - <?php release_title(); ?></a></h1>
+	<h1><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>"><?php artist_name(); ?></a> - <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h1>
 	<div><img src="<?php release_cover_large (); ?>" /></div>
 	<div>
 		<?php while ( have_tracks () ) : the_track() ; ?>
