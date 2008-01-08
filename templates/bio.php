@@ -6,7 +6,7 @@
 			<a href="<?php echo get_option('siteurl'); ?>/<?php artist_slug(); ?>"><h1><?php artist_name(); ?></h1></a>
 	<?php if (is_artist_page()) : ?>
 	<?php else : ?>
-		<p><?php artist_bio(); ?></p>
+		<p><?php artist_bio(); ?>
 		<p>
 		<?php if (artist_website_link(0)) : ?><a href="<?php artist_website_link(); ?>">Offical Webpage</a><br /><?php endif ?>
 		<?php if (artist_myspace_link(0)) : ?><a href="<?php artist_myspace_link(); ?>">My Space</a><br /><?php endif ?>

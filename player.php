@@ -21,7 +21,7 @@ function show_player ($release_slug) {
 	}
 </style>
 <body>
-<embed src="<?php echo get_option('siteurl'); ?>/wp-content/plugins/ribcage/flash/mp3player.swf" width="320" height="140" allowfullscreen="true" allowscriptaccess="always" flashvars="&file=<?php echo get_option('siteurl').'/stream/'.$release_slug.'/xspf/'; ?>&height=140&width=320&displaywidth=120&showicons=false&autostart=false&shuffle=false" />
+<embed src="<?php echo get_option('siteurl'); ?>/wp-content/plugins/ribcage/flash/mp3player.swf" width="320" height="140" allowfullscreen="true" allowscriptaccess="always" flashvars="&file=<?php echo get_option('siteurl').'/stream/'.$release_slug.'/xspf/'; ?>&height=140&width=320&displaywidth=120&showicons=false&autostart=true&shuffle=false&callback=<?php echo get_option('siteurl'); ?>/player/stats/" />
 </body>
 </html>
 <?php

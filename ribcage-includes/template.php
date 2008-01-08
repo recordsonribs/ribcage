@@ -70,7 +70,7 @@ function release_blurb_long ( $echo = true ) {
 	global $release;
 	
 	if ( $echo )
-		echo wptexturize($release['release_blurb_long']);
+		echo wpautop(wptexturize($release['release_blurb_long']));
 	
 	return $release['release_blurb_long'];
 }
@@ -155,7 +155,7 @@ function artist_bio ( $echo = true )
 	global $artist;
 	
 	if ($echo) {
-		echo $artist['artist_bio'];
+		echo wpautop(wptexturize($artist['artist_bio']));
 	}
 	
 	return $artist['artist_bio'];
@@ -305,12 +305,19 @@ function track_id ( $echo = true ) {
 function track_time ( $echo = true ) {
 	global $track;
 	
- 	$timesplit = explode (':', $track['track_time']);
+ 	$split = explode (':', $track['track_time']);
+	$str = str_split ($split[1]);
 	
-	if ($echo)
-		echo $timesplit[1].'.'.$timesplit[2];
+	if ($echo) {
+		if ($str[0] == 0) {
+			echo $str[1].'.'.$split[2];
+		}
+		else {
+			echo $split[1].'.'.$split[2];
+		}
+	}
 	
-	return $timesplit[1].'.'.$timesplit[2];
+	return $split[1].'.'.$split[2];
 }
 
 function have_tracks () {

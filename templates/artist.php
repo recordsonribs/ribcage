@@ -1,7 +1,6 @@
 <?php get_header(); ?>
 <div id="container">
-		<div id="content">
-	 
+		<div id="content">	 
 	<h2><a href="<?php echo get_option('siteurl'); ?>/artists/">Artists</a></h2>
 	<a href="<?php echo get_option('siteurl'); ?>/<?php artist_slug(); ?>"><h1><?php artist_name(); ?></h1></a>
 		<p><img src="<?php artist_picture_1(); ?>" /><?php artist_bio(); ?></p>

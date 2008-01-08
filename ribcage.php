@@ -154,9 +154,14 @@ function ribcage_init (){
 	}
 	
 	if (isset($wp_query->query_vars['ribcage_player']))	{
-		$load = show_player($wp_query->query_vars['release_slug']);
+		if ($wp_query->query_vars['ribcage_player'] == 'stats'){
+			ribcage_log_play();
+		}
+		else {
+			$load = show_player($wp_query->query_vars['release_slug']);
+		}
+		
 	}
-	
 	
 	// Did we get an error by the end of all this? If so let the user know.
 	if (is_wp_error($load)) {
@@ -200,7 +205,6 @@ function ribcage_add_rewrite_rules ( $wp_rewrite ) {
 		"(stream)" => 'index.php?ribcage_stream=1',
 		
 		"(player)/(.*)" => 'index.php?ribcage_player=1&release_slug='.$wp_rewrite->preg_index(2)
-		
 	);
 
 	$wp_rewrite->rules = $wp_rewrite->rules + $new_rules;

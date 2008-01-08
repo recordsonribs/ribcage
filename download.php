@@ -54,7 +54,7 @@ function download_track ($track_slug, $format) {
 	}
 	
 	// Log the download.
-	ribcage_log('dt');
+	ribcage_log (TRUE);
 	
 	if ($format == 'mp3') {
 			$file = $track['track_mp3'];
