@@ -180,8 +180,6 @@ function ribcage_load_template ( $filename ) {
 }
 
 // If the rewrite rules are regenerated, Add our pretty permalink stuff, redirect it to the correct queryvar
-add_action('generate_rewrite_rules', 'ribcage_add_rewrite_rules');
-
 function ribcage_add_rewrite_rules ( $wp_rewrite ) {
 	$new_rules = array(
 		"(artists)/(.*)/(.*)" => 'index.php?artist_slug='.$wp_rewrite->preg_index(2).'&artist_page='.$wp_rewrite->preg_index(3),
@@ -205,9 +203,7 @@ function ribcage_add_rewrite_rules ( $wp_rewrite ) {
 
 	$wp_rewrite->rules = $wp_rewrite->rules + $new_rules;
 }
-
-// Add a Query Var, This allows us to access the query var via $wp_query
-add_filter('query_vars', 'ribcage_queryvars' );
+add_action('generate_rewrite_rules', 'ribcage_add_rewrite_rules');
 
 function ribcage_queryvars ( $qvars ){
 	
@@ -236,8 +232,11 @@ function ribcage_queryvars ( $qvars ){
 
 	return $qvars;
 }
+add_filter('query_vars', 'ribcage_queryvars' );
 
-add_action('init','ribcage_flush_rules');
+//add_action('init','ribcage_flush_rules');
+register_activation_hook( __FILE__, 'ribcage_flush_rules' );
+
 
 function ribcage_flush_rules (){
 	// Flush the rewrite rules so that the new rules from this plugin get added, 
