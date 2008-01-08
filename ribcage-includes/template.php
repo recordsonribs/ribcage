@@ -221,7 +221,7 @@ function artist_blurb_tiny ( $echo = true ) {
 	global $artist;
 	
 	if ($echo)
-		echo wptexturize(['artist_blurb_tiny']);
+		echo wptexturize($artist['artist_blurb_tiny']);
 	
 	return $artist['artist_blurb_tiny'];
 }
