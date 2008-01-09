@@ -92,6 +92,15 @@ function release_download_link_mp3 ( $echo = true ) {
 	return get_option('siteurl').'/download/'.$release['release_slug'].'/mp3';
 }
 
+function release_download_size_mp3 ( $echo = true ) {
+	global $release;
+	
+	if ( $echo )
+		format_filesize(filesize(ABSPATH.$release['release_mp3']));
+	
+	return format_filesize(filesize(ABSPATH.$release['release_mp3']));
+}
+
 function release_download_link_flac ( $echo = true ) {
 	global $release;
 	
@@ -101,6 +110,15 @@ function release_download_link_flac ( $echo = true ) {
 	return get_option('siteurl').'/download/'.$release['release_slug'].'/flac';
 }
 
+function release_download_size_flac ( $echo = true ) {
+	global $release;
+	
+	if ( $echo )
+		format_filesize(filesize(ABSPATH.$release['release_flac']));
+	
+	return format_filesize(filesize(ABSPATH.$release['release_flac']));
+}
+
 function release_download_link_ogg ( $echo = true ) {
 	global $release;
 	
@@ -108,6 +126,15 @@ function release_download_link_ogg ( $echo = true ) {
 		echo get_option('siteurl').'/download/'.$release['release_slug'].'/ogg';
 	
 	return get_option('siteurl').'/download/'.$release['release_slug'].'/ogg';
+}
+
+function release_download_size_ogg ( $echo = true ) {
+	global $release;
+	
+	if ( $echo )
+		format_filesize(filesize(ABSPATH.$release['release_ogg']));
+	
+	return format_filesize(filesize(ABSPATH.$release['release_ogg']));
 }
 
 function release_cover_large ( $echo = true ) {

@@ -29,7 +29,6 @@ define ("ARTISTS_PLUGIN", "/~music/artists/");
 
 require_once dirname(__FILE__) . '/ribcage-includes/functions.php';
 require_once dirname(__FILE__) . '/ribcage-includes/log.php';
-require_once dirname(__FILE__) . '/ribcage-includes/track.php';
 require_once dirname(__FILE__) . '/ribcage-includes/template.php';
 
 require_once dirname(__FILE__) . '/admin.php';

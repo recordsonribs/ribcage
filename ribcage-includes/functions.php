@@ -193,4 +193,19 @@ function get_artistname_by_slug ($artist_slug) {
 	$return = $wpdb->get_var("SELECT artist_name FROM $wpdb->ribcage_artists WHERE artist_slug = '$artist_slug'");	
 	return $return;
 }
+
+
+function format_filesize( $data ) {
+    if( $data < 1024 ) {
+        return $data . " bytes";
+    }
+	else if( $data < 1024000 ) {
+		return round( ( $data / 1024 ), 1 ) . "KB";
+        
+	}
+    else { 
+        return round( ( $data / 1024000 ), 1 ) . " MB";
+    } 
+}
+   
 ?>
