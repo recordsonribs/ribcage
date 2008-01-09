@@ -77,7 +77,7 @@ function ribcage_download ($file) {
 	// The full path is the site root plus whatever is in the database.
 	$path = ABSPATH.$file;
 	
-	if(!is_file($file_path.$file_name)) {
+	if(!is_file($path)) {
 		header('HTTP/1.0 404 Not Found');
 		die(__('File does not exist.', 'ribcage'));
 	}
