@@ -96,7 +96,7 @@ function release_download_size_mp3 ( $echo = true ) {
 	global $release;
 	
 	if ( $echo )
-		filesize(ABSPATH.$release['release_mp3']);
+		echo(ABSPATH.$release['release_mp3']);
 	
 	return filesize(ABSPATH.$release['release_mp3']);
 }
