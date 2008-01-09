@@ -1,9 +1,10 @@
 <?php get_header(); ?>
+<?php global $release?>
 <div id="container">
 		<div id="content">
 	 
 	<h2>Download</h2>
-	<a href="<?php echo ARTISTS_PLUGIN; ?><?php artist_slug(); ?>"><h1><?php artist_name(); ?> - <a href="<?php get_option('siteurl').'/artists/'.$artist['artist_slug'].release_slug(); ?>"><?php release_title(); ?></a></h1></a>
+	<a href="<?php get_option('siteurl')?>/artists/<?php artist_slug(); ?>"><h1><?php artist_name(); ?> - <a href="<?php get_option('siteurl')?>/artists/<?php artist_slug() ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h1></a>
 	<p>Thanks for your interest...</p>
 	<div>
 		<p><a href="#">Download Artwork ( MB)</a></p>
