@@ -96,7 +96,7 @@ function release_download_size_mp3 ( $echo = true ) {
 	global $release;
 	
 	if ( $echo )
-		echo(ABSPATH.$release['release_mp3']);
+		echo filesize(ABSPATH.$release['release_mp3']);
 	
 	return filesize(ABSPATH.$release['release_mp3']);
 }
@@ -114,7 +114,7 @@ function release_download_size_flac ( $echo = true ) {
 	global $release;
 	
 	if ( $echo )
-		format_filesize(filesize(ABSPATH.$release['release_flac']));
+		echo format_filesize(filesize(ABSPATH.$release['release_flac']));
 	
 	return format_filesize(filesize(ABSPATH.$release['release_flac']));
 }
@@ -132,7 +132,7 @@ function release_download_size_ogg ( $echo = true ) {
 	global $release;
 	
 	if ( $echo )
-		format_filesize(filesize(ABSPATH.$release['release_ogg']));
+		echo format_filesize(filesize(ABSPATH.$release['release_ogg']));
 	
 	return format_filesize(filesize(ABSPATH.$release['release_ogg']));
 }
