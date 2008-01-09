@@ -195,17 +195,21 @@ function get_artistname_by_slug ($artist_slug) {
 }
 
 
-function format_filesize( $data ) {
-    if( $data < 1024 ) {
-        return $data . " bytes";
-    }
-	else if( $data < 1024000 ) {
-		return round( ( $data / 1024 )) . "KB";
-        
+// from wp-download manager by Lester 'GaMerZ' Chan (http://lesterchan.net/portfolio/programming.php)
+function format_filesize($rawSize) {
+	if($rawSize / 1099511627776 > 1) {
+		return round($rawSize/1099511627776, 1) . ' TB';
+	} elseif($rawSize / 1073741824 > 1) {
+		return round($rawSize/1073741824, 1) . ' GB';
+	} elseif($rawSize / 1048576 > 1) {
+		return round($rawSize/1048576, 1) . ' MB';
+	} elseif($rawSize / 1024 > 1) {
+		return round($rawSize/1024, 1) . ' KB';
+	} elseif($rawSize > 1) {
+		return round($rawSize, 1) . ' bytes';
+	} else {
+		return __('unknown', 'ribcage');
 	}
-    else { 
-        return round( ( $data / 1024000 )) . " MB";
-    } 
 }
-   
+
 ?>
