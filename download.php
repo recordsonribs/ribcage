@@ -74,18 +74,12 @@ function download_track ($track_slug, $format) {
 // Borrowed a good deal of code from Lester 'GaMerZ' Chan's WP-DownloadManager (http://lesterchan.net/portfolio/programming.php)
 // Mostly in the headers to output.
 function ribcage_download ($file) {
-	global $wpdb, $user_ID;
-	echo 'Downloading:'.$file;
-	
 	// The full path is the site root plus whatever is in the database.
 	$path = ABSPATH.$file;
 	
-	// If we don't have a file size on database then work it out.
-
-			
 	if(!is_file($file_path.$file_name)) {
 		header('HTTP/1.0 404 Not Found');
-		die(__('File does not exist.', 'wp-downloadmanager'));
+		die(__('File does not exist.', 'ribcage'));
 	}
 				
 	header("Pragma: public");
@@ -94,10 +88,10 @@ function ribcage_download ($file) {
 	header("Content-Type: application/force-download");
 	header("Content-Type: application/octet-stream");
 	header("Content-Type: application/download");
-	header("Content-Disposition: attachment; filename=".basename($file_name).";");
+	header("Content-Disposition: attachment; filename=".basename($file).";");
 	header("Content-Transfer-Encoding: binary");					
-	header("Content-Length: ".filesize($file_path.$file_name));
-	@readfile($file_path.$file_name);
+	header("Content-Length: ".filesize($path));
+	@readfile($path);
 
 	return(0);
 }
