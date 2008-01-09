@@ -200,11 +200,11 @@ function format_filesize( $data ) {
         return $data . " bytes";
     }
 	else if( $data < 1024000 ) {
-		return round( ( $data / 1024 ), 1 ) . "KB";
+		return round( ( $data / 1024 )) . "KB";
         
 	}
     else { 
-        return round( ( $data / 1024000 ), 1 ) . " MB";
+        return round( ( $data / 1024000 )) . " MB";
     } 
 }
    
