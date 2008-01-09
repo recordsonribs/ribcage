@@ -96,9 +96,9 @@ function release_download_size_mp3 ( $echo = true ) {
 	global $release;
 	
 	if ( $echo )
-		format_filesize(filesize(ABSPATH.$release['release_mp3']));
+		filesize(ABSPATH.$release['release_mp3']);
 	
-	return format_filesize(filesize(ABSPATH.$release['release_mp3']));
+	return filesize(ABSPATH.$release['release_mp3']);
 }
 
 function release_download_link_flac ( $echo = true ) {
