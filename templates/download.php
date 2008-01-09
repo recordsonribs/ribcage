@@ -1,5 +1,4 @@
 <?php get_header(); ?>
-<?php global $release?>
 <div id="container">
 		<div id="content">
 	 
