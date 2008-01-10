@@ -107,7 +107,6 @@ function ribcage_log_play () {
 			date("Y-m-d H:i:s"),
 			$_POST['duration'],
 			print_r($POST),
-			A
 			//$userdata->user_login,
 			$_SERVER['REMOTE_ADDR']
 			);
