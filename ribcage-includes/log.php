@@ -88,7 +88,6 @@ function ribcage_log_play () {
 	get_currentuserinfo();
 
 	// If the state is stop then someone has actually played something. Log it.
-	if ($_POST['state'] == 'stop') {
 		
 		$log = sprintf("
 			INSERT INTO  `%s` (
@@ -111,8 +110,7 @@ function ribcage_log_play () {
 			$_SERVER['REMOTE_ADDR']
 			);
 			
-			echo $log;
-			//$wpdb->query("$log");
+			$wpdb->query("$log");
 	}
 			
 	return (0);
