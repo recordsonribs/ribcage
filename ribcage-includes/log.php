@@ -88,8 +88,6 @@ function ribcage_log_play () {
 	
 	get_currentuserinfo();
 
-	// If the state is stop then someone has actually played something. Log it.
-		
 		$log = sprintf("
 			INSERT INTO  `%s` (
 			`stream_id` ,

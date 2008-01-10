@@ -31,6 +31,8 @@ $args = array(
 
 $trackFilter = new phpBrainz_TrackFilter($args);
 $trackResults = $phpBrainz->findTrack($trackFilter);
+echo "<pre>";
 print_r($trackResults);
+echo "</pre>";
 
 

@@ -35,16 +35,16 @@ define('TRACK_URL', "http://musicbrainz.org/ws/1/track/");
 define('LABEL_URL', "http://musicbrainz.org/ws/1/label/");
 $docRoot = $_SERVER['DOCUMENT_ROOT'];
 $curDir = substr($docRoot,0,strrpos($docRoot,"/"));
-require($curDir."phpBrainz.abstractFilter.class.php");
-require($curDir."phpBrainz.abstractResult.class.php");
+require("phpBrainz.abstractFilter.class.php");
+require("phpBrainz.abstractResult.class.php");
 
-require($curDir."phpBrainz.releaseFilter.class.php");
-require($curDir."phpBrainz.trackFilter.class.php");
-require($curDir."phpBrainz.artistFilter.class.php");
+require("phpBrainz.releaseFilter.class.php");
+require("phpBrainz.trackFilter.class.php");
+require("phpBrainz.artistFilter.class.php");
 
-require($curDir."phpBrainz.artist.class.php");
-require($curDir."phpBrainz.track.class.php");
-require($curDir."phpBrainz.release.class.php");
+require("phpBrainz.artist.class.php");
+require("phpBrainz.track.class.php");
+require("phpBrainz.release.class.php");
 
 
 class phpBrainz{	

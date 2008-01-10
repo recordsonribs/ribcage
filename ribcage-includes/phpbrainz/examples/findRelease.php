@@ -25,11 +25,27 @@ require_once("../phpBrainz.class.php");
 $phpBrainz = new phpBrainz();
 
 $args = array(
-    "title"=>"Learn",
-    "artist"=>"Foo Fighters"
+    "title"=>"Ideal Forms",
+    "artist"=>""
 );
 
 $releaseFilter = new phpBrainz_ReleaseFilter($args);
 $releaseResults = $phpBrainz->findRelease($releaseFilter);
-echo '<pre>'
-print_r($releaseResults);
+
+print "<pre>";
+print_r (@$releaseResults);
+print "</pre>";
+
+$trackIncludes = array(
+		"tracks",
+	);
+	
+$mbid = '5e276aa7-4f6c-40b5-8867-9c926c8781f1';
+
+$array = $phpBrainz->getRelease($mbid,$trackIncludes);
+
+print "<pre>";
+print_r($array);
+print "</pre>";
+
+
