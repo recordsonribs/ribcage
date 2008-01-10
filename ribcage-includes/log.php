@@ -83,33 +83,35 @@ function ribcage_log_release_plus(){
 // or "stop" (when an item has ended or the user switched to a new item). The duration comes
 // only with a stop and contains the time for which the item has been played in seconds.
 function ribcage_log_play () {
+	global $wpdb, $wp_query;
 	
-	
-	/*
-	else if ($mode = 'st') {
+	get_currentuserinfo();
+
+	// If the state is stop then someone has actually played something. Log it.
+	if ($_POST['state'] == 'stop') {
 		
 		$log = sprintf("
-		INSERT INTO  `%s` (
-		`download_id` ,
-		`download_release_id` ,
-		`download_time` ,
-		`download_user` ,
-		`download_ip` ,
-		`download_format`
-		)
-		VALUES (
-		NULL ,  '%s',  '%s',  '%s',  '%s',  '%s'
-		);
-		",
-		$wpdb->ribcage_log_download_releases,
-		$release['release_id'],
-		date("Y-m-d H:i:s"),
-		$userdata->user_login,
-		$_SERVER['REMOTE_ADDR'],
-		$wp_query->query_vars['format']
-		);
-		
+			INSERT INTO  `%s` (
+			`stream_id` ,
+			`stream_track_id` ,
+			`stream_time` ,
+			`stream_duration`,
+			`stream_user` ,
+			`stream_ip`
+			)
+			VALUES (
+			NULL ,  '%s',  '%s',  '%s',  '%s',  '%s'
+			);
+			",
+			$wpdb->ribcage_log_stream,
+			$_POST['id'],
+			date("Y-m-d H:i:s"),
+			$_POST['duration'],
+			$userdata->user_login,
+			$_SERVER['REMOTE_ADDR']
+			);
 	}
-	*/
+			
+	return (0);
 }
 ?>

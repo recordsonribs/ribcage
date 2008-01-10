@@ -8,9 +8,9 @@
 	<div>
 		<p><a href="#">Download Artwork ( MB)</a></p>
 		<p>
-		<a href="<?php release_download_link_mp3 (); ?>">Download</a> Zipped High Quality MP3 Files (<?php release_download_size_mp3() ?>).<br />
-		<a href="<?php release_download_link_flac (); ?>">Download</a> Zipped Ogg Files (<?php release_download_size_ogg() ?>).<br />
-		<a href="<?php release_download_link_flac (); ?>">Download</a> Zipped Flac Files (<?php release_download_size_flac() ?>).
+		<a href="<?php release_download_link_mp3 (); ?>">Download</a> Zipped <a href="<?php get_option('siteurl')?>/help/formats/mp3">High Quality MP3</a> Files (<?php release_download_size_mp3() ?>).<br />
+		<a href="<?php release_download_link_flac (); ?>">Download</a> Zipped <a href="<?php get_option('siteurl')?>/help/formats/ogg">Ogg</a> Files (<?php release_download_size_ogg() ?>).<br />
+		<a href="<?php release_download_link_flac (); ?>">Download</a> Zipped <a href="<?php get_option('siteurl')?>/help/formats/flac">Flac</a> Files (<?php release_download_size_flac() ?>).
 		</p>
 	</div>
 </div>

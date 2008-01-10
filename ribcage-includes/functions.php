@@ -6,7 +6,7 @@ $wpdb->ribcage_tracks = $wpdb->prefix."ribcage_tracks";
 $wpdb->ribcage_reviews = $wpdb->prefix."ribcage_reviews";
 $wpdb->ribcage_clippings = $wpdb->prefix."ribcage_clippings";
 
-$wpdb->ribcage_log_stream = $wpdb->prefix."ribcage_log_stream_tracks";
+$wpdb->ribcage_log_stream = $wpdb->prefix."ribcage_log_stream";
 
 $wpdb->ribcage_log_download_releases = $wpdb->prefix."ribcage_log_download_releases";
 $wpdb->ribcage_log_download_tracks = $wpdb->prefix."ribcage_log_download_tracks";
