@@ -95,17 +95,19 @@ function ribcage_log_play () {
 			`stream_track_id` ,
 			`stream_time` ,
 			`stream_duration`,
+			`stream_state`,
 			`stream_user` ,
 			`stream_ip`
 			)
 			VALUES (
-			NULL ,  '%s',  '%s',  '%s',  '%s',  '%s'
+			NULL ,  '%s',  '%s', '%s',  '%s',  '%s',  '%s'
 			);
 			",
 			$wpdb->ribcage_log_stream,
 			$_POST['id'],
 			date("Y-m-d H:i:s"),
 			$_POST['duration'],
+			$_POST['state'],
 			$userdata->user_login,
 			$_SERVER['REMOTE_ADDR']
 			);
