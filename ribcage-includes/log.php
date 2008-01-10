@@ -111,8 +111,7 @@ function ribcage_log_play () {
 			);
 			
 			$wpdb->query("$log");
-	}
-			
-	return (0);
+
+			return (0);
 }
 ?>
