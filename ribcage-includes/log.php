@@ -110,6 +110,8 @@ function ribcage_log_play () {
 			$userdata->user_login,
 			$_SERVER['REMOTE_ADDR']
 			);
+			
+			$wpdb->query("$log");
 	}
 			
 	return (0);
