@@ -84,6 +84,7 @@ function ribcage_log_release_plus(){
 // only with a stop and contains the time for which the item has been played in seconds.
 function ribcage_log_play () {
 	global $wpdb, $wp_query;
+	global $userdata;
 	
 	get_currentuserinfo();
 
