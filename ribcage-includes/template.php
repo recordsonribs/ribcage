@@ -96,7 +96,7 @@ function release_download_size_mp3 ( $echo = true ) {
 	global $release;
 	
 	if ( $echo )
-		echo format_filesize(filesize(ABSPATH.$release['release_mp3']));
+		echo ribcage_format_filesize(filesize(ABSPATH.$release['release_mp3']));
 	
 	return filesize(ABSPATH.$release['release_mp3']);
 }
@@ -114,9 +114,9 @@ function release_download_size_flac ( $echo = true ) {
 	global $release;
 	
 	if ( $echo )
-		echo format_filesize(filesize(ABSPATH.$release['release_flac']));
+		echo ribcage_format_filesize(filesize(ABSPATH.$release['release_flac']));
 	
-	return format_filesize(filesize(ABSPATH.$release['release_flac']));
+	return ribcage_format_filesize(filesize(ABSPATH.$release['release_flac']));
 }
 
 function release_download_link_ogg ( $echo = true ) {
@@ -132,9 +132,9 @@ function release_download_size_ogg ( $echo = true ) {
 	global $release;
 	
 	if ( $echo )
-		echo format_filesize(filesize(ABSPATH.$release['release_ogg']));
+		echo ribcage_format_filesize(filesize(ABSPATH.$release['release_ogg']));
 	
-	return format_filesize(filesize(ABSPATH.$release['release_ogg']));
+	return ribcage_format_filesize(filesize(ABSPATH.$release['release_ogg']));
 }
 
 function release_cover_large ( $echo = true ) {
