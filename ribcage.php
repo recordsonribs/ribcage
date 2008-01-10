@@ -153,7 +153,7 @@ function ribcage_init (){
 	}
 	
 	if (isset($wp_query->query_vars['ribcage_player']))	{
-		if ($wp_query->query_vars['ribcage_player'] == 'stats'){
+		if ($wp_query->query_vars['release_slug'] == 'stats'){
 			ribcage_log_play();
 		}
 		else {
