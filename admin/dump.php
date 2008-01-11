@@ -18,6 +18,7 @@ function ribcage_admin_index ()
 	<div class="wrap">
 		<h2>Log</h2>
 		<div id="ribcagelog"></div>
+		<div><p><a href="http://tools.assembla.com/ribcage/timeline">View More &raquo;</a></p></div>
 	</div>
 	
 	<?php
