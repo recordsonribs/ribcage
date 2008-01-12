@@ -35,6 +35,7 @@ $releaseResults = $phpBrainz->findRelease($releaseFilter);
 print "<pre>";
 print_r (@$releaseResults);
 print "</pre>";
+$tracks = $phpBrainz->getTracks;
 
 $trackIncludes = array(
 		"tracks",
