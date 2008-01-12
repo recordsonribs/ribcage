@@ -4,7 +4,7 @@ global $releases, $release;
 <?php get_header() ?>
 	<div id="container">
 		<div id="content">
-			<div id="post-" class="<?php sandbox_post_class() ?>">
+			<div id="post-17" class="hentry p1 page publish author-alex category-uncategorized tag- y2007 m07 d19 h23">
 				<h2 class="entry-title">Releases</h2>
 				<div class="entry-content">
 					<?php while ( have_releases () ) : the_release() ; ?>
