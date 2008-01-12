@@ -11,8 +11,6 @@ eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=0,lo
 }
 // End -->
 </script>
-<?php get_header() ?>
-
 	<div id="container">
 		<div id="content">
 			<div id="post-12" class="<?php sandbox_post_class() ?>">
