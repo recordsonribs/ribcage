@@ -15,7 +15,7 @@ eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=0,lo
 
 	<div id="container">
 		<div id="content">
-			<div id="post-<?php the_ID(); ?>" class="<?php sandbox_post_class() ?>">
+			<div id="post-12" class="<?php sandbox_post_class() ?>">
 				<h2 class="entry-title"><a>Releases</a></h2>
 				
 	<?php while ( have_releases () ) : the_release() ; ?>
@@ -29,5 +29,6 @@ eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=0,lo
 
 </div><!-- #content -->
 </div><!-- #container -->
+
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>
