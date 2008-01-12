@@ -155,6 +155,16 @@ function release_cover_tiny ( $echo = true ) {
 	return $release['release_cover_image_tiny'];
 }
 
+function release_cat_no ( $echo = true ) {
+	global $release;
+	
+	if ( $echo )
+		echo 'ROR'.str_pad($release['release_id'], 3, "0", STR_PAD_LEFT);
+	
+	return 	'ROR'.str_pad($release['release_id'], 3, "0", STR_PAD_LEFT);
+}
+
+
 function release_player_link ( $echo = true ) {
 	global $release;
 	
