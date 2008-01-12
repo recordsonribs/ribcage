@@ -17,10 +17,10 @@ eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=0,lo
 				<h2 class="entry-title">Releases</h2>
 				<div class="entry-content">
 					<?php while ( have_releases () ) : the_release() ; ?>
-					<img src="<?php release_cover_tiny ();?>" align="right" />
+					<img src="<?php release_cover_tiny ();?>" align="right" style="border-left: 20px;" />
 					<h3><?php echo get_artistname_by_id($release['release_artist']); ?> - <?php release_title(); ?></h3>
 					<p><?php release_blurb_short(); ?></p>
-					<p><a href="javascript:popUp('<?php release_player_link (); ?>')">Listen Now</a></p>
+					<p><a>More Information</a> - <a href="javascript:popUp('<?php release_player_link (); ?>')">Listen Now</a> - Free Download</p>
 					<?php endwhile; ?>
 				</div>
 			</div><!-- .post -->
