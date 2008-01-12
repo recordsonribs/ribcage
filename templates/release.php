@@ -9,20 +9,24 @@ eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=0,lo
 // End -->
 </script>
 <div id="container">
-		<div id="content">
-	 
-	<h2><a href="<?php echo get_option('siteurl'); ?>/artists/">Artists</a></h2>
-	<h1><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>"><?php artist_name(); ?></a> - <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h1>
-	<div><img src="<?php release_cover_large (); ?>" /></div>
-	<div>
-		<?php while ( have_tracks () ) : the_track() ; ?>
-			<?php track_no(); ?>. <?php track_title(); ?> (<?php track_time(); ?>)<br />
-		<?php endwhile; ?>
-	</div>
-		<?php release_blurb_long(); ?>
-	<div>
-		<a href="<?php release_download_link (); ?>">Free Download</a> - <a href="javascript:popUp('<?php release_player_link (); ?>')">Listen Now</a> - <a href="">Buy</a>
-	</div>
-</div>
-</div>
+	<div id="content">
+		<div id="post-17" class="hentry p1 page publish author-alex category-uncategorized tag- y2007 m07 d19 h23">
+			<h2 class="entry-title"><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>"><?php artist_name(); ?></a> - <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h2>
+			<div class="entry-content">
+				<img src="<?php release_cover_large (); ?>" />
+				<p>
+				<?php while ( have_tracks () ) : the_track() ; ?>
+				<?php track_no(); ?>. <?php track_title(); ?> (<?php track_time(); ?>)<br />
+				<?php endwhile; ?>
+				</p>
+				<p>
+					<a href="<?php release_download_link (); ?>">Free Download</a> - <a href="javascript:popUp('<?php release_player_link (); ?>')">Listen Now</a> - <a href="">Buy</a>
+				</p>
+				<?php release_blurb_long(); ?>
+			</div><!-- .entry-content-->
+		</div><!-- .post -->
+	</div><!-- #content -->
+</div><!-- #container -->
+
+<?php get_sidebar (); ?>
 <?php get_footer();?>

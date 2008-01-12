@@ -1,5 +1,5 @@
 <?php
-global $releases, $release;
+global $releases, $release, $artist;
 ?>
 <?php get_header() ?>
 <SCRIPT LANGUAGE="JavaScript">
@@ -17,12 +17,13 @@ eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=0,lo
 				<h2 class="entry-title">Releases</h2>
 				<div class="entry-content">
 					<?php while ( have_releases () ) : the_release() ; ?>
-					<img src="<?php release_cover_tiny ();?>" align="right" style="margin-left: 20px; border: 1px solid black;" />
-					<h3><?php echo get_artistname_by_id($release['release_artist']); ?> - <?php release_title(); ?></h3>
+					<img src="<?php release_cover_tiny ();?>" align="right" style="margin-left: 20px; border: 1px solid #000;" />
+					<?php $artist = get_artist($release['release_artist']); ?>
+					<h3><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a> - <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h3>
 					<p><?php release_blurb_short(); ?></p>
-					<p><a>More Information</a> - <a href="javascript:popUp('<?php release_player_link (); ?>')">Listen Now</a> - Free Download</p>
+					<p><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>">More Information</a> - <a href="javascript:popUp('<?php release_player_link (); ?>')">Listen Now</a> - <a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/">Free Download</a></p>
 					<?php endwhile; ?>
-				</div>
+				</div><!-- .entry-content-->
 			</div><!-- .post -->
 		</div><!-- #content -->
 	</div><!-- #container -->

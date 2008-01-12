@@ -196,7 +196,7 @@ function get_artistname_by_slug ($artist_slug) {
 
 
 // from wp-download manager by Lester 'GaMerZ' Chan (http://lesterchan.net/portfolio/programming.php)
-function ribcage_ribcage_format_filesize($rawSize) {
+function ribcage_format_filesize($rawSize) {
 	if($rawSize / 1099511627776 > 1) {
 		return round($rawSize/1099511627776, 1) . ' TB';
 	} elseif($rawSize / 1073741824 > 1) {
