@@ -1,5 +1,4 @@
 <?php get_header(); ?>
-<?php get_sidebar(); ?>
 <?php
 global $releases, $release;
 ?>
@@ -23,4 +22,5 @@ eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=0,lo
 	</div>
 	<?php endwhile; ?>
 </div>
+<?php get_sidebar(); ?>
 <?php get_footer(); ?>
