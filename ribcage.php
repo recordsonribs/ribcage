@@ -166,31 +166,6 @@ function ribcage_init (){
 	if (isset($wp_query->query_vars['ribcage_buy']) && isset($wp_query->query_vars['item_id'])) {
 		
 		echo "We got to the buy section of the site...";
-		switch ($wp_query->query_vars['item_id']) {
-			
-			// Send them to Paypal
-			case 'go' :
-				ribcage_buy_process();			
-				break;
-				
-			// They just got back from Paypal and it was a success. Thank them for it.
-			case 'thanks': 
-				$load = ribcage_load_template('thanks.php');
-				break;
-			
-			// We are recieving an IPN ping from Paypal.
-			case 'ipn' :
-				ribcage_buy_ipn();
-				break;
-			
-			// They cancelled.
-			case 'cancel' :
-				echo "Cancelled";
-				break;
-			
-			default :
-				$load = ribcage_load_template('buy.php');
-		}
 		// Lookup the item they are looking for in the database.
 		
 		
