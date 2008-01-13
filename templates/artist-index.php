@@ -7,7 +7,7 @@
 		
 <?php while ( have_artists () ) : the_artist(); ?>
 	<div class="entry-content" style="height=175px;" >
-		<img src="<?php artist_thumb ();?>" align="right" style="margin-bottom: 20px; margin-left: 20px; border: 1px solid #000; clear:both;" />
+		<img src="<?php artist_thumb ();?>" align="right" style="margin-left: 20px; border: 1px solid #000; clear:both;" />
 		<a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>" title="<?php artist_name(); ?>"><h3><?php artist_name(); ?></h3></a>
 		<p><?php artist_blurb_tiny(); ?></p>
 		</div>
