@@ -165,6 +165,9 @@ function ribcage_init (){
 	
 	if (isset($wp_query->query_vars['ribcage_buy'])) {		
 		echo "We got to the buy section of the site...";
+		if (isset($wp_query->query_vars['item_id'])) {
+			echo "We got an item.";
+		}
 		// Lookup the item they are looking for in the database.		
 	}
 	
