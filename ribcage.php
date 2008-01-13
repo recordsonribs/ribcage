@@ -163,12 +163,9 @@ function ribcage_init (){
 		
 	}
 	
-	if (isset($wp_query->query_vars['ribcage_buy']) && isset($wp_query->query_vars['item_id'])) {
-		
+	if (isset($wp_query->query_vars['ribcage_buy'])) {		
 		echo "We got to the buy section of the site...";
-		// Lookup the item they are looking for in the database.
-		
-		
+		// Lookup the item they are looking for in the database.		
 	}
 	
 	// Did we get an error by the end of all this? If so let the user know.
