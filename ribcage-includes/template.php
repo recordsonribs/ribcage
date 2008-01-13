@@ -281,6 +281,15 @@ function artist_picture_1 ( $echo = true ) {
 	return $artist['artist_picture_1'];
 }
 
+function artist_thumb ( $echo = true ) {
+	global $artist;
+	
+	if ($echo)
+		echo $artist['artist_thumb'];
+	
+	return $artist['artist_thumb'];
+}
+
 function have_artists () {
 	global $artists, $current_artist;
 	
