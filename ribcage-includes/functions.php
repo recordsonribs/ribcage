@@ -50,7 +50,7 @@ function list_recent_releases_blurb ()
 function list_artists_blurb (){
 	global $wpdb;
 	$querystr = "
-	SELECT artist_name, artist_slug, artist_id, artist_name_sort, artist_picture_1, artist_blurb_short, artist_blurb_tiny FROM $wpdb->ribcage_artists
+	SELECT artist_name, artist_slug, artist_id, artist_name_sort, artist_picture_1, artist_thumb, artist_blurb_short, artist_blurb_tiny FROM $wpdb->ribcage_artists
 	ORDER BY `artist_name_sort`";
 	$return = $wpdb->get_results($querystr, ARRAY_A);
 	return $return;
