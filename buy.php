@@ -33,8 +33,8 @@ function ribcage_buy_process ()
 	$paypal->add_field('item_name', 'Records On Ribs test.');
 	$paypal->add_field('amount', '1.99');
 
-    //$paypal->submit_paypal_post(); // submit the fields to paypal
-    $paypal->dump_fields();      // for debugging, output a table of all the fields
+    $paypal->submit_paypal_post(); // submit the fields to paypal
+    //$paypal->dump_fields();      // for debugging, output a table of all the fields
 }
 
 function ribcage_buy_ipn () {
