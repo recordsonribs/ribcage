@@ -2,6 +2,10 @@
 
 require_once dirname(__FILE__) . '/ribcage-includes/paypal/paypal.class.php';
 
+$paypal = new paypal_class;
+$paypal->paypal_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+//$paypal->paypal_url = 'https://www.paypal.com/cgi-bin/webscr';
+
 function ribcage_buy_process ()
 {
 	global $paypal;
