@@ -214,8 +214,8 @@ function ribcage_add_rewrite_rules ( $wp_rewrite ) {
 		
 		"(player)/(.*)" => 'index.php?ribcage_player=1&release_slug='.$wp_rewrite->preg_index(2),
 		
-		"(buy)" => 'index.php?ribcage_buy=1',
-		"(buy)/(.*)" => 'index.php?ribcage_buy=1&ribcage_item_id='.$wp_rewrite->preg_index(2)
+		"(buy)/(.*)" => 'index.php?ribcage_buy=1&ribcage_item_id='.$wp_rewrite->preg_index(2),
+		"(buy)" => 'index.php?ribcage_buy=1'
 	);
 
 	$wp_rewrite->rules = $wp_rewrite->rules + $new_rules;
