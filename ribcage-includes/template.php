@@ -15,6 +15,8 @@ $current_track = 0;
 $reviews = null;
 $review = null;
 
+$product = null;
+
 function is_artist_page ()
 {
 	global $wp_query;

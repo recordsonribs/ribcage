@@ -46,6 +46,8 @@ function ribcage_init (){
 	global $artists, $artist, $current_artist;
 	global $releases, $release, $current_release;
 	global $tracks, $track, $current_track;
+	
+	global $product;
 
 	if ( is_ribcage_page () == 0){
 		return;
@@ -139,8 +141,7 @@ function ribcage_init (){
 		
 		
 	}
-	
-		
+			
 	// Streams
 	if (isset($wp_query->query_vars['ribcage_stream'])) {
 		// Stream whole release.
@@ -163,34 +164,39 @@ function ribcage_init (){
 		
 	}
 	
-	if (isset($wp_query->query_vars['ribcage_buy']) && isset($wp_query->query_vars['ribcage_item_id'])) {
+	if (isset($wp_query->query_vars['ribcage_buy']) && isset($wp_query->query_vars['ribcage_product_id'])) {
 		
-		switch ($wp_query->query_vars['ribcage_item_id']) {
-			
-			// Send them to Paypal
-			case 'go' :
-				ribcage_buy_process();			
-				break;
+		// Lookup the item they are looking for in the database.
+		$product = get_product($wp_query->query_vars['ribcage_product_id']);
+		
+		if (isset($wp_query->query_vars['ribcage_buy_mode'])){		
+			switch ($wp_query->query_vars['ribcage_buy_mode']) {			
+				// Send them to Paypal
+				case 'go' :
+					ribcage_buy_process();			
+					break;
 				
-			// They just got back from Paypal and it was a success. Thank them for it.
-			case 'thanks': 
-				$load = ribcage_load_template('thanks.php');
-				break;
+				// They just got back from Paypal and it was a success. Thank them for it.
+				case 'thanks': 
+					$load = ribcage_load_template('thanks.php');
+					break;
 			
-			// We are recieving an IPN ping from Paypal.
-			case 'ipn' :
-				ribcage_buy_ipn();
-				break;
+				// We are recieving an IPN ping from Paypal.
+				case 'ipn' :
+					ribcage_buy_ipn();
+					break;
 			
-			// They cancelled.
-			case 'cancel' :
-				echo "Cancelled";
-				break;
-			
-			default :
-				$load = ribcage_load_template('buy.php');
+				// They cancelled.
+				case 'cancel' :
+					echo "Cancelled";
+					break;
+			}
 		}
-		// Lookup the item they are looking for in the database.		
+		
+		// Just show the person the item they are looking for.
+		else {
+			$load = ribcage_load_template('buy.php');
+		}
 	}
 	
 	// Did we get an error by the end of all this? If so let the user know.
@@ -236,7 +242,8 @@ function ribcage_add_rewrite_rules ( $wp_rewrite ) {
 		
 		"(player)/(.*)" => 'index.php?ribcage_player=1&release_slug='.$wp_rewrite->preg_index(2),
 		
-		"(buy)/(.*)" => 'index.php?ribcage_buy=1&ribcage_item_id='.$wp_rewrite->preg_index(2),
+		"(buy)/(.*)/(.*)" => 'index.php?ribcage_buy=1&ribcage_product_id='.$wp_rewrite->preg_index(2).'&ribcage_buy_mode='.$wp_rewrite->preg_index(3),
+		"(buy)/(.*)" => 'index.php?ribcage_buy=1&ribcage_product_id='.$wp_rewrite->preg_index(2),
 		"(buy)" => 'index.php?ribcage_buy=1'
 	);
 
@@ -270,7 +277,8 @@ function ribcage_queryvars ( $qvars ){
 	$qvars[] = 'ribcage_player';
 	
 	$qvars[] = 'ribcage_buy';
-	$qvars[] = 'ribcage_item_id';
+	$qvars[] = 'ribcage_product_id';
+	$qvars[] = 'ribcage_buy_mode';
 
 	return $qvars;
 }

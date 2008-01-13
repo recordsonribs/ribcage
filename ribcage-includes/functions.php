@@ -83,6 +83,18 @@ function list_artist_releases ($artist_id){
 // or maybe just don't bother appending fullstop?? We'll see.
 // TODO Errors, bailing out if we can't find the artist, track, etc.
 
+// get_product 
+// Input product id
+// Returns product as associative array.
+function get_product ($product_id) {
+	global $wpdb;
+	
+	$return = $wpdb->get_row("SELECT * FROM $wpdb->ribcage_products WHERE product_id = $product_id", ARRAY_A);
+	
+	return $return;
+}
+
+
 // get_release
 // Input the release id.
 // Returns release as associative array.
