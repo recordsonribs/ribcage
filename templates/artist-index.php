@@ -1,4 +1,4 @@
-<?php get_header(); ?>Å
+<?php get_header(); ?>
 <div id="container">
 	<div id="content">
 		<div id="post-17" class="hentry p1 page publish author-alex category-uncategorized tag- y2007 m07 d19 h23">
@@ -6,7 +6,7 @@
 			<div class="entry-content">
 <?php while ( have_artists () ) : the_artist(); ?>
 		<div style="ribcage-artist">
-		<img src="<?php artist_thumb ();?>" align="right" style="margin-left: 20px; border: 1px solid #000;" />A
+		<img src="<?php artist_thumb ();?>" align="right" style="margin-left: 20px; border: 1px solid #000;" />
 		<a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>" title="<?php artist_name(); ?>"><h3><?php artist_name(); ?></h3></a>
 		<p><?php artist_blurb_tiny(); ?></p>
 		</div>
