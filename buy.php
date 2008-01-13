@@ -2,10 +2,6 @@
 
 require_once dirname(__FILE__) . '/ribcage-includes/paypal/paypal.class.php';
 
-$paypal = new paypal_class;
-$paypal->paypal_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
-//$paypal->paypal_url = 'https://www.paypal.com/cgi-bin/webscr';
-
 function ribcage_buy_process ()
 {
 	global $paypal;
@@ -22,13 +18,13 @@ function ribcage_buy_process ()
 
 	$paypal->add_field('item_name', $product['product_name']);
 	$paypal->add_field('item_number', 'ROR'.str_pad($product['product_id'], 3, "0", STR_PAD_LEFT));
+	$paypal->add_field('custom', $product['product_id']);
 	$paypal->add_field('undefined_quantity', '1');
 	
-	$paypal->add_field('amount', $product['product_cost']);
 	$paypal->add_field('currency_code', 'GBP');
+	$paypal->add_field('amount', $product['product_cost']);
 
     $paypal->submit_paypal_post(); // submit the fields to paypal
-    $paypal->dump_fields();      // for debugging, output a table of all the fields
 }
 
 function ribcage_buy_ipn () {

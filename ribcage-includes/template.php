@@ -166,6 +166,14 @@ function release_cat_no ( $echo = true ) {
 	return 	'ROR'.str_pad($release['release_id'], 3, "0", STR_PAD_LEFT);
 }
 
+function release_id ( $echo = true ) {
+	global $release;
+	
+	if ( $echo )
+		echo $release['release_id'];
+	
+	return 	$release['release_id'];
+}
 
 function release_player_link ( $echo = true ) {
 	global $release;
@@ -185,6 +193,15 @@ function release_physical () {
 	else {
 		return FALSE;
 	}
+}
+
+function release_product_id ( $echo = TRUE ) {
+	global $release;
+	
+	if ( $echo )
+		echo $release['release_physical_cat_no'];
+	
+	return 	$release['release_physical_cat_no'];
 }
 
 // artist_*

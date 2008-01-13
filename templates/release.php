@@ -20,7 +20,7 @@ eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=0,lo
 				<?php endwhile; ?>
 				</p>
 				<p>
-					<a href="<?php release_download_link (); ?>">Free Download</a> - <a href="javascript:popUp('<?php release_player_link (); ?>')">Listen Now</a><?php if (release_physical()) : ?> - <a href="">Buy</a><?php endif; ?>
+					<a href="<?php release_download_link (); ?>">Free Download</a> - <a href="javascript:popUp('<?php release_player_link (); ?>')">Listen Now</a><?php if (release_physical()) : ?> - <a href="<?php get_option('siteurl'); ?>/buy/<?php release_product_id(); ?>">Buy</a><?php endif; ?>
 				</p>
 				<?php release_blurb_long(); ?>
 			</div><!-- .entry-content-->

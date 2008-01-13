@@ -41,6 +41,11 @@ add_action('template_redirect','ribcage_init');
 
 $seperator = " - ";
 
+$paypal = new paypal_class;
+
+$paypal->paypal_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+//$paypal->paypal_url = 'https://www.paypal.com/cgi-bin/webscr';
+
 function ribcage_init (){
 	global $wp_query;
 	global $artists, $artist, $current_artist;
@@ -55,6 +60,12 @@ function ribcage_init (){
 	
 	// Add our bits to the page title.
 	add_filter('wp_title', 'ribcage_page_title');
+	
+	// Donate IPN from Paypal	
+	if (isset($wp_query->query_vars['ribcage_donate_ipn']))
+		{
+			ribcage_donate_ipn();
+		}
 	
 	// Artist Index
 	if (isset($wp_query->query_vars['artist_index'])) {
@@ -104,7 +115,22 @@ function ribcage_init (){
 		
 		// Download whole release.
 		if (isset($wp_query->query_vars['release_slug']) && isset($wp_query->query_vars['format'])) {
-			$load = download_release ($wp_query->query_vars['release_slug'], $wp_query->query_vars['format']);
+			
+			// Re-direct them to donate at Paypal
+			if ($wp_query->query_vars['format'] == 'donate') {
+				$release = get_release_by_slug ($wp_query->query_vars['release_slug'], FALSE, FALSE);
+				$artist = get_artist ($release['release_artist']);
+				ribcage_donate();
+			}
+			
+			// They just donated at Paypal, probably.
+			else if ($wp_query->query_vars['format'] == 'back') {
+				ribcage_donate_download_thanks();				
+			}
+			
+			else {
+				$load = download_release ($wp_query->query_vars['release_slug'], $wp_query->query_vars['format']);
+			}
 		}
 		
 		// Download individual track.
@@ -124,8 +150,8 @@ function ribcage_init (){
 			}
 			
 			// If we have seen the user before, then there is a one in five chance they will see the nag.
-			elseif (isset($_COOKIE["ask_donate"])) {
-				$random = rand(1, 5);
+			else if (isset($_COOKIE["ask_donate"])) {
+				$random = rand(1, 8);
 				if ($random == 5) {
 					$load = ribcage_load_template('nag.php');
 				}
@@ -164,6 +190,7 @@ function ribcage_init (){
 		
 	}
 	
+	// Purchases
 	if (isset($wp_query->query_vars['ribcage_buy']) && isset($wp_query->query_vars['ribcage_product_id'])) {
 		
 		// Lookup the item they are looking for in the database.
@@ -244,7 +271,9 @@ function ribcage_add_rewrite_rules ( $wp_rewrite ) {
 		
 		"(buy)/(.*)/(.*)" => 'index.php?ribcage_buy=1&ribcage_product_id='.$wp_rewrite->preg_index(2).'&ribcage_buy_mode='.$wp_rewrite->preg_index(3),
 		"(buy)/(.*)" => 'index.php?ribcage_buy=1&ribcage_product_id='.$wp_rewrite->preg_index(2),
-		"(buy)" => 'index.php?ribcage_buy=1'
+		"(buy)" => 'index.php?ribcage_buy=1',
+		
+		"(donate)/(ipn)" => 'index.php?ribcage_donate_ipn=1'	
 	);
 
 	$wp_rewrite->rules = $wp_rewrite->rules + $new_rules;
@@ -279,6 +308,8 @@ function ribcage_queryvars ( $qvars ){
 	$qvars[] = 'ribcage_buy';
 	$qvars[] = 'ribcage_product_id';
 	$qvars[] = 'ribcage_buy_mode';
+	
+	$qvars[] = 'ribcage_donate_ipn';
 
 	return $qvars;
 }
