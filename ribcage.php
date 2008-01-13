@@ -165,6 +165,7 @@ function ribcage_init (){
 	
 	if (isset($wp_query->query_vars['ribcage_buy']) && isset($wp_query->query_vars['item_id'])) {
 		
+		echo "We got to the buy section of the site...";
 		switch ($wp_query->query_vars['item_id']) {
 			
 			// Send them to Paypal
