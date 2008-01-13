@@ -7,30 +7,30 @@ function ribcage_buy_process ()
 	global $paypal;
 	
 	// There should be no output at this point.  To process the POST data,
-      // the submit_paypal_post() function will output all the HTML tags which
-      // contains a FORM which is submited instantaneously using the BODY onload
-      // attribute.  In other words, don't echo or printf anything when you're
-      // going to be calling the submit_paypal_post() function.
+    // the submit_paypal_post() function will output all the HTML tags which
+    // contains a FORM which is submited instantaneously using the BODY onload
+    // attribute.  In other words, don't echo or printf anything when you're
+    // going to be calling the submit_paypal_post() function.
  
-      // This is where you would have your form validation  and all that jazz.
-      // You would take your POST vars and load them into the class like below,
-      // only using the POST values instead of constant string expressions.
+    // This is where you would have your form validation  and all that jazz.
+    // You would take your POST vars and load them into the class like below,
+    // only using the POST values instead of constant string expressions.
  
-      // For example, after ensureing all the POST variables from your custom
-      // order form are valid, you might have:
-      //
-      // $p->add_field('first_name', $_POST['first_name']);
-      // $p->add_field('last_name', $_POST['last_name']);
+    // For example, after ensureing all the POST variables from your custom
+    // order form are valid, you might have:
+    //
+    // $p->add_field('first_name', $_POST['first_name']);
+    // $p->add_field('last_name', $_POST['last_name']);
       
-      $paypal->add_field('business', 'suppor_1200230957_biz@recordsonribs.com');
-      $paypal->add_field('return', get_option('siteurl').'/buy/thanks');
-      $paypal->add_field('cancel_return', get_option('siteurl').'/buy/cancel');
-      $paypal->add_field('notify_url', get_option('siteurl').'/buy/ipn');
-      $paypal->add_field('item_name', 'Records On Ribs test.');
-      $paypal->add_field('amount', '1.99');
+	$paypal->add_field('business', 'suppor_1200230957_biz@recordsonribs.com');
+	$paypal->add_field('return', get_option('siteurl').'/buy/thanks');
+	$paypal->add_field('cancel_return', get_option('siteurl').'/buy/cancel');
+	$paypal->add_field('notify_url', get_option('siteurl').'/buy/ipn');
+	$paypal->add_field('item_name', 'Records On Ribs test.');
+	$paypal->add_field('amount', '1.99');
 
-      $paypal->submit_paypal_post(); // submit the fields to paypal
-      //$paypal->dump_fields();      // for debugging, output a table of all the fields
+    $paypal->submit_paypal_post(); // submit the fields to paypal
+    $paypal->dump_fields();      // for debugging, output a table of all the fields
 }
 
 function ribcage_buy_ipn () {
