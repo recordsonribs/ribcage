@@ -174,6 +174,17 @@ function release_player_link ( $echo = true ) {
 	return get_option('siteurl').'/download/'.$release['release_slug'].'/';
 }
 
+function release_physical () {
+	global $release;
+	
+	if ($release['release_physical']){
+		return TRUE;
+	}
+	else {
+		return FALSE;
+	}
+}
+
 // artist_*
 // -----------
 // Various artist_ template tags.

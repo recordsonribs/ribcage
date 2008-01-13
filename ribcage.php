@@ -25,8 +25,6 @@
 	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA	
 */
 
-define ("ARTISTS_PLUGIN", "/~music/artists/");
-
 require_once dirname(__FILE__) . '/ribcage-includes/functions.php';
 require_once dirname(__FILE__) . '/ribcage-includes/log.php';
 require_once dirname(__FILE__) . '/ribcage-includes/template.php';
@@ -35,6 +33,13 @@ require_once dirname(__FILE__) . '/admin.php';
 require_once dirname(__FILE__) . '/download.php';
 require_once dirname(__FILE__) . '/stream.php';
 require_once dirname(__FILE__) . '/player.php';
+
+require_once dirname(__FILE__) . '/donate.php';
+require_once dirname(__FILE__) . '/buy.php';
+
+$paypal = new paypal_class;
+$paypal->paypal_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+//$paypal->paypal_url = 'https://www.paypal.com/cgi-bin/webscr';
 
 add_action('template_redirect','ribcage_init');
 
@@ -162,6 +167,38 @@ function ribcage_init (){
 		
 	}
 	
+	if (isset($wp_query->query_vars['ribcage_buy']) && isset($wp_query->query_vars['item_id'])) {
+		
+		switch ($wp_query->query_vars['item_id']) {
+			
+			// Send them to Paypal
+			case 'go' :
+				ribcage_buy_process();			
+				break;
+				
+			// They just got back from Paypal and it was a success. Thank them for it.
+			case 'thanks': 
+				$load = ribcage_load_template('thanks.php');
+				break;
+			
+			// We are recieving an IPN ping from Paypal.
+			case 'ipn' :
+				ribcage_buy_ipn();
+				break;
+			
+			// They cancelled.
+			case 'cancel' :
+				echo "Cancelled";
+				break;
+			
+			default :
+				$load = ribcage_load_template('buy.php');
+		}
+		// Lookup the item they are looking for in the database.
+		
+		
+	}
+	
 	// Did we get an error by the end of all this? If so let the user know.
 	if (is_wp_error($load)) {
 		echo $load->get_error_message();
@@ -203,7 +240,10 @@ function ribcage_add_rewrite_rules ( $wp_rewrite ) {
 		"(stream)/(.*)/(.*)" => 'index.php?ribcage_stream=1&release_slug='.$wp_rewrite->preg_index(2).'&stream_format='.$wp_rewrite->preg_index(3),
 		"(stream)" => 'index.php?ribcage_stream=1',
 		
-		"(player)/(.*)" => 'index.php?ribcage_player=1&release_slug='.$wp_rewrite->preg_index(2)
+		"(player)/(.*)" => 'index.php?ribcage_player=1&release_slug='.$wp_rewrite->preg_index(2),
+		
+		"(buy)" => 'index.php?ribcage_buy=1',
+		"(buy)/(.*)" => 'index.php?ribcage_buy=1&item_id='.$wp_rewrite->preg_index(2)
 	);
 
 	$wp_rewrite->rules = $wp_rewrite->rules + $new_rules;
@@ -234,6 +274,9 @@ function ribcage_queryvars ( $qvars ){
 	
 	$qvars[] = 'format';
 	$qvars[] = 'ribcage_player';
+	
+	$qvars[] = 'ribcage_buy';
+	$qvars[] = 'item_id';
 
 	return $qvars;
 }

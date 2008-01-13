@@ -11,6 +11,9 @@ $wpdb->ribcage_log_stream = $wpdb->prefix."ribcage_log_stream";
 $wpdb->ribcage_log_download_releases = $wpdb->prefix."ribcage_log_download_releases";
 $wpdb->ribcage_log_download_tracks = $wpdb->prefix."ribcage_log_download_tracks";
 
+$wpdb->ribcage_products = $wpdb->prefix."ribcage_products";
+$wpdb->ribcage_orders = $wpdb->prefix."ribcage_orders";
+
 // is_ribcage_page
 // No input.
 // Returns true if we are on a Ribcage page, and false otherwise.
