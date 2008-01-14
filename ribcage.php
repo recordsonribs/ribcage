@@ -143,8 +143,12 @@ function ribcage_init (){
 			$release = get_release_by_slug ($wp_query->query_vars['release_slug'], FALSE, FALSE);
 			$artist = get_artist ($release['release_artist']);
 			
+			if (!isset($_GET['skip'])) {
+				$load = ribcage_load_template('download.php');
+			}
+			
 			// If we haven't seen the user before, then nag them about the download.
-			if (!isset($_COOKIE["ask_donate"])){
+			else if (!isset($_COOKIE["ask_donate"])){
 				setcookie("ask_donate", "1", time()+3600);
 				$load = ribcage_load_template('nag.php');
 			}
