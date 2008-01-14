@@ -25,12 +25,13 @@ function ribcage_buy_process ()
 	$paypal->add_field('charset', 'utf-8');
 	
 	$paypal->add_field('return', get_option('siteurl').'/buy/'.$product['product_id'].'/thanks');
-	$paypal->add_field('cancel_return', get_option('siteurl').'/buy/'.$product['product_id'].'/cancel');
+	$paypal->add_field('cancel_return', get_option('siteurl'));
 	$paypal->add_field('notify_url', get_option('siteurl').'/buy/'.$product['product_id'].'/ipn');
 	$paypal->add_field('item_name', $product['product_name'].' (Including '.$postage.' postage)');
 	$paypal->add_field('item_number', 'ROR'.str_pad($product['product_id'], 3, "0", STR_PAD_LEFT));
 	$paypal->add_field('custom', $product['product_id']);
 	$paypal->add_field('undefined_quantity', '1');
+	$paypal->add_field('rm', '2');
 	
 	$paypal->add_field('currency_code', 'GBP');
 	

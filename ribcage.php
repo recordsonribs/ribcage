@@ -37,6 +37,8 @@ require_once dirname(__FILE__) . '/player.php';
 require_once dirname(__FILE__) . '/donate.php';
 require_once dirname(__FILE__) . '/buy.php';
 
+require_once dirname(__FILE__) . '/widget.php';
+
 add_action('template_redirect','ribcage_init');
 
 $seperator = " - ";
@@ -352,6 +354,7 @@ function ribcage_page_title ($title) {
 	}
 	
 	if (is_artist_page()){
+		$title .= $seperator;
 		switch ($wp_query->query_vars['artist_page']) {
 			case 'press':
 				$title .= 'Press';
@@ -363,6 +366,7 @@ function ribcage_page_title ($title) {
 
 			default :	
 				$title .= get_releasename_by_slug($wp_query->query_vars['artist_page']);
+
 		}
 	}
 	

@@ -35,10 +35,17 @@ function is_ribcage_page() {
 // list_recent_releases_blurb
 // Input amount of releases you want back.
 // Returns recent releases as associative array.
-function list_recent_releases_blurb ()
+function list_recent_releases_blurb ( $amount = 0 )
 {
 	global $wpdb;
-	$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases", ARRAY_A);
+
+	if ($amount) {
+		$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases ORDER BY release_id DESC LIMIT $amount ", ARRAY_A);
+	}
+	else {
+		$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases ORDER BY release_id DESC", ARRAY_A);
+	}
+	
 	
 	if (isset($releases)) {
 		foreach ($releases as $release){
