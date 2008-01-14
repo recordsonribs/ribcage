@@ -11,7 +11,7 @@ function ribcage_donate (){
 
 	$paypal->add_field('charset', 'utf-8');
 
-	$paypal->add_field('return', get_option('siteurl').'/download/'.release_slug(FALSE));
+	$paypal->add_field('return', get_option('siteurl').'/download/'.release_slug(FALSE).'/back/');
 	$paypal->add_field('cancel_return', get_option('siteurl').'/download/'.release_slug(FALSE));
 	$paypal->add_field('notify_url', get_option('siteurl').'/donate/'.release_slug(FALSE).'/ipn');
 
@@ -55,7 +55,7 @@ function ribcage_donate_ipn () {
 		$body .= "from ".$paypal->ipn_data['payer_email']." on ".date('m/d/Y');
 		$body .= " at ".date('g:i A')."\n\nDetails:\n";
 		foreach ($paypal->ipn_data as $key => $value) { $body .= "\n$key: $value"; }
-			mail ($to, $subject, $body);
+			wp_mail ($to, $subject, $body);
 		}
 }
 ?>
