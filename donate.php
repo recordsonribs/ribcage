@@ -37,7 +37,7 @@ function ribcage_donate_ipn () {
 	global $paypal;
 	global $wpdb;
 
-	//if ($paypal->validate_ipn()) {   
+	if ($paypal->validate_ipn()) {   
   		$log = sprintf("
 			INSERT INTO  `%s` (
 			`donate_id` ,
@@ -50,9 +50,8 @@ function ribcage_donate_ipn () {
 			$wpdb->ribcage_donations,
 			serialize($paypal->ipn_data)
 			);
-			
-			echo $log;
+
 			$wpdb->query("$log");
-	//}
+	}
 }
 ?>
