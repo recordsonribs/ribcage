@@ -41,7 +41,7 @@ function ribcage_donate_ipn () {
   		$log = sprintf("
 			INSERT INTO  `%s` (
 			`donate_id` ,
-			`donate_ipn` ,
+			`donate_ipn`
 			)
 			VALUES (
 			NULL ,  '%s'
