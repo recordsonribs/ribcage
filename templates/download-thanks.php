@@ -11,7 +11,6 @@
 		<a href="<?php release_download_link_flac (); ?>">Download</a> Zipped <a href="<?php get_option('siteurl')?>/help/formats/ogg">Ogg</a> Files (<?php release_download_size_ogg() ?>).<br />
 		<a href="<?php release_download_link_flac (); ?>">Download</a> Zipped <a href="<?php get_option('siteurl')?>/help/formats/flac">Flac</a> Files (<?php release_download_size_flac() ?>).
 		</p>
-		<p><a href="#">Download Artwork ( MB)</a></p>
 	</div><!-- .entry-content-->
 </div><!-- .post -->
 </div><!-- #content -->
