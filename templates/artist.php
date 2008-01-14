@@ -11,20 +11,20 @@
 					<?php if (artist_facebook_link(0)) : ?><a href="<?php artist_facebook_link(); ?>">Facebook</a><br /><?php endif ?>
 					<a href="<?php artist_lastfm_link(); ?>">Last.fm</a><br />
 					<a href="<?php artist_press_link(); ?>">Press Photos and Information</a></p>
+					</div>
+					<div class="entry-content">
 					<?php if (have_releases() ) : ?>
-				</div>
-				<div class="entry-content">
-					<?php if (!is_artist_page() ) : ?><h3>Releases</h3><?php endif; ?>
+					<h3>Releases</h3>
 						<?php while ( have_releases () ) : the_release() ; ?>
 						<div class="ribcage-release">
-						<img src="<?php release_cover_tiny ();?>" align="right" style="margin-left: 20px; border: 1px solid #000;" />
+							<a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><img src="<?php release_cover_tiny ();?>" align="right" style="margin-left: 20px; border: 1px solid #000;" /></a>
 						<?php $artist = get_artist($release['release_artist']); ?>
 						<h3><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h3>
 						<p><?php release_blurb_short(); ?></p>
-						<p><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>">More Information</a> - <a href="javascript:popUp('<?php release_player_link (); ?>')">Listen Now</a> - <a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/">Free Download</a></p></div>
+						<p><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>">More Information</a> - <a href="javascript:popUp('<?php release_player_link (); ?>')">Listen Now</a> - <a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/">Free Download</a></p><?php if (release_physical()) : ?> - <a href="<?php get_option('siteurl'); ?>/buy/<?php release_product_id(); ?>">Buy</a><?php endif; ?></div>
 						<?php endwhile; ?>
-
 					<?php endif; ?>
+					<p><a href="#" onclick="history.back();" >&larr; Back</a></p>
 				</div><!-- .entry-content-->
 			</div><!-- .post -->
 		</div><!-- #content -->

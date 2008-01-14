@@ -23,6 +23,7 @@ eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=0,lo
 					<a href="<?php release_download_link (); ?>">Free Download</a> - <a href="javascript:popUp('<?php release_player_link (); ?>')">Listen Now</a><?php if (release_physical()) : ?> - <a href="<?php get_option('siteurl'); ?>/buy/<?php release_product_id(); ?>">Buy</a><?php endif; ?>
 				</p>
 				<?php release_blurb_long(); ?>
+				<p><a href="#" onclick="history.back();" >&larr; Back</a></p>
 			</div><!-- .entry-content-->
 		</div><!-- .post -->
 	</div><!-- #content -->
