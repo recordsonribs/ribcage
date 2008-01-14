@@ -7,13 +7,13 @@ function ribcage_donate (){
 	global $artist, $release;
 	
 	//Paypal Sandbox Fake Business
-	$paypal->add_field('business', 'somethingforjoey@gmail.com');
+	$paypal->add_field('business', 'jellthe1st@email.com');
 
 	$paypal->add_field('charset', 'utf-8');
 
 	$paypal->add_field('return', get_option('siteurl').'/download/'.release_slug(FALSE).'/back/');
 	$paypal->add_field('cancel_return', get_option('siteurl').'/download/'.release_slug(FALSE));
-	$paypal->add_field('notify_url', get_option('siteurl').'/donate/'.release_slug(FALSE).'/ipn');
+	$paypal->add_field('notify_url', get_option('siteurl').'/donate/ipn');
 
 	$paypal->add_field('item_name', release_title(FALSE).' Download Donation');
 	$paypal->add_field('item_number', release_cat_no(FALSE));
