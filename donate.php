@@ -7,7 +7,7 @@ function ribcage_donate (){
 	global $artist, $release;
 	
 	//Paypal Sandbox Fake Business
-	$paypal->add_field('business', 'jellthe1st@email.com');
+	$paypal->add_field('business', 'alex@highsoc.com');
 
 	$paypal->add_field('charset', 'utf-8');
 
@@ -38,7 +38,7 @@ function ribcage_donate_ipn () {
 	global $paypal;
 	global $wpdb;
 
-	if ($paypal->validate_ipn()) {       
+	if ($paypal->validate_ipn()) {   
   		$log = sprintf("
 			INSERT INTO  `%s` (
 			`donate_id` ,
