@@ -23,7 +23,6 @@ function ribcage_donate (){
 	$paypal->add_field('currency_code', 'GBP');
 
     $paypal->submit_paypal_post(); // submit the fields to paypal
-	$paypal->dump_fields();	
 }
 
 function ribcage_donate_download_thanks  () {
@@ -38,7 +37,7 @@ function ribcage_donate_ipn () {
 	global $paypal;
 	global $wpdb;
 
-	if ($paypal->validate_ipn()) {   
+	//if ($paypal->validate_ipn()) {   
   		$log = sprintf("
 			INSERT INTO  `%s` (
 			`donate_id` ,
@@ -53,6 +52,6 @@ function ribcage_donate_ipn () {
 			);
 			
 			$wpdb->query("$log");
-	}
+	//}
 }
 ?>
