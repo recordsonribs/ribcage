@@ -146,25 +146,53 @@ class paypal_class {
       // The user will briefly see a message on the screen that reads:
       // "Please wait, your order is being processed..." and then immediately
       // is redirected to paypal.
+		?>
+		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+		<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+		<head profile="http://gmpg.org/xfn/11">
+			<title>Records On Ribs - Redirecting You To Paypal...</title>
+			<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+			<meta name="description" content="is a record label. We give away all our music for free download under a Creative Commons license. We also provide beautifully made and fairly priced physical releases." />
+			<meta name="generator" content="WordPress 2.3.2" /><!-- Please leave for stats -->
+			<link rel="stylesheet" type="text/css" href="http://albert.gateway.2wire.net/~music/wp-content/themes/essay/style.css" />
+			<link rel="alternate" type="application/rss+xml" href="http://albert.gateway.2wire.net/~music/feed/" title="Records On Ribs Posts RSS feed" />
+			<link rel="alternate" type="application/rss+xml" href="http://albert.gateway.2wire.net/~music/comments/feed/" title="Records On Ribs Comments RSS feed" />
+			<link rel="pingback" href="http://albert.gateway.2wire.net/~music/xmlrpc.php" />
+			<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://albert.gateway.2wire.net/~music/xmlrpc.php?rsd" />
+		 <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://albert.gateway.2wire.net/~music/wp-includes/wlwmanifest.xml" /> <script type='text/javascript' src='http://albert.gateway.2wire.net/~music/wp-includes/js/jquery/jquery.js?ver=1.1.4'></script>
 
-      echo "<html>\n";
-      echo "<head><title>Processing Payment...</title></head>\n";
-      echo "<body onLoad=\"document.forms['paypal_form'].submit();\">\n";
-      echo "<center><h2>Please wait, your order is being processed and you";
-      echo " will be redirected to the paypal website.</h2></center>\n";
+		</head>
+		
+		<body <?php  echo "onLoad=\"document.forms['paypal_form'].submit();\"";?> class="wordpress y2008 m01 d14 h13 home loggedin">
+
+		<div id="wrapper" class="hfeed">
+
+			<div id="header">
+				<h1 id="blog-title"><a href="http://albert.gateway.2wire.net/~music/" title="Records On Ribs" rel="home">Records On Ribs</a></h1>
+			</div><!--  #header -->
+		<div id="container">
+			<div id="content">
+				<div id="post-17" class="hentry p1 page publish author-alex category-uncategorized tag- y2007 m07 d19 h23">
+					<h2 class="entry-title">Redirecting to Paypal...</h2>
+					<div class="entry-content"><p>Just popping you over to Paypal, hold on to your hat.</p><p>
+			<?php   
+			
       echo "<form method=\"post\" name=\"paypal_form\" ";
       echo "action=\"".$this->paypal_url."\">\n";
 
       foreach ($this->fields as $name => $value) {
          echo "<input type=\"hidden\" name=\"$name\" value=\"$value\"/>\n";
       }
-      echo "<center><br/><br/>If you are not automatically redirected to ";
-      echo "paypal within 5 seconds...<br/><br/>\n";
-      echo "<input type=\"submit\" value=\"Click Here\"></center>\n";
+      echo "<p>If you are not automatically redirected to ";
+      echo "Paypal within 5 seconds</p>\n";
+      echo "<p><input type=\"submit\" value=\"click here\"></p>\n";
       
       echo "</form>\n";
-      echo "</body></html>\n";
-    
+	?>
+	</p>
+	
+    <?php
+	get_footer();
    }
    
    function validate_ipn() {

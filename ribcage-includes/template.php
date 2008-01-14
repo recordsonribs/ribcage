@@ -32,6 +32,53 @@ function is_artist_page ()
 
 //
 
+function product_name ( $echo = true ) {
+	global $product;
+	
+	if ( $echo )
+		echo wptexturize($product['product_name']);
+	
+	return $product['product_name'];
+}
+
+function product_description ( $echo = true ) {
+	global $product;
+	
+	if ( $echo )
+		echo wptexturize($product['product_description']);
+	
+	return $product['product_description'];
+}
+
+function product_cost_uk ( $echo = true ) {
+	global $product;
+	
+	if ( $echo )
+		echo wptexturize($product['product_cost']);
+	
+	return $product['product_cost'];
+}
+
+function product_cost_ww ( $echo = true ) {
+	global $product;
+	
+	if ( $echo )
+		echo wptexturize($product['product_cost']+1);
+	
+	return $product['product_cost']+1;
+}
+
+function product_id ( $echo = true ) {
+	global $product;
+	
+	if ( $echo )
+		echo $product['product_id'];
+	
+	return $product['product_id'];
+}
+
+//
+
 function release_title ( $echo = true ) {
 	global $release;
 	
@@ -434,5 +481,7 @@ function the_release (){
 	$GLOBALS['tracks'] = $release ['release_tracks'];
 	$GLOBALS['current_release']++;
 }
+
+
 
 ?>

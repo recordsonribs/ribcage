@@ -14,7 +14,7 @@ eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=0,lo
 	<div id="container">
 		<div id="content">
 			<div id="post-17" class="hentry p1 page publish author-alex category-uncategorized tag- y2007 m07 d19 h23">
-				<h2 class="entry-title">Releases</h2>
+				<h2 class="entry-title"><a href="<?php echo get_option('siteurl'); ?>/releases/" title="Releases">Releases</a></h2>
 				<div class="entry-content">
 					<?php while ( have_releases () ) : the_release() ; ?>
 					<?php $artist = get_artist($release['release_artist']); ?>

@@ -23,6 +23,10 @@ eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=0,lo
 					<a href="<?php release_download_link (); ?>">Free Download</a> - <a href="javascript:popUp('<?php release_player_link (); ?>')">Listen Now</a><?php if (release_physical()) : ?> - <a href="<?php get_option('siteurl'); ?>/buy/<?php release_product_id(); ?>">Buy</a><?php endif; ?>
 				</p>
 				<?php release_blurb_long(); ?>
+				<p>		<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+						<img alt="Creative Commons License" style="border-width:0; float:right;margin-left:20px;" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" />
+						</a>This release is licensed under a 
+						<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-Noncommercial-Share Alike 3.0 Unported License</a>. Essentially, this means you can give it to your friends if you like, as long as you aren't charging for it.</p>
 				<p><a href="#" onclick="history.back();" >&larr; Back</a></p>
 			</div><!-- .entry-content-->
 		</div><!-- .post -->
