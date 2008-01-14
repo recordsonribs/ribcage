@@ -43,8 +43,8 @@ $seperator = " - ";
 
 $paypal = new paypal_class;
 
-$paypal->paypal_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
-//$paypal->paypal_url = 'https://www.paypal.com/cgi-bin/webscr';
+//$paypal->paypal_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+$paypal->paypal_url = 'https://www.paypal.com/cgi-bin/webscr';
 
 function ribcage_init (){
 	global $wp_query;

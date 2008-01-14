@@ -7,7 +7,7 @@ function ribcage_donate (){
 	global $artist, $release;
 	
 	//Paypal Sandbox Fake Business
-	$paypal->add_field('business', 'suppor_1200230957_biz@recordsonribs.com');
+	$paypal->add_field('business', 'somethingforjoey@gmail.com');
 
 	$paypal->add_field('charset', 'utf-8');
 
