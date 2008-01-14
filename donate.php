@@ -36,7 +36,7 @@ function ribcage_donate_download_thanks  () {
 function ribcage_donate_ipn () {
 	global $paypal;
 	global $wpdb;
-
+	
 	if ($paypal->validate_ipn()) {   
   		$log = sprintf("
 			INSERT INTO  `%s` (
