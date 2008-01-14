@@ -4,7 +4,7 @@
 		<div id="post-17" class="hentry p1 page publish author-alex category-uncategorized tag- y2007 m07 d19 h23">
 			<h2 class="entry-title">Downloading <a href="<?php get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>"><?php artist_name(); ?></a> - <a href="<?php get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h2>
 				<div class="entry-content">
-					<img src="<?php release_cover_large (); ?>" style="margin-bottom: 20px; border: 1px solid #000;" />
+					<img src="<?php release_cover_tiny (); ?>" style="margin-bottom: 20px; border: 1px solid #000;" />
 					<p>Thanks for your interest in <a href="<?php get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>"><?php artist_name(); ?></a>'s record <a href="<?php get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a>. While all our downloads are available for free under a <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons License</a>,  our artists work extremely hard to get them to you. So if you'd like to donate them some money as thanks then that would be great.</p>
 					<p>
 						<a href="<?php get_option('site_url');?>/download/<?php release_slug();?>/donate">Donate Now</a> - <a href="<?php release_download_link (); ?>/skip">Just Send Me Straight To The Download.</a>
