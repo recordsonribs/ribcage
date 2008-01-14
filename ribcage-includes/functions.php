@@ -14,6 +14,8 @@ $wpdb->ribcage_log_download_tracks = $wpdb->prefix."ribcage_log_download_tracks"
 $wpdb->ribcage_products = $wpdb->prefix."ribcage_products";
 $wpdb->ribcage_orders = $wpdb->prefix."ribcage_orders";
 
+$wpdb->ribcage_donations = $wpdb->prefix."ribcage_donations";
+
 // is_ribcage_page
 // No input.
 // Returns true if we are on a Ribcage page, and false otherwise.

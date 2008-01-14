@@ -36,26 +36,23 @@ function ribcage_donate_download_thanks  () {
 
 function ribcage_donate_ipn () {
 	global $paypal;
-	
-	if ($paypal->validate_ipn()) {        
-		// Payment has been recieved and IPN is verified.  This is where you
-		// update your database to activate or process the order, or setup
-		// the database with the user's order details, email an administrator,
-		// etc.  You can access a slew of information via the ipn_data() array.
-  
-		// Check the paypal documentation for specifics on what information
-		// is available in the IPN POST variables.  Basically, all the POST vars
-		// which paypal sends, which we send back for validation, are now stored
-		// in the ipn_data() array.
-  
-		// For this example, we'll just email ourselves ALL the data.
-		$subject = 'Instant Payment Notification - Recieved Payment';
-		$to = 'alex@recordsonribs.com';    //  your email
-		$body =  "An instant payment notification was successfully recieved\n";
-		$body .= "from ".$paypal->ipn_data['payer_email']." on ".date('m/d/Y');
-		$body .= " at ".date('g:i A')."\n\nDetails:\n";
-		foreach ($paypal->ipn_data as $key => $value) { $body .= "\n$key: $value"; }
-			wp_mail ($to, $subject, $body);
-		}
+	global $wp_query();
+
+	if ($paypal->validate_ipn()) {       
+  		$log = sprintf("
+			INSERT INTO  `%s` (
+			`donate_id` ,
+			`donate_ipn` ,
+			)
+			VALUES (
+			NULL ,  '%s'
+			);
+			",
+			$wpdb->ribcage_donations,
+			serialize($paypal->ipn_data)
+			);
+			
+			$wpdb->query("$log");
+	}
 }
 ?>
