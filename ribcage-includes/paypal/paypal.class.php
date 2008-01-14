@@ -190,9 +190,13 @@ class paypal_class {
       echo "</form>\n";
 	?>
 	</p>
-	
+	</div><!-- .entry-content-->
+</div><!-- .post -->
+</div><!-- #content -->
+</div><!-- #container -->
+</body>
+</html>
     <?php
-	get_footer();
    }
    
    function validate_ipn() {
