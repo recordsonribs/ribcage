@@ -51,6 +51,7 @@ function ribcage_donate_ipn () {
 			serialize($paypal->ipn_data)
 			);
 			
+			echo $log;
 			$wpdb->query("$log");
 	//}
 }
