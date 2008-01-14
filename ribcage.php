@@ -205,10 +205,11 @@ function ribcage_init (){
 		if (isset($wp_query->query_vars['ribcage_buy_mode'])){		
 			switch ($wp_query->query_vars['ribcage_buy_mode']) {			
 				// Send them to Paypal
-				case 'go' :
+				case 'go-ww' :
+				case 'go-uk' :
 					ribcage_buy_process();			
 					break;
-				
+						
 				// They just got back from Paypal and it was a success. Thank them for it.
 				case 'thanks': 
 					$load = ribcage_load_template('thanks.php');
