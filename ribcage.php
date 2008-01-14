@@ -63,6 +63,8 @@ function ribcage_init (){
 	// Add our bits to the page title.
 	add_filter('wp_title', 'ribcage_page_title');
 	
+	wp_enqueue_script('ribcage-player-popup', $src = get_option('siteurl').'/wp-content/plugins/ribcage/js/player.js', $deps = array(), $ver = '0.1' );
+	
 	// Donate IPN from Paypal	
 	if (isset($wp_query->query_vars['ribcage_donate_ipn']))
 		{
@@ -376,6 +378,12 @@ function ribcage_page_title ($title) {
 	}
 	
 	return ($title);
+}
+
+function my_add_js_libs() {
+//Add the jquery framework to the header
+//wp_enqueue_script('jquery'); // default jquery is not up-to-date
+//wp_enqueue_script( $handle, $src = false, $deps = array(), $ver = false );
 }
 
 ?>
