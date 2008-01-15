@@ -55,6 +55,8 @@ function ribcage_init (){
 	global $tracks, $track, $current_track;
 	
 	global $product;
+	
+	wp_enqueue_script('ribcage-player-popup', $src = get_option('siteurl').'/wp-content/plugins/ribcage/js/player.js', $deps = array(), $ver = '0.1' );
 
 	if ( is_ribcage_page () == 0){
 		return;
@@ -62,8 +64,6 @@ function ribcage_init (){
 	
 	// Add our bits to the page title.
 	add_filter('wp_title', 'ribcage_page_title');
-	
-	wp_enqueue_script('ribcage-player-popup', $src = get_option('siteurl').'/wp-content/plugins/ribcage/js/player.js', $deps = array(), $ver = '0.1' );
 	
 	// Donate IPN from Paypal	
 	if (isset($wp_query->query_vars['ribcage_donate_ipn']))
