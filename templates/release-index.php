@@ -10,7 +10,7 @@ global $releases, $release, $artist;
 					<?php while ( have_releases () ) : the_release() ; ?>
 					<?php $artist = get_artist($release['release_artist']); ?>
 					<div class="ribcage-release">
-					<a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><img src="<?php release_cover_tiny ();?>" align="right" style="margin-left: 20px; border: 1px solid #000;" /></a>
+					<a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><img src="<?php release_cover_tiny ();?>" align="right" style="margin-left: 20px; border: 1px solid #000;" alt="<?php release_title(); ?>"/></a>
 					<h3><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a> - <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h3>
 					<p><?php release_blurb_short(); ?></p>
 					<p><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>">More Information</a> - <a href="javascript:popUp('<?php release_player_link (); ?>')">Listen Now</a> - <a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/">Free Download</a><?php if (release_physical()) : ?> - <a href="<?php get_option('siteurl'); ?>/buy/<?php release_product_id(); ?>">Buy</a><?php endif; ?></p>
