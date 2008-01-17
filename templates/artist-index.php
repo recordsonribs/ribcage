@@ -7,7 +7,7 @@
 <?php while ( have_artists () ) : the_artist(); ?>
 		<div class="ribcage-artist">
 		<a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>" title="<?php artist_name(); ?>"><img src="<?php artist_thumb ();?>" style="float: right; margin-left: 20px; border: 1px solid #000;" alt="<?php artist_name() ?>"/></a>
-		<a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>" title="<?php artist_name(); ?>"><h3><?php artist_name(); ?></h3></a>
+		<h3><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>" title="<?php artist_name(); ?>"><?php artist_name(); ?></a></h3>
 		<p><?php artist_blurb_tiny(); ?></p>
 		</div>
 <?php endwhile; ?>

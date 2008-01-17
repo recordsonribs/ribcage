@@ -3,7 +3,7 @@
 		<div id="content">
 	 
 	<h2><a href="<?php get_option('siteurl'); ?>/artists/">Artists</a></h2>
-	<a href="<?php get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>"><h1><?php artist_name(); ?></h1></a>
+	<h1><a href="<?php get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>"><?php artist_name(); ?></a></h1>
 	<?php if (is_artist_page()) : ?>
 	<?php else : ?>
 		<p><?php artist_bio(); ?></p>
