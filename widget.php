@@ -1,6 +1,5 @@
 <?php
 function load_ribcage_widgets () {
-	
 
 function widget_ribcage_recent ($args) {
 	global $releases, $release, $artist;
@@ -30,6 +29,24 @@ function widget_ribcage_recent ($args) {
 
 register_sidebar_widget('Recent Releases', 'widget_ribcage_recent');
 //register_sidebar_widget_control('Recent Releases', 'widget_ribcage_recent_control');
+
+
+function widget_ribcage_forthcoming ($args) {
+	global $releases, $release, $artist; // Probably
+	
+    extract($args);	
+
+	?>
+	        <?php echo $before_widget; ?>
+	            <?php echo $before_title.'Forthcoming Releases'.$after_title; ?>
+
+			<?php echo $after_widget; ?>
+	<?php
+}
+
+register_sidebar_widget('Forthcoming Releases', 'widget_ribcage_forthcoming');
+//register_sidebar_widget_control('Forthcoming Releases', 'widget_ribcage_recent_forthcoming');
+
 }
 
 add_action('plugins_loaded','load_ribcage_widgets');
