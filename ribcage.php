@@ -327,7 +327,7 @@ function ribcage_queryvars ( $qvars ){
 add_filter('query_vars', 'ribcage_queryvars' );
 
 //add_action('init','ribcage_flush_rules');
-register_activation_hook( __FILE__, 'ribcage_flush_rules' );
+//register_activation_hook( __FILE__, 'ribcage_flush_rules' ); //in ribcage_activate()
 
 
 function ribcage_flush_rules (){
@@ -378,6 +378,33 @@ function ribcage_page_title ($title) {
 	}
 	
 	return ($title);
+}
+
+register_activation_hook(__FILE__, 'ribcage_activate');
+
+function ribcage_activate(){
+	global $wpdb, $table_prefix;
+	$version = get_option("ribcage_db_version");
+	if($version != 1){
+	// upgrade function changed in WordPress 2.3	
+	if (version_compare($wp_version, '2.3-beta', '>='))		
+		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+	else
+		require_once(ABSPATH . 'wp-admin/upgrade-functions.php');
+		
+		require_once dirname(__FILE__) . '/ribcage-includes/install.php';
+		dbDelta($ribcage_schema);
+		update_option('ribcage_db_version',1);
+	}
+	ribcage_flush_rules();
+}
+
+
+register_deactivation_hook(__FILE__, "ribcage_deactivate");
+
+function ribcage_deactivate(){
+	global $wpdb;
+//	delete_option("ribcage_db_version");
 }
 
 ?>
