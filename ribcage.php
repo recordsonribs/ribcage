@@ -380,10 +380,4 @@ function ribcage_page_title ($title) {
 	return ($title);
 }
 
-function my_add_js_libs() {
-//Add the jquery framework to the header
-//wp_enqueue_script('jquery'); // default jquery is not up-to-date
-//wp_enqueue_script( $handle, $src = false, $deps = array(), $ver = false );
-}
-
 ?>
