@@ -327,8 +327,6 @@ function ribcage_queryvars ( $qvars ){
 add_filter('query_vars', 'ribcage_queryvars' );
 
 //add_action('init','ribcage_flush_rules');
-//register_activation_hook( __FILE__, 'ribcage_flush_rules' ); //in ribcage_activate()
-
 
 function ribcage_flush_rules (){
 	// Flush the rewrite rules so that the new rules from this plugin get added, 
