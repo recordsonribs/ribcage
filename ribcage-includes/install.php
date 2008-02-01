@@ -1,26 +1,14 @@
-<?php 		/*	database schema and constants for Ribcage	*/
-
+<?php 		
+// Set up the Ribcage database.
 
 $charset = "utf8";
 $collate = "utf8_unicode_ci";
 
-$ribcage_table = array(
-	"artists"	=>	$table_prefix."ribcage_artists",
-	"donations"	=>	$table_prefix."ribcage_donations",
-	"drelease"	=>	$table_prefix."ribcage_log_download_releases",
-	"dtracks"	=>	$table_prefix."ribcage_log_download_tracks",
-	"logstream"	=>	$table_prefix."ribcage_log_stream",
-	"orders"	=>	$table_prefix."ribcage_orders",
-	"products"	=>	$table_prefix."ribcage_products",
-	"releases"	=>	$table_prefix."ribcage_releases",
-	"reviews"	=>	$table_prefix."ribcage_reviews",
-	"tracks"	=>	$table_prefix."ribcage_tracks"
-	);
+// Ribcage database schema
 
-// ribcage database schema
 $ribcage_schema = "
 
-CREATE TABLE ".$ribcage_table['artists']." (
+CREATE TABLE ".$wpdb->ribcage_artists." (
   `artist_id` bigint(20) NOT NULL auto_increment COMMENT 'Unique artist ID.',
   `artist_name` text collate ".$collate." NOT NULL COMMENT 'The artist''s name.',
   `artist_name_sort` text collate ".$collate." NOT NULL COMMENT 'The name the artist is sorted by eg Butterfly, The.',
@@ -45,13 +33,13 @@ CREATE TABLE ".$ribcage_table['artists']." (
 ) ENGINE=MyISAM  DEFAULT CHARSET=".$charset." COLLATE=".$collate." ;
 
 
-CREATE TABLE ".$ribcage_table['donations']." (
+CREATE TABLE ".$wpdb->ribcage_donations." (
   `donate_id` bigint(20) NOT NULL auto_increment,
   `donate_ipn` mediumtext collate ".$collate." NOT NULL,
   PRIMARY KEY  (`donate_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=".$charset." COLLATE=".$collate." ;
 
-CREATE TABLE ".$ribcage_table['drelease']." (
+CREATE TABLE ".$wpdb->ribcage_log_download_releases." (
   `download_id` bigint(20) NOT NULL auto_increment,
   `download_release_id` bigint(20) NOT NULL,
   `download_time` datetime NOT NULL,
@@ -61,7 +49,7 @@ CREATE TABLE ".$ribcage_table['drelease']." (
   PRIMARY KEY  (`download_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=".$charset." COLLATE=".$collate." ;
 
-CREATE TABLE ".$ribcage_table['dtracks']." (
+CREATE TABLE ".$wpdb->ribcage_log_download_tracks." (
   `download_id` bigint(20) NOT NULL auto_increment,
   `download_track_id` bigint(20) NOT NULL,
   `download_time` datetime NOT NULL,
@@ -71,7 +59,7 @@ CREATE TABLE ".$ribcage_table['dtracks']." (
   PRIMARY KEY  (`download_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=".$charset." COLLATE=".$collate." ;
 
-CREATE TABLE ".$ribcage_table['logstream']." (
+CREATE TABLE ".$wpdb->ribcage_log_stream." (
   `stream_id` bigint(20) NOT NULL auto_increment,
   `stream_track_id` bigint(20) NOT NULL,
   `stream_time` datetime NOT NULL,
@@ -82,7 +70,7 @@ CREATE TABLE ".$ribcage_table['logstream']." (
   PRIMARY KEY  (`stream_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=".$charset." COLLATE=".$collate." ;
 
-CREATE TABLE ".$ribcage_table['orders']." (
+CREATE TABLE ".$wpdb->ribcage_orders." (
   `order_id` bigint(20) NOT NULL auto_increment COMMENT 'ID of the order for tracking purposes',
   `order_product` bigint(20) NOT NULL COMMENT 'Product ID of the order',
   `order_paid` tinyint(1) NOT NULL default '0' COMMENT 'Has this been paid for?',
@@ -90,7 +78,7 @@ CREATE TABLE ".$ribcage_table['orders']." (
   PRIMARY KEY  (`order_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=".$charset." COLLATE=".$collate." COMMENT='Ribcage database to handle incoming orders from the shop.' ;
 
-CREATE TABLE ".$ribcage_table['products']." (
+CREATE TABLE ".$wpdb->ribcage_products." (
   `product_id` bigint(20) NOT NULL auto_increment COMMENT 'ID of the actual product',
   `product_related_release` bigint(20) NOT NULL COMMENT 'Release that this product is related to, if neccesary.',
   `product_name` tinytext collate ".$collate." NOT NULL COMMENT 'Name of the product',
@@ -99,7 +87,7 @@ CREATE TABLE ".$ribcage_table['products']." (
   PRIMARY KEY  (`product_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=".$charset." COLLATE=".$collate." ;
 
-CREATE TABLE ".$ribcage_table['releases']." (
+CREATE TABLE ".$wpdb->ribcage_releases." (
   `release_id` bigint(20) NOT NULL auto_increment COMMENT 'A unique ID for the release.',
   `release_artist` bigint(20) NOT NULL COMMENT 'The artist ID related to the release - this is then looked up in the artists database.',
   `release_date` date NOT NULL COMMENT 'The release date.',
@@ -124,7 +112,7 @@ CREATE TABLE ".$ribcage_table['releases']." (
   PRIMARY KEY  (`release_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=".$charset." COLLATE=".$collate." ;
 
-CREATE TABLE ".$ribcage_table['reviews']." (
+CREATE TABLE ".$wpdb->ribcage_reviews." (
   `review_id` bigint(20) NOT NULL auto_increment,
   `review_release_id` bigint(20) NOT NULL,
   `review_text` text collate ".$collate." NOT NULL,
@@ -134,7 +122,7 @@ CREATE TABLE ".$ribcage_table['reviews']." (
   PRIMARY KEY  (`review_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=".$charset." COLLATE=".$collate." ;
 
-CREATE TABLE ".$ribcage_table['tracks']." (
+CREATE TABLE ".$wpdb->ribcage_tracks." (
   `track_id` bigint(20) NOT NULL auto_increment COMMENT 'Unique track ID.',
   `track_release_id` bigint(20) NOT NULL COMMENT 'The release the track is attached to.',
   `track_mbid` tinytext collate ".$collate." NOT NULL COMMENT 'Track''s Musicbrainz ID.',
