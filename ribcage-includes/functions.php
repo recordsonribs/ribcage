@@ -16,6 +16,19 @@ $wpdb->ribcage_orders = $wpdb->prefix."ribcage_orders";
 
 $wpdb->ribcage_donations = $wpdb->prefix."ribcage_donations";
 
+function ribcage_release_feeds($output, $feed){
+	
+	if (!$feed && false != strpos($output, '/comments/')) {
+	    $feed = 'comments_rss2';
+	} elseif (!$feed) {
+		$feed = 'rss2';
+	}
+
+	$output = get_option('siteurl').'/releases/feed';
+	
+	return $output;
+}
+
 // is_ribcage_page
 // No input.
 // Returns true if we are on a Ribcage page, and false otherwise.

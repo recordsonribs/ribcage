@@ -111,10 +111,14 @@ function ribcage_init (){
 		$releases = list_recent_releases_blurb();
 		$artists = list_artists_blurb();
 		
-		if (isset($wp_query->query_vars['release_feed']))
+		if (isset($wp_query->query_vars['release_feed'])){
 			$load = ribcage_load_template ('feeds/release-rss2.php');
-		else
+		}
+		else {
+			add_filter('feed_link', 'ribcage_release_feeds', 10, 2);
 			$load = ribcage_load_template ('release-index.php');
+		}
+			
 	}
 	
 	// Downloads
