@@ -107,11 +107,14 @@ function ribcage_init (){
 	}
 		
 	// Releases Index
-	if (isset($wp_query->query_vars['release_index'])) {
+	if (isset($wp_query->query_vars['release_index']) or isset($wp_query->query_vars['release_feed'])) {
 		$releases = list_recent_releases_blurb();
 		$artists = list_artists_blurb();
 		
-		$load = ribcage_load_template ('release-index.php');
+		if (isset($wp_query->query_vars['release_feed']))
+			$load = ribcage_load_template ('feeds/release-rss2.php');
+		else
+			$load = ribcage_load_template ('release-index.php');
 	}
 	
 	// Downloads
@@ -267,6 +270,7 @@ function ribcage_add_rewrite_rules ( $wp_rewrite ) {
 		"(artists)/(.*)" => 'index.php?artist_slug=' . $wp_rewrite->preg_index(2),
 		"(artists)" => 'index.php?artist_index=1',
 		
+		"(releases)/(feed)" => 'index.php?release_feed=1',
 		"(releases)" => 'index.php?release_index=1',
 			
 		"(download)/(track)/(.*)/(.*)" => 'index.php?ribcage_download=1&track_slug='.$wp_rewrite->preg_index(3).'&format='.$wp_rewrite->preg_index(4),
@@ -301,6 +305,7 @@ function ribcage_queryvars ( $qvars ){
 	
 	// Release Listings
 	$qvars[] = 'release_index';
+	$qvars[] = 'release_feed';
 	
 	// Downloads
 	$qvars[] = 'ribcage_download';
