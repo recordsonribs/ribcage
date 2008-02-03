@@ -6,7 +6,6 @@ function ribcage_donate (){
 	global $paypal;
 	global $artist, $release;
 	
-	//Paypal Sandbox Fake Business
 	$paypal->add_field('business', 'alex@recordsonribs.com');
 
 	$paypal->add_field('charset', 'utf-8');
@@ -37,7 +36,8 @@ function ribcage_donate_ipn () {
 	global $paypal;
 	global $wpdb;
 	
-	if ($paypal->validate_ipn()) {   
+	if ($paypal->validate_ipn()) {
+		// Add the person's donation to the database.
   		$log = sprintf("
 			INSERT INTO  `%s` (
 			`donate_id` ,
@@ -52,6 +52,10 @@ function ribcage_donate_ipn () {
 			);
 
 			$wpdb->query("$log");
+		
+		// Send an e-mail to the administrator of the site, telling them they have recieved a donation.
+		
+		// Send an e-mail thanking the person for their donation.
 	}
 }
 ?>

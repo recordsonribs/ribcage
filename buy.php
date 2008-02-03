@@ -17,9 +17,7 @@ function ribcage_buy_process ()
 		$amount = $product['product_cost'];
 		$postage = 'UK';
 	}
-		
-	
-	//Paypal Sandbox Fake Business
+
 	$paypal->add_field('business', 'alex@recordsonribs.com');
 	
 	$paypal->add_field('charset', 'utf-8');
@@ -44,19 +42,16 @@ function ribcage_buy_process ()
 
 function ribcage_buy_ipn () {
 	global $paypal;
+	global $wpdb;
 
 	if ($paypal->validate_ipn()) {        
-		// Payment has been recieved and IPN is verified.  This is where you
-		// update your database to activate or process the order, or setup
-		// the database with the user's order details, email an administrator,
-		// etc.  You can access a slew of information via the ipn_data() array.
-  
-		// Check the paypal documentation for specifics on what information
-		// is available in the IPN POST variables.  Basically, all the POST vars
-		// which paypal sends, which we send back for validation, are now stored
-		// in the ipn_data() array.
-  
-		// For this example, we'll just email ourselves ALL the data.
+		
+		// Add order to the database.
+		
+		// Send e-mail to the administrator informing them of the new order.
+		
+		// Send e-mail to the customer thanking them for their order.
+		
 		$subject = 'Instant Payment Notification - Recieved Payment';
 		$to = 'alex@recordsonribs.com';    //  your email
 		$body =  "An instant payment notification was successfully recieved\n";
