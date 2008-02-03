@@ -17,6 +17,18 @@ $review = null;
 
 $product = null;
 
+function ribcage_load_template ( $filename ) {
+	$template = ABSPATH . TEMPLATEPATH ."/ribcage/$filename";
+	
+	if ( !file_exists($template) )
+		$template = ABSPATH . PLUGINDIR ."/ribcage/templates/$filename";
+	
+	if ( !file_exists($template) )
+		return new WP_Error('template-missing', sprintf(__("Oops! The template file %s could not be found in either the Ribcage template directory or your theme's Ribcage directory.", NRTD), "<code>$filename</code>"));
+	
+	load_template($template);
+}
+
 function is_artist_page ()
 {
 	global $wp_query;

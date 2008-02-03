@@ -249,20 +249,6 @@ function ribcage_init (){
 	die ();
 }
 
-function ribcage_load_template ( $filename ) {
-	// Dangerous stuff ...sort this out...
-	// $filename = basename($filename);
-	$template = TEMPLATEPATH ."/ribcage/$filename";
-	
-	if ( !file_exists($template) )
-		$template = dirname(__FILE__)."/templates/$filename";
-	
-	if ( !file_exists($template) )
-		return new WP_Error('template-missing', sprintf(__("Oops! The template file %s could not be found in either the Ribcage template directory or your theme's Ribcage directory.", NRTD), "<code>$filename</code>"));
-	
-	load_template($template);
-}
-
 // If the rewrite rules are regenerated, Add our pretty permalink stuff, redirect it to the correct queryvar
 function ribcage_add_rewrite_rules ( $wp_rewrite ) {
 	$new_rules = array(
