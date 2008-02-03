@@ -16,8 +16,10 @@ $wpdb->ribcage_orders = $wpdb->prefix."ribcage_orders";
 
 $wpdb->ribcage_donations = $wpdb->prefix."ribcage_donations";
 
+// Props to Author: Glenn Slaven (http://blog.slaven.net.au/) for inspiration for this little bit.
 function ribcage_release_feeds($output, $feed){
 	
+	// For different feed types. At the moment just RSS2
 	if (!$feed && false != strpos($output, '/comments/')) {
 	    $feed = 'comments_rss2';
 	} elseif (!$feed) {
