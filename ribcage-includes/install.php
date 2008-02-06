@@ -1,8 +1,20 @@
 <?php 		
 // Set up the Ribcage database.
 
-$charset = "utf8";
-$collate = "utf8_unicode_ci";
+if (!empty($wpdb->charset)) { 
+	$charset = "$wpdb->charset";
+}
+else {
+	$charset = "utf8";
+}
+
+if (!empty($wpdb->collate)) {	
+	$collate = "$wpdb->collate";
+}
+else {
+	$collate = "utf8_unicode_ci";
+}
+
 
 // Ribcage database schema
 
