@@ -47,11 +47,9 @@ class ribcage_widgets {
 		global $releases, $release, $artist; // Probably
 	
 	    extract($args);	
-
 		?>
 		        <?php echo $before_widget; ?>
 		            <?php echo $before_title.'Forthcoming Releases'.$after_title; ?>
-
 				<?php echo $after_widget; ?>
 		<?php
 	}
