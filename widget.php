@@ -1,5 +1,13 @@
 <?php
+
 function load_ribcage_widgets () {
+	register_sidebar_widget('Forthcoming Releases', 'widget_ribcage_forthcoming');
+	//register_sidebar_widget_control('Forthcoming Releases', 'widget_ribcage_recent_forthcoming');
+	
+	register_sidebar_widget('Recent Releases', 'widget_ribcage_recent');
+	//register_sidebar_widget_control('Recent Releases', 'widget_ribcage_recent_control');
+}
+add_action('plugins_loaded','load_ribcage_widgets');
 
 function widget_ribcage_recent ($args) {
 	global $releases, $release, $artist;
@@ -27,10 +35,6 @@ function widget_ribcage_recent ($args) {
 <?php
 }
 
-register_sidebar_widget('Recent Releases', 'widget_ribcage_recent');
-//register_sidebar_widget_control('Recent Releases', 'widget_ribcage_recent_control');
-
-
 function widget_ribcage_forthcoming ($args) {
 	global $releases, $release, $artist; // Probably
 	
@@ -44,10 +48,4 @@ function widget_ribcage_forthcoming ($args) {
 	<?php
 }
 
-register_sidebar_widget('Forthcoming Releases', 'widget_ribcage_forthcoming');
-//register_sidebar_widget_control('Forthcoming Releases', 'widget_ribcage_recent_forthcoming');
-
-}
-
-add_action('plugins_loaded','load_ribcage_widgets');
 ?>
