@@ -66,10 +66,9 @@ function ribcage_init (){
 	add_filter('wp_title', 'ribcage_page_title');
 	
 	// Donate IPN from Paypal	
-	if (isset($wp_query->query_vars['ribcage_donate_ipn']))
-		{
+	if (isset($wp_query->query_vars['ribcage_donate_ipn'])) {
 			ribcage_donate_ipn();
-		}
+	}
 	
 	// Artist Index
 	if (isset($wp_query->query_vars['artist_index'])) {
