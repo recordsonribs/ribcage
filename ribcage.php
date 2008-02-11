@@ -284,7 +284,9 @@ function ribcage_add_rewrite_rules ( $wp_rewrite ) {
 }
 add_action('generate_rewrite_rules', 'ribcage_add_rewrite_rules');
 
-function ribcage_queryvars ( $qvars ){
+function ribcage_queryvars (){
+	
+	$qvars = array();
 	
 	// Artist Listings
 	$qvars[] = 'artist_index';
