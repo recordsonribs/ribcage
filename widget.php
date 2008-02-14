@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Ribcage Widgets
  *
@@ -7,23 +8,31 @@
  * @package Ribcage
  * @author Alex Andrews
  **/
-class ribcage_widgets {
-	
+class ribcage_widgets {	
+	/**
+	 * Registers Ribcage sidebar widgets and their controls.
+	 *
+	 * @author Alex Andrews
+	 */
 	function init () {
-		register_sidebar_widget('Forthcoming Releases', array('ribcage_widgets','widget_ribcage_forthcoming'));
-		register_sidebar_widget('Recent Releases', array('ribcage_widgets','widget_ribcage_recent'));
+		register_sidebar_widget('Forthcoming Releases', array('ribcage_widgets','forthcoming_releases'));
+		register_sidebar_widget('Recent Releases', array('ribcage_widgets','recent_releases'));
 		
 		//register_sidebar_widget_control('Recent Releases', array('ribcage_widgets', 'widget_ribcage_recent_control'));
 		//register_sidebar_widget_control('Forthcoming Releases', array('ribcage_widgets', 'widget_ribcage_recent_forthcoming'));
 	}
-
-	function widget_ribcage_recent ($args) {
+	
+	/**
+	 * Adds a widget for recent releases, the quantity of which is defined by an option.
+	 *
+	 * @author Alexander Andrews
+	 **/
+	function recent_releases ($args) {
 		global $releases, $release, $artist;
 	
 	    extract($args);
 		$releases = list_recent_releases_blurb('5');
 		$artists = list_artists_blurb();	
-	
 	?>
 	        <?php echo $before_widget; ?>
 	            <?php echo $before_title.'Recent Releases'.$after_title; ?>
@@ -42,8 +51,13 @@ class ribcage_widgets {
 	        <?php echo $after_widget; ?>
 	<?php
 	}
-
-	function widget_ribcage_forthcoming ($args) {
+	
+	/**
+	 * Adds a widget for forthcoming releases. The quantity of which are defined by an option.
+	 *
+	 * @author Alexander Andrews
+	 */
+	function forthcoming_releases ($args) {
 		global $releases, $release, $artist; // Probably
 	
 	    extract($args);	
@@ -56,5 +70,4 @@ class ribcage_widgets {
 }
 
 add_action('plugins_loaded',array('ribcage_widgets','init'));
-
 ?>
