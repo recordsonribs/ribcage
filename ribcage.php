@@ -290,9 +290,7 @@ function ribcage_add_rewrite_rules ( $wp_rewrite ) {
 }
 add_action('generate_rewrite_rules', 'ribcage_add_rewrite_rules');
 
-function ribcage_queryvars (){
-	
-	$qvars = array();
+function ribcage_queryvars ($qvars){ 
 	
 	// Artist Listings
 	$qvars[] = 'artist_index';
@@ -323,7 +321,7 @@ function ribcage_queryvars (){
 	$qvars[] = 'ribcage_buy_mode';
 	
 	$qvars[] = 'ribcage_donate_ipn';
-
+	
 	return $qvars;
 }
 add_filter('query_vars', 'ribcage_queryvars' );

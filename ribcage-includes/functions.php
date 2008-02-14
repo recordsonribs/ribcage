@@ -43,7 +43,7 @@ function ribcage_release_feeds($output, $feed){
 function is_ribcage_page() {
 	global $wp_query;
 	
-	$qvars = ribcage_queryvars();
+	$qvars = ribcage_queryvars(array());
 	
 	foreach ($qvars as $qvar) {
 		if (isset($wp_query->query_vars["$qvar"])) {
