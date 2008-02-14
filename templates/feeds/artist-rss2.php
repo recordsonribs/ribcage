@@ -14,16 +14,15 @@ $more = 1;
 	<?php do_action('rss2_ns'); ?>
 >
 <channel>
-	<title><?php bloginfo_rss('name'); ?> - Releases</title>
-	<link><?php bloginfo_rss('url') ?>/releases/</link>
-	<description>Records On Ribs Release Feed</description>
+	<title><?php bloginfo_rss('name'); ?> - <?php artist_name(); ?> - Releases</title>
+	<link><?php bloginfo_rss('url') ?>/<?php artist_slug(); ?>/</link>
+	<description><?php bloginfo_rss('name'); ?> Release Feed for <?php artist_name(); ?></description>
 	<pubDate><?php echo mysql2date('D, d M Y H:i:s +0000', $releases[0]['release_date'], false); ?></pubDate>
 	<generator>http://wordpress.org/?v=<?php bloginfo_rss('version'); ?></generator>
 	<language><?php echo get_option('rss_language'); ?></language>
 	<?php while ( have_releases () ) : the_release() ; ?>
-	<?php $artist = get_artist($release['release_artist']); ?>
 	<item>
-		<title><?php artist_name(); ?> - <?php release_title(); ?></title>
+		<title><?php release_title(); ?></title>
 		<link><?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>/</link>
 		<pubDate><?php echo mysql2date('D, d M Y H:i:s +0000', $release['release_date'], false); ?></pubDate>
 		<dc:creator>Records On Ribs</dc:creator>

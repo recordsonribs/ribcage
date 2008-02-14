@@ -18,6 +18,7 @@ $wpdb->ribcage_donations = $wpdb->prefix."ribcage_donations";
 
 // Props to Author: Glenn Slaven (http://blog.slaven.net.au/) for inspiration for this little bit.
 function ribcage_release_feeds($output, $feed){
+	global $wp_query;
 	
 	// For different feed types. At the moment just RSS2
 	if (!$feed && false != strpos($output, '/comments/')) {
@@ -25,8 +26,13 @@ function ribcage_release_feeds($output, $feed){
 	} elseif (!$feed) {
 		$feed = 'rss2';
 	}
-
-	$output = get_option('siteurl').'/releases/feed';
+	
+	if (isset($wp_query->query_vars['artist_slug']) && !is_artist_page()){
+		$output = get_option('siteurl').'/artists/'.artist_slug().'/feed';
+	}
+	else {		
+		$output = get_option('siteurl').'/releases/feed';
+	}
 	
 	return $output;
 }
@@ -37,7 +43,7 @@ function ribcage_release_feeds($output, $feed){
 function is_ribcage_page() {
 	global $wp_query;
 	
-	$qvars = ribcage_queryvars();
+	$qvars = ribcage_queryvars(F);
 	
 	foreach ($qvars as $qvar) {
 		if (isset($wp_query->query_vars["$qvar"])) {
@@ -86,7 +92,6 @@ function list_artists_blurb (){
 // list_artist_releases
 // Input the artist id.
 // Returns an associative array of their releases.
-// TODO: This is perhaps inefficent way to do this since it calls SQL twice (once for releases list, then again for each release)
 function list_artist_releases ($artist_id){
 	global $wpdb;
 	$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_artist = $artist_id", ARRAY_A);
@@ -103,7 +108,6 @@ function list_artist_releases ($artist_id){
 // get_*
 // -------
 // The following functions fetch various things from the database.
-// TODO Add a lovely $noextras thing to each get function so it doesn't append the reviews if we don't want it to.
 // or maybe just don't bother appending fullstop?? We'll see.
 // TODO Errors, bailing out if we can't find the artist, track, etc.
 
@@ -141,7 +145,7 @@ function get_release ($release_id, $tracks = TRUE, $reviews = TRUE){
 // get_release_by_slug
 // Input the release slug and noextras if you don't want the tracks or reviews appended.
 // Returns release as associative array.
-function get_release_by_slug ($release_slug, $tracks, $reviews){
+function get_release_by_slug ($release_slug, $tracks = TRUE, $reviews = TRUE){
 	global $wpdb;
 	$return = $wpdb->get_row("SELECT * FROM $wpdb->ribcage_releases WHERE release_slug = '$release_slug'", ARRAY_A);
 	

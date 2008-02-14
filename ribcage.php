@@ -93,13 +93,19 @@ function ribcage_init (){
 					$load  = ribcage_load_template('bio.php');
 					break;
 					
+				case 'feed':		
+					$releases = list_artist_releases ($artist['artist_id']);
+					$load = ribcage_load_template ('feeds/artist-rss2.php');
+					break;
+					
 				default :
-					$release = get_release_by_slug ($wp_query->query_vars['artist_page'], TRUE, TRUE);
+					$release = get_release_by_slug ($wp_query->query_vars['artist_page']);
 					$tracks = $release ['release_tracks'];
 					$load = ribcage_load_template ('release.php');				
 			}
 		}
 		else {
+			add_filter('feed_link', 'ribcage_release_feeds', 10, 2);
 			$releases = list_artist_releases ($artist['artist_id']);
 			$load = ribcage_load_template ('artist.php');
 		}
@@ -373,11 +379,11 @@ function ribcage_page_title ($title) {
 	
 	return ($title);
 }
-
 register_activation_hook(__FILE__, 'ribcage_activate');
 
 function ribcage_activate(){
 	global $wpdb, $table_prefix;
+	
 	$version = get_option("ribcage_db_version");
 	if($version != 1){
 	// upgrade function changed in WordPress 2.3	
@@ -392,8 +398,6 @@ function ribcage_activate(){
 	}
 	ribcage_flush_rules();
 }
-
-
 register_deactivation_hook(__FILE__, "ribcage_deactivate");
 
 function ribcage_deactivate(){

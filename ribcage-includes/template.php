@@ -34,11 +34,11 @@ function is_artist_page ()
 	global $wp_query;
 	
 	if (isset($wp_query->query_vars['artist_page'])){
-		return (TRUE);
+		return TRUE;
 	}
 	
 	else {
-		return (FALSE);
+		return FALSE;
 	}
 }
 
