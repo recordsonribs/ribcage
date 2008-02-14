@@ -28,7 +28,7 @@ function ribcage_release_feeds($output, $feed){
 	}
 	
 	if (isset($wp_query->query_vars['artist_slug']) && !is_artist_page()){
-		$output = get_option('siteurl').'/artists/'.artist_slug().'/feed';
+		$output = get_option('siteurl').'/artists/'.artist_slug(FALSE).'/feed';
 	}
 	else {		
 		$output = get_option('siteurl').'/releases/feed';
