@@ -57,7 +57,10 @@ function ribcage_init (){
 	global $product;
 	
 	wp_enqueue_script('ribcage-player-popup', $src = get_option('siteurl').'/wp-content/plugins/ribcage/js/player.js', $deps = array(), $ver = '0.1' );
-
+	
+	// Add our streams.
+	add_filter('wp_head', 'ribcage_release_feeds');
+	
 	if ( is_ribcage_page () == 0){
 		return;
 	}
@@ -82,6 +85,7 @@ function ribcage_init (){
 	if (isset($wp_query->query_vars['artist_slug'])) {
 		$artist = get_artist_by_slug ($wp_query->query_vars['artist_slug']);
 		
+		
 		if (is_artist_page()){
 			switch ($wp_query->query_vars['artist_page']) {
 				case 'press':
@@ -105,7 +109,6 @@ function ribcage_init (){
 			}
 		}
 		else {
-			add_filter('wp_head', 'ribcage_release_feeds');
 			$releases = list_artist_releases ($artist['artist_id']);
 			$load = ribcage_load_template ('artist.php');
 		}

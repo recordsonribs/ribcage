@@ -19,15 +19,14 @@ $wpdb->ribcage_donations = $wpdb->prefix."ribcage_donations";
 function ribcage_release_feeds(){
 	global $wp_query;
 	
+	?>
+	<link rel="alternate" type="application/rss+xml" href="<?php echo get_option('siteurl'); ?>/releases/feed" title="<?php echo get_option('blogname'); ?> Releases RSS feed" />
+	<?php
+	
 	if (isset($wp_query->query_vars['artist_slug'])){
 		?>
-		<link rel="alternate" type="application/rss+xml" href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/feed" title="<?php echo get_option('blogname'); ?> <?php artist_name(); ?> Release RSS feed" />
-		<?php	
-	}
-	else {
-		?>
 		<link rel="alternate" type="application/rss+xml" href="<?php echo get_option('siteurl'); ?>/releases/feed" title="<?php echo get_option('blogname'); ?> Releases RSS feed" />
-		<?php
+		<?php	
 	}
 }
 
