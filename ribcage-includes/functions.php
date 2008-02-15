@@ -16,25 +16,19 @@ $wpdb->ribcage_orders = $wpdb->prefix."ribcage_orders";
 
 $wpdb->ribcage_donations = $wpdb->prefix."ribcage_donations";
 
-// Props to Author: Glenn Slaven (http://blog.slaven.net.au/) for inspiration for this little bit.
-function ribcage_release_feeds($output, $feed){
+function ribcage_release_feeds(){
 	global $wp_query;
 	
-	// For different feed types. At the moment just RSS2
-	if (!$feed && false != strpos($output, '/comments/')) {
-	    $feed = 'comments_rss2';
-	} elseif (!$feed) {
-		$feed = 'rss2';
+	if (isset($wp_query->query_vars['artist_slug'])){
+		?>
+		<link rel="alternate" type="application/rss+xml" href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/feed" title="<?php echo get_option('blogname'); ?> <?php artist_name(); ?> Release RSS feed" />
+		<?php	
 	}
-	
-	if (isset($wp_query->query_vars['artist_slug']) && !is_artist_page()){
-		$output = get_option('siteurl').'/artists/'.artist_slug(FALSE).'/feed';
+	else {
+		?>
+		<link rel="alternate" type="application/rss+xml" href="<?php echo get_option('siteurl'); ?>/releases/feed" title="<?php echo get_option('blogname'); ?> Releases RSS feed" />
+		<?php
 	}
-	else {		
-		$output = get_option('siteurl').'/releases/feed';
-	}
-	
-	return $output;
 }
 
 // is_ribcage_page

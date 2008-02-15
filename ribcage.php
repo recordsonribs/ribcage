@@ -105,7 +105,7 @@ function ribcage_init (){
 			}
 		}
 		else {
-			add_filter('feed_link', 'ribcage_release_feeds', 10, 2);
+			add_filter('wp_head', 'ribcage_release_feeds');
 			$releases = list_artist_releases ($artist['artist_id']);
 			$load = ribcage_load_template ('artist.php');
 		}
@@ -120,7 +120,7 @@ function ribcage_init (){
 			$load = ribcage_load_template ('feeds/release-rss2.php');
 		}
 		else {
-			add_filter('feed_link', 'ribcage_release_feeds', 10, 2);
+			add_filter('wp_head', 'ribcage_release_feeds');
 			$load = ribcage_load_template ('release-index.php');
 		}
 			
@@ -290,8 +290,7 @@ function ribcage_add_rewrite_rules ( $wp_rewrite ) {
 }
 add_action('generate_rewrite_rules', 'ribcage_add_rewrite_rules');
 
-function ribcage_queryvars ($qvars){ 
-	
+function ribcage_queryvars ($qvars){ 	
 	// Artist Listings
 	$qvars[] = 'artist_index';
 	$qvars[] = 'artist_slug';
@@ -325,8 +324,6 @@ function ribcage_queryvars ($qvars){
 	return $qvars;
 }
 add_filter('query_vars', 'ribcage_queryvars' );
-
-//add_action('init','ribcage_flush_rules');
 
 function ribcage_flush_rules (){
 	// Flush the rewrite rules so that the new rules from this plugin get added, 
