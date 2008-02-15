@@ -85,7 +85,6 @@ function ribcage_init (){
 	if (isset($wp_query->query_vars['artist_slug'])) {
 		$artist = get_artist_by_slug ($wp_query->query_vars['artist_slug']);
 		
-		
 		if (is_artist_page()){
 			switch ($wp_query->query_vars['artist_page']) {
 				case 'press':
@@ -123,7 +122,6 @@ function ribcage_init (){
 			$load = ribcage_load_template ('feeds/release-rss2.php');
 		}
 		else {
-			add_filter('wp_head', 'ribcage_release_feeds');
 			$load = ribcage_load_template ('release-index.php');
 		}
 			

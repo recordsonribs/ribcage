@@ -25,7 +25,7 @@ function ribcage_release_feeds(){
 	
 	if (isset($wp_query->query_vars['artist_slug'])){
 		?>
-		<link rel="alternate" type="application/rss+xml" href="<?php echo get_option('siteurl'); ?>/releases/feed" title="<?php echo get_option('blogname'); ?> Releases RSS feed" />
+		<link rel="alternate" type="application/rss+xml" href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/feed" title="<?php artist_name(); ?> Releases RSS feed" />
 		<?php	
 	}
 }
