@@ -327,10 +327,8 @@ function ribcage_queryvars ($qvars){
 add_filter('query_vars', 'ribcage_queryvars' );
 
 function ribcage_flush_rules (){
-	// Flush the rewrite rules so that the new rules from this plugin get added, 
-	// This should only be done when the rewrite rules are changing, Ie. When this plugin is activated(Or 
-	// Deactivated), For simplicity while developing using WP Rewrite, I flush the rules on every page load
 	global $wp_rewrite;
+	
 	$wp_rewrite->flush_rules();
 }
 
@@ -382,7 +380,7 @@ function ribcage_activate(){
 	
 	$version = get_option("ribcage_db_version");
 	if($version != 1){
-	// upgrade function changed in WordPress 2.3	
+	// Upgrade function changed in WordPress 2.3	
 	if (version_compare($wp_version, '2.3-beta', '>='))		
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 	else
