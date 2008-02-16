@@ -56,10 +56,10 @@ function list_recent_releases_blurb ( $amount = 0 )
 	$now = gmdate('Y-m-d');
 
 	if ($amount) {
-		$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_date < $now ORDER BY release_id DESC LIMIT $amount ", ARRAY_A);
+		$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_released = 1 ORDER BY release_id DESC LIMIT $amount ", ARRAY_A);
 	}
 	else {
-		$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_date < $now ORDER BY release_id DESC", ARRAY_A);
+		$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_released = 1 ORDER BY release_id DESC", ARRAY_A);
 	}
 	
 	if (isset($releases)) {
