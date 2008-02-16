@@ -88,7 +88,7 @@ function list_artists_blurb (){
 // Returns an associative array of their releases.
 function list_artist_releases ($artist_id){
 	global $wpdb;
-	$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_artist = $artist_id ORDER BY release_id DESC", ARRAY_A);
+	$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_artist = $artist_id AND release_released = 1 ORDER BY release_id DESC", ARRAY_A);
 	
 	if (isset($releases)) {
 		foreach ($releases as $release){
