@@ -53,13 +53,13 @@ function list_recent_releases_blurb ( $amount = 0 )
 {
 	global $wpdb;
 	
-	$now = gmdate('Y-m-d');
+	$now_date = gmdate('Y-m-d');
 
 	if ($amount) {
-		$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_released = 1 ORDER BY release_id DESC LIMIT $amount ", ARRAY_A);
+		$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_date > $now_date ORDER BY release_id DESC LIMIT $amount ", ARRAY_A);
 	}
 	else {
-		$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_released = 1 ORDER BY release_id DESC", ARRAY_A);
+		$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_date > $now_date ORDER BY release_id DESC", ARRAY_A);
 	}
 	
 	if (isset($releases)) {
@@ -121,15 +121,15 @@ function get_product ($product_id) {
 // Input the release id.
 // Returns release as associative array.
 // TODO: Inefficent to get the reviews and the tracks as well - implement the same method as get_release_by_slug
-function get_release ($release_id, $tracks = TRUE, $reviews = TRUE){
+function get_release ($release_id, $tracks = true, $reviews = true){
 	global $wpdb;
 	$return = $wpdb->get_row("SELECT * FROM $wpdb->ribcage_releases WHERE release_id = $release_id", ARRAY_A);
 	
-	if ($tracks == TRUE){
+	if ($tracks == true){
 		$return['release_tracks'] = get_tracks ($return['release_id']);
 	}
 	
-	if ($reviews == TRUE){		
+	if ($reviews == true){		
 		$return['release_reviews'] = get_reviews ($return['release_id']);
 	}
 	
@@ -139,15 +139,16 @@ function get_release ($release_id, $tracks = TRUE, $reviews = TRUE){
 // get_release_by_slug
 // Input the release slug and noextras if you don't want the tracks or reviews appended.
 // Returns release as associative array.
-function get_release_by_slug ($release_slug, $tracks = TRUE, $reviews = TRUE){
+function get_release_by_slug ($release_slug, $tracks = true, $reviews = true){
 	global $wpdb;
+	
 	$return = $wpdb->get_row("SELECT * FROM $wpdb->ribcage_releases WHERE release_slug = '$release_slug'", ARRAY_A);
 	
-	if ($tracks == TRUE){
+	if ($tracks == true){
 		$return['release_tracks'] = get_tracks ($return['release_id']);
 	}
 	
-	if ($reviews == TRUE){		
+	if ($reviews == true){		
 		$return['release_reviews'] = get_reviews ($return['release_id']);
 	}
 	
