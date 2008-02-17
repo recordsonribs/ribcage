@@ -54,20 +54,18 @@ function list_recent_releases_blurb ( $amount = 0 )
 	global $wpdb;
 	
 	$now_date = gmdate('Y-m-d');
-
 	if ($amount) {
-		$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_released = 1 ORDER BY release_id DESC LIMIT $amount ", ARRAY_A);
+		$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_date <= '$now_date' ORDER BY release_id DESC LIMIT $amount ", ARRAY_A);
 	}
 	else {
-		$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_released = 1 ORDER BY release_id DESC", ARRAY_A);
+		$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_date <= '$now_date' ORDER BY release_id DESC", ARRAY_A);
 	}
 	
 	if (isset($releases)) {
 		foreach ($releases as $release){
 			$return[] = get_release($release['release_id']);		
 		}
-	}
-	
+	}	
 	return $return;
 }
 
@@ -75,7 +73,7 @@ function list_recent_releases_blurb ( $amount = 0 )
 // No input. 
 // Returns a list of artists (their name, their blurb_short, their press photo) as an associative array, sorted by alphabetically by their name.
 function list_artists_blurb (){
-	global $wpdb;
+	global $wpdb;	
 	$querystr = "
 	SELECT artist_name, artist_slug, artist_id, artist_name_sort, artist_picture_1, artist_thumb, artist_blurb_short, artist_blurb_tiny FROM $wpdb->ribcage_artists
 	ORDER BY `artist_name_sort`";
@@ -88,7 +86,9 @@ function list_artists_blurb (){
 // Returns an associative array of their releases.
 function list_artist_releases ($artist_id){
 	global $wpdb;
-	$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_artist = $artist_id AND release_released = 1 ORDER BY release_id DESC", ARRAY_A);
+	
+	$now_date = gmdate('Y-m-d');
+	$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_artist = $artist_id AND release_date <= '$now_date' ORDER BY release_id DESC", ARRAY_A);
 	
 	if (isset($releases)) {
 		foreach ($releases as $release){
@@ -123,7 +123,9 @@ function get_product ($product_id) {
 // TODO: Inefficent to get the reviews and the tracks as well - implement the same method as get_release_by_slug
 function get_release ($release_id, $tracks = true, $reviews = true){
 	global $wpdb;
-	$return = $wpdb->get_row("SELECT * FROM $wpdb->ribcage_releases WHERE release_id = $release_id", ARRAY_A);
+	
+	$now_date = gmdate('Y-m-d');	
+	$return = $wpdb->get_row("SELECT * FROM $wpdb->ribcage_releases WHERE release_id = $release_id AND release_date <= '$now_date'", ARRAY_A);
 	
 	if ($tracks == true){
 		$return['release_tracks'] = get_tracks ($return['release_id']);
@@ -142,7 +144,9 @@ function get_release ($release_id, $tracks = true, $reviews = true){
 function get_release_by_slug ($release_slug, $tracks = true, $reviews = true){
 	global $wpdb;
 	
-	$return = $wpdb->get_row("SELECT * FROM $wpdb->ribcage_releases WHERE release_slug = '$release_slug'", ARRAY_A);
+	$now_date = gmdate('Y-m-d');
+	
+	$return = $wpdb->get_row("SELECT * FROM $wpdb->ribcage_releases WHERE release_slug = '$release_slug' AND release_date <= '$now_date'", ARRAY_A);
 	
 	if ($tracks == true){
 		$return['release_tracks'] = get_tracks ($return['release_id']);
