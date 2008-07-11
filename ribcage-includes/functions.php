@@ -96,9 +96,6 @@ function list_artist_releases ($artist_id, $forthcoming = FALSE ) {
 		$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_artist = $artist_id AND release_date <= '$now_date' ORDER BY release_id DESC", ARRAY_A);
 	}
 	
-	$now_date = gmdate('Y-m-d');
-	$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_artist = $artist_id AND release_date <= '$now_date' ORDER BY release_id DESC", ARRAY_A);
-	
 	if (isset($releases)) {
 		foreach ($releases as $release){
 			$return[] = get_release($release['release_id']);		
