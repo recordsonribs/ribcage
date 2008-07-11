@@ -135,6 +135,16 @@ function release_blurb_long ( $echo = true ) {
 	
 	return $release['release_blurb_long'];
 }
+
+function release_onesheet ( $echo = true ) {
+	global $release;
+	
+	if ( $echo )
+		echo $release['release_one_sheet'];
+	
+	return $release['release_one_sheet'];
+}
+
 function release_download_link ( $echo = true ) {
 	global $release;
 	
@@ -196,6 +206,15 @@ function release_download_size_ogg ( $echo = true ) {
 		echo ribcage_format_filesize(filesize(ABSPATH.$release['release_ogg']));
 	
 	return ribcage_format_filesize(filesize(ABSPATH.$release['release_ogg']));
+}
+
+function release_cover_huge ( $echo = true ) {
+	global $release;
+	
+	if ( $echo )
+		echo $release['release_cover_image_huge'];
+	
+	return $release['release_cover_image_huge'];
 }
 
 function release_cover_large ( $echo = true ) {
@@ -369,6 +388,16 @@ function artist_picture_1 ( $echo = true ) {
 	
 	return $artist['artist_picture_1'];
 }
+
+function artist_picture_zip ( $echo = true ) {
+	global $release;
+	
+	if ( $echo )
+		echo $artist['artist_picture_zip'];
+	
+	return $artist['artist_picture_zip'];
+}
+
 
 function artist_thumb ( $echo = true ) {
 	global $artist;

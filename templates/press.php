@@ -1,28 +1,30 @@
 <?php get_header(); ?>
 <div id="container">
-		<div id="content">
-	 
-	<h2><a href="<?php get_option('siteurl'); ?>/artists/">Artists</a></h2>
-	<h1><a href="<?php get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>"><?php artist_name(); ?></a></h1>
-	<?php if (is_artist_page()) : ?>
-	<?php else : ?>
-		<p><?php artist_bio(); ?></p>
-		<p>
-		<?php if (artist_website_link(0)) : ?><a href="<?php artist_website_link(); ?>">Offical Webpage</a><br /><?php endif ?>
-		<?php if (artist_myspace_link(0)) : ?><a href="<?php artist_myspace_link(); ?>">My Space</a><br /><?php endif ?>
-		<?php if (artist_facebook_link(0)) : ?><a href="<?php artist_facebook_link(); ?>">Facebook</a><br /><?php endif ?>
-		<a href="<?php artist_lastfm_link(); ?>">Last.fm</a><br />
-		<a href="<?php artist_press_link(); ?>">Press Photos and Information</a></p>
-	<?php endif; ?>
+	<div id="content">
+		<div id="post-17" class="hentry p1 page publish author-alex category-uncategorized tag- y2007 m07 d19 h23">
+			<h2 class="entry-title"><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>"><?php artist_name(); ?> - Press</a></h2>
+	<div class="entry-content">
+	<p><?php if (artist_picture_zip(0)) : ?><a href="<?php artist_picture_zip(); ?>">High Quality Press Photos (.zip)</a>
+	</p><?php endif ?>
 	<?php if (have_releases() ) : ?>
-	<?php if (!is_artist_page() ) : ?><h2>Releases</h2><?php endif; ?>
+	<h3>Releases</h3>
 	<?php while ( have_releases  () ) : the_release (); ?>
 	<div>
-	<h3><a href="<?php get_option('siteurl').'/artists/'.$artist['artist_slug'].release_slug(); ?>"><?php release_title(); ?></a></h3>
+	<p><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a><br><?php if (release_onesheet(0)) : ?><a href="<?php release_onesheet(); ?>">Information Sheet (.pdf)</a><?php endif ?><?php if (release_cover_huge(0)) : ?> - <a href="<?php release_cover_huge(); ?>">High Quality Cover Artwork<?php endif; ?></p>
 	</div>
 	<?php endwhile; ?>
 	<?php endif; ?>
-</div>
-</div>
+	
+
+	<h3>Online Resources</h3><p>
+<?php if (artist_website_link(0)) : ?><a href="<?php artist_website_link(); ?>">Offical Webpage</a><br /><?php endif ?>
+<?php if (artist_myspace_link(0)) : ?><a href="<?php artist_myspace_link(); ?>">My Space</a><br /><?php endif ?>
+<?php if (artist_facebook_link(0)) : ?><a href="<?php artist_facebook_link(); ?>">Facebook</a><br /><?php endif ?>
+<a href="<?php artist_lastfm_link(); ?>">Last.fm</a>
+</p>					<p><a href="#" onclick="history.back();" >&larr; Back</a></p>
+				</div><!-- .entry-content-->
+			</div><!-- .post -->
+		</div><!-- #content -->
+	</div><!-- #container -->
 <?php get_sidebar(); ?>
 <?php get_footer();?>
