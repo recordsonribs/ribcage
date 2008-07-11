@@ -31,5 +31,3 @@
 	</div><!-- #container -->
 <?php get_sidebar(); ?>
 <?php get_footer();?>
-
-	<br /><?php if (release_onesheet(0)) : ?><a href="<?php release_onesheet(); ?>">Information Sheet (.pdf)</a><?php endif ?><?php if (release_cover_huge(0)) : ?> - <a href="<?php release_cover_huge(); ?>">High Quality Cover Artwork<?php endif; ?></p>
