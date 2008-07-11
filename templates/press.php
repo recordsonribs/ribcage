@@ -8,10 +8,12 @@
 	</p><?php endif ?>
 	<?php if (have_releases() ) : ?>
 	<h3>Releases</h3>
-	<?php while ( have_releases  () ) : the_release (); ?>
+	<?php while ( have_releases () ) : the_release() ; ?>
 	<div class="ribcage-release">
-	<a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><img src="<?php release_cover_tiny ();?>" align="left" style="margin-right: 20px; border: 1px solid #000;" alt="<?php release_title(); ?>" /></a>
-	<p><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a><br><?php if (release_onesheet(0)) : ?><a href="<?php release_onesheet(); ?>">Information Sheet (.pdf)</a><?php endif ?><?php if (release_cover_huge(0)) : ?> - <a href="<?php release_cover_huge(); ?>">High Quality Cover Artwork<?php endif; ?></p>
+		<a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><img src="<?php release_cover_tiny ();?>" align="left" style="margin-right: 20px; border: 1px solid #000;" alt="<?php release_title(); ?>" /></a>
+	<?php $artist = get_artist($release['release_artist']); ?>
+	<p><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a>
+	<br /><?php if (release_onesheet(0)) : ?><a href="<?php release_onesheet(); ?>">Information Sheet (.pdf)</a><?php endif ?><?php if (release_cover_huge(0)) : ?> - <a href="<?php release_cover_huge(); ?>">High Quality Cover Artwork<?php endif; ?></p>
 	</div>
 	<?php endwhile; ?>
 	<?php endif; ?>
@@ -29,3 +31,5 @@
 	</div><!-- #container -->
 <?php get_sidebar(); ?>
 <?php get_footer();?>
+
+	<br /><?php if (release_onesheet(0)) : ?><a href="<?php release_onesheet(); ?>">Information Sheet (.pdf)</a><?php endif ?><?php if (release_cover_huge(0)) : ?> - <a href="<?php release_cover_huge(); ?>">High Quality Cover Artwork<?php endif; ?></p>
