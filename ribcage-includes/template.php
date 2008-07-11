@@ -400,7 +400,7 @@ function artist_picture_1 ( $echo = true ) {
 }
 
 function artist_picture_zip ( $echo = true ) {
-	global $release;
+	global $artist;
 	
 	if ( $echo )
 		echo $artist['artist_picture_zip'];
