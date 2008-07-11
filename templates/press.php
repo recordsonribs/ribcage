@@ -23,6 +23,7 @@
 <?php if (artist_myspace_link(0)) : ?><a href="<?php artist_myspace_link(); ?>">My Space</a><br /><?php endif ?>
 <?php if (artist_facebook_link(0)) : ?><a href="<?php artist_facebook_link(); ?>">Facebook</a><br /><?php endif ?>
 <a href="<?php artist_lastfm_link(); ?>">Last.fm</a>
+<a href="<?php artist_musicbrainz_link(); ?>">Musicbrainz</a>
 </p>					<p><a href="#" onclick="history.back();" >&larr; Back</a></p>
 				</div><!-- .entry-content-->
 			</div><!-- .post -->

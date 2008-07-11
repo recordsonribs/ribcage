@@ -362,6 +362,16 @@ function artist_lastfm_link ( $echo = true ) {
 	return $lastfmlink;
 }
 
+function artist_musicbrainz_link ( $echo = true ) {
+	global $artist;
+	
+	$mblink = 'http://musicbrainz.org/artist/'.$artist['artist_mbid'];
+	if ($echo)
+		echo $mblink;
+	
+	return $mblink;
+}
+
 function artist_blurb_tiny ( $echo = true ) {
 	global $artist;
 	

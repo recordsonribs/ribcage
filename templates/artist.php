@@ -9,7 +9,8 @@
 					<?php if (artist_website_link(0)) : ?><a href="<?php artist_website_link(); ?>">Offical Webpage</a><br /><?php endif ?>
 					<?php if (artist_myspace_link(0)) : ?><a href="<?php artist_myspace_link(); ?>">My Space</a><br /><?php endif ?>
 					<?php if (artist_facebook_link(0)) : ?><a href="<?php artist_facebook_link(); ?>">Facebook</a><br /><?php endif ?>
-					<a href="<?php artist_lastfm_link(); ?>">Last.fm</a><br />
+					<a href="<?php artist_lastfm_link(); ?>">Last.fm</a><br />		
+					<a href="<?php artist_musicbrainz_link(); ?>">Musicbrainz</a><br />
 					<a href="<?php artist_press_link(); ?>">Press Photos and Information</a></p>
 					</div>
 					<div class="entry-content">
