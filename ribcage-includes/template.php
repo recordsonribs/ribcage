@@ -365,7 +365,7 @@ function artist_lastfm_link ( $echo = true ) {
 function artist_musicbrainz_link ( $echo = true ) {
 	global $artist;
 	
-	$mblink = 'http://musicbrainz.org/artist/'.$artist['artist_mbid'];
+	$mblink = 'http://musicbrainz.org/artist/'.$artist['artist_mbid'].'.html';
 	if ($echo)
 		echo $mblink;
 	
