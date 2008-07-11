@@ -49,11 +49,12 @@ function is_ribcage_page() {
 // list_recent_releases_blurb
 // Input amount of releases you want back.
 // Returns recent releases as associative array.
-function list_recent_releases_blurb ( $amount = 0 )
+function list_recent_releases_blurb ( $amount = 0, $forthcoming = FALSE )
 {
 	global $wpdb;
 	
 	$now_date = gmdate('Y-m-d');
+	
 	if ($amount) {
 		$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_date <= '$now_date' ORDER BY release_id DESC LIMIT $amount ", ARRAY_A);
 	}
@@ -82,10 +83,18 @@ function list_artists_blurb (){
 }
 
 // list_artist_releases
-// Input the artist id.
+// Input the artist id and a bool of if you want forthcoming releases as well.
 // Returns an associative array of their releases.
-function list_artist_releases ($artist_id){
+function list_artist_releases ($artist_id, $forthcoming = FALSE ) {
 	global $wpdb;
+	
+	if ($forthcoming == TRUE) {
+		$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_artist = $artist_id ORDER BY release_id DESC", ARRAY_A);
+	}
+	else {
+		$now_date = gmdate('Y-m-d');
+		$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_artist = $artist_id AND release_date <= '$now_date' ORDER BY release_id DESC", ARRAY_A);
+	}
 	
 	$now_date = gmdate('Y-m-d');
 	$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_artist = $artist_id AND release_date <= '$now_date' ORDER BY release_id DESC", ARRAY_A);

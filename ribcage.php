@@ -88,7 +88,7 @@ function ribcage_init (){
 		if (is_artist_page()){
 			switch ($wp_query->query_vars['artist_page']) {
 				case 'press':
-					$releases = list_artist_releases ($artist['artist_id']);
+					$releases = list_artist_releases ($artist['artist_id'], TRUE);
 					$load = ribcage_load_template('press.php');
 					break;
 					
