@@ -14,7 +14,7 @@
 		<a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><img src="<?php release_cover_tiny ();?>" align="left" height="65px" width="65px" style="margin-right: 20px; border: 1px solid #000;" alt="<?php release_title(); ?>" /></a>
 	<?php $artist = get_artist($release['release_artist']); ?>
 	<p><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a>
-	<br /><?php if (release_onesheet(0)) : ?><a href="<?php release_onesheet(); ?>">Press Information Sheet (.pdf)</a><?php endif ?><?php if (release_cover_huge(0)) : ?> - <a href="<?php release_cover_huge(); ?>">High Quality Cover Artwork<?php endif; ?></p>
+	<br /><?php if (release_onesheet(0)) : ?><a href="<?php release_onesheet(); ?>">Press Information Sheet (.pdf)</a><?php endif ?><?php if (release_cover_huge(0)) : ?> - <a href="<?php release_cover_huge(); ?>">High Quality Cover Artwork</a><?php endif; ?></p>
 	</div>
 	<?php endwhile; ?>
 	<?php endif; ?>
