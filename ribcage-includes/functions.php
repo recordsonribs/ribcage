@@ -130,8 +130,7 @@ function get_product ($product_id) {
 function get_release ($release_id, $tracks = true, $reviews = true){
 	global $wpdb;
 	
-	$now_date = gmdate('Y-m-d');	
-	$return = $wpdb->get_row("SELECT * FROM $wpdb->ribcage_releases WHERE release_id = $release_id AND release_date <= '$now_date'", ARRAY_A);
+	$return = $wpdb->get_row("SELECT * FROM $wpdb->ribcage_releases WHERE release_id = $release_id", ARRAY_A);
 	
 	if ($tracks == true){
 		$return['release_tracks'] = get_tracks ($return['release_id']);
