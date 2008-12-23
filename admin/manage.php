@@ -1,36 +1,16 @@
 <?php
 
-function index_ribcage_js() {
-?>
-<script type="text/javascript">
-	jQuery(function() {
-		jQuery('#ribcagelog').load('../wp-content/plugins/ribcage/admin/ribcage-index-extra.php?jax=ribcagelog');
-	});
-</script>
-<?php
-}
-add_action( 'admin_head', 'index_ribcage_js' );
-wp_enqueue_script( 'jquery' );
-
-function ribcage_admin_index ()
-{	
-	?>
-	<div class="wrap">
-		<h2>Log</h2>
-		<div id="ribcagelog"></div>
-		<div><p><a href="http://tools.assembla.com/ribcage/timeline">View More &raquo;</a></p></div>
-	</div>
-	
-	<?php
-}
-
-function ribcage_add_artist()
+function ribcage_manage_artists($value='')
 {
-	global $wpdb;
-	$hidden_field_name = 'ribcage_artist_submit';
-	$button_name = 'Add Artist';
 
-	if($_POST[$hidden_field_name] == 'Y'){ // an artist is posted
+if(isset($_REQUEST['artist'])):
+
+	global $wpdb;
+	$artist_id = (int) $_REQUEST['artist'];
+	$hidden_field_name = 'ribcage_artist_edit';
+	$button_name = 'Edit Artist';
+
+	if($_POST[$hidden_field_name] == 'M'){ // an artist is posted
 		
 		//slice off two variables at the end to prepare for implodes
 		array_pop($_POST); // hidden var
@@ -46,25 +26,52 @@ function ribcage_add_artist()
 
 		$wpdb->show_errors();
 		//construct query
-		$sql = "INSERT INTO ".$wpdb->prefix."ribcage_artists
-				($string_keys)
-				VALUES
-				($string_vals)";
-		//echo "<pre>$sql</pre>";
+		$sql = "UPDATE ".$wpdb->prefix."ribcage_artists
+				SET ";
+				$i = 0;
+				foreach($post_keys as $field):
+					$sql .= $field ."='".$post_vals[$i]."', ";
+					$i++;
+				endforeach;
+		$sql .= " artist_id = ".$artist_id." 
+				WHERE artist_id = ".$artist_id;
+#		echo "<pre>$sql</pre>"; exit();
 		$results = $wpdb->query( $sql );
 		$wpdb->hide_errors();
 
 		//display snazzy update fade thing when they are added
 		echo <<<EOT
-			<div id="message" class="updated fade"><p><strong>Artist added.</strong></p></div>
+			<div id="message" class="updated fade"><p><strong>Artist updated.</strong></p></div>
 EOT;
 	}
-    ?>
+
+$artist = get_artist($_REQUEST['artist']);
+
+$artist_name_val			= $artist['artist_name'];
+$artist_name_sort_val		= $artist['artist_name_sort'];
+$artist_slug_val			= $artist['artist_slug'];
+$artist_mbid_val			= $artist['artist_mbid'];
+$artist_signed_val			= $artist['artist_signed'];
+$artist_license_val			= $artist['artist_license'];
+$artist_bio_val				= $artist['artist_bio'];
+$artist_picture1_val		= $artist['artist_picture1'];
+$artist_picture2_val		= $artist['artist_picture2'];
+$artist_picture3_val		= $artist['artist_picture3'];
+$artist_picturezip_val		= $artist['artist_picturezip'];
+$artist_contact_email_val	= $artist['artist_contact_email'];
+$artist_contact_phone_val	= $artist['artist_contact_phone'];
+$artist_blurb_tiny_val		= $artist['artist_blurb_tiny'];
+$artist_blurb_short_val		= $artist['artist_blurb_short'];
+$artist_link_website_val	= $artist['artist_link_website'];
+$artist_link_myspace_val	= $artist['artist_link_myspace'];
+$artist_link_facebook_val	= $artist['artist_link_facebook'];
+
+?>
 	<div class="wrap">
-		<h2>Add Artist</h2>
-			<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>" method="post" id="ribcage_add_artist" name="add_artist"> 
+		<h2>Manage <em><?php echo $artist['artist_name']; ?></em> (#<?php echo $artist['artist_id']; ?>)</h2>
+			<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>" method="post" id="ribcage_edit_artist" name="edit_artist"> 
 				<fieldset>
-					<legend>Basic Details</legend>
+					<legend>Artist info</legend>
 					<table class="optiontable">                     
 						<tr valign="top">
 							<th scope="row"><strong>Name: </strong></th> 
@@ -105,7 +112,7 @@ EOT;
 						<tr valign="top">
 							<th scope="row"><strong>Creative Commons license: </strong></th> 
 							<td>
-								<?php echo ribcage_cc_dropdown(); ?>
+								<?php echo ribcage_cc_dropdown($artist_license_val); ?>
 							</td> 
 						</tr>
 						<tr valign="top">
@@ -185,43 +192,52 @@ EOT;
 							<td>
 							<p class="submit">													
 								<input type="submit" class="btn" name="save" style="padding:5px 30px 5px 30px;" value="<?php echo $button_name; ?>" />
-								<input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
+								<input type="hidden" name="<?php echo $hidden_field_name; ?>" value="M">
 							</p>
 							</td>
 						</tr>
 					</table>
-				</fieldset>								
+
+				</fieldset>
 			</form>
-            </div>
 	</div>
-	<?php
-}
-
-function ribcage_add_release($value='')
-{
-	?>
+<?php 	else:	?>
 	<div class="wrap">
-		<h2>Add Release</h2>
+		<h2>Manage Artists</h2>
+			<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>" method="post" id="ribcage_manage_artists" name="manage_artists"> 
+				<fieldset>
+					<legend>Here's your label's Artists. Take care of them!</legend>
+					<table class="optiontable">
+						<thead>
+						<tr valign="top">
+							<td>#</td>
+							<td>Name</td>
+							<td>Sort Name</td>
+							<td>Picture</td>
+						</tr>
+						</thead>                     
+						<tbody>
+							<?php
+							$artists = list_artists_blurb();
+							foreach($artists as $artist):
+							?>
+						<tr valign="top">
+							<td><?php echo $artist['artist_id']; ?></td>
+							<td><a href="?page=manage_artists&amp;artist=<?php echo $artist['artist_id']; ?>">
+								<?php echo $artist['artist_name']; ?></a></td>
+							<td><?php echo $artist['artist_name_sort']; ?></td>
+							<td><?php echo $artist['artist_thumb']; ?></td>
+						</tr>
+							<?php
+							endforeach;
+							?>
+						</tbody>
+					</table>
+				</fieldset>
+			</form>
 	</div>
 	<?php
-}
-
-function ribcage_add_review($value='')
-{
-	?>
-	<div class="wrap">
-		<h2>Add Review</h2>
-	</div>
-	<?php
-}
-
-function ribcage_add_press($value='')
-{
-	?>
-	<div class="wrap">
-		<h2>Add Press</h2>
-	</div>
-	<?php
+endif;
 }
 
 ?>

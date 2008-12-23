@@ -6,8 +6,10 @@ function ribcage_admin_menu() {
 	add_submenu_page(dirname(__FILE__).'/admin.php', 'Ribcage', 'Add Release', 8, 'add_release', 'ribcage_add_release');	
 	add_submenu_page(dirname(__FILE__).'/admin.php', 'Ribcage', 'Add Review', 8, 'add_review', 'ribcage_add_review');	
 	add_submenu_page(dirname(__FILE__).'/admin.php', 'Ribcage', 'Add Press', 8, 'add_press', 'ribcage_add_press');
+	add_submenu_page(dirname(__FILE__).'/admin.php', 'Ribcage', 'Manage Artists', 8, 'manage_artists', 'ribcage_manage_artists');
 }
 add_action('admin_menu', 'ribcage_admin_menu');
 
 require_once dirname(__FILE__) . '/admin/dump.php';
+require_once dirname(__FILE__) . '/admin/manage.php';
 ?>

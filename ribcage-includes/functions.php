@@ -259,4 +259,25 @@ function ribcage_format_filesize($rawSize) {
 	}
 }
 
+// dropdown to display CC licenses. accepts license slug as argument (to select that option)
+// license list: http://creativecommons.org/about/licenses/meet-the-licenses
+function ribcage_cc_dropdown($selected = false){
+$cclist = array(
+	'by-nc-nd'	=> 'Attribution Non-commercial No Derivatives (by-nc-nd)',
+	'by-nc-sa'	=> 'Attribution Non-commercial Share Alike (by-nc-sa)', 
+	'by-nc'		=> 'Attribution Non-commercial (by-nc)',
+	'by-nd'		=> 'Attribution No Derivatives (by-nd)',
+	'by-sa'		=> 'Attribution Share Alike (by-sa)',
+	'by' 		=> 'Attribution (by)'
+	);
+
+	$output = "<select name='artist_license' id='artist_license'>\n";
+	foreach($cclist as $lic => $desc):
+	if($selected == $lic) { $flag="selected='selected'"; } else { $flag = ""; }
+	$output .= "<option id='".str_replace("-","",$lic)."' name='".str_replace("-","",$lic)."' value='".$lic."' label='".$desc."'".$flag.">".$desc."</option>\n";
+	endforeach;
+	$output .= "</select>\n";
+	return $output;
+}
+
 ?>
