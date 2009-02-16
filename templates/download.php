@@ -8,7 +8,7 @@
 				<p>Thanks for your interest in <a href="<?php get_option('siteurl')?>/artists/<?php artist_slug(); ?>"><?php artist_name(); ?></a> and <a href="<?php get_option('siteurl');?>">Records On Ribs</a>!</p>
 		<p>
 		<a href="<?php release_download_link_mp3 (); ?>">Download</a> Zipped High Quality MP3 Files (<?php release_download_size_mp3() ?>).<br />
-		<a href="<?php release_download_link_flac (); ?>">Download</a> Zipped Ogg Files (<?php release_download_size_ogg() ?>).<br />
+		<a href="<?php release_download_link_ogg (); ?>">Download</a> Zipped Ogg Files (<?php release_download_size_ogg() ?>).<br />
 		<a href="<?php release_download_link_flac (); ?>">Download</a> Zipped Flac Files (<?php release_download_size_flac() ?>).
 		</p>
 		<p>		<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
