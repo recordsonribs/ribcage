@@ -3,7 +3,7 @@
 	Plugin Name: Ribcage
 	Plugin URI: http://recordsonribs.com/ribcage/
 	Description: Manages and monitors artists, releases and downloads for the Records On Ribs label.
-	Version: 0.2 Beta
+	Version: 0.3 Beta
 	Author: Alexander Andrews
 	Author URI: http://recordsonribs.com
 */
@@ -45,6 +45,7 @@ $seperator = " - ";
 
 $paypal = new paypal_class;
 
+// Uncomment the below line to use Paypal Sandbox not real server.
 //$paypal->paypal_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 $paypal->paypal_url = 'https://www.paypal.com/cgi-bin/webscr';
 
