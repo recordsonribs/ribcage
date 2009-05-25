@@ -208,6 +208,32 @@ function release_download_size_ogg ( $echo = true ) {
 	return ribcage_format_filesize(filesize(ABSPATH.$release['release_ogg']));
 }
 
+function release_download_link_bittorrent_mp3 ( $echo = true ) {
+	global $release;
+	
+	if ( $echo )
+		echo $release['release_torrent_mp3'];
+	
+	return $release['release_torrent_mp3'];
+}
+
+function release_download_link_bittorrent_ogg ( $echo = true ) {
+	global $release;
+	
+	if ( $echo )
+		echo $release['release_torrent_ogg'];
+	
+	return $release['release_torrent_ogg'];
+}
+
+function release_download_link_bittorrent_flac ( $echo = true ) {
+	global $release;
+	
+	if ( $echo )
+		echo $release['release_torrent_flac'];
+	
+	return $release['release_torrent_flac'];
+}
 function release_cover_huge ( $echo = true ) {
 	global $release;
 	
