@@ -234,6 +234,18 @@ function release_download_link_bittorrent_flac ( $echo = true ) {
 	
 	return $release['release_torrent_flac'];
 }
+
+function release_bittorrent () {
+	global $release;
+	
+	if ($release['release_torrent_mp3'] or $release['release_torrent_ogg'] or $release['release_torrent_flac']) {
+		return TRUE;
+	}
+	else {
+		return FALSE;
+	}
+}
+
 function release_cover_huge ( $echo = true ) {
 	global $release;
 	
