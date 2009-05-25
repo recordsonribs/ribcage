@@ -3,7 +3,7 @@
 	Plugin Name: Ribcage
 	Plugin URI: http://recordsonribs.com/ribcage/
 	Description: Manages and monitors artists, releases and downloads for the Records On Ribs label.
-	Version: 0.3 Beta
+	Version: 0.1 RC 1
 	Author: Alexander Andrews
 	Author URI: http://recordsonribs.com
 */
