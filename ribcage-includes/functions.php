@@ -209,7 +209,7 @@ function get_reviews ($release_id){
 	global $wpdb;
 	$querystr = "
 	SELECT * FROM $wpdb->ribcage_reviews WHERE review_release_id = $release_id
-	ORDER BY review_date
+	ORDER BY review_weight
 	";
 	$return = $wpdb->get_results($querystr, ARRAY_A);
 	return $return;
