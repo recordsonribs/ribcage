@@ -14,6 +14,16 @@
 					<a href="<?php release_download_link (); ?>">Free Download</a> - <a href="javascript:popUp('<?php release_player_link (); ?>')">Listen Now</a><?php if (release_physical()) : ?> - <a href="<?php get_option('siteurl'); ?>/buy/<?php release_product_id(); ?>">Buy</a><?php endif; ?>
 				</p>
 				<?php release_blurb_long(); ?>
+				<?php if (have_reviews()) : ?>
+				<h3>Reviews</h3>
+				<?php while ( have_reviews () ) : the_review() ; ?>
+				<p>
+					<?php review_text(); ?><br />
+					<a href="<?php review_link(); ?>"><?php review_author(); ?></a>
+				</p>
+				<?php endwhile; ?>
+				<?php endif; ?>
+				</p>
 				<p>		<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
 						<img alt="Creative Commons License" style="border-width:0; float:right;margin-left:20px;" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" />
 						</a>This release is licensed under a 

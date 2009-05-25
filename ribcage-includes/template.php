@@ -14,6 +14,7 @@ $current_track = 0;
 
 $reviews = null;
 $review = null;
+$current_review = 0;
 
 $product = null;
 
@@ -475,9 +476,6 @@ function the_artist (){
 	$GLOBALS['current_artist']++;
 }
 
-//------------------------------------------------------
-
-
 function track_title ( $echo = true ) {
 	global $track;
 	
@@ -551,6 +549,8 @@ function the_track (){
 	$GLOBALS['current_track']++;
 }
 
+//------------------------------------------------------
+
 function have_releases () {
 	global $releases, $current_release;
 	
@@ -571,6 +571,51 @@ function the_release (){
 	$GLOBALS['current_release']++;
 }
 
+//------------------------------------------------------
 
+function have_reviews () {
+	global $reviews, $current_review;
+	
+	$have_reviews = ( !empty($reviews[$current_review]) );
 
+	if ( !$have_reviews ) {
+		$GLOBALS['reviews']	= null;
+		$GLOBALS['current_review'] = 0;
+	}
+	return $have_reviews;
+}
+
+function the_review (){
+	global $reviews, $review, $current_review;
+
+		$GLOBALS['review'] = $reviews [$current_review];
+		$GLOBALS['current_review']++;
+}
+
+function review_text ( $echo=true ){
+	global $review;
+	
+	if ($echo)
+		echo $review['review_text'];
+	
+	return $review['review_text'];
+}
+
+function review_author ( $echo=true ){
+	global $review;
+	
+	if ($echo)
+		echo $review['review_author'];
+	
+	return $review['review_author'];
+}
+
+function review_link ( $echo=true ){
+	global $review;
+	
+	if ($echo)
+		echo $review['review_link'];
+	
+	return $review['review_link'];
+}
 ?>

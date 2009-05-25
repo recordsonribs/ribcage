@@ -54,6 +54,7 @@ function ribcage_init (){
 	global $artists, $artist, $current_artist;
 	global $releases, $release, $current_release;
 	global $tracks, $track, $current_track;
+	global $reviews, $review, $current_review;
 	
 	global $product;
 	
@@ -105,6 +106,7 @@ function ribcage_init (){
 				default :
 					$release = get_release_by_slug ($wp_query->query_vars['artist_page']);
 					$tracks = $release ['release_tracks'];
+					$reviews = $release['release_reviews'];
 					$load = ribcage_load_template ('release.php');				
 			}
 		}
