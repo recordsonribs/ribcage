@@ -41,8 +41,6 @@ require_once dirname(__FILE__) . '/widget.php';
 
 add_action('template_redirect','ribcage_init');
 
-$seperator = " - ";
-
 $paypal = new paypal_class;
 
 // Uncomment the below line to use Paypal Sandbox not real server.
@@ -63,12 +61,12 @@ function ribcage_init (){
 	// Add our streams.
 	add_filter('wp_head', 'ribcage_release_feeds');
 	
-	if ( is_ribcage_page () == 0){
+	if (is_ribcage_page () == 0){
 		return;
 	}
 	
 	// Add our bits to the page title.
-	add_filter('wp_title', 'ribcage_page_title');
+	add_filter('wp_title', 'ribcage_page_title',10,3);
 	
 	// Donate IPN from Paypal	
 	if (isset($wp_query->query_vars['ribcage_donate_ipn'])) {
@@ -335,47 +333,68 @@ function ribcage_flush_rules (){
 	$wp_rewrite->flush_rules();
 }
 
-function ribcage_page_title ($title) {
-	global $wp_query, $seperator;
-	
-	$title .= $seperator;
+/**
+ * Filter on wp_title to add the Ribcage pages to page title.
+ *
+ * Some stuff from this function is lifted from the wp_title function itself. Cheers to the developers there.
+ * 
+ * @param string $title The title as it currently stands - what we are adding to.
+ * @param string $seplocation Optional. Direction to display title, 'right'.
+ * @return string The title with added Ribcage
+ * @author Alex Andrews
+ **/
+function ribcage_page_title ($title, $sep = '&raquo;', $seplocation = '') {
+	global $wp_query;
 	
 	if (isset($wp_query->query_vars['release_index'])) {
-		$title .= "Releases";
+		$title_array [] = "Releases";
 	}
 	
 	if (isset($wp_query->query_vars['artist_index'])) {
-		$title .= "Artists";
+		$title_array [] = "Artists";
 	}
 	
 	if (isset($wp_query->query_vars['artist_slug'])) {
-		$title .= "Artists".$seperator.get_artistname_by_slug($wp_query->query_vars['artist_slug']);
+		$title_array [] = "Artists";
+		$title_array [] = get_artistname_by_slug($wp_query->query_vars['artist_slug']);
 	}
 	
 	if (is_artist_page()){
-		$title .= $seperator;
+		
 		switch ($wp_query->query_vars['artist_page']) {
 			case 'press':
-				$title .= 'Press';
+				$title_array [] = 'Press';
 				break;
 
 			case 'bio':
-				$title .= 'Biography';
+				$title_array [] = 'Biography';
 				break;
 
 			default :	
-				$title .= get_releasename_by_slug($wp_query->query_vars['artist_page']);
+				$title_array [] = get_releasename_by_slug($wp_query->query_vars['artist_page']);
 
 		}
 	}
 	
 	if (isset($wp_query->query_vars['ribcage_download'])){
 		// Do something else here...
-		$title .= "Download";
+		$title_array [] = "Download";
 	}
+	
+	// If we have the title on the right, then switch the whole thing around.
+	if ($seplocation == 'right') {
+		$title_array = array_reverse($title_array);
+		$title_array [] = $title;
+	}
+	else {
+		array_unshift ($title_array,$title);
+	}
+	
+	$title = implode (" $sep ",$title_array);
 	
 	return ($title);
 }
+
 register_activation_hook(__FILE__, 'ribcage_activate');
 
 function ribcage_activate(){
@@ -395,6 +414,7 @@ function ribcage_activate(){
 	}
 	ribcage_flush_rules();
 }
+
 register_deactivation_hook(__FILE__, "ribcage_deactivate");
 
 function ribcage_deactivate(){
