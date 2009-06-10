@@ -18,7 +18,7 @@ function ribcage_buy_process ()
 		$postage = 'UK';
 	}
 
-	$paypal->add_field('business', 'alex@recordsonribs.com');
+	$paypal->add_field('business', get_option('ribcage_ebay_email'));
 	
 	$paypal->add_field('charset', 'utf-8');
 	
