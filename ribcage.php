@@ -345,6 +345,7 @@ function ribcage_flush_rules (){
  **/
 function ribcage_page_title ($title, $sep = '&raquo;', $seplocation = '') {
 	global $wp_query;
+	global $release, $artist;
 	
 	if (isset($wp_query->query_vars['release_index'])) {
 		$title_array [] = "Releases";
@@ -356,7 +357,7 @@ function ribcage_page_title ($title, $sep = '&raquo;', $seplocation = '') {
 	
 	if (isset($wp_query->query_vars['artist_slug'])) {
 		$title_array [] = "Artists";
-		$title_array [] = get_artistname_by_slug($wp_query->query_vars['artist_slug']);
+		$title_array [] = $artist['artist_name'];
 	}
 	
 	if (is_artist_page()){
@@ -371,14 +372,13 @@ function ribcage_page_title ($title, $sep = '&raquo;', $seplocation = '') {
 				break;
 
 			default :	
-				$title_array [] = get_releasename_by_slug($wp_query->query_vars['artist_page']);
+				$title_array [] = $release['release_title'];
 
 		}
 	}
 	
 	if (isset($wp_query->query_vars['ribcage_download'])){
-		// Do something else here...
-		$title_array [] = "Download";
+		$title_array [] = "Downloading ".$artist['artist_name']." - ".$release['release_title'];
 	}
 	
 	// If we have the title on the right, then switch the whole thing around.
