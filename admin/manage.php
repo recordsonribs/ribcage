@@ -1,11 +1,15 @@
 <?php
-
+/**
+ * Manages an individual artist
+ *
+ * @return void
+ * @param mixed $value What the hell does this do?
+ **/
 function ribcage_manage_artists($value='') {
 
 global $artist;
 
 if(isset($_REQUEST['artist'])):
-
 	global $wpdb;
 	$artist_id = (int) $_REQUEST['artist'];
 	$hidden_field_name = 'ribcage_artist_edit';
