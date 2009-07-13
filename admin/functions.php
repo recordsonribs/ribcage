@@ -1,26 +1,11 @@
 <?php
 
-function index_ribcage_js() {
-?>
-<script type="text/javascript">
-	jQuery(function() {
-		jQuery('#ribcagelog').load('../wp-content/plugins/ribcage/admin/ribcage-index-extra.php?jax=ribcagelog');
-	});
-</script>
-<?php
-}
-add_action( 'admin_head', 'index_ribcage_js' );
-wp_enqueue_script( 'jquery' );
-
 function ribcage_admin_index ()
 {	
 	?>
 	<div class="wrap">
 		<h2>Log</h2>
-		<div id="ribcagelog"></div>
-		<div><p><a href="http://tools.assembla.com/ribcage/timeline">View More &raquo;</a></p></div>
-	</div>
-	
+	</div>	
 	<?php
 }
 
@@ -223,21 +208,6 @@ function ribcage_options($value='')
 	?>
 	<div class="wrap">
 		<h2>Ribcage Options</h2>
-		<form method="post" action="options.php">
-			<?php wp_nonce_field('update-options'); ?>
-			<table class="form-table">
-				<tr valign="top">
-				<th scope="row">Ebay E-mail</th>
-				<td><input type="text" name="new_option_name" value="<?php echo get_option('ribcage_ebay_email'); ?>" /></td>
-				</tr>
-			</table>
-			<input type="hidden" name="action" value="update" />
-			<input type="hidden" name="page_options" value="ribcage_ebay_email" />
-			<p class="submit">
-			<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
-			</p>
-			</form>
-			</div>
 	</div>
 	<?php
 }

@@ -54,7 +54,7 @@ $artist = get_artist($_REQUEST['artist']);
 			<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>" method="post" id="ribcage_edit_artist" name="edit_artist">
 					<table class="form-table">             
 						<tr valign="top">
-							<th scope="row"><label for="artist_nam">Name</label></th> 
+							<th scope="row"><label for="artist_name">Name</label></th> 
 							<td>
 								<input type="text" value="<?php artist_name(); ?>" name="artist_name" id="artist_name" class="regular-text"/>												
 							</td> 
@@ -63,19 +63,19 @@ $artist = get_artist($_REQUEST['artist']);
 							<th scope="row">Sort Name</th> 
 							<td>
 								<input type="text" value="<?php artist_name_sort(); ?>" name="artist_name_sort" id="artist_name_sort" class="regular-text" />
-								<span class="setting-description">The name of the artist to be alphabetized. For example, 'Butterfly, The'.</span>
+								<span class="description">The name of the artist to be alphabetized. For example, 'Butterfly, The'.</span>
 							</td> 
 						</tr>
 						<tr valign="top">
 							<th scope="row">Artist Slug</th> 
 							<td>
-								<input type="text" style="width:320px;" class="regular-text code" value="<?php artist_slug(); ?>" name="artist_slug" id="artist_slug" /><span class="setting-description">The URL you want for the artist - for example http://recordsonribs.com/artists/artist_slug</span>
+								<input type="text" style="width:320px;" class="regular-text code" value="<?php artist_slug(); ?>" name="artist_slug" id="artist_slug" /><span class="description">The URL you want for the artist - for example http://recordsonribs.com/artists/artist_slug</span>
 							</td> 
 						</tr>
 						<tr valign="top">
 							<th scope="row">Signup Date</th> 
 							<td>
-								<input type="text" style="width:100px;" class="regular-text code" value="<?php echo $artist['artist_signed']; ?>" name="artist_signed" id="artist_signed" maxlength="50" /><span class="setting-description">The date the artist signed for your label</span>
+								<input type="text" style="width:100px;" class="regular-text code" value="<?php echo $artist['artist_signed']; ?>" name="artist_signed" id="artist_signed" maxlength="50" /><span class="description">The date the artist signed for your label</span>
 							</td> 
 						</tr>
 						<tr valign="top">
