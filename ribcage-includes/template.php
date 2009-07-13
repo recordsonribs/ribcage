@@ -334,8 +334,16 @@ function artist_name ( $echo = true ) {
 	return $artist['artist_name'];
 }
 
-function artist_bio ( $echo = true )
-{
+function artist_name_sort ( $echo = true ) {
+	global $artist;
+	
+	if ($echo) 
+		echo wptexturize($artist['artist_name_sort']);
+
+	return $artist['artist_name_sort'];
+}
+
+function artist_bio ( $echo = true ) {
 	global $artist;
 	
 	if ($echo) {
@@ -409,6 +417,15 @@ function artist_musicbrainz_link ( $echo = true ) {
 		echo $mblink;
 	
 	return $mblink;
+}
+
+function artist_musicbrainz ( $echo = true ) {
+	global $artist;
+	
+	if ($echo)
+		echo $artist['artist_mbid'];
+		
+	return $artist['artist_mbid'];
 }
 
 function artist_blurb_tiny ( $echo = true ) {

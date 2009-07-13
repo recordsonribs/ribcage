@@ -84,12 +84,6 @@ EOT;
 								<input type="text" style="width:320px;" class="cleardefault" value="<?php echo $artist_slug_val; ?>" name="artist_slug" id="artist_slug" />
 							</td> 
 						</tr>
-						<!--<tr valign="top">
-							<th scope="row"><strong>Starting hits: </strong></th> 
-							<td>
-								<input type="text" style="width:100px;" class="cleardefault" value="<?php echo $artist_hits_val; ?>" name="artist_hits" id="artist_hits" maxlength="50" />
-							</td> 
-						</tr>-->
 						<tr valign="top">
 							<th scope="row"><strong>Artist's Music Brainz ID: </strong></th> 
 							<td>
@@ -224,4 +218,27 @@ function ribcage_add_press($value='')
 	<?php
 }
 
+function ribcage_options($value='')
+{
+	?>
+	<div class="wrap">
+		<h2>Ribcage Options</h2>
+		<form method="post" action="options.php">
+			<?php wp_nonce_field('update-options'); ?>
+			<table class="form-table">
+				<tr valign="top">
+				<th scope="row">Ebay E-mail</th>
+				<td><input type="text" name="new_option_name" value="<?php echo get_option('ribcage_ebay_email'); ?>" /></td>
+				</tr>
+			</table>
+			<input type="hidden" name="action" value="update" />
+			<input type="hidden" name="page_options" value="ribcage_ebay_email" />
+			<p class="submit">
+			<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+			</p>
+			</form>
+			</div>
+	</div>
+	<?php
+}
 ?>
