@@ -3,11 +3,13 @@
  * Displays a XHTML file that shows the Flash MP3 player
  *
  * @package Ribcage
+ * @subpackage Stream
  **/
 
 /**
  * Shows the Flash MP3 Player
  *
+ * @param string $release_slug The release_slug of the release to display a player for.
  * @return void
  * @author Alexander Andrews
  **/

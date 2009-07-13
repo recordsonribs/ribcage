@@ -1,5 +1,18 @@
 <?php
+/**
+ * Provides a stream of a track or a release in various formats.
+ *
+ * @package Ribcage
+ * @subpackage Stream
+ **/
 
+/**
+ * Stream a whole release as xspf or m3u
+ *
+ * @return void
+ * @param string $release_slug The slug of the release to stream
+ * @param string $stream_format The format of the streaming, either xspf or m3u
+ **/
 function stream_release ($release_slug, $stream_format) {
 	global $wp_query, $release, $artist;
 	global $tracks, $track, $current_track;
