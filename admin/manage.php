@@ -144,18 +144,6 @@ $artist = get_artist($_REQUEST['artist']);
 								<input type="text" style="width:320px;" class="regular-text code" value="<?php echo $artist_picture_zip_val; ?>" name="artist_picture_zip" id="artist_picture_zip" maxlength="200" />
 							</td> 
 						</tr>
-						<tr valign="top">
-							<th scope="row">Artist E-mail</th> 
-							<td>
-								<input type="text" style="width:320px;" class="regular-text code" value="<?php echo $artist_contact_email_val; ?>" name="artist_contact_email" id="artist_contact_email" maxlength="150" />
-							</td> 
-						</tr>
-						<tr valign="top">
-							<th scope="row">Artist Phone</th> 
-							<td>
-								<input type="text" style="width:100px;" class="regular-text code" value="<?php echo $artist_contact_phone_val; ?>" name="artist_contact_phone" id="artist_contact_phone" maxlength="20" />
-							</td> 
-						</tr>
 					</table>
 					<p class="submit">
 						<input type="submit" name="Submit" class="button-primary" value="Save Changes" />

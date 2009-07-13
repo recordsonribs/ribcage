@@ -118,18 +118,6 @@ EOT;
 							</td> 
 						</tr>
 						<tr valign="top">
-							<th scope="row"><strong>Artist E-mail: </strong></th> 
-							<td>
-								<input type="text" style="width:320px;" class="cleardefault" value="<?php echo $artist_contact_email_val; ?>" name="artist_contact_email" id="artist_contact_email" maxlength="150" />
-							</td> 
-						</tr>
-						<tr valign="top">
-							<th scope="row"><strong>Artist Phone: </strong></th> 
-							<td>
-								<input type="text" style="width:100px;" class="cleardefault" value="<?php echo $artist_contact_phone_val; ?>" name="artist_contact_phone" id="artist_contact_phone" maxlength="20" />
-							</td> 
-						</tr>
-						<tr valign="top">
 							<th scope="row"><strong>One-sentence Description of Artist: </strong></th> 
 							<td>
 								<input type="text" style="width:320px;" class="cleardefault" value="<?php echo $artist_blurb_tiny_val; ?>" name="artist_blurb_tiny" id="artist_blurb_tiny" maxlength="255" />
