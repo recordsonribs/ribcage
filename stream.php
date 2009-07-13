@@ -42,6 +42,12 @@ function stream_release ($release_slug, $stream_format) {
 	}
 }
 
+/**
+ * Stream a single track
+ *
+ * @param string $track_slug The slug of the track we are streaming
+ * @return void
+ **/
 function stream_track ($track_slug) {
 	if (empty ($track_slug)) {
 			return new WP_Error ('no-release-to-stream', __("You didn't specify a track to stream."));
