@@ -40,7 +40,7 @@ if(isset($_REQUEST['artist'])):
 				endforeach;
 		$sql .= " artist_id = ".$artist_id." 
 				WHERE artist_id = ".$artist_id;
-#		echo "<pre>$sql</pre>"; exit();
+				
 		$results = $wpdb->query( $sql );
 		$wpdb->hide_errors();
 
