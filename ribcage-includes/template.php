@@ -43,8 +43,6 @@ function is_artist_page ()
 	}
 }
 
-//
-
 function product_name ( $echo = true ) {
 	global $product;
 	

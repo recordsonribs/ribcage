@@ -1,7 +1,16 @@
 <?php
+/**
+ * Displays a XHTML file that shows the Flash MP3 player
+ *
+ * @package Ribcage
+ **/
 
-// show_player
-// Outputs the correct XHTML for the flash player.
+/**
+ * Shows the Flash MP3 Player
+ *
+ * @return void
+ * @author Alexander Andrews
+ **/
 function show_player ($release_slug) {
 	global $artists, $artist, $current_artist;
 	global $releases, $release, $current_release;
