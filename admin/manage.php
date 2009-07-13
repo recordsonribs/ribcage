@@ -186,9 +186,17 @@ $artist = get_artist($_REQUEST['artist']);
 						<tbody>
 							<?php
 							$artists = list_artists_blurb();
+							$alternate = 1;
 							foreach($artists as $artist):
+							if ($alternate == 1){
+								?><tr valign="top" class="alternate"><?php
+								$alternate = 0;
+							}
+							else {
+								?><tr valign="top" class=""> <?php
+								$alternate = 1;
+							}
 							?>
-						<tr valign="top">
 							<td><a href="?page=manage_artists&amp;artist=<?php echo $artist['artist_id']; ?>">
 								<?php echo $artist['artist_name']; ?></a></td>
 							<td><?php echo $artist['artist_thumb']; ?></td>
