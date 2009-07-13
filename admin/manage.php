@@ -73,7 +73,7 @@ $artist = get_artist($_REQUEST['artist']);
 						<tr valign="top">
 							<th scope="row">Artist Slug</th> 
 							<td>
-								<input type="text" style="width:320px;" class="regular-text code" value="<?php artist_slug(); ?>" name="artist_slug" id="artist_slug" /><span class="description">The URL you want for the artist - for example http://recordsonribs.com/artists/artist_slug</span>
+								<input type="text" style="width:320px;" class="regular-text code" value="<?php artist_slug(); ?>" name="artist_slug" id="artist_slug" /><span class="description">The URL you want for the artist - for example <?php echo get_option('siteurl'); ?>/artists/artist_slug</span>
 							</td> 
 						</tr>
 						<tr valign="top">
