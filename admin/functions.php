@@ -191,11 +191,33 @@ function ribcage_add_press($value='')
 	<?php
 }
 
-function ribcage_options($value='')
+function ribcage_options()
 {
 	?>
 	<div class="wrap">
 		<h2>Ribcage Options</h2>
+		
+		<form method="post" action="options.php">
+		<table class="form-table">
+		<tr valign="top">
+		<th scope="row">Paypal E-mail Address</th>
+		<td><input type="text" name="ribcage_paypal_email" value="<?php echo get_option('ribcage_paypal_email'); ?>" /></td>
+		</tr>
+		<tr valign="top">
+		<th scope="row">Image Location</th>
+		<td><input type="text" name="ribcage_image_location" value="<?php echo get_option('ribcage_image_location'); ?>" /></td>
+		</tr>
+		<th scope="row">File Location</th>
+		<td><input type="text" name="ribcage_file_location" value="<?php echo get_option('ribcage_file_location'); ?>" /></td>
+		</tr>
+		</table>
+		<?php settings_fields('ribcage'); ?>
+		<p class="submit">
+		<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+		</p>
+
+		</form>
+		</div>
 	</div>
 	<?php
 }

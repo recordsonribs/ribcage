@@ -19,6 +19,15 @@ function ribcage_admin_menu() {
 	add_submenu_page(dirname(__FILE__).'/admin.php', 'Ribcage', 'Add Review', 8, 'add_review', 'ribcage_add_review');	
 	add_submenu_page(dirname(__FILE__).'/admin.php', 'Ribcage', 'Add Press', 8, 'add_press', 'ribcage_add_press');
 	add_submenu_page(dirname(__FILE__).'/admin.php', 'Ribcage', 'Manage Artists', 8, 'manage_artists', 'ribcage_manage_artists');
+	
+	add_submenu_page(dirname(__FILE__).'/admin.php', 'Ribcage', 'Ribcage', 8, 'ribcage_options', 'ribcage_options');
+	
+	settings_fields('ribcage');
+	
+	register_setting('ribcage','ribcage_paypal_email');
+	register_setting('ribcage','ribcage_image_location');
+	register_setting('ribcage','ribcage_file_location');
+	register_setting('ribcage','ribcage_mark');
 }
 add_action('admin_menu', 'ribcage_admin_menu');
 

@@ -18,7 +18,7 @@ function ribcage_buy_process ()
 		$postage = 'UK';
 	}
 
-	$paypal->add_field('business', get_option('ribcage_ebay_email'));
+	$paypal->add_field('business', get_option('ribcage_paypal_email'));
 	
 	$paypal->add_field('charset', 'utf-8');
 	
@@ -53,7 +53,7 @@ function ribcage_buy_ipn () {
 		// Send e-mail to the customer thanking them for their order.
 		
 		$subject = 'Instant Payment Notification - Recieved Payment';
-		$to = 'alex@recordsonribs.com';    //  your email
+		$to = get_option('ribcage_paypal_email');    //  your email
 		$body =  "An instant payment notification was successfully recieved\n";
 		$body .= "from ".$paypal->ipn_data['payer_email']." on ".date('m/d/Y');
 		$body .= " at ".date('g:i A')."\n\nDetails:\n";

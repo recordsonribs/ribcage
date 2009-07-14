@@ -411,8 +411,6 @@ function ribcage_activate(){
 		require_once dirname(__FILE__) . '/ribcage-includes/install.php';
 		dbDelta($ribcage_schema);
 		update_option('ribcage_db_version',1);
-		
-		add_option('ribcage_ebay_email');
 	}
 	ribcage_flush_rules();
 }

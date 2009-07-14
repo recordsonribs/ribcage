@@ -6,7 +6,7 @@ function ribcage_donate (){
 	global $paypal;
 	global $artist, $release;
 	
-	$paypal->add_field('business', get_option('ribcage_ebay_email'));
+	$paypal->add_field('business', get_option('ribcage_paypal_email'));
 
 	$paypal->add_field('charset', 'utf-8');
 
