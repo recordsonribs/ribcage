@@ -4,7 +4,7 @@
  *
  * @author Alexander Andrews
  * @package Ribcage
- * @subpackage Adminstation
+ * @subpackage Administration
  **/
 
 /**

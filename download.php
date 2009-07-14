@@ -1,4 +1,10 @@
 <?php
+/**
+ * Functions for downloading files
+ *
+ * @package Ribcage
+ * @subpackage Downloads
+ **/
 
 // download_release
 // Input the slug of the release, the desired format (flac/ogg/mp3)

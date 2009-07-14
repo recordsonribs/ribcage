@@ -6,7 +6,7 @@
  * Registers all the widgets used by Ribcage.
  *
  * @package Ribcage
- * @author Alex Andrews
+ * @subpackage Widgets
  **/
 class ribcage_widgets {	
 	/**

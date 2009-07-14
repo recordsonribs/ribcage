@@ -2,8 +2,8 @@
 /*
 	Plugin Name: Ribcage
 	Plugin URI: http://recordsonribs.com/ribcage/
-	Description: Manages and monitors artists, releases and downloads for the Records On Ribs label.
-	Version: 0.1 RC 1
+	Description: Manages and monitors artists, releases and downloads for a record label. Originally designed for Records On Ribs.
+	Version: 0.1
 	Author: Alexander Andrews
 	Author URI: http://recordsonribs.com
 */
@@ -260,7 +260,6 @@ function ribcage_init (){
 	die ();
 }
 
-// If the rewrite rules are regenerated, Add our pretty permalink stuff, redirect it to the correct queryvar
 function ribcage_add_rewrite_rules ( $wp_rewrite ) {
 	$new_rules = array(
 		"(artists)/(.*)/(.*)" => 'index.php?artist_slug='.$wp_rewrite->preg_index(2).'&artist_page='.$wp_rewrite->preg_index(3),
