@@ -276,9 +276,9 @@ function release_cat_no ( $echo = true ) {
 	global $release;
 	
 	if ( $echo )
-		echo 'ROR'.str_pad($release['release_id'], 3, "0", STR_PAD_LEFT);
+		echo get_option('ribcage_mark').str_pad($release['release_id'], 3, "0", STR_PAD_LEFT);
 	
-	return 	'ROR'.str_pad($release['release_id'], 3, "0", STR_PAD_LEFT);
+	return 	get_option('ribcage_mark').str_pad($release['release_id'], 3, "0", STR_PAD_LEFT);
 }
 
 function release_id ( $echo = true ) {

@@ -203,24 +203,25 @@ function ribcage_options()
 	<div id="message" class="updated fade"><p><strong>Ribcage options saved.</strong></p></div>	
 	<?php endif; ?>
 	<div class="wrap">
-		<h2>Ribcage Options</h2>
+		<div id="icon-options-general" class="icon32"><br /></div>
+		<h2>Ribcage</h2>
 		<form method="post" action="options.php">
 		<table class="form-table">
 		<tr valign="top">
-		<th scope="row">Paypal E-mail Address</th>
-		<td><input type="text" name="ribcage_paypal_email" value="<?php echo get_option('ribcage_paypal_email'); ?>" /></td>
+		<th scope="row"><label for="ribcage_paypal_email">Paypal E-mail Address</label></th>
+		<td><input type="text" name="ribcage_paypal_email" value="<?php echo get_option('ribcage_paypal_email'); ?>" class="regular-text code"/></td>
 		</tr>
 		<tr valign="top">
-		<th scope="row">Image Location</th>
-		<td><input type="text" name="ribcage_image_location" value="<?php echo get_option('ribcage_image_location'); ?>" /></td>
+		<th scope="row"><label for="ribcage_image_location">Image Location</label></th>
+		<td><input type="text" name="ribcage_image_location" value="<?php echo get_option('ribcage_image_location'); ?>" class="regular-text code"/></td>
 		</tr>
 		<tr valign="top">
 		<th scope="row">File Location</th>
-		<td><input type="text" name="ribcage_file_location" value="<?php echo get_option('ribcage_file_location'); ?>" /></td>
+		<td><input type="text" name="ribcage_file_location" value="<?php echo get_option('ribcage_file_location'); ?>" class="regular-text code"/></td>
 		</tr>
 		<tr valign="top">
 		<th scope="row">Record Label Mark</th>
-		<td><input type="text" name="ribcage_mark" value="<?php echo get_option('ribcage_mark'); ?>" /></td>
+		<td><input type="text" name="ribcage_mark" value="<?php echo get_option('ribcage_mark'); ?>" class="regular-text code"/></td>
 		</tr>
 		</table>
 		<?php settings_fields('ribcage'); ?>

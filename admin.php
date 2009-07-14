@@ -20,7 +20,7 @@ function ribcage_admin_menu() {
 	add_submenu_page(dirname(__FILE__).'/admin.php', 'Ribcage', 'Add Press', 8, 'add_press', 'ribcage_add_press');
 	add_submenu_page(dirname(__FILE__).'/admin.php', 'Ribcage', 'Manage Artists', 8, 'manage_artists', 'ribcage_manage_artists');
 	
-	add_submenu_page(dirname(__FILE__).'/admin.php', 'Ribcage', 'Ribcage', 8, 'ribcage_options', 'ribcage_options');
+	add_options_page('Ribcage', 'Ribcage', 8, 'ribcage_options', 'ribcage_options');
 	
 	settings_fields('ribcage');
 	
