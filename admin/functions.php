@@ -191,12 +191,19 @@ function ribcage_add_press($value='')
 	<?php
 }
 
+/**
+ * Displays form for changing Ribcage options.
+ *
+ * @return void
+ **/
 function ribcage_options()
 {
 	?>
+	<?php if ($_REQUEST['updated'] == true) : ?>
+	<div id="message" class="updated fade"><p><strong>Ribcage options saved.</strong></p></div>	
+	<?php endif; ?>
 	<div class="wrap">
 		<h2>Ribcage Options</h2>
-		
 		<form method="post" action="options.php">
 		<table class="form-table">
 		<tr valign="top">
@@ -207,15 +214,19 @@ function ribcage_options()
 		<th scope="row">Image Location</th>
 		<td><input type="text" name="ribcage_image_location" value="<?php echo get_option('ribcage_image_location'); ?>" /></td>
 		</tr>
+		<tr valign="top">
 		<th scope="row">File Location</th>
 		<td><input type="text" name="ribcage_file_location" value="<?php echo get_option('ribcage_file_location'); ?>" /></td>
+		</tr>
+		<tr valign="top">
+		<th scope="row">Record Label Mark</th>
+		<td><input type="text" name="ribcage_mark" value="<?php echo get_option('ribcage_mark'); ?>" /></td>
 		</tr>
 		</table>
 		<?php settings_fields('ribcage'); ?>
 		<p class="submit">
 		<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
 		</p>
-
 		</form>
 		</div>
 	</div>
