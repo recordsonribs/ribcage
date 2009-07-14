@@ -199,9 +199,6 @@ function ribcage_add_press($value='')
 function ribcage_options()
 {
 	?>
-	<?php if ($_REQUEST['updated'] == true) : ?>
-	<div id="message" class="updated fade"><p><strong>Ribcage options saved.</strong></p></div>	
-	<?php endif; ?>
 	<div class="wrap">
 		<div id="icon-options-general" class="icon32"><br /></div>
 		<h2>Ribcage</h2>
