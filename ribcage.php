@@ -410,6 +410,7 @@ function ribcage_activate(){
 		require_once dirname(__FILE__) . '/ribcage-includes/install.php';
 		dbDelta($ribcage_schema);
 		update_option('ribcage_db_version',1);
+		update_option('ribcage_release_image_tiny','/tiny');
 	}
 	ribcage_flush_rules();
 }
