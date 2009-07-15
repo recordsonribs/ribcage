@@ -29,7 +29,7 @@ function ribcage_admin_menu() {
 	register_setting('ribcage','ribcage_release_image_huge');
 	register_setting('ribcage','ribcage_release_image_medium'); 
 	register_setting('ribcage','ribcage_release_image_tiny');
-	register_setting('ribcage','ribcage_release_image_onesheet_pdf');
+	register_setting('ribcage','ribcage_release_onesheet_pdf');
 	register_setting('ribcage','ribcage_file_location');
 	register_setting('ribcage','ribcage_mark');
 	register_setting('ribcage','ribcage_postage_country');
