@@ -1,4 +1,15 @@
 <?php
+/**
+ * Functions concerned with handling donations.
+ *
+ * @author Alexander Andrews
+ * @package Ribcage
+ * @subpackage Donations
+ **/
+
+/**
+ * Define DocBlock
+ **/
 
 require_once dirname(__FILE__) . '/ribcage-includes/paypal/paypal.class.php';
 
