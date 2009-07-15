@@ -9,7 +9,7 @@ function ribcage_buy_process ()
 	global $product;
 	
 	if ($wp_query->query_vars['ribcage_buy_mode'] == 'go-ww') {
-		$amount = $product['product_cost'] + 1;	
+		$amount = $product['product_cost'] + get_option('ribcage_postage_worldwide');	
 		$postage = 'Worldwide';
 	}
 			
@@ -33,8 +33,6 @@ function ribcage_buy_process ()
 	
 	$paypal->add_field('currency_code', 'GBP');
 	
-		
-
 	$paypal->add_field('amount', $amount );
 
     $paypal->submit_paypal_post(); // submit the fields to paypal

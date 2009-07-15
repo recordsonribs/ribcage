@@ -61,22 +61,22 @@ function product_description ( $echo = true ) {
 	return $product['product_description'];
 }
 
-function product_cost_uk ( $echo = true ) {
+function product_cost_c ( $echo = true ) {
 	global $product;
 	
 	if ( $echo )
-		echo wptexturize($product['product_cost']);
+		echo wptexturize($product['product_cost']+get_option('ribcage_postage_country'));
 	
-	return $product['product_cost'];
+	return $product['product_cost']+get_option('ribcage_postage_country');
 }
 
 function product_cost_ww ( $echo = true ) {
 	global $product;
 	
 	if ( $echo )
-		echo wptexturize($product['product_cost']+1);
+		echo wptexturize($product['product_cost']+get_option('ribcage_postage_worldwide'));
 	
-	return $product['product_cost']+1;
+	return $product['product_cost']+get_option('ribcage_postage_worldwide');
 }
 
 function product_id ( $echo = true ) {

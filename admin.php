@@ -28,6 +28,8 @@ function ribcage_admin_menu() {
 	register_setting('ribcage','ribcage_image_location');
 	register_setting('ribcage','ribcage_file_location');
 	register_setting('ribcage','ribcage_mark');
+	register_setting('ribcage','ribcage_postage_country');
+	register_setting('ribcage','ribcage_postage_worldwide');
 }
 add_action('admin_menu', 'ribcage_admin_menu');
 

@@ -220,6 +220,14 @@ function ribcage_options()
 		<th scope="row">Record Label Mark</th>
 		<td><input type="text" name="ribcage_mark" value="<?php echo get_option('ribcage_mark'); ?>" class="regular-text code"/></td>
 		</tr>
+		<tr valign="top">
+		<th scope="row">Default Postage Within Your Country</th>
+		<td><input type="text" name="ribcage_postage_country" value="<?php echo get_option('ribcage_postage_country'); ?>" class="regular-text"/></td>
+		</tr>
+		<tr valign="top">
+		<th scope="row">Default Postage Worldwide</th>
+		<td><input type="text" name="ribcage_postage_worldwide" value="<?php echo get_option('ribcage_postage_worldwide'); ?>" class="regular-text"/></td>
+		</tr>
 		</table>
 		<?php settings_fields('ribcage'); ?>
 		<p class="submit">
