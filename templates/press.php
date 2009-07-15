@@ -4,7 +4,7 @@
 		<div id="post-17" class="hentry p1 page publish author-alex category-uncategorized tag- y2007 m07 d19 h23">
 			<h2 class="entry-title"><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>"><?php artist_name(); ?> - Press Resources</a></h2>
 	<div class="entry-content">
-	<p>If you require any further information regarding <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>"><?php artist_name(); ?></a> or any of our other artists or releases, or wish to contact the artist directly, please do not hesitate to e-mail <a href="mailto:press@recordsonribs.com">press@recordsonribs.com</a>.</p>
+	<p>If you require any further information regarding <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>"><?php artist_name(); ?></a> or any of our other artists or releases, or wish to contact the artist directly, please do not hesitate to e-mail <a href="mailto:<?php get_option('ribcage_press_contact'); ?>"><?php get_option('ribcage_press_contact'); ?></a>.</p>
 	<?php if (artist_picture_zip(0)) : ?><p><a href="<?php artist_picture_zip(); ?>">High Quality Press Photos (.zip)</a>
 	</p><?php endif ?>
 	<?php if (have_releases() ) : ?>
