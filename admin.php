@@ -24,17 +24,17 @@ function ribcage_admin_menu() {
 	
 	settings_fields('ribcage');
 	
-	register_setting('ribcage','ribcage_paypal_email'); // E-mail to send money to via Paypal.
-	register_setting('ribcage','ribcage_image_location'); // The directory to begin the tree of images for artists and release covers.
-	register_setting('ribcage','ribcage_file_location'); // The directory to begin the tree of files for audio and one sheets.
+	register_setting('ribcage','ribcage_paypal_email'); // E-mail to send money to via Paypal
+	register_setting('ribcage','ribcage_image_location'); // The directory to begin the directory tree of images for artists and release covers
+	register_setting('ribcage','ribcage_file_location'); // The directory to begin the directory tree of files for audio and one sheets
 	register_setting('ribcage','ribcage_release_image_huge'); // The directory to store huge images (defaults to _image_location/covers/huge)
 	register_setting('ribcage','ribcage_release_image_large'); // The directory to store large cover images (defaults to _image_location/covers/large)
 	register_setting('ribcage','ribcage_release_image_tiny'); // The directory to store medium tiny images (defaults to _image_location/covers/tiny)
 	register_setting('ribcage','ribcage_release_onesheet_pdf'); // The directory to store one sheets for releases (defaults to _file_location/pdf/onesheets)
-	register_setting('ribcage','ribcage_mark'); // The record label mark, Records On Ribs uses ROR, for example.
-	register_setting('ribcage','ribcage_postage_country'); // The default postage for a purchased item within the country you are in.
-	register_setting('ribcage','ribcage_postage_worldwide'); // The default postage for a purchased item worldwide.
-	register_setting('ribcage','ribcage_press_contact'); // E-mail for the press contact.
+	register_setting('ribcage','ribcage_mark'); // The record label mark, Records On Ribs uses ROR, for example
+	register_setting('ribcage','ribcage_postage_country'); // The default postage for a purchased item within the country you are in
+	register_setting('ribcage','ribcage_postage_worldwide'); // The default postage for a purchased item worldwide
+	register_setting('ribcage','ribcage_press_contact'); // E-mail for the press contact
 }
 add_action('admin_menu', 'ribcage_admin_menu');
 
