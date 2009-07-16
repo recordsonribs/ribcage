@@ -1,6 +1,12 @@
 <?php
+/**
+ * Functions associated with logging downloads
+ *
+ * @author Alexander Andrews
+ * @package Ribcage
+ * @subpackage Logging
+ **/
 
-// Log a download or stream.
 function ribcage_log ( $t = FALSE){
 	global $wpdb, $wp_query;
 	global $userdata;
