@@ -165,14 +165,12 @@ $artist = get_artist($_REQUEST['artist']);
 						<thead>
 						<tr>
 						<th scope="col" id="title" class="manage-column column-title" style="">Name</th>
-						<th scope="col" id="date" class="manage-column column-date" style="">Date</th>
 						</tr>
 						</thead>
 
 						<tfoot>
 						<tr>
 						<th scope="col"  class="manage-column column-title" style="">Name</th>
-						<th scope="col"  class="manage-column column-date" style="">Date</th>
 						</tr>
 						</tfoot>            
 						<tbody>
@@ -191,7 +189,6 @@ $artist = get_artist($_REQUEST['artist']);
 							?>
 							<td><a href="?page=manage_artists&amp;artist=<?php echo $artist['artist_id']; ?>">
 								<?php echo $artist['artist_name']; ?></a></td>
-							<td><?php echo $artist['artist_thumb']; ?></td>
 						</tr>
 							<?php
 							endforeach;
