@@ -44,7 +44,7 @@ function ribcage_manage_artists () {
 			$results = $wpdb->query( $sql );
 			$wpdb->hide_errors();
 			
-			$artist = get_artist($_REQUEST['edit']);
+			$artist = get_artist($artist_id);
 			
 			//display snazzy update fade thing when they are added
 			echo '<div id="message" class="updated fade"><p><strong>Artist updated.</strong></p></div>';		
