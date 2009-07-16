@@ -191,7 +191,7 @@ $artist = get_artist($_REQUEST['artist']);
 								$alternate = 1;
 							}
 							?>
-							<td><a href="<a href="?page=manage_artists&amp;artist=<?php artist_id(); ?>" title="<?php artist_name(); ?>"><?php artist_name(); ?></a></td>
+							<td><a href="<a href="?page=manage_artists&artist=<?php artist_id(); ?>" title="<?php artist_name(); ?>"><?php artist_name(); ?></a></td>
 							</tr>
 							<?php endwhile; ?>
 						</tbody>
