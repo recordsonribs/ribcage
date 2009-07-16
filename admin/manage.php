@@ -17,8 +17,8 @@ function ribcage_manage_artists () {
 	if(isset($_REQUEST['action'])) {
 		global $wpdb;
 		
+		echo "We got inside the action loop";
 		//slice off two variables at the end to prepare for implodes
-		array_pop($_POST); // hidden var
 		array_pop($_POST); // submit button var
 
 		//split apart associative array into different parts to prepare for implodes
@@ -32,6 +32,7 @@ function ribcage_manage_artists () {
 		$wpdb->show_errors();
 		
 		if ($_REQUEST['ribcage_action']=='edit') {
+			echo "We got inside the ribcage_action edit bit.";
 			$sql = "UPDATE ".$wpdb->prefix."ribcage_artists
 					SET ";
 					$i = 0;
