@@ -122,7 +122,6 @@ function get_product ($product_id) {
 	return $return;
 }
 
-
 // get_release
 // Input the release id.
 // Returns release as associative array.
