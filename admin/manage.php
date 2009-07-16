@@ -3,7 +3,6 @@
  * Manages an individual artist
  *
  * @return void
- * @param mixed $value What the hell does this do?
  **/
 function ribcage_manage_artists () {
 
