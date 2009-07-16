@@ -6,18 +6,16 @@
  **/
 function ribcage_manage_artists () {
 
-global $artists;
-
-if($_REQUEST['page']=='manage_artists' or $_REQUEST['page']=='add_artist'){
-	global $wpdb;
 	global $artists;
 	global $artist;
-	
+
 	$artist_id = (int) $_REQUEST['artist'];
 	$hidden_field_name = 'ribcage_artist_edit';
 	$button_name = 'Edit Artist';
-
-	if(isset($_REQUEST['action'])) { // we are going to do something now
+	
+	// we are going to do something now
+	if(isset($_REQUEST['action'])) {
+		global $wpdb;
 		
 		//slice off two variables at the end to prepare for implodes
 		array_pop($_POST); // hidden var
@@ -52,7 +50,7 @@ if($_REQUEST['page']=='manage_artists' or $_REQUEST['page']=='add_artist'){
 			echo '<div id="message" class="updated fade"><p><strong>Artist updated.</strong></p></div>';		
 		}
 		
-		if ($_REQUEST['action']=='ribcage-action') {
+		if ($_REQUEST['action']=='add') {
 			$sql = "INSERT INTO ".$wpdb->prefix."ribcage_artists
 					($string_keys)
 					VALUES
@@ -65,7 +63,9 @@ if($_REQUEST['page']=='manage_artists' or $_REQUEST['page']=='add_artist'){
 			//display snazzy update fade thing when they are added
 			echo '<div id="message" class="updated fade"><p><strong>Artist added.</strong></p></div>';
 		}
-		
+	}
+	
+	if ($_REQUEST['page'] !='manage_artists') :
 ?>
 	<div class="wrap">
 			<div id="icon-options-general" class="icon32"><br /></div>
@@ -175,7 +175,7 @@ if($_REQUEST['page']=='manage_artists' or $_REQUEST['page']=='add_artist'){
 					</p>
 			</form>
 	</div>
-<?php }	else {	?>
+<?php else : ?>
 	<div class="wrap">
 		<div id="icon-plugins" class="icon32"><br /></div>
 		<h2>Manage Artists</h2>
@@ -217,7 +217,6 @@ if($_REQUEST['page']=='manage_artists' or $_REQUEST['page']=='add_artist'){
 			</form>
 	</div>
 	<?php
-}
-}
+	endif;
 }
 ?>
