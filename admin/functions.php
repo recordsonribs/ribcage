@@ -144,7 +144,7 @@ EOT;
 					</table>
 					<p class="submit">
 						<input type="submit" name="Submit" class="button-primary" value="Save Changes" />
-						<input type="hidden" name="<?php echo $hidden_field_name; ?>" value="M">
+						<input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
 					</p>
 			</form>
 	</div>
