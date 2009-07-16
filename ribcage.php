@@ -39,7 +39,7 @@ require_once dirname(__FILE__) . '/buy.php';
 
 require_once dirname(__FILE__) . '/widget.php';
 
-//add_action('template_redirect','ribcage_init');
+add_action('template_redirect','ribcage_init');
 
 $paypal = new paypal_class;
 
@@ -56,7 +56,7 @@ function ribcage_init (){
 	
 	global $product;
 	
-	wp_enqueue_script('ribcage-player-popup', $src = get_option('siteurl').'/wp-content/plugins/ribcage/js/player.js', $deps = array(), $ver = '0.1' );
+	//wp_enqueue_script('ribcage-player-popup', $src = get_option('siteurl').'/wp-content/plugins/ribcage/js/player.js', $deps = array(), $ver = '0.1' );
 	
 	// Add our streams.
 	add_filter('wp_head', 'ribcage_release_feeds');
