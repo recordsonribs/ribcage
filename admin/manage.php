@@ -8,7 +8,7 @@ function ribcage_manage_artists () {
 
 global $artists;
 
-if(isset($_REQUEST['artist'])){
+if($_REQUEST['page']=='manage_artists' or $_REQUEST['page']=='add_artist'){
 	global $wpdb;
 	global $artists;
 	global $artist;
