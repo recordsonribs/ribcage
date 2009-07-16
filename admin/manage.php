@@ -17,7 +17,7 @@ if(isset($_REQUEST['artist'])){
 	$hidden_field_name = 'ribcage_artist_edit';
 	$button_name = 'Edit Artist';
 
-	if(isset$_REQUEST['action']) { // we are going to do something now
+	if(isset($_REQUEST['action'])) { // we are going to do something now
 		
 		//slice off two variables at the end to prepare for implodes
 		array_pop($_POST); // hidden var
