@@ -52,6 +52,7 @@ function ribcage_manage_artists () {
 		}
 		
 		if ($_REQUEST['ribcage_action']=='add') {
+			echo "We got inside the ribcage_action add bit.";
 			$sql = "INSERT INTO ".$wpdb->prefix."ribcage_artists
 					($string_keys)
 					VALUES
