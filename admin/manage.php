@@ -65,7 +65,7 @@ function ribcage_manage_artists () {
 		}
 	}
 	
-	if ($_REQUEST['page'] !='manage_artists' && isset($_REQUEST['artist'])) :
+	if (isset($_REQUEST['artist']) or $_REQUEST['page'] == 'add_artist') :
 ?>
 	<div class="wrap">
 			<div id="icon-options-general" class="icon32"><br /></div>
