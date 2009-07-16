@@ -31,7 +31,7 @@ function ribcage_manage_artists () {
 
 		$wpdb->show_errors();
 		
-		if ($_REQUEST['action']=='edit') {
+		if ($_REQUEST['ribcage_action']=='edit') {
 			$sql = "UPDATE ".$wpdb->prefix."ribcage_artists
 					SET ";
 					$i = 0;
@@ -50,7 +50,7 @@ function ribcage_manage_artists () {
 			echo '<div id="message" class="updated fade"><p><strong>Artist updated.</strong></p></div>';		
 		}
 		
-		if ($_REQUEST['action']=='add') {
+		if ($_REQUEST['ribcage_action']=='add') {
 			$sql = "INSERT INTO ".$wpdb->prefix."ribcage_artists
 					($string_keys)
 					VALUES
@@ -68,7 +68,7 @@ function ribcage_manage_artists () {
 	if (isset($_REQUEST['artist'])){
 		$artist = get_artist($_REQUEST['artist']);
 	}
-	if ($_REQUEST['action'] == 'add'){
+	if ($_REQUEST['ribcage_action'] == 'add'){
 		$artist = get_artist_by_slug($_POST['artist_slug']);
 	}
 ?>
@@ -76,11 +76,11 @@ function ribcage_manage_artists () {
 			<div id="icon-options-general" class="icon32"><br /></div>
 		<?php if ($_REQUEST['page']=='add_artist') : ?>
 			<h2>Add Artist</h2>
-			<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&action=add" method="post" id="ribcage_edit_artist" name="edit_artist">
+			<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&ribcage_action=add" method="post" id="ribcage_edit_artist" name="edit_artist">
 		<?php endif; ?>
 		<?php if ($_REQUEST['page']=='manage_artists' && $_REQUEST['artist']) : ?>
 			<h2>Managing <?php artist_name(); ?></h2>
-			<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&action=edit" method="post" id="ribcage_edit_artist" name="edit_artist">
+			<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&ribcage_action=edit" method="post" id="ribcage_edit_artist" name="edit_artist">
 		<?php endif; ?>
 					<table class="form-table">             
 						<tr valign="top">
