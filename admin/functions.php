@@ -4,7 +4,7 @@ function ribcage_admin_index ()
 {	
 	?>
 	<div class="wrap">
-		<h2>Log</h2>
+		<h2>Ribcage</h2>
 	</div>	
 	<?php
 }
