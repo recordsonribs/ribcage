@@ -189,6 +189,7 @@ function get_artist_by_slug ($artist_slug){
 	$return = $wpdb->get_row($querystr, ARRAY_A);	
 	return $return;
 }
+
 // get_tracks
 // Input the release id.
 // Returns tracks on release as an associative array.
