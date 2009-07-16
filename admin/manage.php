@@ -17,7 +17,6 @@ function ribcage_manage_artists () {
 	if(isset($_REQUEST['ribcage_action'])) {
 		global $wpdb;
 		
-		echo "We got inside the action loop";
 		//slice off two variables at the end to prepare for implodes
 		array_pop($_POST); // submit button var
 
@@ -52,7 +51,6 @@ function ribcage_manage_artists () {
 		}
 		
 		if ($_REQUEST['ribcage_action']=='add') {
-			echo "We got inside the ribcage_action add bit.";
 			$sql = "INSERT INTO ".$wpdb->prefix."ribcage_artists
 					($string_keys)
 					VALUES
