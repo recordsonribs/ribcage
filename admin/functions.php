@@ -35,7 +35,6 @@ function ribcage_add_artist()
 				($string_keys)
 				VALUES
 				($string_vals)";
-		//echo "<pre>$sql</pre>";
 		$results = $wpdb->query( $sql );
 		$wpdb->hide_errors();
 
