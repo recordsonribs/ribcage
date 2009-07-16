@@ -94,8 +94,6 @@ function product_id ( $echo = true ) {
 	return $product['product_id'];
 }
 
-//
-
 function release_title ( $echo = true ) {
 	global $release;
 	
@@ -324,10 +322,6 @@ function release_product_id ( $echo = TRUE ) {
 	
 	return 	$release['release_physical_cat_no'];
 }
-
-// artist_*
-// -----------
-// Various artist_ template tags.
 
 function artist_name ( $echo = true ) {
 	global $artist;
@@ -570,8 +564,6 @@ function the_track (){
 	$GLOBALS['current_track']++;
 }
 
-//------------------------------------------------------
-
 function have_releases () {
 	global $releases, $current_release;
 	
@@ -591,8 +583,6 @@ function the_release (){
 	$GLOBALS['tracks'] = $release ['release_tracks'];
 	$GLOBALS['current_release']++;
 }
-
-//------------------------------------------------------
 
 function have_reviews () {
 	global $reviews, $current_review;
