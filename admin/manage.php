@@ -11,12 +11,13 @@ global $artists;
 if(isset($_REQUEST['artist'])):
 	global $wpdb;
 	global $artists;
+	global $artist;
 	
 	$artist_id = (int) $_REQUEST['artist'];
 	$hidden_field_name = 'ribcage_artist_edit';
 	$button_name = 'Edit Artist';
 
-	if($_POST[$hidden_field_name] == 'M'){ // an artist is posted
+	if($_REQUEST['action']) { // we are going to do something now
 		
 		//slice off two variables at the end to prepare for implodes
 		array_pop($_POST); // hidden var
@@ -31,32 +32,53 @@ if(isset($_REQUEST['artist'])):
 		$string_vals = "'".implode($post_vals,"','")."'";
 
 		$wpdb->show_errors();
-		//construct query
-		$sql = "UPDATE ".$wpdb->prefix."ribcage_artists
-				SET ";
-				$i = 0;
-				foreach($post_keys as $field):
-					$sql .= $field ."='".$post_vals[$i]."', ";
-					$i++;
-				endforeach;
-		$sql .= " artist_id = ".$artist_id." 
-				WHERE artist_id = ".$artist_id;
-				
-		$results = $wpdb->query( $sql );
-		$wpdb->hide_errors();
+		
+		if ($_REQUEST['action']=='edit') {
+			$sql = "UPDATE ".$wpdb->prefix."ribcage_artists
+					SET ";
+					$i = 0;
+					foreach($post_keys as $field):
+						$sql .= $field ."='".$post_vals[$i]."', ";
+						$i++;
+					endforeach;
+			$sql .= " artist_id = ".$artist_id." 
+					WHERE artist_id = ".$artist_id;
+			$results = $wpdb->query( $sql );
+			$wpdb->hide_errors();
+			
+			$artist = get_artist($_REQUEST['edit']);
+			
+			//display snazzy update fade thing when they are added
+			echo '<div id="message" class="updated fade"><p><strong>Artist updated.</strong></p></div>';		
+		}
+		
+		if ($_REQUEST['action']=='ribcage-action') {
+			$sql = "INSERT INTO ".$wpdb->prefix."ribcage_artists
+					($string_keys)
+					VALUES
+					($string_vals)";
+			$results = $wpdb->query( $sql );
+			$wpdb->hide_errors();
+			
+			$artist = get_artist($_REQUEST['artist']);
+			
+			//display snazzy update fade thing when they are added
+			echo '<div id="message" class="updated fade"><p><strong>Artist added.</strong></p></div>';
+		}
 
-		//display snazzy update fade thing when they are added
-		echo <<<EOT
-			<div id="message" class="updated fade"><p><strong>Artist updated.</strong></p></div>
-EOT;
-	}
-
-$artist = get_artist($_REQUEST['artist']);
+	
+		
 ?>
 	<div class="wrap">
 			<div id="icon-options-general" class="icon32"><br /></div>
-		<h2>Managing <?php artist_name(); ?></h2>
-			<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>" method="post" id="ribcage_edit_artist" name="edit_artist">
+		<?php if ($_REQUEST['page']=='add_artist') : ?>
+			<h2>Add Artist</h2>
+			<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&action=add" method="post" id="ribcage_edit_artist" name="edit_artist">
+		<?php endif; ?>
+		<?php if ($_REQUEST['page']=='manage_artists' && $_REQUEST['artist']) : ?>
+			<h2>Managing <?php artist_name(); ?></h2>
+			<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&action=edit" method="post" id="ribcage_edit_artist" name="edit_artist">
+		<?php endif; ?>
 					<table class="form-table">             
 						<tr valign="top">
 							<th scope="row"><label for="artist_name">Name</label></th> 
@@ -152,7 +174,6 @@ $artist = get_artist($_REQUEST['artist']);
 					</table>
 					<p class="submit">
 						<input type="submit" name="Submit" class="button-primary" value="Save Changes" />
-						<input type="hidden" name="<?php echo $hidden_field_name; ?>" value="M">
 					</p>
 			</form>
 	</div>
