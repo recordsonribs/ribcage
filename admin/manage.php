@@ -8,7 +8,7 @@ function ribcage_manage_artists () {
 
 global $artists;
 
-if(isset($_REQUEST['artist'])):
+if(isset($_REQUEST['artist'])){
 	global $wpdb;
 	global $artists;
 	global $artist;
@@ -17,7 +17,7 @@ if(isset($_REQUEST['artist'])):
 	$hidden_field_name = 'ribcage_artist_edit';
 	$button_name = 'Edit Artist';
 
-	if($_REQUEST['action']) { // we are going to do something now
+	if(isset$_REQUEST['action']) { // we are going to do something now
 		
 		//slice off two variables at the end to prepare for implodes
 		array_pop($_POST); // hidden var
@@ -65,8 +65,6 @@ if(isset($_REQUEST['artist'])):
 			//display snazzy update fade thing when they are added
 			echo '<div id="message" class="updated fade"><p><strong>Artist added.</strong></p></div>';
 		}
-
-	
 		
 ?>
 	<div class="wrap">
@@ -177,7 +175,7 @@ if(isset($_REQUEST['artist'])):
 					</p>
 			</form>
 	</div>
-<?php 	else:	?>
+<?php }	else {	?>
 	<div class="wrap">
 		<div id="icon-plugins" class="icon32"><br /></div>
 		<h2>Manage Artists</h2>
@@ -219,7 +217,7 @@ if(isset($_REQUEST['artist'])):
 			</form>
 	</div>
 	<?php
-endif;
+}
 }
 
 ?>
