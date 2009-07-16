@@ -179,7 +179,7 @@ $artist = get_artist($_REQUEST['artist']);
 							<?php
 							$artists = list_artists_blurb();
 							$alternate = 1;
-							?>				
+							?>
 							<?php while ( have_artists () ) : the_artist(); ?>
 							<?php
 							if ($alternate == 1){
@@ -191,12 +191,9 @@ $artist = get_artist($_REQUEST['artist']);
 								$alternate = 1;
 							}
 							?>
-							<td><a href="?page=manage_artists&amp;artist=<?php artist_id(); ?>">
-								<?php artist_name(); ?></a></td>
-						</tr>
-							<?php
-							endwhile;
-							?>
+							<td><a href="<a href="?page=manage_artists&amp;artist=<?php artist_id(); ?>" title="<?php artist_name(); ?>"><?php artist_name(); ?></a></td>
+							</tr>
+							<?php endwhile; ?>
 						</tbody>
 					</table>
 			</form>

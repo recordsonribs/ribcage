@@ -326,6 +326,12 @@ function ribcage_queryvars ($qvars){
 }
 add_filter('query_vars', 'ribcage_queryvars' );
 
+/**
+ * Flushes Ribcage rewrite rules
+ *
+ * @return void
+ * @author Alexander Andrews
+ **/
 function ribcage_flush_rules (){
 	global $wp_rewrite;
 	
