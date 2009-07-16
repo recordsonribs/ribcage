@@ -31,7 +31,6 @@ function ribcage_manage_artists () {
 		$wpdb->show_errors();
 		
 		if ($_REQUEST['ribcage_action']=='edit') {
-			echo "We got inside the ribcage_action edit bit.";
 			$sql = "UPDATE ".$wpdb->prefix."ribcage_artists
 					SET ";
 					$i = 0;
