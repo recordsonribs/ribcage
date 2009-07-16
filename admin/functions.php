@@ -178,6 +178,7 @@ function ribcage_add_review($value='')
 	?>
 	<div class="wrap">
 		<h2>Add Review</h2>
+		<p>Add a review of one of your releases.</p>
 	</div>
 	<?php
 }
