@@ -65,8 +65,11 @@ function ribcage_manage_artists () {
 	
 	if (isset($_REQUEST['artist']) or $_REQUEST['page'] == 'add_artist') :
 
-	if (isset($_REQUEST['artist']) or $_REQUEST['action'] == 'add'){
+	if (isset($_REQUEST['artist'])){
 		$artist = get_artist($_REQUEST['artist']);
+	}
+	if ($_REQUEST['action'] == 'add'){
+		$artist = get_artist_by_slug($_POST['artist_slug'])
 	}
 ?>
 	<div class="wrap">
