@@ -56,7 +56,7 @@ function ribcage_init (){
 	
 	global $product;
 	
-	wp_enqueue_script('ribcage-player-popup', $src = get_option('siteurl').'/wp-content/plugins/ribcage/js/player.js');
+	wp_enqueue_script('ribcage-player-popup', get_option('siteurl').'/wp-content/plugins/ribcage/js/player.js');
 	
 	// Add our streams.
 	add_filter('wp_head', 'ribcage_release_feeds');

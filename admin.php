@@ -36,8 +36,8 @@ function ribcage_admin_menu() {
 	register_setting('ribcage','ribcage_postage_worldwide'); // The default postage for a purchased item worldwide
 	register_setting('ribcage','ribcage_press_contact'); // E-mail for the press contact
 }
-//add_action('admin_menu', 'ribcage_admin_menu');
+add_action('admin_init', 'ribcage_admin_menu');
 
-//require_once dirname(__FILE__) . '/admin/functions.php';
-//require_once dirname(__FILE__) . '/admin/manage.php';
+require_once dirname(__FILE__) . '/admin/functions.php';
+require_once dirname(__FILE__) . '/admin/manage.php';
 ?>
