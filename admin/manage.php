@@ -11,6 +11,8 @@ global $artist;
 
 if(isset($_REQUEST['artist'])):
 	global $wpdb;
+	global $artists;
+	
 	$artist_id = (int) $_REQUEST['artist'];
 	$hidden_field_name = 'ribcage_artist_edit';
 	$button_name = 'Edit Artist';
@@ -177,7 +179,7 @@ $artist = get_artist($_REQUEST['artist']);
 							<?php
 							$artists = list_artists_blurb();
 							$alternate = 1;
-							foreach($artists as $artist):
+							while ( have_artists () ) : the_artist();
 							if ($alternate == 1){
 								?><tr valign="top" class="alternate"><?php
 								$alternate = 0;
@@ -187,11 +189,11 @@ $artist = get_artist($_REQUEST['artist']);
 								$alternate = 1;
 							}
 							?>
-							<td><a href="?page=manage_artists&amp;artist=<?php echo $artist['artist_id']; ?>">
-								<?php echo $artist['artist_name']; ?></a></td>
+							<td><a href="?page=manage_artists&amp;artist=<?php artist_id(); ?>">
+								<?php artist_name(); ?></a></td>
 						</tr>
 							<?php
-							endforeach;
+							endwhile;
 							?>
 						</tbody>
 					</table>
