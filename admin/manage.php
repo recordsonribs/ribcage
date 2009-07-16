@@ -219,5 +219,5 @@ if(isset($_REQUEST['artist'])){
 	<?php
 }
 }
-
+}
 ?>
