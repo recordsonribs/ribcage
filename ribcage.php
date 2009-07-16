@@ -39,7 +39,7 @@ require_once dirname(__FILE__) . '/buy.php';
 
 require_once dirname(__FILE__) . '/widget.php';
 
-add_action('template_redirect','ribcage_init');
+//add_action('template_redirect','ribcage_init');
 
 $paypal = new paypal_class;
 
