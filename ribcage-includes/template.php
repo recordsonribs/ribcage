@@ -1,4 +1,10 @@
 <?php
+/**
+ * Template tags specific to Ribcage
+ *
+ *
+ * @package Ribcage
+ **/
 
 $artists = null;
 $artist = null;
