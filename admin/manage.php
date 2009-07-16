@@ -14,7 +14,7 @@ function ribcage_manage_artists () {
 	$button_name = 'Edit Artist';
 	
 	// we are going to do something now
-	if(isset($_REQUEST['action'])) {
+	if(isset($_REQUEST['ribcage_action'])) {
 		global $wpdb;
 		
 		echo "We got inside the action loop";
