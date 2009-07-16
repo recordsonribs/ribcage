@@ -58,14 +58,16 @@ function ribcage_manage_artists () {
 			$results = $wpdb->query( $sql );
 			$wpdb->hide_errors();
 			
-			$artist = get_artist($_REQUEST['artist']);
-			
 			//display snazzy update fade thing when they are added
 			echo '<div id="message" class="updated fade"><p><strong>Artist added.</strong></p></div>';
 		}
 	}
 	
 	if (isset($_REQUEST['artist']) or $_REQUEST['page'] == 'add_artist') :
+
+	if (isset($_REQUEST['artist']){
+		$artist = get_artist($_REQUEST['artist']);
+	}
 ?>
 	<div class="wrap">
 			<div id="icon-options-general" class="icon32"><br /></div>
