@@ -7,7 +7,7 @@
  **/
 function ribcage_manage_artists () {
 
-global $artist;
+global $artists;
 
 if(isset($_REQUEST['artist'])):
 	global $wpdb;
@@ -179,7 +179,9 @@ $artist = get_artist($_REQUEST['artist']);
 							<?php
 							$artists = list_artists_blurb();
 							$alternate = 1;
-							while ( have_artists () ) : the_artist();
+							?>				
+							<?php while ( have_artists () ) : the_artist(); ?>
+							<?php
 							if ($alternate == 1){
 								?><tr valign="top" class="alternate"><?php
 								$alternate = 0;
