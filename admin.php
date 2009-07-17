@@ -22,8 +22,6 @@ function ribcage_admin_menu() {
 	
 	add_options_page('Ribcage', 'Ribcage', 8, 'ribcage_options', 'ribcage_options');
 	
-	settings_fields('ribcage');
-	
 	register_setting('ribcage','ribcage_paypal_email'); // E-mail to send money to via Paypal
 	register_setting('ribcage','ribcage_image_location'); // The directory to begin the directory tree of images for artists and release covers
 	register_setting('ribcage','ribcage_file_location'); // The directory to begin the directory tree of files for audio and one sheets
