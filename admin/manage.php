@@ -13,6 +13,8 @@ function ribcage_manage_artists () {
 	$hidden_field_name = 'ribcage_artist_edit';
 	$button_name = 'Edit Artist';
 	
+	register_column_headers('ribcage-manage-artist','artist');
+	
 	// we are going to do something now
 	if(isset($_REQUEST['ribcage_action'])) {
 		global $wpdb;
@@ -183,20 +185,17 @@ function ribcage_manage_artists () {
 	<div class="wrap">
 		<div id="icon-plugins" class="icon32"><br /></div>
 		<h2>Manage Artists</h2>
-		<p>Edit the details of your artists.</p>
 			<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>" method="post" id="ribcage_manage_artists" name="manage_artists"> 
 				<table class="widefat post fixed" cellspacing="0">
 						<thead>
-						<tr>				
-						<th scope="col"  class="manage-column column-cb check-column" style=""><input type="checkbox" /></th>
-						<th scope="col" id="title" class="manage-column column-title" style="">Name</th>			
+						<tr>
+						<?php print_column_headers('ribcage-manage-artist'); ?>			
 						</tr>
 						</thead>
 
 						<tfoot>
 						<tr>			
-						<th scope="col"  class="manage-column column-cb check-column" style=""><input type="checkbox" /></th>
-						<th scope="col"  class="manage-column column-title" style="">Name</th>
+						<?php print_column_headers('ribcage-manage-artist',FALSE); ?>	
 						</tr>
 						</tfoot>            
 						<tbody>
