@@ -12,8 +12,12 @@ function ribcage_manage_artists () {
 	$artist_id = (int) $_REQUEST['artist'];
 	$hidden_field_name = 'ribcage_artist_edit';
 	$button_name = 'Edit Artist';
-	
-	register_column_headers('ribcage-manage-artist','artist');
+			
+	register_column_headers('ribcage-manage-artist',
+	array (
+		'artist'=>'Artist'
+		)
+		);
 	
 	// we are going to do something now
 	if(isset($_REQUEST['ribcage_action'])) {
