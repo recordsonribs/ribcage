@@ -216,7 +216,7 @@ function ribcage_manage_artists () {
 							}
 							?>		
 							<th scope="row" class="check-column"><input type="checkbox" name="artistcheck[]" value="2" /></th>
-							<td><a href="?page=manage_artists&artist=<?php artist_id(); ?>" title="<?php artist_name(); ?>"><?php artist_name(); ?></a></td>
+							<td class="column-name"><strong><a class="row-title" href="?page=manage_artists&artist=<?php artist_id(); ?>" title="<?php artist_name(); ?>" ><?php artist_name(); ?></strong></a><br /><div class="row-actions"><span class='edit'><a href="#">Edit</a> | </span><span class='delete'><a class='submitdelete' href='#' onclick="if ( confirm('You are about to delete this link \'Development Blog\'\n  \'Cancel\' to stop, \'OK\' to delete.') ) { return true;}return false;">Delete</a></span></div></td>
 							</tr>
 							<?php endwhile; ?>
 						</tbody>
