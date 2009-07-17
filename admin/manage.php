@@ -15,6 +15,7 @@ function ribcage_manage_artists () {
 			
 	register_column_headers('ribcage-manage-artist',
 	array (
+		'cb'=>'',
 		'artist'=>'Artist'
 		)
 		);
