@@ -187,13 +187,15 @@ function ribcage_manage_artists () {
 			<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>" method="post" id="ribcage_manage_artists" name="manage_artists"> 
 				<table class="widefat post fixed" cellspacing="0">
 						<thead>
-						<tr>
-						<th scope="col" id="title" class="manage-column column-title" style="">Name</th>
+						<tr>				
+						<th scope="col"  class="manage-column column-cb check-column" style=""><input type="checkbox" /></th>
+						<th scope="col" id="title" class="manage-column column-title" style="">Name</th>			
 						</tr>
 						</thead>
 
 						<tfoot>
-						<tr>
+						<tr>			
+						<th scope="col"  class="manage-column column-cb check-column" style=""><input type="checkbox" /></th>
 						<th scope="col"  class="manage-column column-title" style="">Name</th>
 						</tr>
 						</tfoot>            
@@ -212,7 +214,8 @@ function ribcage_manage_artists () {
 								?><tr valign="top" class=""> <?php
 								$alternate = 1;
 							}
-							?>
+							?>		
+							<th scope="row" class="check-column"><input type="checkbox" name="artistcheck[]" value="2" /></th>
 							<td><a href="?page=manage_artists&artist=<?php artist_id(); ?>" title="<?php artist_name(); ?>"><?php artist_name(); ?></a></td>
 							</tr>
 							<?php endwhile; ?>
