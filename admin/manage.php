@@ -15,7 +15,7 @@ function ribcage_manage_artists () {
 			
 	register_column_headers('ribcage-manage-artist',
 	array (
-		'cb'=>'',
+		'cb'=>'<input type="checkbox" />',
 		'artist'=>'Artist'
 		)
 		);
