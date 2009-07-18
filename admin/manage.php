@@ -72,6 +72,7 @@ function ribcage_manage_artists () {
 				$nonce=$_REQUEST['_wpnonce'];
 				//if (! wp_verify_nonce($nonce, 'ribcage_manage') ) die("Security check");
 				echo 'Deleted something or other';
+				die;
 			break;
 		}
 		
@@ -227,7 +228,7 @@ function ribcage_manage_artists () {
 							}
 							?>		
 							<th scope="row" class="check-column"><input type="checkbox" name="artistcheck[]" value="2" /></th>
-							<td class="column-name"><strong><a class="row-title" href="?page=manage_artists&artist=<?php artist_id(); ?>" title="<?php artist_name(); ?>" ><?php artist_name(); ?></strong></a><br /><div class="row-actions"><span class='edit'><a href="?page=manage_artists&artist=<?php artist_id(); ?>">Edit</a> | </span><span class='delete'><a class='submitdelete' href='?page=manage_artists?ribcage_action=delete&amp;artist=<?php artist_id(); ?>&amp;_wpnonce=<?php echo $nonce ?>' onclick="if ( confirm('You are about to delete \'<?php artist_name(); ?>\'\n  \'Cancel\' to stop, \'OK\' to delete.') ) { return true;}return false;">Delete</a></span></div></td>
+							<td class="column-name"><strong><a class="row-title" href="?page=manage_artists&artist=<?php artist_id(); ?>" title="<?php artist_name(); ?>" ><?php artist_name(); ?></strong></a><br /><div class="row-actions"><span class='edit'><a href="?page=manage_artists&artist=<?php artist_id(); ?>">Edit</a> | </span><span class='delete'><a class='submitdelete' href='?page=manage_artists?artist=<?php artist_id(); ?>&amp;ribcage_action=delete&amp;_wpnonce=<?php echo $nonce ?>' onclick="if ( confirm('You are about to delete \'<?php artist_name(); ?>\'\n  \'Cancel\' to stop, \'OK\' to delete.') ) { return true;}return false;">Delete</a></span></div></td>
 							</tr>
 							<?php endwhile; ?>
 						</tbody>
