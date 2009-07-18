@@ -71,14 +71,15 @@ function ribcage_manage_artists () {
 			case 'delete':
 				$nonce=$_REQUEST['_wpnonce'];
 				if (! check_admin_referer('ribcage_manage')) die("Security check");
-				echo 'Deleted something or other';
+				
+				$message = 'deleted';
 			break;
 		}
 		
 		echo '<div id="message" class="updated fade"><p><strong>Artist '.$message.'.</strong></p></div>';
 	}
 	
-	if (isset($_REQUEST['artist']) or $_REQUEST['page'] == 'add_artist') :
+	if (isset($_REQUEST['artist']) or $_REQUEST['page'] == 'add_artist' not $_REQUEST['action'] == 'delete') :
 
 	if (isset($_REQUEST['artist'])){
 		$artist = get_artist($_REQUEST['artist']);
