@@ -72,6 +72,8 @@ function ribcage_manage_artists () {
 				$nonce=$_REQUEST['_wpnonce'];
 				if (! check_admin_referer('ribcage_manage')) die("Security check");
 				
+				$del_artist = get_artistname_by_id($_REQUEST['artist']);
+				
 				delete_artist($_REQUEST['artist']);
 				
 				$message = 'deleted';
