@@ -67,6 +67,13 @@ function ribcage_manage_artists () {
 				$message = 'added';
 				
 			break;
+			
+			case 'delete':
+				if(!check_admin_referer( 'ribcage_manage'){
+					die 'Security fail!'
+				}
+				echo 'Deleted something or other';
+			break;
 		}
 		
 		echo '<div id="message" class="updated fade"><p><strong>Artist '.$message.'.</strong></p></div>';
@@ -187,6 +194,7 @@ function ribcage_manage_artists () {
 			</form>
 	</div>
 <?php else : ?>
+	<?php $nonce= wp_create_nonce  ('ribcage_manage'); ?>
 	<div class="wrap">
 		<div id="icon-plugins" class="icon32"><br /></div>
 		<h2>Manage Artists</h2>
@@ -220,7 +228,7 @@ function ribcage_manage_artists () {
 							}
 							?>		
 							<th scope="row" class="check-column"><input type="checkbox" name="artistcheck[]" value="2" /></th>
-							<td class="column-name"><strong><a class="row-title" href="?page=manage_artists&artist=<?php artist_id(); ?>" title="<?php artist_name(); ?>" ><?php artist_name(); ?></strong></a><br /><div class="row-actions"><span class='edit'><a href="?page=manage_artists&artist=<?php artist_id(); ?>">Edit</a> | </span><span class='delete'><a class='submitdelete' href='#' onclick="if ( confirm('You are about to delete \'<?php artist_name(); ?>\'\n  \'Cancel\' to stop, \'OK\' to delete.') ) { return true;}return false;">Delete</a></span></div></td>
+							<td class="column-name"><strong><a class="row-title" href="?page=manage_artists&artist=<?php artist_id(); ?>" title="<?php artist_name(); ?>" ><?php artist_name(); ?></strong></a><br /><div class="row-actions"><span class='edit'><a href="?page=manage_artists&artist=<?php artist_id(); ?>">Edit</a> | </span><span class='delete'><a class='submitdelete' href='page=manage_artists?action=delete&amp;artist=<?php artist_id(); ?>&amp;_wpnonce=<?php echo $nonce ?>' onclick="if ( confirm('You are about to delete \'<?php artist_name(); ?>\'\n  \'Cancel\' to stop, \'OK\' to delete.') ) { return true;}return false;">Delete</a></span></div></td>
 							</tr>
 							<?php endwhile; ?>
 						</tbody>
