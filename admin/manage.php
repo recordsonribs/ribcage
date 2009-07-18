@@ -70,7 +70,7 @@ function ribcage_manage_artists () {
 			
 			case 'delete':
 				$nonce=$_REQUEST['_wpnonce'];
-				if (! wp_verify_nonce($nonce, 'ribcage_manage') ) die("Security check");
+				//if (! wp_verify_nonce($nonce, 'ribcage_manage') ) die("Security check");
 				echo 'Deleted something or other';
 			break;
 		}
