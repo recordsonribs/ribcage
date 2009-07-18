@@ -52,7 +52,8 @@ function ribcage_manage_artists () {
 
 				$artist = get_artist($artist_id);
 				$message = 'updated';
-								
+				
+				$index = 0;		
 			break;
 				
 			case 'add':
@@ -66,6 +67,7 @@ function ribcage_manage_artists () {
 				$artist = get_artist_by_slug($_POST['artist_slug']);
 				$message = 'added';
 				
+				$index = 0;	
 			break;
 			
 			case 'delete':
@@ -73,13 +75,18 @@ function ribcage_manage_artists () {
 				if (! check_admin_referer('ribcage_manage')) die("Security check");
 				
 				$message = 'deleted';
+				
+				$index = 1;
 			break;
 		}
 		
 		echo '<div id="message" class="updated fade"><p><strong>Artist '.$message.'.</strong></p></div>';
 	}
+	elseif (isset($_REQUEST['artist'])){
+		$index = 0;
+	}
 	
-	if (isset($_REQUEST['artist']) or $_REQUEST['page'] == 'add_artist' not $_REQUEST['action'] == 'delete') :
+	if ($index != 0) :
 
 	if (isset($_REQUEST['artist'])){
 		$artist = get_artist($_REQUEST['artist']);
