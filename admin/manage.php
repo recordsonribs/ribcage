@@ -72,7 +72,6 @@ function ribcage_manage_artists () {
 				$nonce=$_REQUEST['_wpnonce'];
 				if (! check_admin_referer('ribcage_manage')) die("Security check");
 				echo 'Deleted something or other';
-				die;
 			break;
 		}
 		
