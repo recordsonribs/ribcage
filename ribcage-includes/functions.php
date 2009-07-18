@@ -262,13 +262,13 @@ function ribcage_format_filesize($rawSize) {
 // dropdown to display CC licenses. accepts license slug as argument (to select that option)
 // license list: http://creativecommons.org/about/licenses/meet-the-licenses
 function ribcage_cc_dropdown($selected = false){
-$cclist = array(
-	'by-nc-nd'	=> 'Attribution Non-commercial No Derivatives (by-nc-nd)',
-	'by-nc-sa'	=> 'Attribution Non-commercial Share Alike (by-nc-sa)', 
-	'by-nc'		=> 'Attribution Non-commercial (by-nc)',
-	'by-nd'		=> 'Attribution No Derivatives (by-nd)',
-	'by-sa'		=> 'Attribution Share Alike (by-sa)',
-	'by' 		=> 'Attribution (by)'
+	$cclist = array(
+		'by-nc-nd'	=> 'Attribution Non-commercial No Derivatives (by-nc-nd)',
+		'by-nc-sa'	=> 'Attribution Non-commercial Share Alike (by-nc-sa)', 
+		'by-nc'		=> 'Attribution Non-commercial (by-nc)',
+		'by-nd'		=> 'Attribution No Derivatives (by-nd)',
+		'by-sa'		=> 'Attribution Share Alike (by-sa)',
+		'by' 		=> 'Attribution (by)'
 	);
 
 	$output = "<select name='artist_license' id='artist_license'>\n";
@@ -280,4 +280,19 @@ $cclist = array(
 	return $output;
 }
 
+/**
+ * Delete an artist from the database
+ * 
+ * @param int $artist_id Artist ID for deletion.
+ * @return bool True if this worked, false if it didn't.
+ * @author Alexander Andres
+ **/
+function delete_artist($artist_id)
+{
+	global $wpdb;
+	
+	$result = $wpdb->query("DELETE FROM `$wpdb->ribcage_artists` WHERE `artist_id` = $id LIMIT 1;");
+	
+	return ($result);
+}
 ?>
