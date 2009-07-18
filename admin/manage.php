@@ -36,35 +36,34 @@ function ribcage_manage_artists () {
 
 		$wpdb->show_errors();
 		
-		if ($_REQUEST['ribcage_action']=='edit') {
-			$sql = "UPDATE ".$wpdb->prefix."ribcage_artists
-					SET ";
-					$i = 0;
-					foreach($post_keys as $field):
-						$sql .= $field ."='".$post_vals[$i]."', ";
-						$i++;
-					endforeach;
-			$sql .= " artist_id = ".$artist_id." 
-					WHERE artist_id = ".$artist_id;
-			$results = $wpdb->query( $sql );
-			$wpdb->hide_errors();
-			
-			$artist = get_artist($artist_id);
-			
-			//display snazzy update fade thing when they are added
-			echo '<div id="message" class="updated fade"><p><strong>Artist updated.</strong></p></div>';		
-		}
-		
-		if ($_REQUEST['ribcage_action']=='add') {
-			$sql = "INSERT INTO ".$wpdb->prefix."ribcage_artists
-					($string_keys)
-					VALUES
-					($string_vals)";
-			$results = $wpdb->query( $sql );
-			$wpdb->hide_errors();
-			
-			//display snazzy update fade thing when they are added
-			echo '<div id="message" class="updated fade"><p><strong>Artist added.</strong></p></div>';
+		switch ($_REQUEST['ribcage_action']) {
+			case 'edit':
+				$sql = "UPDATE ".$wpdb->prefix."ribcage_artists
+						SET ";
+						$i = 0;
+						foreach($post_keys as $field):
+							$sql .= $field ."='".$post_vals[$i]."', ";
+							$i++;
+						endforeach;
+				$sql .= " artist_id = ".$artist_id." 
+						WHERE artist_id = ".$artist_id;
+				$results = $wpdb->query( $sql );
+				$wpdb->hide_errors();
+
+				$artist = get_artist($artist_id);
+
+				echo '<div id="message" class="updated fade"><p><strong>Artist updated.</strong></p></div>';
+				break;
+			case 'add'
+				$sql = "INSERT INTO ".$wpdb->prefix."ribcage_artists
+						($string_keys)
+						VALUES
+						($string_vals)";
+				$results = $wpdb->query( $sql );
+				$wpdb->hide_errors();
+
+				echo '<div id="message" class="updated fade"><p><strong>Artist added.</strong></p></div>';
+			break;
 		}
 	}
 	
