@@ -36,6 +36,8 @@ function ribcage_manage_artists () {
 
 		$wpdb->show_errors();
 		
+		$index = 0;
+		
 		switch ($_REQUEST['ribcage_action']) {
 			case 'edit':
 				$sql = "UPDATE ".$wpdb->prefix."ribcage_artists
@@ -82,10 +84,7 @@ function ribcage_manage_artists () {
 		
 		echo '<div id="message" class="updated fade"><p><strong>Artist '.$message.'.</strong></p></div>';
 	}
-	elseif (isset($_REQUEST['artist'])){
-		$index = 0;
-	}
-	
+
 	if ($index = 0) :
 
 	if (isset($_REQUEST['artist'])){
