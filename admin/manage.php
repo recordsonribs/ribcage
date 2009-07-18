@@ -206,17 +206,17 @@ function ribcage_manage_artists () {
 						<tbody>
 							<?php
 							$artists = list_artists_blurb();
-							$alternate = 1;
+							$alt = 1;
 							?>
 							<?php while ( have_artists () ) : the_artist(); ?>
 							<?php
-							if ($alternate == 1){
+							if ($alt == 1){
 								?><tr valign="top" class="alternate"><?php
-								$alternate = 0;
+								$alt = 0;
 							}
 							else {
 								?><tr valign="top" class=""> <?php
-								$alternate = 1;
+								$alt = 1;
 							}
 							?>		
 							<th scope="row" class="check-column"><input type="checkbox" name="artistcheck[]" value="2" /></th>
