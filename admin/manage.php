@@ -69,8 +69,8 @@ function ribcage_manage_artists () {
 			break;
 			
 			case 'delete':
-				if(!check_admin_referer( 'ribcage_manage'){
-					die 'Security fail!'
+				if(! check_admin_referer('ribcage_manage')){
+					die 'Security fail!';
 				}
 				echo 'Deleted something or other';
 			break;
