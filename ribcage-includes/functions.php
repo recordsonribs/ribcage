@@ -291,7 +291,7 @@ function delete_artist($artist_id)
 {
 	global $wpdb;
 	
-	$result = $wpdb->query("DELETE FROM `$wpdb->ribcage_artists` WHERE `artist_id` = $id LIMIT 1;");
+	$result = $wpdb->query("DELETE FROM `$wpdb->ribcage_artists` WHERE `artist_id` = $artist_id LIMIT 1;");
 	
 	return ($result);
 }
