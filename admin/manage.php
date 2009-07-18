@@ -86,7 +86,7 @@ function ribcage_manage_artists () {
 		$index = 0;
 	}
 	
-	if ($index != 0) :
+	if ($index = 0) :
 
 	if (isset($_REQUEST['artist'])){
 		$artist = get_artist($_REQUEST['artist']);
