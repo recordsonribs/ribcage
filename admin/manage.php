@@ -69,7 +69,7 @@ function ribcage_manage_artists () {
 				$artist = get_artist_by_slug($_POST['artist_slug']);
 				$message = 'added';
 				
-				$index = 0;	
+				$index = 1;	
 			break;
 			
 			case 'delete':
