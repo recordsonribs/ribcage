@@ -84,6 +84,9 @@ function ribcage_manage_artists () {
 		
 		echo '<div id="message" class="updated fade"><p><strong>Artist '.$message.'.</strong></p></div>';
 	}
+	elseif ($_REQUEST['page']=='add_artist'){
+		$index = 0;
+	}
 	else {
 		if (! isset($_REQUEST['artist']))
 		{
