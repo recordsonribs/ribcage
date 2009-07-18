@@ -20,7 +20,6 @@ function ribcage_manage_artists () {
 		)
 		);
 	
-	// we are going to do something now
 	if(isset($_REQUEST['ribcage_action'])) {
 		global $wpdb;
 		
