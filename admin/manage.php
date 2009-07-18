@@ -51,29 +51,31 @@ function ribcage_manage_artists () {
 				$wpdb->hide_errors();
 
 				$artist = get_artist($artist_id);
-
-				echo '<div id="message" class="updated fade"><p><strong>Artist updated.</strong></p></div>';
-				break;
-			case 'add'
+				$message = 'updated';
+								
+			break;
+				
+			case 'add':
 				$sql = "INSERT INTO ".$wpdb->prefix."ribcage_artists
 						($string_keys)
 						VALUES
 						($string_vals)";
 				$results = $wpdb->query( $sql );
 				$wpdb->hide_errors();
-
-				echo '<div id="message" class="updated fade"><p><strong>Artist added.</strong></p></div>';
+				
+				$artist = get_artist_by_slug($_POST['artist_slug']);
+				$message = 'added';
+				
 			break;
 		}
+		
+		echo '<div id="message" class="updated fade"><p><strong>Artist '.$message.'.</strong></p></div>';
 	}
 	
 	if (isset($_REQUEST['artist']) or $_REQUEST['page'] == 'add_artist') :
 
 	if (isset($_REQUEST['artist'])){
 		$artist = get_artist($_REQUEST['artist']);
-	}
-	if ($_REQUEST['ribcage_action'] == 'add'){
-		$artist = get_artist_by_slug($_POST['artist_slug']);
 	}
 ?>
 	<div class="wrap">
