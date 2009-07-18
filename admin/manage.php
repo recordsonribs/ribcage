@@ -76,7 +76,7 @@ function ribcage_manage_artists () {
 				
 				delete_artist($_REQUEST['artist']);
 				
-				$message = "deleted $del_artist";
+				$message = "$del_artist deleted";
 				
 				$index = 1;
 			break;
