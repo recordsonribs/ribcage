@@ -194,13 +194,13 @@ function ribcage_manage_artists () {
 						<tr valign="top">
 							<th scope="row">Artist Picture 2</th> 
 							<td>
-								<input type="text" style="width:320px;" class="regular-text code" value="<?php echo $artist_picture_2_val; ?>" name="artist_picture_2" id="artist_picture_2" maxlength="200" />
+								<input type="text" style="width:320px;" class="regular-text code" value="<?php artist_picture_2(); ?>" name="artist_picture_2" id="artist_picture_2" maxlength="200" />
 							</td> 
 						</tr>
 						<tr valign="top">
 							<th scope="row">Artist Picture 3</th> 
 							<td>
-								<input type="text" style="width:320px;" class="regular-text code" value="<?php echo $artist_picture_3_val; ?>" name="artist_picture_3" id="artist_picture_3" maxlength="200" />
+								<input type="text" style="width:320px;" class="regular-text code" value="<?php artist_picture_3(); ?>" name="artist_picture_3" id="artist_picture_3" maxlength="200" />
 							</td> 
 						</tr>
 						<tr valign="top">

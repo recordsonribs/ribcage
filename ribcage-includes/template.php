@@ -462,6 +462,24 @@ function artist_picture_1 ( $echo = true ) {
 	return $artist['artist_picture_1'];
 }
 
+function artist_picture_2 ( $echo = true ) {
+	global $artist;
+	
+	if ($echo)
+		echo $artist['artist_picture_2'];
+	
+	return $artist['artist_picture_2'];
+}
+
+function artist_picture_3 ( $echo = true ) {
+	global $artist;
+	
+	if ($echo)
+		echo $artist['artist_picture_3'];
+	
+	return $artist['artist_picture_3'];
+}
+
 function artist_picture_zip ( $echo = true ) {
 	global $artist;
 	
