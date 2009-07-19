@@ -231,7 +231,6 @@ function ribcage_manage_artists () {
 						<?php print_column_headers('ribcage-manage-artist'); ?>			
 						</tr>
 						</thead>
-
 						<tfoot>
 						<tr>			
 						<?php print_column_headers('ribcage-manage-artist',FALSE); ?>	
