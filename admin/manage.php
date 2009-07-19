@@ -81,7 +81,6 @@ function ribcage_manage_artists () {
 				$del_artist = get_artistname_by_id($_REQUEST['artist']);
 				
 				delete_artist($_REQUEST['artist']);
-				
 				$message = "$del_artist deleted";
 				
 				$index = 1;
