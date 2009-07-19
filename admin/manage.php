@@ -17,8 +17,6 @@ function ribcage_manage_artists () {
 	global $artist;
 
 	$artist_id = (int) $_REQUEST['artist'];
-	$hidden_field_name = 'ribcage_artist_edit';
-	$button_name = 'Edit Artist';
 			
 	register_column_headers('ribcage-manage-artist',
 	array (
