@@ -1,6 +1,13 @@
 <?php
 /**
- * Manages an individual artist
+ * Artist management
+ *
+ * @package Ribcage
+ * @subpackage Administration
+ **/
+
+/**
+ * Manages artists - adds, deletes, edits
  *
  * @return void
  **/
