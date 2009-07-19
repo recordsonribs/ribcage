@@ -217,6 +217,10 @@ function ribcage_manage_artists () {
 	</div>
 <?php else : ?>
 	<?php $nonce= wp_create_nonce  ('ribcage_manage'); ?>
+	<?php
+	$artists = list_artists_blurb();
+	$alt = 0;
+	?>
 	<div class="wrap">
 		<div id="icon-plugins" class="icon32"><br /></div>
 		<h2>Manage Artists</h2>
@@ -234,21 +238,8 @@ function ribcage_manage_artists () {
 						</tr>
 						</tfoot>            
 						<tbody>
-							<?php
-							$artists = list_artists_blurb();
-							$alt = 1;
-							?>
 							<?php while ( have_artists () ) : the_artist(); ?>
-							<?php
-							if ($alt == 1){
-								?><tr valign="top" class="alternate"><?php
-								$alt = 0;
-							}
-							else {
-								?><tr valign="top" class=""> <?php
-								$alt = 1;
-							}
-							?>		
+							<?php ($alt % 2) ? echo '<tr valign="top" class="alternate">' : echo '<tr valign="top" class="">'; ++$alt; ?>		
 							<th scope="row" class="check-column"><input type="checkbox" name="artistcheck[]" value="2" /></th>
 							<td class="column-name"><strong><a class="row-title" href="?page=manage_artists&artist=<?php artist_id(); ?>" title="<?php artist_name(); ?>" ><?php artist_name(); ?></strong></a><br /><div class="row-actions"><span class='edit'><a href="?page=manage_artists&artist=<?php artist_id(); ?>">Edit</a> | </span><span class='delete'><a class='submitdelete' href='?page=manage_artists&artist=<?php artist_id(); ?>&amp;ribcage_action=delete&amp;_wpnonce=<?php echo $nonce ?>' onclick="if ( confirm('You are about to delete \'<?php artist_name(); ?>\'\n  \'Cancel\' to stop, \'OK\' to delete.') ) { return true;}return false;">Delete</a></span></div></td>
 							</tr>
