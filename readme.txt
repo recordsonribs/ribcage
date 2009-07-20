@@ -47,9 +47,9 @@ e.g.
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= Can I use Ribcage for providing paid for downloads? =
 
-An answer to that question.
+As it is released under the GPL, Ribcage could be easily adapted to provide this function. Yet we originally designed Ribcage
 
 = What about foo bar? =
 
