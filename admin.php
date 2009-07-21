@@ -39,4 +39,6 @@ add_action('admin_menu', 'ribcage_admin_menu');
 
 require_once dirname(__FILE__) . '/admin/functions.php';
 require_once dirname(__FILE__) . '/admin/manage.php';
+
+require_once dirname(__FILE__) . '/ribcage-includes/phpbrainz/phpBrainz.class.php';
 ?>

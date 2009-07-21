@@ -48,7 +48,7 @@ require($curdir."phpBrainz.release.class.php");
 
 
 
-class phpBrainz{	
+class phpBrainz {	
 	//Holds the valid "include" types for album lookups
 	private $validAlbumInc =
 		array(

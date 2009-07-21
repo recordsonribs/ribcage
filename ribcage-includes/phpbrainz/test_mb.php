@@ -1,11 +1,11 @@
+<code>
 <?php
 require("phpBrainz.class.php");
 $mb = new phpBrainz();
 $mb_test = new stdClass();
-$mb_rf = new phpBrainz_TrackFilter(
+$mb_rf = new phpBrainz_ReleaseFilter(
     array(
-        "title"=>"Buddy Holly",
-        "artist"=>"Weezer"
+        "artist"=>"Talk Less, Say More"
         ));
 
 $time1 = microtime(true);
@@ -16,3 +16,6 @@ print_r($mb->findTrack($mb_rf));
 //print_r($mb->getTrack());
 $time2 = microtime(true);
 print("\n".($time2-$time1)."\n");
+
+?>
+</code>

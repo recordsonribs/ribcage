@@ -10,12 +10,79 @@ function ribcage_admin_index ()
 }
 
 function ribcage_add_release($value='')
-{
+{	
 	?>
 	<div class="wrap">
+		<div id="icon-options-general" class="icon32"><br /></div>
 		<h2>Add Release</h2>
+	<?php
+	if (isset($_POST['musicbrainz_id'])) {
+		echo '<p>';
+		echo '<pre>';
+		
+		$mbid = $_POST['musicbrainz_id'];
+		
+		$trackIncludes = array(
+			"artist",
+			"discs",
+			"tracks"
+			);
+
+		$phpBrainz = new phpBrainz();
+		$release = $phpBrainz->getRelease($mbid,$trackIncludes);
+
+		print 'Artist: '.$release->getArtist()->getName()."\n";
+		print 'Sort Artist: '.$release->getArtist()->getSortName()."\n";
+		print 'Title: '.$release->getTitle()."\n";
+		print 'Musicbrainz ID: '.$release->getID()."\n\n";
+		$gottracks = $release->getTracks();
+
+		$track_no = 1;
+		$total_seconds =  0;
+
+		foreach ($gottracks as $tr) {
+			$milsec = $tr->getDuration();
+			$sec = (int) $milsec / 1000;
+			$mins = floor ($sec / 60);
+			$secs = $sec % 60;
+
+			print $track_no.'. '.$tr->getTitle().' ('.str_pad($mins,2, "0", STR_PAD_LEFT).':'.str_pad($secs,2, "0", STR_PAD_LEFT).')'."\n";	
+			print $tr->getId()."\n\n";
+
+			$total_seconds = $total_seconds + $sec;
+
+			++$track_no;
+		}
+
+		$hours = intval(intval($total_seconds) / 3600);
+		$minutes = intval(($total_seconds / 60) % 60); 
+		$seconds = intval($total_seconds % 60);
+
+		echo "Total Time: ".str_pad($hours,2, "0", STR_PAD_LEFT).':'.str_pad($minutes,2, "0", STR_PAD_LEFT).':'.str_pad($seconds,2, "0", STR_PAD_LEFT)."\n\n";
+		
+		echo "</pre>";
+		echo '</p>';
+	}
+	else {
+	?>
+		<form method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
+		<p>Please enter the Musicbrainz ID of the release for automated inclusion</p>
+		<table class="form-table">
+		<tr valign="top">
+		<th scope="row"><label for="musicbrainz_id">Musicbrainz ID</label></th>
+		<td><input type="text" name="musicbrainz_id" value="" class="regular-text code"/></td>
+		</tr>
+		</table>
+		<p class="submit">
+		<input type="submit" class="button-primary" value="<?php _e('Lookup') ?>" />
+		</p>
+		</form>
+	<?php
+	}
+	?>
 	</div>
 	<?php
+	
 }
 
 function ribcage_add_review($value='')
