@@ -19,27 +19,27 @@ Copyright (c) 2007 Jeff Sherlock
 
 */
 /**
+ * Abstract class for the filter objects
+ * since the methods for each one are identical,
+ * the only difference is the parameters.
  * 
  * @author Jeff Sherlock
  * @copyright Jeff Sherlock 2007
  * @package phpBrainz
- * @name phpBrainz_TrackFilter
+ * @name phpBrainz_Abstract_Filter
  * 
  */
-class phpBrainz_TrackFilter extends phpBrainz_Abstract_Filter {
-	public $validArgTypes = 
-		array(
-    		"title",
-    		"artist",
-    		"artistid",
-    		"releasetype",
-    		"releaseid",
-    		"release",
-    		"duration",
-    		"count",
-    		"tracknum",
-    		"script",
-    		"limit",
-    		"puid"
-		);
+abstract class phpBrainz_Abstract_Filter{
+    protected $validArgTypes;
+	function __construct($args){
+	    $this->validArgs = array();
+	    foreach($args as $key=>$value){
+	        if(in_array($key,$this->validArgTypes)){
+	            $this->validArgs[$key] = $value;
+	        }
+	    }
+	}
+    public function createParameters(){
+        return $this->validArgs;
+    }
 }

@@ -22,64 +22,13 @@ Copyright (c) 2007 Jeff Sherlock
 require_once("../phpBrainz.class.php");
 
 //Create new phpBrainz object
-$phpbrainz = new phpBrainz();
+$phpBrainz = new phpBrainz();
 
-$mbid = '18de3678-655c-4cc6-aa94-097b1caab782';
-$slug = 'itsabouttime';
-$artist_slug = 'talklesssaymore';
+$args = array( 
+    "title"=>"Learn",
+    "artist"=>"Foo Fighters"
+);
 
-// Downloads are a file path.
-print $artist_slug.'/'.$slug.'/download';
-
-// Streams are a URL.
-print $artist_slug.'/'.$slug.'/stream';
-
-print "<pre>";
-
-print "Looking up Musicbrainz ID ".$mbid."...";
-
-// Include everything, why the hell not.
-$trackIncludes = array(
-	"artist",
-	"counts",
-	"release-events",
-	"discs",
-	"tracks",
-	"artist-rels",
-	"label-rels",
-	"release-rels",
-	"track-rels",
-	"url-rels",
-	"track-level-rels",
-	"labels"
-	);
-
-$brainz_release = $phpbrainz->getRelease($mbid,$trackIncludes);
-print "done";
-print "\n\n";
-
-$artist = $brainz_release->getArtist(1);
-print $artist->getName(1).' - '.$brainz_release->getTitle(1)."\n\n";
-
-$tracks = $brainz_release->getTracks(1);
-$track_no = 1;
-$time = 0;
-
-foreach($tracks as $track){
-    print$track_no.'. '.$track->getTitle();
-	//print($track->getID()."\n");
-	print ' ('.$track->getDuration().") \n";
-	
-	// Work out downloads from the slug specified earlier.
-	
-	// Work out the streams in a similar manner.
-	
-	$time = $time + $track->getDuration();
-	$track_no++;
-}
-
-print "\n";
-print 'Total Time: '.$time."\n";
-print "</pre>";
-
-
+$releaseFilter = new phpBrainz_ReleaseFilter($args);
+$releaseResults = $phpBrainz->findRelease($releaseFilter);
+print_r($releaseResults);

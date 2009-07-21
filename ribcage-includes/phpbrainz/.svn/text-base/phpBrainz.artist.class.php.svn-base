@@ -72,17 +72,4 @@ class phpBrainz_Artist{
     public function getEndDate(){
         return $this->endDate;
     }
-    
-    public function equals(phpBrainz_Artist $compareObj){
-        if(
-            $this->id           == $compareObj->getId() || (
-            $this->name         == $compareObj->getName() &&
-            $this->sortName     == $compareObj->getSortName() &&
-            $this->beginDate    == $compareObj->getBeginDate() &&
-            $this->endDate      == $compareObj->getEndDate())
-            ){
-                return true;
-            }
-        return false;
-    }
 }

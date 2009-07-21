@@ -23,23 +23,13 @@ Copyright (c) 2007 Jeff Sherlock
  * @author Jeff Sherlock
  * @copyright Jeff Sherlock 2007
  * @package phpBrainz
- * @name phpBrainz_TrackFilter
+ * @name phpBrainz_ArtistFilter
  * 
  */
-class phpBrainz_TrackFilter extends phpBrainz_Abstract_Filter {
-	public $validArgTypes = 
+class phpBrainz_ArtistFilter extends phpBrainz_Abstract_Filter{
+	protected $validArgTypes = 
 		array(
-    		"title",
-    		"artist",
-    		"artistid",
-    		"releasetype",
-    		"releaseid",
-    		"release",
-    		"duration",
-    		"count",
-    		"tracknum",
-    		"script",
-    		"limit",
-    		"puid"
+    		"name",
+    		"limit"
 		);
 }

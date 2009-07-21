@@ -34,18 +34,18 @@ define('ARTIST_URL', "http://musicbrainz.org/ws/1/artist/");
 define('RELEASE_URL', "http://musicbrainz.org/ws/1/release/");
 define('TRACK_URL', "http://musicbrainz.org/ws/1/track/");
 define('LABEL_URL', "http://musicbrainz.org/ws/1/label/");
+$docRoot = $_SERVER['DOCUMENT_ROOT'];
+$curDir = substr($docRoot,0,strrpos($docRoot,"/"));
+require($curDir."phpBrainz.abstractFilter.class.php");
+require($curDir."phpBrainz.abstractResult.class.php");
 
-$curdir = dirname(__FILE__)."/";
-require($curdir."phpBrainz.abstractFilter.class.php");
+require($curDir."phpBrainz.releaseFilter.class.php");
+require($curDir."phpBrainz.trackFilter.class.php");
+require($curDir."phpBrainz.artistFilter.class.php");
 
-require($curdir."phpBrainz.releaseFilter.class.php");
-require($curdir."phpBrainz.trackFilter.class.php");
-require($curdir."phpBrainz.artistFilter.class.php");
-
-require($curdir."phpBrainz.artist.class.php");
-require($curdir."phpBrainz.track.class.php");
-require($curdir."phpBrainz.release.class.php");
-
+require($curDir."phpBrainz.artist.class.php");
+require($curDir."phpBrainz.track.class.php");
+require($curDir."phpBrainz.release.class.php");
 
 
 class phpBrainz{	
@@ -109,9 +109,7 @@ class phpBrainz{
 		}
 
 		$xml = simplexml_load_file($queryStr);
-		if($xml === false){
-	   		throw new Exception("Unable to load XML file. URL: ".$url);
-	  	}
+		
 		$releases = array();
 		foreach($xml->{'release-list'}->release as $release){
 		    
@@ -151,14 +149,12 @@ class phpBrainz{
 	    }
 
 	    $xml = simplexml_load_file($queryStr);
-		if($xml === false){
-	   		throw new Exception("Unable to load XML file. URL: ".$url);
-	   		print("Unable to load XML file. URL: ".$url);
-	   	}
+
 	    $tracks = array();
-	
+
 	    foreach($xml->{'track-list'}->track as $track){
-	        $attrNS = $track->attributes("http://musicbrainz.org/ns/ext-1.0#");
+	        $attrNS = 
+	           $track->attributes("http://musicbrainz.org/ns/ext-1.0#");
 	        $trackRels = array();
 	        foreach($track->{'release-list'}->release as $release){
 	            $trackRels[] = $this->parseReleaseXML($release);
@@ -170,6 +166,7 @@ class phpBrainz{
 	    return $tracks;
 	}	
 	
+<<<<<<< .mine
 	/**
 	 * Retrieves a track given the musicbrainz id
 	 * and an array of items to retrieve.
@@ -178,7 +175,18 @@ class phpBrainz{
 	 * @param array $trackIncludes
 	 * @return phpBrainz_Track
 	 */
+	public function getTrack($mbid, $trackIncludes){
+=======
+	/**
+	 * Returns the information specified in the 
+	 * $trackIncludes array 
+	 *
+	 * @param string $mbid
+	 * @param array $trackIncludes
+	 * @return phpBrainz_Track
+	 */
 	public function getTrack($mbid, $trackIncludes=null){
+>>>>>>> .r23
 	   if(!is_array($trackIncludes) && !is_null($trackIncludes)){
 	       die(print("getTrack only takes 1 mbid and, if you wish, 1 array."));
 	   }
@@ -188,9 +196,6 @@ class phpBrainz{
 	   }
 	   $url = rtrim($url,"+");
 	   $xml = simplexml_load_file($url);
-	   if($xml === false){
-	   		throw new Exception("Unable to load XML file. URL: ".$url);
-	   }
 	   $track = $this->parseTrackXML($xml->track);
 	   return $track;
 	}
@@ -210,9 +215,6 @@ class phpBrainz{
 	   }
 	   $url = rtrim($url,"+");
 	   $xml = simplexml_load_file($url);
-	   if($xml === false){
-	   		throw new Exception("Unable to load XML file. URL: ".$url);
-	   }
 	   $release = $this->parseReleaseXML($xml->release);
 	   return $release;
 	}
@@ -226,7 +228,7 @@ class phpBrainz{
 	 * @param string $str
 	 * @return boolean
 	 */
-	public static function isValidMBID($str){
+	private function isValidMBID($str){
 	   $strArray = explode("-",$str);
 
 	   if(
@@ -235,8 +237,7 @@ class phpBrainz{
 	       strlen($strArray[1])!=4 ||
 	       strlen($strArray[2])!=4 ||
 	       strlen($strArray[3])!=4 ||
-	       strlen($strArray[4])!=12)
-	       {
+	       strlen($strArray[4])!=12){
 	           return false;
 	       }
 	    return true;
@@ -256,12 +257,10 @@ class phpBrainz{
 		$newTrack = new phpBrainz_Track();
 	    $newArtist = $this->parseArtistXML($track->artist);
 	    
-	    $attrNS = $track->attributes("http://musicbrainz.org/ns/ext-1.0#");
 	    $newTrack->setArtist($newArtist);
 	    $newTrack->setId((string)$track['id']);
 	    $newTrack->setDuration((intval((string)$track->duration)));
 	    $newTrack->setTitle((string)$track->title);
-	    $newTrack->setScore((string)$attrNS->score);
 	    
 	    if(isset($track->{'puid-list'})){
 		    foreach($track->{'puid-list'}->puid as $puid){

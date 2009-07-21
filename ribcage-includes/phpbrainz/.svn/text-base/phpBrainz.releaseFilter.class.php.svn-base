@@ -19,27 +19,29 @@ Copyright (c) 2007 Jeff Sherlock
 
 */
 /**
+ * This is the release filter and it contains
+ * an array of valid argument types to be used 
+ * when querying the musicbrainz xml web service.
  * 
  * @author Jeff Sherlock
  * @copyright Jeff Sherlock 2007
  * @package phpBrainz
- * @name phpBrainz_TrackFilter
+ * @name phpBrainz_ReleaseFilter
  * 
  */
-class phpBrainz_TrackFilter extends phpBrainz_Abstract_Filter {
-	public $validArgTypes = 
+class phpBrainz_ReleaseFilter extends phpBrainz_Abstract_Filter{
+	protected $validArgTypes = 
 		array(
     		"title",
+    		"discid",
     		"artist",
     		"artistid",
-    		"releasetype",
-    		"releaseid",
-    		"release",
-    		"duration",
+    		"releasetypes",
     		"count",
-    		"tracknum",
+    		"date",
+    		"asin",
+    		"lang",
     		"script",
-    		"limit",
-    		"puid"
+    		"limit"
 		);
 }

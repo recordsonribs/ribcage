@@ -18,6 +18,14 @@ phpBrainz is a php class for querying the musicbrainz web service.
 Copyright (c) 2007 Jeff Sherlock
 
 */
+/**
+ * class phpBrainz_ArtistFilter
+ * @author Jeff Sherlock
+ * @copyright Jeff Sherlock 2007
+ * @package phpBrainz
+ * @name phpBrainz_ArtistFilter
+ * 
+ */
 class phpBrainz_ArtistFilter extends phpBrainz_Abstract_Filter{
 	protected $validArgTypes = 
 		array(

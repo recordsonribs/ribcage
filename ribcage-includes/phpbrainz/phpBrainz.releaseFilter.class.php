@@ -18,6 +18,17 @@ phpBrainz is a php class for querying the musicbrainz web service.
 Copyright (c) 2007 Jeff Sherlock
 
 */
+/**
+ * This is the release filter and it contains
+ * an array of valid argument types to be used 
+ * when querying the musicbrainz xml web service.
+ * 
+ * @author Jeff Sherlock
+ * @copyright Jeff Sherlock 2007
+ * @package phpBrainz 
+ * @name phpBrainz_ReleaseFilter
+ * 
+ */
 class phpBrainz_ReleaseFilter extends phpBrainz_Abstract_Filter{
 	protected $validArgTypes = 
 		array(

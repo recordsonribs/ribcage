@@ -18,16 +18,30 @@ phpBrainz is a php class for querying the musicbrainz web service.
 Copyright (c) 2007 Jeff Sherlock
 
 */
+/**
+ * This is the abstract filter which
+ * contains the constructor which all 
+ * filters share because the only 
+ * difference between each filter class 
+ * is the valid argument types.
+ * 
+ * @author Jeff Sherlock
+ * @copyright Jeff Sherlock 2007
+ * @name phpBrainz_Abstract_Filter
+ * @package phpBrainz
+ * 
+ */
 abstract class phpBrainz_Abstract_Filter{
     protected $validArgTypes;
-	function __construct($args){
-	    $this->validArgs = array();
-	    foreach($args as $key=>$value){
-	        if(in_array($key,$this->validArgTypes)){
-	            $this->validArgs[$key] = $value;
-	        }
-	    }
-	}
+    protected $validArgs;
+    function __construct($args){
+        $this->validArgs = array();
+        foreach($args as $key=>$value){
+            if(in_array($key,$this->validArgTypes)){
+                $this->validArgs[$key] = $value;
+            }
+        }
+    }
     public function createParameters(){
         return $this->validArgs;
     }

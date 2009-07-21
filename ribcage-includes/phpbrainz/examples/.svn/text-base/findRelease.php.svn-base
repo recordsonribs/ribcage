@@ -18,15 +18,17 @@ phpBrainz is a php class for querying the musicbrainz web service.
 Copyright (c) 2007 Jeff Sherlock
 
 */
-abstract class phpBrainz_Abstract_Result{
-    protected $score;
 
-    function __construct(){}
-    
-    public function setScore($score){
-        $this->score = intval($score);
-    }
-    public function getScore(){
-        return $this->score;
-    }
-}
+require_once("../phpBrainz.class.php");
+
+//Create new phpBrainz object
+$phpBrainz = new phpBrainz();
+
+$args = array(
+    "title"=>"Learn",
+    "artist"=>"Foo Fighters"
+);
+
+$releaseFilter = new phpBrainz_ReleaseFilter($args);
+$releaseResults = $phpBrainz->findRelease($releaseFilter);
+print_r($releaseResults);

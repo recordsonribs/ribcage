@@ -19,13 +19,14 @@ Copyright (c) 2007 Jeff Sherlock
 
 */
 /**
- * Track object.
+ * This represents a track object that is 
+ * returned by the webservice.
  * 
- * @package phpBrainz
  * @author Jeff Sherlock
+ * @copyright Jeff Sherlock 2007
+ * @package phpBrainz
  * @name phpBrainz_Track
- * @version 0.1
- *
+ * 
  */
 class phpBrainz_Track{
     private $id;
@@ -34,84 +35,63 @@ class phpBrainz_Track{
     private $puids;
     private $releases;
     private $title;
-    private $score;
 
+
+    
     function __construct(){
         $this->releases = array();
         $this->puids    = array();
     }
-
-    /**
-     * Sets the artist of the track object.
-     *
-     * @param phpBrainz_Artist $artist
-     * @return void
-     */
-    public function setArtist(phpBrainz_Artist $artist){
+    
+    public function setArtist($artist){
+        if(!($artist instanceof phpBrainz_Artist)){
+            die(print("setArtist only takes in phpBrainz_Artist objects"));
+        }
         $this->artist = $artist;
     }
-    
-    /**
-     * Returns the artist object for the track.
-     *
-     * @return phpBrainz_Artist
-     */
     public function getArtist(){
         return $this->artist;
     }
-
+    
     public function setDuration($duration){
         if(!is_numeric($duration)){
-            throw new Exception("Duration must be numeric.");
+            die(print("Duration must be numeric."));
         }
         $this->duration = $duration;
     }
-    
     public function getDuration(){
         return $this->duration;
     }
-
+    
     public function setTitle($title){
         $this->title = $title;
     }
     public function getTitle(){
         return $this->title;
     }
-
+    
     public function setId($id){
-        $this->id = $id;
+        $this->id = $id;        
     }
-
+    
     public function getId(){
         return $this->id;
     }
-
-    /**
-     * Returns an array of 
-     * phpBrainz_Release objects
-     *
-     * @return unknown
-     */
+    
     public function getReleases(){
         return $this->releases;
     }
-    
-    public function addRelease(phpBrainz_Release $release){
+    public function addRelease($release){
+        if(!($release instanceof phpBrainz_Release)){
+            die(print("Releases must be of type phpBrainz_Release"));
+        }
         $this->releases[] = $release;
     }
-
+    
     public function addPuid($puid){
         $this->puids[] = $puid;
     }
     public function getPuids(){
         return $this->puids;
-    }
-    
-    public function getScore(){
-    	return $this->score;
-    }
-    
-    public function setScore($score){
-    	$this->score = $score;
     }
 }
