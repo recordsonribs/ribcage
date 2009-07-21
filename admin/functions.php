@@ -9,7 +9,7 @@ function ribcage_admin_index ()
 	<?php
 }
 
-function ribcage_add_release($value='')
+function ribcage_add_release()
 {	
 	?>
 	<div class="wrap">
