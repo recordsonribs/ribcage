@@ -285,7 +285,7 @@ function ribcage_cc_dropdown($selected = false){
  * 
  * @param int $artist_id Artist ID for deletion.
  * @return bool True if this worked, false if it didn't.
- * @author Alexander Andres
+ * @author Alexander Andrews
  **/
 function delete_artist($artist_id)
 {
