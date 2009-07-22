@@ -27,7 +27,7 @@ function ribcage_manage_artists () {
 	
 	if(isset($_REQUEST['ribcage_action'])) {
 		global $wpdb;
-		
+
 		//slice off two variables at the end to prepare for implodes
 		array_pop($_POST); // submit button var
 

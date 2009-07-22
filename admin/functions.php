@@ -16,25 +16,47 @@ function ribcage_add_release()
 		<div id="icon-options-general" class="icon32"><br /></div>
 		<h2>Add Release</h2>
 	<?php
-	if (isset($_POST['musicbrainz_id'])) {
-		echo '<p>';
-		echo '<pre>';
-		
+	if ($_POST['musicbrainz_id'] != '' && $_POST['lookup'] == 'Lookup') {
 		$mbid = $_POST['musicbrainz_id'];
 		
-		$trackIncludes = array(
+		$releaseIncludes = array(
 			"artist",
 			"discs",
 			"tracks"
 			);
 
 		$phpBrainz = new phpBrainz();
-		$release = $phpBrainz->getRelease($mbid,$trackIncludes);
-
-		print 'Artist: '.$release->getArtist()->getName()."\n";
-		print 'Sort Artist: '.$release->getArtist()->getSortName()."\n";
-		print 'Title: '.$release->getTitle()."\n";
-		print 'Musicbrainz ID: '.$release->getID()."\n\n";
+		$release = $phpBrainz->getRelease($mbid,$releaseIncludes);
+		
+		// TODO Map the variables onto the global variable $artist. If we haven't been asked to lookup stuff on Musicbrainz then display a blank.
+		?>
+		<form method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
+		<p>The following was retrieved from the Musicbrainz database. It should be accurate, but please check it before adding to the Ribcage database.</p>
+		<table class="form-table">
+		<tr valign="top">
+		<th scope="row"><label for="artist_name">Artist Name</label></th>
+		<td><input type="text" name="artist_name" value="<?php echo $release->getArtist()->getName(); ?>" class="regular-text"/></td>
+		</tr>
+		<tr valign="top">
+		<th scope="row"><label for="artist_name_sort">Artist Name Sort</label></th>
+		<td><input type="text" name="artist_name_sort" value="<?php echo $release->getArtist()->getSortName(); ?>" class="regular-text"/></td>
+		</tr>
+		<tr valign="top">
+		<th scope="row"><label for="release_title">Title</label></th>
+		<td><input type="text" name="release_title" value="<?php echo $release->getTitle(); ?>" class="regular-text"/></td>
+		</tr>
+		<tr valign="top">
+		<th scope="row"><label for="release_mbid">Musicbrainz ID</label></th>
+		<td><input type="text" name="release_mbid" value="<?php echo $release->getID(); ?>" class="regular-text"/></td>
+		</tr>
+		</table>
+		<p class="submit">
+		<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+		</p>
+		</form>
+		<?php
+			echo '<p>';
+			echo '<pre>';
 		$gottracks = $release->getTracks();
 
 		$track_no = 1;
@@ -59,22 +81,25 @@ function ribcage_add_release()
 		$seconds = intval($total_seconds % 60);
 
 		echo "Total Time: ".str_pad($hours,2, "0", STR_PAD_LEFT).':'.str_pad($minutes,2, "0", STR_PAD_LEFT).':'.str_pad($seconds,2, "0", STR_PAD_LEFT)."\n\n";
-		
+		print_r ($release);
 		echo "</pre>";
 		echo '</p>';
+	}
+	elseif ($_POST['lookup'] == 'Skip'){
+		echo "<p>Skipped Musicbrainz Lookup</p>";
 	}
 	else {
 	?>
 		<form method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
-		<p>Please enter the Musicbrainz ID of the release for automated inclusion</p>
+		<p>Please enter the <a href="http://musicbrainz.org">Musicbrainz</a> ID and Ribcage will lookup the release and fill in the details automtically. This should be the Musicbrainz ID of the specific release, not the release group.</p> <p>If your release does not have a Musicbrainz ID, or if you wish to enter the release entirely manually, please click on Skip.</p>
 		<table class="form-table">
 		<tr valign="top">
 		<th scope="row"><label for="musicbrainz_id">Musicbrainz ID</label></th>
-		<td><input type="text" name="musicbrainz_id" value="" class="regular-text code"/></td>
+		<td><input type="text" name="musicbrainz_id" value="18de3678-655c-4cc6-aa94-097b1caab782" class="regular-text code"/></td>
 		</tr>
 		</table>
 		<p class="submit">
-		<input type="submit" class="button-primary" value="<?php _e('Lookup') ?>" />
+		<input type="submit" name="lookup" class="button-primary" value="<?php _e('Lookup') ?>" /><input type="submit" name="lookup" class="button-secondary" value="<?php _e('Skip') ?>" />
 		</p>
 		</form>
 	<?php
