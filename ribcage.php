@@ -350,7 +350,7 @@ function ribcage_flush_rules (){
  **/
 function ribcage_page_title ($title, $sep = '&raquo;', $seplocation = '') {
 	global $wp_query;
-	global $release, $artist;
+	global $release, $artist, $product;
 	
 	if (isset($wp_query->query_vars['release_index'])) {
 		$title_array [] = "Releases";
@@ -363,6 +363,11 @@ function ribcage_page_title ($title, $sep = '&raquo;', $seplocation = '') {
 	if (isset($wp_query->query_vars['artist_slug'])) {
 		$title_array [] = "Artists";
 		$title_array [] = $artist['artist_name'];
+	}
+	
+	if (isset($wp_query->query_vars['ribcage_buy']) && isset($wp_query->query_vars['ribcage_product_id'])) {
+		$title_array [] = "Buy";
+		$title_array[] = $product['product_name'];
 	}
 	
 	if (is_artist_page()){
