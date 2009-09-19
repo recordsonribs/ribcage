@@ -1,9 +1,9 @@
 === Ribcage ===
 Contributors: recordsonribs
 Donate link: http://recordsonribs.com
-Tags: music, mp3, record label
-Requires at least: 2.8
-Tested up to: 2.8
+Tags: music, mp3, record label, creative commons
+Requires at least: 2.8.4
+Tested up to: 2.8.4
 Stable tag: /trunk/
 
 Manages and monitors artists, releases and downloads for a record label.
