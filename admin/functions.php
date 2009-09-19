@@ -10,80 +10,22 @@ function ribcage_admin_index ()
 }
 
 function ribcage_add_release()
-{	
+{
+	global $release;
+	
 	?>
 	<div class="wrap">
 		<div id="icon-options-general" class="icon32"><br /></div>
 		<h2>Add Release</h2>
 	<?php
 	if ($_POST['musicbrainz_id'] != '' && $_POST['lookup'] == 'Lookup') {
+		
 		$mbid = $_POST['musicbrainz_id'];
 		
-		$releaseIncludes = array(
-			"artist",
-			"discs",
-			"tracks"
-			);
-
-		$phpBrainz = new phpBrainz();
-		$release = $phpBrainz->getRelease($mbid,$releaseIncludes);
-		
-		// TODO Map the variables onto the global variable $artist. If we haven't been asked to lookup stuff on Musicbrainz then display a blank.
+		mb_get_release($mbid);
 		?>
-		<form method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
-		<p>The following was retrieved from the Musicbrainz database. It should be accurate, but please check it before adding to the Ribcage database.</p>
-		<table class="form-table">
-		<tr valign="top">
-		<th scope="row"><label for="artist_name">Artist Name</label></th>
-		<td><input type="text" name="artist_name" value="<?php echo $release->getArtist()->getName(); ?>" class="regular-text"/></td>
-		</tr>
-		<tr valign="top">
-		<th scope="row"><label for="artist_name_sort">Artist Name Sort</label></th>
-		<td><input type="text" name="artist_name_sort" value="<?php echo $release->getArtist()->getSortName(); ?>" class="regular-text"/></td>
-		</tr>
-		<tr valign="top">
-		<th scope="row"><label for="release_title">Title</label></th>
-		<td><input type="text" name="release_title" value="<?php echo $release->getTitle(); ?>" class="regular-text"/></td>
-		</tr>
-		<tr valign="top">
-		<th scope="row"><label for="release_mbid">Musicbrainz ID</label></th>
-		<td><input type="text" name="release_mbid" value="<?php echo $release->getID(); ?>" class="regular-text"/></td>
-		</tr>
-		</table>
-		<p class="submit">
-		<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
-		</p>
-		</form>
+		<pre><?php print_r($release); ?></pre>
 		<?php
-			echo '<p>';
-			echo '<pre>';
-		$gottracks = $release->getTracks();
-
-		$track_no = 1;
-		$total_seconds =  0;
-
-		foreach ($gottracks as $tr) {
-			$milsec = $tr->getDuration();
-			$sec = (int) $milsec / 1000;
-			$mins = floor ($sec / 60);
-			$secs = $sec % 60;
-
-			print $track_no.'. '.$tr->getTitle().' ('.str_pad($mins,2, "0", STR_PAD_LEFT).':'.str_pad($secs,2, "0", STR_PAD_LEFT).')'."\n";	
-			print $tr->getId()."\n\n";
-
-			$total_seconds = $total_seconds + $sec;
-
-			++$track_no;
-		}
-
-		$hours = intval(intval($total_seconds) / 3600);
-		$minutes = intval(($total_seconds / 60) % 60); 
-		$seconds = intval($total_seconds % 60);
-
-		echo "Total Time: ".str_pad($hours,2, "0", STR_PAD_LEFT).':'.str_pad($minutes,2, "0", STR_PAD_LEFT).':'.str_pad($seconds,2, "0", STR_PAD_LEFT)."\n\n";
-		print_r ($release);
-		echo "</pre>";
-		echo '</p>';
 	}
 	elseif ($_POST['lookup'] == 'Skip'){
 		echo "<p>Skipped Musicbrainz Lookup</p>";
