@@ -295,4 +295,170 @@ function delete_artist($artist_id)
 	
 	return ($result);
 }
+
+/**
+ * Gets a release from Musicbrainz then puts the values of it into the global $release variable.
+ * Uses a simple XML get to avoid the bloat of loading huge Musicbrainz object infested libraries.
+ *
+ * @author Alexander Andrews
+ * @return array The details of the release.
+ */
+function mb_get_release ($mbid)
+{
+	global $release;
+	
+	$request_url = "http://musicbrainz.org/ws/1/release/$mbid?type=xml&inc=release-events+tracks+artist";
+	$xml = simplexml_load_file($request_url) or die ('Fucked up, bailing'); 
+	$xml = object_to_array($xml);
+	
+	$release_physical = NULL;
+	$release_physical_id = NULL;
+	
+	if (count($xml['release']['release-event-list']['event']) > 1){
+		foreach ($xml['release']['release-event-list']['event'] as $release_event) {
+			if ($release_event['@attributes']['format'] == 'Digital') {
+				$release_id = cat_to_release_id($release_event['@attributes']['catalog-number']);
+				$release_date = $release_event['@attributes']['date'];
+			}
+			else {
+				// I'm assuming here that you aren't going to have loads of release events for CDs etc, but just one.
+				$release_physical = 1;
+				$release_physical_id = cat_to_release_id($release_event['@attributes']['catalog-number']);
+			}
+		}
+	}
+	else {
+		$release_id = cat_to_release_id($xml['release']['release-event-list']['event']['@attributes']['catalog-number']);
+		$release_date = $xml['release']['release-event-list']['event']['@attributes']['date'];
+	}
+	$release_artist_id = slug_to_artist_id(ribcage_slugize($xml['release']['artist']['name']));
+	$release_slug = ribcage_slugize($xml['release']['title']);
+	$artist_slug = ribcage_slugize($xml['release']['artist']['name']);
+	
+	$track_no = 1;
+	$total_time = 0;
+	
+	// Add tracks to $release
+	foreach ($xml['release']['track-list']['track'] as $track) {
+		$total_time = $total_time + $track['duration'];
+		$tracks [] = array (
+			'track_title'=> $track['title'],
+			'track_time' => miliseconds_to_sql($track['duration']),
+			'track_release_id' => $release_id,
+			'track_mbid' => $track['@attributes']['id'],
+			'track_slug' => ribcage_slugize($track['title']),
+			'track_number' => $track_no,
+			'track_stream' => 'http://recordsonribs.com/files/audio/'.$artist_slug.'/'.$release_slug.'/stream/'.str_pad($track_no,2, "0", STR_PAD_LEFT).'.mp3'
+		);		
+		++$track_no;
+	}
+	
+	$release = array(
+		'release_id'=> $release_id,
+		'release_tracks_no' => $track_no-1,
+		'release_artist' => $release_artist_id,
+		'release_date' => $release_date,
+		'release_title' => $xml['release']['title'],
+		'release_slug' => $release_slug,
+		'release_time' => miliseconds_to_sql($total_time),
+		'release_mbid' => $xml['release']['@attributes']['id'],
+		'release_physical' => $release_physical,
+		'release_physical_cat_no' => $release_physical_id,
+		'release_tracks' => $tracks
+	);
+	
+	return($release);
+}
+
+/**
+ * Makes a ribcage style slug for a track, artist or release.
+ * 
+ * @author Alexander Andrews
+ * @param string Convert this to a slug
+ * @return string The slug
+ **/
+function ribcage_slugize ($to_slug)
+{
+	$table = array(
+        'Š'=>'S', 'š'=>'s', 'Đ'=>'Dj', 'đ'=>'dj', 'Ž'=>'Z', 'ž'=>'z', 'Č'=>'C', 'č'=>'c', 'Ć'=>'C', 'ć'=>'c',
+        'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
+        'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O',
+        'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U', 'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss',
+        'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c', 'è'=>'e', 'é'=>'e',
+        'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o',
+        'ô'=>'o', 'õ'=>'o', 'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'ý'=>'y', 'þ'=>'b',
+        'ÿ'=>'y', 'Ŕ'=>'R', 'ŕ'=>'r',
+    );
+   
+    $slug = strtr($to_slug, $table);
+	$slug = strtolower($slug);
+	$slug = preg_replace('/\s+/', '', $slug);
+	$slug = preg_replace('/\W/', '', $slug);
+	
+	return ($slug);
+}
+
+/**
+ * Converts a slug to an artist ID.
+ *
+ * @author Alexander Andrews
+ * @param string $slug Slug of the release.
+ * @return The artist_id
+ */
+function slug_to_artist_id ($slug)
+{
+ 	$query = "SELECT artist_id FROM wp_ribcage_artists WHERE artist_slug = '$slug' LIMIT 1";
+	$result = mysql_query($query) or die(mysql_error());
+	return(mysql_result($result,0));
+}
+
+/**
+ * Converts miliseconds to SQL time format.
+ *
+ * @author Alexander Andrews
+ * @param int Time in miliseconds
+ * @return string Time formatted in an SQL format.
+ **/
+function miliseconds_to_sql ($milsec)
+{	
+	$sec = (int) $milsec / 1000;
+	$hours = floor ($sec / 3600);
+	$mins = floor ($sec / 60);
+	$secs = $sec % 60;
+	return(str_pad($hours,2, "0", STR_PAD_LEFT).':'.str_pad($mins,2, "0", STR_PAD_LEFT).':'.str_pad($secs,2, "0", STR_PAD_LEFT));
+}
+
+/**
+ * Converts and object to an array.
+ * 
+ * @author Alex Andrews
+ * @param object An object.
+ * @return array An array.
+ **/
+function object_to_array( $object )
+{
+        if(!is_object($object) && !is_array($object))
+        {
+            return $object;
+        }
+        if(is_object($object))
+        {
+            $object = get_object_vars( $object );
+        }
+        return array_map('object_to_array', $object );
+}
+
+/**
+ * Converts a catalogue number to a release number.
+ *
+ * @return void
+ * @author Alexander Lazarus
+ **/
+function cat_to_release_id ($cat)
+{
+	$release_id = preg_replace('/ROR/', '', $cat);
+	$release_id = ltrim($release_id,'0');
+	
+	return($release_id);
+}
 ?>
