@@ -456,7 +456,7 @@ function object_to_array( $object )
  **/
 function cat_to_release_id ($cat)
 {
-	$release_id = preg_replace('/ROR/', '', $cat);
+	$release_id = preg_replace(get_option('ribcage_mark'), '', $cat);
 	$release_id = ltrim($release_id,'0');
 	
 	return($release_id);

@@ -11,24 +11,63 @@ function ribcage_admin_index ()
 
 function ribcage_add_release()
 {
-	global $release;
+	global $release, $artist;
 	
 	?>
 	<div class="wrap">
 		<div id="icon-options-general" class="icon32"><br /></div>
 		<h2>Add Release</h2>
 	<?php
-	if ($_POST['musicbrainz_id'] != '' && $_POST['lookup'] == 'Lookup') {
-		
-		$mbid = $_POST['musicbrainz_id'];
-		
-		mb_get_release($mbid);
+	if ($_POST['lookup'] != '') {
+		if ($_POST['lookup'] == 'Lookup')	{
+			$mbid = $_POST['musicbrainz_id'];
+
+			mb_get_release($mbid);
+			
+			$artist['artist_name'] = get_artistname_by_id($release['release_artist']);
+		}
+			
+		// If we don't know who this artist is then bail out.
 		?>
+		<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&ribcage_action=add_release" method="post" id="ribcage_add_release" name="add_release">
+		<table class="form-table">             
+			<tr valign="top">
+				<th scope="row"><label for="artist_name">Artist</label></th> 
+				<td>
+					<?php artist_name(); ?>												
+				</td> 
+			</tr>
+			<tr valign="top">
+				<th scope="row"><label for="release_title">Release Name</label></th> 
+				<td>
+					<input type="text" style="width:320px;" class="regular-text code" value="<?php release_title(); ?>" name="release_title" id="release_title" maxlength="200" />										
+				</td> 
+			</tr>
+			<tr valign="top">
+				<th scope="row"><label for="release_title">Release Slug</label></th> 
+				<td>
+					<input type="text" style="width:320px;" class="regular-text code" value="<?php release_slug(); ?>" name="release_slug" id="release_slug" maxlength="200" /><span class="description">The URL you want for the release after the artist name, for example <?php echo get_option('siteurl'); ?>/artist_name/release_slug</span>										
+				</td> 
+			</tr>
+			<tr valign="top">
+				<th scope="row"><label for="release_title">Release Date</label></th> 
+				<td>
+					<input type="text" style="width:320px;" class="regular-text code" value="<?php echo $release['release_date']; ?>" name="release_date" id="release_date" maxlength="200" /><span class="description">When is the record going to come out?</span>										
+				</td> 
+			</tr>
+			<tr valign="top">
+				<th scope="row"><label for="release_id">Catalogue Number</label></th> 
+				<td>
+					<?php echo get_option('ribcage_mark'); ?><input type="text" style="width:30px;" class="regular-text code" value="<?php echo $release['release_id']; ?>" name="release_id" id="release_id" maxlength="10" />									
+				</td> 
+			</tr>
+		</table>
+		<p class="submit">
+			<input type="submit" name="Submit" class="button-primary" value="Save Changes" />
+		</p>
+		</form>
 		<pre><?php print_r($release); ?></pre>
 		<?php
-	}
-	elseif ($_POST['lookup'] == 'Skip'){
-		echo "<p>Skipped Musicbrainz Lookup</p>";
 	}
 	else {
 	?>
@@ -37,7 +76,7 @@ function ribcage_add_release()
 		<table class="form-table">
 		<tr valign="top">
 		<th scope="row"><label for="musicbrainz_id">Musicbrainz ID</label></th>
-		<td><input type="text" name="musicbrainz_id" value="18de3678-655c-4cc6-aa94-097b1caab782" class="regular-text code"/></td>
+		<td><input type="text" name="musicbrainz_id" value="bce40d0a-6b5f-4d75-97c7-916d67d584f6" class="regular-text code"/></td>
 		</tr>
 		</table>
 		<p class="submit">
