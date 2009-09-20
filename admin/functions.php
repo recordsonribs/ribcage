@@ -9,6 +9,12 @@ function ribcage_admin_index ()
 	<?php
 }
 
+/**
+ * Administration panel for adding a release.
+ *
+ * @return void
+ * @author Alex Andrews
+ */
 function ribcage_add_release()
 {
 	global $release, $artist;
@@ -18,10 +24,17 @@ function ribcage_add_release()
 		<div id="icon-options-general" class="icon32"><br /></div>
 		<h2>Add Release</h2>
 	<?php
+	
+	if ($_REQUEST['ribcage_action'] == 'add_release') { ?>
+		<p>Added the release</p>
+		<?php
+		print_r($_POST);
+		return 0;
+	}
+	else {
 	if ($_POST['lookup'] != '') {
 		if ($_POST['lookup'] == 'Lookup')	{
-			$mbid = $_POST['musicbrainz_id'];
-			
+			$mbid = $_POST['musicbrainz_id'];		
 			$result = mb_get_release($mbid);
 
 			if (is_wp_error($result)){
@@ -30,7 +43,7 @@ function ribcage_add_release()
 				switch ($result->get_error_code()){
 					case 'mb_not_found': ?>
 						<p>Ribcage could not find a release with a MBID of <?php echo $mbid; ?> in the Musicbrainz database.</p>
-						<p>Please enter the release manually.</p>
+						<p>Please enter the release manually, but don't forget to add it to Musicbrainz afterwards.</p>
 						<?php
 					break;
 					case 'artist_not_found': ?>
@@ -46,7 +59,7 @@ function ribcage_add_release()
 			}
 		}
 			
-		// If we haven't got an artist from Musicbrainz
+		// If we haven't got an artist from Musicbrainz then we need to display a drop down of all the artists so they can choose.
 		?>
 		<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&ribcage_action=add_release" method="post" id="ribcage_add_release" name="add_release">
 		<table class="form-table">             
@@ -81,6 +94,8 @@ function ribcage_add_release()
 				</td> 
 			</tr>
 		</table>
+		<input type="hidden" name="release_mbid" value="<?php echo $release['release_mbid']; ?>" />
+		<input type="hidden" name="release_artist" value="<?php echo $release['release_artist']; ?>" />
 		<p class="submit">
 			<input type="submit" name="Submit" class="button-primary" value="Save Changes" />
 		</p>
@@ -91,7 +106,7 @@ function ribcage_add_release()
 	else {
 	?>
 		<form method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
-		<p>Please enter the <a href="http://musicbrainz.org">Musicbrainz</a> ID and Ribcage will lookup the release and fill in the details automtically. This should be the Musicbrainz ID of the specific release, not the release group.</p> <p>If your release does not have a Musicbrainz ID, or if you wish to enter the release entirely manually, please click on Skip.</p>
+		<p>Please enter the <a href="http://musicbrainz.org">Musicbrainz</a> ID and Ribcage will lookup the release and fill in the details automtically. This should be the Musicbrainz ID of the specific release, not the release group.</p> <p>If your release does not have a Musicbrainz ID, or if you wish to enter the release entirely manually, click on Skip.</p>
 		<table class="form-table">
 		<tr valign="top">
 		<th scope="row"><label for="musicbrainz_id">Musicbrainz ID</label></th>
@@ -104,6 +119,7 @@ function ribcage_add_release()
 		</form>
 	<?php
 	}
+}
 	?>
 	</div>
 	<?php
