@@ -325,7 +325,7 @@ function mb_get_release ($mbid)
 				$release_id = cat_to_release_id($release_event['@attributes']['catalog-number']);
 				$release_date = $release_event['@attributes']['date'];
 			}
-			else {
+			elseif ($release_event['@attributes']['format'] == 'CD') {
 				// I'm assuming here that you aren't going to have loads of release events for CDs etc, but just one.
 				$release_physical = 1;
 				$release_physical_id = cat_to_release_id($release_event['@attributes']['catalog-number']);
@@ -336,6 +336,7 @@ function mb_get_release ($mbid)
 		$release_id = cat_to_release_id($xml['release']['release-event-list']['event']['@attributes']['catalog-number']);
 		$release_date = $xml['release']['release-event-list']['event']['@attributes']['date'];
 	}
+
 	$release_artist_id = slug_to_artist_id(ribcage_slugize($xml['release']['artist']['name']));
 	$release_slug = ribcage_slugize($xml['release']['title']);
 	$artist_slug = ribcage_slugize($xml['release']['artist']['name']);
@@ -345,7 +346,7 @@ function mb_get_release ($mbid)
 	// If we can't put anything in the artist, then the artist is actually not in the database. Bail out.
 	if (! $artist) {
 		$artist = $xml['release']['artist']['name'];
-		return new WP_Error('artist_not_found', __("$artist is not in the Ribcage database"));
+		return new WP_Error('artist_not_found', __("Sorry, $artist is not in the Ribcage database"));
 	}
 	
 	$track_no = 1;
@@ -419,10 +420,13 @@ function ribcage_slugize ($to_slug)
  * @return The artist_id
  */
 function slug_to_artist_id ($slug)
-{
+{	
+	global $wpdb;
+	
  	$query = "SELECT artist_id FROM wp_ribcage_artists WHERE artist_slug = '$slug' LIMIT 1";
-	$result = mysql_query($query) or die(mysql_error());
-	return(mysql_result($result,0));
+	$result = $wpdb->get_var($query);
+
+	return($result);
 }
 
 /**
@@ -469,7 +473,8 @@ function object_to_array( $object )
  **/
 function cat_to_release_id ($cat)
 {
-	$release_id = preg_replace(get_option('ribcage_mark'), '', $cat);
+	$pattern = '/'.get_option('ribcage_mark').'/';
+	$release_id = preg_replace($pattern, '', $cat);
 	$release_id = ltrim($release_id,'0');
 	
 	return($release_id);

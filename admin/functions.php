@@ -53,10 +53,23 @@ function ribcage_add_release()
 						return (1);
 					break;
 				}
+				
 				?>
 				</div>
 				<?php
 			}
+			
+			$artist_slug = $artist['artist_slug'];
+			
+			// Guess some things about our release.
+			$release = array_merge($release,array(
+				'release_cover_image_tiny' => get_option('siteurl').get_option('ribcage_image_location').'covers/tiny/'.$release['release_slug'].'.jpg',
+				'release_cover_image_large' => get_option('siteurl').get_option('ribcage_image_location').'covers/large/'.$release['release_slug'].'.jpg',
+				'release_cover_image_huge' =>get_option('siteurl').get_option('ribcage_image_location').'covers/huge/'.$release['release_slug'].'.jpg',
+				'release_mp3' => get_option('ribcage_file_location').$artist_slug.'/'.$release['release_slug'].'/download/zip/'.$release['release_slug'].'-mp3.zip',
+				'release_ogg' => get_option('ribcage_file_location').$artist_slug.'/'.$release['release_slug'].'/download/zip/'.$release['release_slug'].'-ogg.zip',
+				'release_flac' => get_option('ribcage_file_location').$artist_slug.'/'.$release['release_slug'].'/download/zip/'.$release['release_slug'].'-flac.zip',
+			));
 		}
 			
 		// If we haven't got an artist from Musicbrainz then we need to display a drop down of all the artists so they can choose.
@@ -90,7 +103,7 @@ function ribcage_add_release()
 			<tr valign="top">
 				<th scope="row"><label for="release_id">Catalogue Number</label></th> 
 				<td>
-					<?php echo get_option('ribcage_mark'); ?><input type="text" style="width:30px;" class="regular-text code" value="<?php echo $release['release_id']; ?>" name="release_id" id="release_id" maxlength="10" />									
+					<?php echo get_option('ribcage_mark'); ?><input type="text" style="width:30px;" class="regular-text code" value="<?php echo $release['release_id']; ?>" name="release_id" id="release_id" maxlength="10" /><span class="description">This will be padded to be three digits</span>									
 				</td> 
 			</tr>
 		</table>
