@@ -305,10 +305,15 @@ function delete_artist($artist_id)
  */
 function mb_get_release ($mbid)
 {
-	global $release;
+	global $release, $artist;
 	
 	$request_url = "http://musicbrainz.org/ws/1/release/$mbid?type=xml&inc=release-events+tracks+artist";
-	$xml = simplexml_load_file($request_url) or die ('Fucked up, bailing'); 
+	$xml = simplexml_load_file($request_url);
+	
+	if (! $xml) {
+		return new WP_Error('mb_not_found', __("The MBID $mbid couldn't be found in the Musicbrainz database."));
+	}
+	
 	$xml = object_to_array($xml);
 	
 	$release_physical = NULL;
@@ -334,6 +339,14 @@ function mb_get_release ($mbid)
 	$release_artist_id = slug_to_artist_id(ribcage_slugize($xml['release']['artist']['name']));
 	$release_slug = ribcage_slugize($xml['release']['title']);
 	$artist_slug = ribcage_slugize($xml['release']['artist']['name']);
+	
+	$artist = get_artist($release_artist_id);
+	
+	// If we can't put anything in the artist, then the artist is actually not in the database. Bail out.
+	if (! $artist) {
+		$artist = $xml['release']['artist']['name'];
+		return new WP_Error('artist_not_found', __("$artist is not in the Ribcage database"));
+	}
 	
 	$track_no = 1;
 	$total_time = 0;
@@ -461,4 +474,5 @@ function cat_to_release_id ($cat)
 	
 	return($release_id);
 }
+
 ?>

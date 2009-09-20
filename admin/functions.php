@@ -21,13 +21,32 @@ function ribcage_add_release()
 	if ($_POST['lookup'] != '') {
 		if ($_POST['lookup'] == 'Lookup')	{
 			$mbid = $_POST['musicbrainz_id'];
-
-			mb_get_release($mbid);
 			
-			$artist['artist_name'] = get_artistname_by_id($release['release_artist']);
+			$result = mb_get_release($mbid);
+
+			if (is_wp_error($result)){
+				?>
+				<?php
+				switch ($result->get_error_code()){
+					case 'mb_not_found': ?>
+						<p>Ribcage could not find a release with a MBID of <?php echo $mbid; ?> in the Musicbrainz database.</p>
+						<p>Please enter the release manually.</p>
+						<?php
+					break;
+					case 'artist_not_found': ?>
+						<p><?php echo $artist; ?> is not an artist in the Ribcage database. Yet.</p>
+						<p>You need to <a href="admin.php?page=add_artist">add an artist</a> before you can add their releases.</p>
+						<?php
+						return (1);
+					break;
+				}
+				?>
+				</div>
+				<?php
+			}
 		}
 			
-		// If we don't know who this artist is then bail out.
+		// If we haven't got an artist from Musicbrainz
 		?>
 		<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&ribcage_action=add_release" method="post" id="ribcage_add_release" name="add_release">
 		<table class="form-table">             
