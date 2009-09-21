@@ -17,18 +17,101 @@ function ribcage_admin_index ()
  */
 function ribcage_add_release()
 {
-	global $release, $artist;
+	global $release, $artist, $tracks, $track;
 	
 	?>
 	<div class="wrap">
 		<div id="icon-options-general" class="icon32"><br /></div>
 		<h2>Add Release</h2>
 	<?php
+	$release = $_POST['release'];
+	$release = stripslashes($release);
+	$release = unserialize($release);
 	
-	if ($_REQUEST['ribcage_action'] == 'add_release') { ?>
-		<p>Added the release</p>
+	unset($_POST['release']);
+	unset($_POST['Submit']);
+	
+	if ($_REQUEST['ribcage_action'] == 'add_release' && $_REQUEST['ribcage_step'] == '2'){	
+		$total_tracks = $release['release_tracks_no'];
+		$t = 1;
+		
+		while (count($tracks) != $total_tracks){
+			$tracks [] = array(
+				'track_number'=>$_POST["track_number_$t"],
+				'track_title'=>$_POST["track_title_$t"],
+				'track_time'=>$_POST["track_time_$t"],
+				'track_release_id' => $release['release_id'],
+				'track_mbid' => $_POST["track_mbid_$t"],
+				'track_slug' => ribcage_slugize($_POST["track_title_$t"]),
+				'track_stream' => get_option('siteurl').get_option('ribcage_file_location').'audio'.ribcage_slugize($_POST['track_title_$t']).'/'.ribcage_slugize($release['release_title']).'/stream/'.str_pad($t,2, "0", STR_PAD_LEFT).'.mp3'
+				);
+			$t++;
+		}
+		
+		$release['release_tracks'] = $tracks;
+		
+		?>
+		<h3>Stage 3 of 3</h3>
+		<p>Added <?php artist_name(); ?> - <?php release_title(); ?> to the database.</p>
+		<p>It will be live on the site on </p>
 		<?php
-		print_r($_POST);
+		echo '<pre>';
+		print_r($release);
+		echo '</pre>';
+		return 0;
+	}
+	elseif ($_REQUEST['ribcage_action'] == 'add_release') {
+		// Get the tracks we have been sent, if we have been sent any.
+		if (isset($_POST['release_tracks'])){
+			$tracks = $_POST['release_tracks'];
+			$tracks = stripslashes($tracks);
+			$tracks = unserialize($tracks);
+		}
+		
+		$artist = get_artist($_POST['release_artist']);
+		$release['release_artist'] = $_POST['release_artist'];
+		$release['release_tracks'] = $tracks;
+		
+		// Whack all the inputed variables into $release
+		foreach ($_POST as $key => $var) {
+			$release[$key] = $var;
+		}
+		?>
+		<h3>Stage 2 of 3</h3>
+		<p>Please check the following details of the release.</p>
+		<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&ribcage_step=2" method="post" id="ribcage_add_release" name="add_release">
+		<table class="form-table">  
+			<tr>
+				<th scope="row"><strong><?php artist_name(); ?> - <?php release_title(); ?></strong></th>
+			</tr>
+			<?php $track_count = 1;?>
+			<?php while ( have_tracks () ) : the_track() ; ?>
+			<tr>
+				<th scope="row">
+					<input type="text" style="width:30px;" class="regular-text" value="<?php track_no(); ?>" name="track_number_<?php echo $track_count; ?>" id="track_number_<?php echo $track_count; ?>" maxlength="200" />
+				</th>
+				<td>
+					<input type="text" style="width:320px;" class="regular-text" value="<?php track_title(); ?>" name="track_title_<?php echo $track_count; ?>" id="track_title_<?php echo $track_count; ?>" maxlength="200" />						
+				</td>
+				<td>
+					<input type="text" style="width:40px;" class="regular-text" value="<?php echo $track['track_time']; ?>" name="track_time_<?php echo $track_count; ?>" id="track_time_<?php echo $track_count; ?>" maxlength="200" />
+					<input type="hidden" name="track_mbid_<?php echo $track_count; ?>" value='<?php echo $track['track_mbid'] ?>' />											
+				</td>
+			</tr>
+			<?php $track_count++;?>
+			<?php endwhile; ?>      
+		</table>
+		<p class="submit">
+			<input type="submit" name="Submit" class="button-primary" value="Save Changes" />
+		</p>
+		<?php
+		// All the other variables as hidden.
+		unset($release['release_tracks']);
+		$release = serialize($release); ?>
+		<input type="hidden" name="release" value='<?php print_r($release); ?>' />
+		</form>
+		</div>
+		<?php
 		return 0;
 	}
 	else {
@@ -71,9 +154,13 @@ function ribcage_add_release()
 				'release_flac' => get_option('ribcage_file_location').$artist_slug.'/'.$release['release_slug'].'/download/zip/'.$release['release_slug'].'-flac.zip',
 			));
 		}
-			
+		
+		$tracks = serialize($release['release_tracks']);
+		
 		// If we haven't got an artist from Musicbrainz then we need to display a drop down of all the artists so they can choose.
 		?>
+		<h3>Stage 1 of 3</h3>
+		<p>Add the following details for the release, then you will be able to add tracks.</p>
 		<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&ribcage_action=add_release" method="post" id="ribcage_add_release" name="add_release">
 		<table class="form-table">             
 			<tr valign="top">
@@ -106,11 +193,30 @@ function ribcage_add_release()
 					<?php echo get_option('ribcage_mark'); ?><input type="text" style="width:30px;" class="regular-text code" value="<?php echo $release['release_id']; ?>" name="release_id" id="release_id" maxlength="10" /><span class="description">This will be padded to be three digits</span>									
 				</td> 
 			</tr>
+			<tr valign="top">
+				<th scope="row"><label for="release_tracks_no">Number Of Tracks</label></th> 
+				<td>
+					<input type="text" style="width:30px;" class="regular-text code" value="<?php echo $release['release_tracks_no']; ?>" name="release_tracks_no" id="release_tracks_no" />									
+				</td> 
+			</tr>
+			<?php
+			foreach ($release as $key => $val){
+				?>
+				<tr valign="top">
+					<th scope="row"><label for="<?php echo "$key"; ?>"><?php echo "$key"; ?></label></th> 
+					<td>
+						<input type="text" style="width:300px;" class="regular-text code" value="<?php echo "$val"; ?>" name="<?php echo "$key"; ?>" id="<?php echo "$key"; ?>" />									
+					</td> 
+				</tr>
+				<?php
+			}
+			?>
 		</table>
 		<input type="hidden" name="release_mbid" value="<?php echo $release['release_mbid']; ?>" />
 		<input type="hidden" name="release_artist" value="<?php echo $release['release_artist']; ?>" />
+		<input type="hidden" name="release_tracks" value='<?php print_r($tracks); ?>' />
 		<p class="submit">
-			<input type="submit" name="Submit" class="button-primary" value="Save Changes" />
+			<input type="submit" name="Submit" class="button-primary" value="Next" />
 		</p>
 		</form>
 		<pre><?php print_r($release); ?></pre>
