@@ -18,7 +18,6 @@ function ribcage_admin_index ()
 function ribcage_add_release()
 {
 	global $release, $artist, $tracks, $track;
-	global $wpdb;
 	
 	?>
 	<div class="wrap">
@@ -57,6 +56,8 @@ function ribcage_add_release()
 		<p>Added <?php artist_name(); ?> - <?php release_title(); ?> to the database.</p>
 		<p>It will be live on the site on </p>
 		<?php
+		global $wpdb;
+			
 		$wpdb->show_errors();
 		
 		$string_keys = implode(array_keys($release),",");
@@ -75,6 +76,7 @@ function ribcage_add_release()
 		return 0;
 	}
 	
+	// Stage 2 - Check release tracks are correct.
 	elseif ($_REQUEST['ribcage_action'] == 'add_release') {
 		// Get the tracks we have been sent, if we have been sent any.
 		if (isset($_POST['release_tracks'])){
@@ -177,6 +179,7 @@ function ribcage_add_release()
 		$tracks = serialize($release['release_tracks']);
 		
 		// If we haven't got an artist from Musicbrainz then we need to display a drop down of all the artists so they can choose.
+		// Stage 1 - Add the details of the release or correct those from Musicbrainz
 		?>
 		<h3>Stage 1 of 3</h3>
 		<p>Add the following details for the release, then you will be able to add tracks.</p>
@@ -219,6 +222,7 @@ function ribcage_add_release()
 				</td> 
 			</tr>
 			<?php
+			// Rough way of doing this until I have set each of the elements by hand, as it were.
 			foreach ($release as $key => $val){
 				?>
 				<tr valign="top">
@@ -241,6 +245,7 @@ function ribcage_add_release()
 		<pre><?php print_r($release); ?></pre>
 		<?php
 	}
+	// Display the start with the Musicbrainz lookup form.
 	else {
 	?>
 		<form method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
