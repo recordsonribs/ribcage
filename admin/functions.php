@@ -18,6 +18,7 @@ function ribcage_admin_index ()
 function ribcage_add_release()
 {
 	global $release, $artist, $tracks, $track;
+	global $wpdb;
 	
 	?>
 	<div class="wrap">
@@ -31,6 +32,7 @@ function ribcage_add_release()
 	unset($_POST['release']);
 	unset($_POST['Submit']);
 	
+	// Stage 3 - Add the release to the database.
 	if ($_REQUEST['ribcage_action'] == 'add_release' && $_REQUEST['ribcage_step'] == '2'){	
 		$total_tracks = $release['release_tracks_no'];
 		$t = 1;
@@ -48,18 +50,31 @@ function ribcage_add_release()
 			$t++;
 		}
 		
-		$release['release_tracks'] = $tracks;
+		//$release['release_tracks'] = $tracks;
 		
 		?>
 		<h3>Stage 3 of 3</h3>
 		<p>Added <?php artist_name(); ?> - <?php release_title(); ?> to the database.</p>
 		<p>It will be live on the site on </p>
 		<?php
+		$wpdb->show_errors();
+		
+		$string_keys = implode(array_keys($release),",");
+		$string_values = "'".implode(array_values($release),"','")."'";
+		
+		$sql = "INSERT INTO ".$wpdb->prefix."ribcage_releases
+					($string_keys)
+					VALUES
+					($string_values)";
+		$results = $wpdb->query( $sql );
+		$wpdb->hide_errors();
+		
 		echo '<pre>';
 		print_r($release);
 		echo '</pre>';
 		return 0;
 	}
+	
 	elseif ($_REQUEST['ribcage_action'] == 'add_release') {
 		// Get the tracks we have been sent, if we have been sent any.
 		if (isset($_POST['release_tracks'])){
@@ -105,6 +120,10 @@ function ribcage_add_release()
 			<input type="submit" name="Submit" class="button-primary" value="Save Changes" />
 		</p>
 		<?php
+		echo '<pre>';
+		print $sql;
+		print_r($release);
+		echo '</pre>';
 		// All the other variables as hidden.
 		unset($release['release_tracks']);
 		$release = serialize($release); ?>
