@@ -271,14 +271,48 @@ function ribcage_add_release()
 
 function ribcage_add_review($value='')
 {
+	global $releases, $release,$artist, $tracks, $track;
+	
+	$releases = list_recent_releases_blurb();
+	
 	?>
 	<div class="wrap">
 		<h2>Add Review</h2>
+		<?php
+		if (isset($_POST['release_id'])){
+			$release = get_release($_POST['release_id']);
+			$artist = get_artist($release['release_artist']);
+			?>
+			<h3>Stage 2 of 2</h3>
+			<form>
+			<p>Add a review of <strong><?php artist_name(); ?> - <?php release_title(); ?></strong></p>
+			<p class="submit">
+				<input type="submit" name="Submit" class="button-primary" value="Add Review" />
+			</p>
+			</form>
+			<?php
+		}
+		else {
+		?>
+		<h3>Stage 1 of 2</h3>
 		<p>Add a review of one of your releases.</p>
+		<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>" method="post" id="ribcage_add_review" name="add_review">
+		<select name="release_id" id="release_id">
+			<?php while ( have_releases () ) : the_release() ; ?>
+			<?php $artist = get_artist($release['release_artist']); ?>
+			<option value="<?php release_id (); ?>"><?php artist_name(); ?> - <?php release_title(); ?></option>
+			<?php endwhile; ?>
+		</select>
+		<p class="submit">
+			<input type="submit" name="Submit" class="button-primary" value="Next" />
+		</p>
+		</form>
+	<?php
+	}
+	?>
 	</div>
 	<?php
 }
-
 function ribcage_add_press($value='')
 {
 	?>
