@@ -60,6 +60,7 @@ function ribcage_add_release()
 			
 		$wpdb->show_errors();
 		
+		// Add release to database
 		$string_keys = implode(array_keys($release),",");
 		$string_values = "'".implode(array_values($release),"','")."'";
 		
@@ -69,6 +70,8 @@ function ribcage_add_release()
 					($string_values)";
 		$results = $wpdb->query( $sql );
 		$wpdb->hide_errors();
+		
+		// Add tracks to database
 		
 		echo '<pre>';
 		print_r($release);
@@ -283,9 +286,20 @@ function ribcage_add_review($value='')
 			$release = get_release($_POST['release_id']);
 			$artist = get_artist($release['release_artist']);
 			?>
-			<h3>Stage 2 of 2</h3>
 			<form>
 			<p>Add a review of <strong><?php artist_name(); ?> - <?php release_title(); ?></strong></p>
+			<table class="form-table">             
+				<tr valign="top">
+					<th scope="row"><label for="review_url">Review URL</label></th> 
+					<td><input type="text" name="review_url" value="" class="regular-text code"/><span class="description">The URL of the review, if the review is online.</span>								
+					</td> 
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label for="review_url">Publication</label></th> 
+					<td><input type="text" name="review_url" value="" class="regular-text code"/><span class="description">The name of the publication that reviewed the release</span>								
+					</td> 
+				</tr>
+			</table>
 			<p class="submit">
 				<input type="submit" name="Submit" class="button-primary" value="Add Review" />
 			</p>
@@ -294,7 +308,6 @@ function ribcage_add_review($value='')
 		}
 		else {
 		?>
-		<h3>Stage 1 of 2</h3>
 		<p>Add a review of one of your releases.</p>
 		<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>" method="post" id="ribcage_add_review" name="add_review">
 		<select name="release_id" id="release_id">
