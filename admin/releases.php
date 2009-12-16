@@ -8,14 +8,64 @@
  **/
 
 /**
- * Administration panel for releases.
+ * Manage releases panel - sends you out to add releases, remove releases, add reviews (and eventually add tracks).
  *
  * @return void
  * @author Alex Andrews
  */
 function ribcage_manage_releases()
 {
+	global $release, $releases, $artist;
 	
+	$nonce= wp_create_nonce ('ribcage_manage_releases');
+	
+	register_column_headers('ribcage-manage-releases',
+	array (
+		'cb'=>'<input type="checkbox" />',
+		'release_image' => '',
+		'release_title'=> 'Release',
+		'release_date'=> 'Released',
+		'local_downloads'=>'Local Downloads',
+		'remote_downloads'=>'Remote Downloads',
+		'total_downloads'=>'Total Downloads'
+		)
+		);
+		
+	$releases = list_recent_releases_blurb();
+	?>
+	<div class="wrap">
+			<div id="icon-options-general" class="icon32"><br /></div>
+			<h2>Manage Releases</h2>
+			<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>" method="post" id="ribcage_edit_artist" name="edit_artist">
+				<table class="widefat post fixed" cellspacing="0">
+						<thead>
+						<tr>
+						<?php print_column_headers('ribcage-manage-releases'); ?>			
+						</tr>
+						</thead>
+						<tfoot>
+						<tr>			
+						<?php print_column_headers('ribcage-manage-releases',FALSE); ?>	
+						</tr>
+						</tfoot>            
+						<tbody>
+							<?php while ( have_releases () ) : the_release(); ?>
+							<?php $artist = get_artist($release['release_artist']); ?>
+							<?php echo ($alt % 2) ? '<tr valign="top" class="">' : '<tr valign="top" class="alternate">'; ++$alt; ?>		
+							<th scope="row" class="check-column"><input type="checkbox" name="artistcheck[]" value="2" /></th>
+							<td class="column-icon"><img src="<?php release_cover_tiny ();?>" height="65px" width="65px" alt="<?php release_title(); ?>" /></td>
+							<td class="column-name"><strong><a class="row-title" href="?page=manage_releases&release=<?php artist_id(); ?>" title="<?php artist_name(); ?>" ><?php artist_name(); ?> - <?php release_title(); ?></strong></a><br /><div class="row-actions">Stats | <span class='edit'><a href="?page=manage_releases&release=<?php release_id(); ?>&amp;_wpnonce=<?php echo $nonce ?>">Edit</a> | </span><span class='delete'><a class='submitdelete' href='?page=manage_releases&release=<?php release_id(); ?>&amp;ribcage_action=delete&amp;_wpnonce=<?php echo $nonce ?>' onclick="if ( confirm('You are about to delete \'<?php artist_name(); ?> - <?php release_title(); ?>\'\n  \'Cancel\' to stop, \'OK\' to delete.') ) { return true;}return false;">Delete</a></span></div></td>
+							<td class="column-name">Date here.</td>
+							<td class="column-name"><?php release_downloads(); // Need to implement a function that takes them from Legaltorrents too ?></td>
+							<td class="column-name"><?remote_downloads(); ?></td>
+							<td class="column-name"><?echo (remote_downloads(FALSE)+release_downloads(FALSE));?></td>
+							</tr>
+							<?php endwhile; ?>
+						</tbody>
+					</table>
+			</form>
+	</div>
+	<?php
 }
 
 /**

@@ -78,4 +78,69 @@ function ribcage_options()
 	</div>
 	<?php
 }
+
+/**
+ * Adds the remote downloads from Legaltorrents.
+ *
+ * @param bool $echo
+ * @return void
+ * @author Alex Andrews
+ */
+function remote_downloads( $echo = TRUE )
+{
+	global $release;
+	
+	$total_downloads = 0;
+	
+	$release_id = $release['release_id'];
+	
+	$torrents = array($release['release_torrent_mp3'],$release['release_torrent_ogg'],$release['release_torrent_flac']);
+	
+	// If we have recent enough Legaltorrents data, then display what is cached
+	// If the Legaltorrents data is not recent enough we grab it and cache it in the database
+	foreach ($torrents as $torrent) {
+		if ($torrent == NULL) {
+			continue;
+		}
+		
+		// No stats yet.
+		if ($release['release_stats_time'] == '0000-00-00 00:00:00'){
+			$downloads = get_remote_downloads($torrent);
+				
+			global $wpdb;
+			$wpdb->show_errors();
+			$results = $wpdb->query("update `wp_ribcage_releases` set `release_torrent_mp3_downloads`='$downloads' where `release_id`='$release_id'");
+				
+			$wpdb->hide_errors();
+		}
+		// Some stats.
+		else {
+			// Are the stats recent enough?
+			// $release['release_stats_time']
+		}
+			
+		$total_downloads = $total_downloads + $downloads;
+	}
+	
+	
+	if ( $echo )
+		echo $total_downloads;
+	
+	return 	$total_downloads;
+}
+
+function get_remote_downloads ($torrent) 
+{
+	$torrent = str_replace(array('http://','https://'), '', $torrent);
+	$torrent = str_replace(array('www.legaltorrents.com/get/','beta.legaltorrents.com/get/','beta.legaltorrents.com/torrents/','.torrent'), '', $torrent);
+
+	$request_url = "http://www.legaltorrents.com/torrents/$torrent.xml";
+	$xml = simplexml_load_file($request_url);
+
+	if (! $xml) {
+		return new WP_Error('legaltorrents_xml_not_found', __("The xml file could not be found on Legaltorrents."));
+	}
+	
+	return $xml->{'download-trkr'};
+}
 ?>
