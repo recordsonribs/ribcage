@@ -16,17 +16,6 @@ function ribcage_admin_index ()
 	<?php
 }
 
-
-function ribcage_add_press($value='')
-{
-	?>
-	<div class="wrap">
-		<h2>Add Press</h2>
-		
-	</div>
-	<?php
-}
-
 /**
  * Displays form for changing Ribcage options.
  *
@@ -109,7 +98,7 @@ function remote_downloads( $echo = TRUE )
 				
 			global $wpdb;
 			$wpdb->show_errors();
-			$results = $wpdb->query("update `wp_ribcage_releases` set `release_torrent_mp3_downloads`='$downloads' where `release_id`='$release_id'");
+			$results = $wpdb->query("UPDATE `wp_ribcage_releases` SET `release_torrent_mp3_downloads`=$downloads WHERE `release_id`=$release_id");
 				
 			$wpdb->hide_errors();
 		}
