@@ -246,4 +246,15 @@ function ribcage_manage_artists () {
 	<?php
 	endif;
 }
+
+
+function ribcage_add_press($value='')
+{
+	?>
+	<div class="wrap">
+		<h2>Add Press</h2>
+		
+	</div>
+	<?php
+}
 ?>

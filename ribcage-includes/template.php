@@ -323,6 +323,15 @@ function release_product_id ( $echo = TRUE ) {
 	return 	$release['release_physical_cat_no'];
 }
 
+function release_downloads ( $echo = TRUE ) {
+	global $release;
+	
+	if ( $echo )
+		echo $release['release_downloads'];
+	
+	return 	$release['release_downloads'];
+}
+
 function artist_id ( $echo = true ) {
 	global $artist;
 	
