@@ -57,7 +57,7 @@ function ribcage_manage_releases()
 							<th scope="row" class="check-column"><input type="checkbox" name="artistcheck[]" value="2" /></th>
 							<td class="column-icon"><img src="<?php release_cover_tiny ();?>" height="65px" width="65px" alt="<?php release_title(); ?>" /></td>
 							<td class="column-name"><strong><a class="row-title" href="?page=manage_releases&release=<?php artist_id(); ?>" title="<?php artist_name(); ?>" ><?php artist_name(); ?> - <?php release_title(); ?></strong></a><br /><div class="row-actions">Stats | <span class='edit'><a href="?page=manage_releases&release=<?php release_id(); ?>&amp;_wpnonce=<?php echo $nonce ?>">Edit</a> | </span><span class='delete'><a class='submitdelete' href='?page=manage_releases&release=<?php release_id(); ?>&amp;ribcage_action=delete&amp;_wpnonce=<?php echo $nonce ?>' onclick="if ( confirm('You are about to delete \'<?php artist_name(); ?> - <?php release_title(); ?>\'\n  \'Cancel\' to stop, \'OK\' to delete.') ) { return true;}return false;">Delete</a></span></div></td>
-							<td class="column-name"><?php echo date('jS F Y',strtotime($release['release_date'])); ?></td>
+							<td class="column-name"><?php echo date('j F Y',strtotime($release['release_date'])); ?></td>
 							<td class="column-name"><?php release_downloads(); // Need to implement a function that takes them from Legaltorrents too ?></td>
 							<td class="column-name"><?remote_downloads(); ?></td>
 							<td class="column-name"><?echo number_format(remote_downloads(FALSE)+release_downloads(FALSE)); $total_downloads = $total_downloads + remote_downloads(FALSE)+release_downloads(FALSE); ?></td>
