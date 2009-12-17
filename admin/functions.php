@@ -91,24 +91,8 @@ function remote_downloads( $echo = TRUE )
 		if ($torrent == NULL) {
 			continue;
 		}
-		
-		// No stats yet.
-		if ($release['release_stats_time'] == '0000-00-00 00:00:00'){
-			$downloads = get_remote_downloads($torrent);
-				
-			global $wpdb;
-			$wpdb->show_errors();
-			$results = $wpdb->query("UPDATE `wp_ribcage_releases` SET `release_torrent_mp3_downloads`=$downloads WHERE `release_id`=$release_id");
-				
-			$wpdb->hide_errors();
-		}
-		// Some stats.
-		else {
-			// Are the stats recent enough?
-			// $release['release_stats_time']
-		}
 			
-		$total_downloads = $total_downloads + $downloads;
+		$total_downloads = $total_downloads + get_remote_downloads($torrent);
 	}
 	
 	
