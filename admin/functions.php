@@ -81,23 +81,28 @@ function remote_downloads( $echo = TRUE )
 	
 	$total_downloads = 0;
 	
-	$release_id = $release['release_id'];
-	
-	$torrents = array($release['release_torrent_mp3'],$release['release_torrent_ogg'],$release['release_torrent_flac']);
-	
-	// If we have recent enough Legaltorrents data, then display what is cached
-	// If the Legaltorrents data is not recent enough we grab it and cache it in the database
-	foreach ($torrents as $torrent) {
-		if ($torrent == NULL) {
-			continue;
-		}
-			
-		$total_downloads = $total_downloads + get_remote_downloads($torrent);
+	if ($release['release_torrent_mp3'] != null) {
+		$mp3 = get_remote_downloads($release['release_torrent_mp3']);
 	}
 	
+	if ($release['release_torrent_ogg'] != null) {
+		$ogg = get_remote_downloads($release['release_torrent_ogg']);
+	}
 	
-	if ( $echo )
-		echo $total_downloads;
+	if ($release['release_torrent_flac'] != null) {
+		$flac = get_remote_downloads($release['release_torrent_flac']);
+	}
+				
+	$total_downloads = $mp3 + $ogg + $flac;
+	
+	if ( $echo ) {
+		?>
+		MP3: <?php echo $mp3; ?><br />
+		Ogg: <?php echo $ogg; ?><br />
+		Flac: <?php echo $flac; ?><br />
+		Total: <?php echo $total_downloads;?>
+		<?php
+	}
 	
 	return 	$total_downloads;
 }
@@ -109,10 +114,11 @@ function get_remote_downloads ($torrent)
 
 	$request_url = "http://www.legaltorrents.com/torrents/$torrent.xml";
 	$xml = simplexml_load_file($request_url);
-
+	
 	if (! $xml) {
 		return new WP_Error('legaltorrents_xml_not_found', __("The xml file could not be found on Legaltorrents."));
 	}
+	//print_r($xml);
 	
 	return $xml->{'download-trkr'};
 }
