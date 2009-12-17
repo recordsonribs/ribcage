@@ -97,10 +97,10 @@ function remote_downloads( $echo = TRUE )
 	
 	if ( $echo ) {
 		?>
-		MP3: <?php echo $mp3; ?><br />
-		Ogg: <?php echo $ogg; ?><br />
-		Flac: <?php echo $flac; ?><br />
-		Total: <?php echo $total_downloads;?>
+		MP3: <?php echo number_format($mp3); ?><br />
+		Ogg: <?php echo number_format($ogg); ?><br />
+		Flac: <?php echo number_format($flac); ?><br />
+		Total: <?php echo number_format($total_downloads);?>
 		<?php
 	}
 	

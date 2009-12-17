@@ -17,6 +17,8 @@ function ribcage_manage_releases()
 {
 	global $release, $releases, $artist;
 	
+	$total_downloads = 0;
+	
 	$nonce= wp_create_nonce ('ribcage_manage_releases');
 	
 	register_column_headers('ribcage-manage-releases',
@@ -58,12 +60,13 @@ function ribcage_manage_releases()
 							<td class="column-name">Date here.</td>
 							<td class="column-name"><?php release_downloads(); // Need to implement a function that takes them from Legaltorrents too ?></td>
 							<td class="column-name"><?remote_downloads(); ?></td>
-							<td class="column-name"><?echo (remote_downloads(FALSE)+release_downloads(FALSE));?></td>
+							<td class="column-name"><?echo number_format(remote_downloads(FALSE)+release_downloads(FALSE)); $total_downloads = $total_downloads + remote_downloads(FALSE)+release_downloads(FALSE); ?></td>
 							</tr>
 							<?php endwhile; ?>
 						</tbody>
 					</table>
 			</form>
+			<p>Served <?php echo number_format($total_downloads) ?> downloads so far.</p>
 	</div>
 	<?php
 }

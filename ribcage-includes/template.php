@@ -327,7 +327,7 @@ function release_downloads ( $echo = TRUE ) {
 	global $release;
 	
 	if ( $echo )
-		echo $release['release_downloads'];
+		echo number_format($release['release_downloads']);
 	
 	return 	$release['release_downloads'];
 }
