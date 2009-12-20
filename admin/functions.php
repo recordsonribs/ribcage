@@ -80,26 +80,38 @@ function remote_downloads( $echo = TRUE )
 	global $release;
 	
 	$total_downloads = 0;
-	
-	if ($release['release_torrent_mp3'] != null) {
-		$mp3 = get_remote_downloads($release['release_torrent_mp3']);
-	}
-	
-	if ($release['release_torrent_ogg'] != null) {
-		$ogg = get_remote_downloads($release['release_torrent_ogg']);
-	}
-	
-	if ($release['release_torrent_flac'] != null) {
-		$flac = get_remote_downloads($release['release_torrent_flac']);
-	}
+
+	$torrents = array (
+		'mp3'=>$release['release_torrent_mp3'],
+		'ogg'=>$release['release_torrent_ogg'],
+		'flac'=>$release['release_torrent_flac']
+	);
+
+	foreach ($torrents as $format => $val) {
+		
+		if ($val == NULL) {
+			$torrents[$format] = 0;
+			continue;
+		}
+		else {
+			$downloads = get_remote_downloads($val);
 				
-	$total_downloads = $mp3 + $ogg + $flac;
-	
+			if (is_wp_error($downloads)) {
+				echo $downloads->get_error_message();
+				continue;
+			}
+			
+			$torrents[$format] = $downloads;
+			
+			$total_downloads = $total_downloads + $downloads;
+		}
+	}
+		
 	if ( $echo ) {
 		?>
-		MP3: <?php echo number_format($mp3); ?><br />
-		Ogg: <?php echo number_format($ogg); ?><br />
-		Flac: <?php echo number_format($flac); ?><br />
+		MP3: <?php echo number_format($torrents['mp3']); ?><br />
+		Ogg: <?php echo number_format($torrents['ogg']); ?><br />
+		Flac: <?php echo number_format($torrents['flac']); ?><br />
 		Total: <?php echo number_format($total_downloads);?>
 		<?php
 	}
@@ -118,8 +130,7 @@ function get_remote_downloads ($torrent)
 	if (! $xml) {
 		return new WP_Error('legaltorrents_xml_not_found', __("The xml file could not be found on Legaltorrents."));
 	}
-	//print_r($xml);
 	
-	return $xml->{'download-trkr'};
+	return $xml->{'totaldl'};
 }
 ?>
