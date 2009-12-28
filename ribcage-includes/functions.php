@@ -259,8 +259,14 @@ function ribcage_format_filesize($rawSize) {
 	}
 }
 
-// dropdown to display CC licenses. accepts license slug as argument (to select that option)
-// license list: http://creativecommons.org/about/licenses/meet-the-licenses
+/**
+ * Displays a dropdown XHTML select box for the various Creative Commons Licenses.
+ * A list of the licenses can be found at http://creativecommons.org/about/licenses/meet-the-licenses
+ *
+ * @author Alex Andrews
+ * @param string $selected If a particular license is selected in the box.
+ * @return string HTML <select> tag group containing possible Creative Commons Licenses
+ */
 function ribcage_cc_dropdown($selected = false){
 	$cclist = array(
 		'by-nc-nd'	=> 'Attribution Non-commercial No Derivatives (by-nc-nd)',
