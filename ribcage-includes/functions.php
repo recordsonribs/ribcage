@@ -16,6 +16,12 @@ $wpdb->ribcage_orders = $wpdb->prefix."ribcage_orders";
 
 $wpdb->ribcage_donations = $wpdb->prefix."ribcage_donations";
 
+/**
+ * Writes HTML code for insertion of Ribcage specific releases feeds into the header of a page.
+ *
+ * @return void
+ * @author Alex Andrews
+ */
 function ribcage_release_feeds(){
 	global $wp_query;
 	
@@ -30,9 +36,12 @@ function ribcage_release_feeds(){
 	}
 }
 
-// is_ribcage_page
-// No input.
-// Returns true if we are on a Ribcage page, and false otherwise.
+/**
+ * Tells us if we are on a Ribcage page or not.
+ *
+ * @author Alex Andrews
+ * @return bool True if we are on a Ribcage page, false if we are not.
+ */
 function is_ribcage_page() {
 	global $wp_query;
 	
@@ -46,9 +55,14 @@ function is_ribcage_page() {
 	return FALSE;
 }
 
-// list_recent_releases_blurb
-// Input amount of releases you want back.
-// Returns recent releases as associative array.
+/**
+ * Returns a quantity of recent releases and their details in an associative array.
+ *
+ * @author Alex Andrews
+ * @param int $amount Quantity of recent releases you want returned.
+ * @param bool $forthcoming Should we include forthcoming releases (true), or simply those whose release date is passed (false)? 
+ * @return array Associative array of recent releases and their details.
+ */
 function list_recent_releases_blurb ( $amount = 0, $forthcoming = FALSE )
 {
 	global $wpdb;
@@ -70,9 +84,12 @@ function list_recent_releases_blurb ( $amount = 0, $forthcoming = FALSE )
 	return $return;
 }
 
-// list_artists
-// No input. 
-// Returns a list of artists (their name, their blurb_short, their press photo) as an associative array, sorted by alphabetically by their name.
+/**
+ * Returns a list of all artists in an associative array, sorted alphabetically by their name.
+ *
+ * @author Alex Andrews
+ * @return array An associative array with all the artist details in.
+ */
 function list_artists_blurb (){
 	global $wpdb;	
 	$querystr = "
@@ -82,9 +99,14 @@ function list_artists_blurb (){
 	return $return;
 }
 
-// list_artist_releases
-// Input the artist id and a bool of if you want forthcoming releases as well.
-// Returns an associative array of their releases.
+/**
+ * Lists the releases of an artist specified by their artist_id
+ *
+ * @author Alex Andrews
+ * @param int $artist_id The artist ID of the artist you which to retrieve the releases of.
+ * @param bool $forthcoming Should we include forthcoming releases (true), or simply those whose release date is passed (false)? 
+ * @return array Associative array with the details of the artist in it.
+ */
 function list_artist_releases ($artist_id, $forthcoming = FALSE ) {
 	global $wpdb;
 	
@@ -105,10 +127,6 @@ function list_artist_releases ($artist_id, $forthcoming = FALSE ) {
 	return $return;
 }
 
-// get_*
-// -------
-// The following functions fetch various things from the database.
-// or maybe just don't bother appending fullstop?? We'll see.
 // TODO Errors, bailing out if we can't find the artist, track, etc.
 
 // get_product 
@@ -474,7 +492,7 @@ function object_to_array( $object )
 /**
  * Converts a catalogue number to a release number.
  *
- * @return void
+ * @return string The release number of a catalogue number.
  * @author Alexander Lazarus
  **/
 function cat_to_release_id ($cat)
