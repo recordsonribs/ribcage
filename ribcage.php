@@ -8,7 +8,7 @@
 	Author URI: http://recordsonribs.com
 */
 /*
-	Copyright 2009  Alexander Andrews  (email : alex@recordsonribs.com)
+	Copyright 2009  Alexander Andrews  (email: alex@recordsonribs.com)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
