@@ -1,4 +1,10 @@
 <?php
+/**
+ * Various useful global functions for Ribcage.
+ *
+ * @author Alex Andrews
+ * @package Ribcage
+ **/
 
 $wpdb->ribcage_artists = $wpdb->prefix."ribcage_artists";
 $wpdb->ribcage_releases = $wpdb->prefix."ribcage_releases";
