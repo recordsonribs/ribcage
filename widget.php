@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Ribcage Widgets
  *
@@ -8,6 +7,7 @@
  * @package Ribcage
  * @subpackage Widgets
  **/
+
 class ribcage_widgets {	
 	/**
 	 * Registers Ribcage sidebar widgets and their controls.
