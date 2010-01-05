@@ -4,6 +4,12 @@
  *
  *
  * @package Ribcage
+ * @subpackage Template
+ **/
+
+/**
+ * I learnt to code much of what is coded here from looking closely at the template source of Rob Miller's Now Reading Wordpress plugin.
+ * This plugin can be found at http://robm.me.uk/projects/ - this is why we have the GPL!
  **/
 
 $artists = null;
@@ -24,6 +30,15 @@ $current_review = 0;
 
 $product = null;
 
+/**
+ * Loads a template for Ribcage specific output. 
+ * There is one, a template from the currently being used theme is loaded, otherwise it is loaded from the plugin.
+ * Owes a great deal to Rob Millers' Now Reading plugin. Thanks a great deal.
+ *
+ * @author Alex Andrews
+ * @param string $filename Filename of template to be loaded.
+ * @return void
+ */
 function ribcage_load_template ( $filename ) {
 	$template = ABSPATH . TEMPLATEPATH ."/ribcage/$filename";
 	
@@ -36,6 +51,12 @@ function ribcage_load_template ( $filename ) {
 	load_template($template);
 }
 
+/**
+ * Tells us if the page is an artist page or not.
+ *
+ * @author Alex Andrews
+ * @return bool True if it is an artist page, false if it is not.
+ */
 function is_artist_page ()
 {
 	global $wp_query;
@@ -49,6 +70,13 @@ function is_artist_page ()
 	}
 }
 
+/**
+ * Retrieve or display the name of the product.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the product.
+ * @return string The name of the product.
+ */
 function product_name ( $echo = true ) {
 	global $product;
 	
@@ -58,6 +86,13 @@ function product_name ( $echo = true ) {
 	return $product['product_name'];
 }
 
+/**
+ * Retrieve or display the description of the product.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the product description.
+ * @return string The description of the product
+ */
 function product_description ( $echo = true ) {
 	global $product;
 	
@@ -67,6 +102,13 @@ function product_description ( $echo = true ) {
 	return $product['product_description'];
 }
 
+/**
+ * Retrieve or display the cost of the product.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the cost of the product.
+ * @return string The cost of the product.
+ */
 function product_cost_c ( $echo = true ) {
 	global $product;
 	
@@ -76,6 +118,13 @@ function product_cost_c ( $echo = true ) {
 	return $product['product_cost']+get_option('ribcage_postage_country');
 }
 
+/**
+ * Retrieve or display the cost of the product.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the cost of the product.
+ * @return string The cost of the product.
+ */
 function product_cost_ww ( $echo = true ) {
 	global $product;
 	
@@ -85,6 +134,13 @@ function product_cost_ww ( $echo = true ) {
 	return $product['product_cost']+get_option('ribcage_postage_worldwide');
 }
 
+/**
+ * Retrieve or display the product ID number of the product.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the product ID number of the product.
+ * @return string The product ID number of the product.
+ */
 function product_id ( $echo = true ) {
 	global $product;
 	
@@ -94,6 +150,13 @@ function product_id ( $echo = true ) {
 	return $product['product_id'];
 }
 
+/**
+ * Retrieve or display the title of the release.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the title of the release.
+ * @return string The title of the release.
+ */
 function release_title ( $echo = true ) {
 	global $release;
 	
@@ -103,6 +166,14 @@ function release_title ( $echo = true ) {
 	return $release['release_title'];
 }
 
+/**
+ * Retrieve or display the slug of the release.
+ * Release slugs serve the same function as post slugs - they up part of the URL of the release.Ì
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the slug of the release.
+ * @return string The slug of the release.
+ */
 function release_slug ( $echo = true ) {
 	global $release;
 	
