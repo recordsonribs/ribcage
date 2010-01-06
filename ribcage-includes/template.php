@@ -183,6 +183,13 @@ function release_slug ( $echo = true ) {
 	return $release['release_slug'];
 }
 
+/**
+ * Retrieve or display a very short, one sentence blurb for the release.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the tiny blurb of the release.
+ * @return string The tiny blurb for the release.
+ */
 function release_blurb_tiny ( $echo = true ) {
 	global $release;
 	
@@ -192,6 +199,13 @@ function release_blurb_tiny ( $echo = true ) {
 	return $release['release_blurb_tiny'];
 }
 
+/**
+ * Retrieve or display a short, paragraph long blurb for the release.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the short blurb of the release.
+ * @return string The short blurb for the release.
+ */
 function release_blurb_short ( $echo = true ) {
 	global $release;
 	
@@ -201,6 +215,13 @@ function release_blurb_short ( $echo = true ) {
 	return $release['release_blurb_short'];
 }
 
+/**
+ * Retrieve or display a long blurb for the release.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the long blurb of the release.
+ * @return string The long blurb for the release.
+ */
 function release_blurb_long ( $echo = true ) {
 	global $release;
 	
@@ -210,6 +231,13 @@ function release_blurb_long ( $echo = true ) {
 	return $release['release_blurb_long'];
 }
 
+/**
+ * Retrieve or display the URL of the one sheet press release for the release.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the URL of the one sheet of the release.
+ * @return string The URL of the one sheet of the release.
+ */
 function release_onesheet ( $echo = true ) {
 	global $release;
 	
@@ -219,6 +247,13 @@ function release_onesheet ( $echo = true ) {
 	return $release['release_one_sheet'];
 }
 
+/**
+ * Generate or display the URL for a download of a specific release.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the download URL.
+ * @return string The download URL of a release.
+ */
 function release_download_link ( $echo = true ) {
 	global $release;
 	
