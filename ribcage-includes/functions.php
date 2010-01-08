@@ -44,25 +44,6 @@ function ribcage_release_feeds(){
 }
 
 /**
- * Tells us if we are on a Ribcage page or not.
- *
- * @author Alex Andrews
- * @return bool True if we are on a Ribcage page, false if we are not.
- */
-function is_ribcage_page() {
-	global $wp_query;
-	
-	$qvars = ribcage_queryvars(array());
-	
-	foreach ($qvars as $qvar) {
-		if (isset($wp_query->query_vars["$qvar"])) {
-			return TRUE;
-		}
-	}	
-	return FALSE;
-}
-
-/**
  * Returns a quantity of recent releases and their details in an associative array.
  *
  * @author Alex Andrews
