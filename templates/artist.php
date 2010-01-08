@@ -2,7 +2,7 @@
 <div id="container">
 	<div id="content">
 		<div id="post-17" class="hentry p1 page publish author-alex category-uncategorized tag- y2007 m07 d19 h23">
-			<h2 class="entry-title"><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>"><?php artist_name(); ?></a></h2>
+			<h2 class="entry-title"><?php the_title(); ?></h2>
 				<div class="entry-content">
 					<p><img src="<?php artist_picture_1(); ?>" style="border: 1px solid #000;" alt="<?php artist_name(); ?>" /></p><?php artist_bio(); ?>
 					<p>
