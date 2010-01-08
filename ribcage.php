@@ -65,8 +65,9 @@ function ribcage_init (){
 		return;
 	}
 	
-	// Add our bits to the page title.
+	// Add our bits to the page title in the header ans elsewhere.
 	add_filter('wp_title', 'ribcage_page_title',10,3);
+	add_filter ( 'the_title', 'ribcage_header_title');
 	
 	// Donate IPN from Paypal	
 	if (isset($wp_query->query_vars['ribcage_donate_ipn'])) {
@@ -370,8 +371,7 @@ function ribcage_page_title ($title, $sep = '&raquo;', $seplocation = '') {
 		$title_array[] = $product['product_name'];
 	}
 	
-	if (is_artist_page()){
-		
+	if (is_artist_page()){	
 		switch ($wp_query->query_vars['artist_page']) {
 			case 'press':
 				$title_array [] = 'Press';
@@ -383,7 +383,6 @@ function ribcage_page_title ($title, $sep = '&raquo;', $seplocation = '') {
 
 			default :	
 				$title_array [] = $release['release_title'];
-
 		}
 	}
 	
@@ -403,6 +402,50 @@ function ribcage_page_title ($title, $sep = '&raquo;', $seplocation = '') {
 	$title = implode (" $sep ",$title_array);
 	
 	return ($title);
+}
+
+/**
+ * Filter on the_title and single_post_title that adds Ribcage elements to it.
+ *
+ * @author Alex Andrews
+ * @param string $data The current state of the_title, pre-filtering.
+ */
+function ribcage_header_title ($data){
+	global $wp_query;
+	global $artist, $release, $releases;
+	
+	if (isset($wp_query->query_vars['release_index'])) {
+		$data = "Releases";
+	}
+	
+	if (isset($wp_query->query_vars['artist_index'])) {
+		$data = "Artists";
+	}
+	
+	if (isset($wp_query->query_vars['artist_slug'])) {
+		$data = $artist['artist_name'];
+	}
+	
+	if (isset($wp_query->query_vars['ribcage_buy']) && isset($wp_query->query_vars['ribcage_product_id'])) {
+		$data = $product['product_name'];
+	}
+	
+	if (is_artist_page()){	
+		switch ($wp_query->query_vars['artist_page']) {
+			case 'press':
+				$data .= ' &rsaquo; Press';
+				break;
+
+			case 'bio':
+				$data .= ' &rsaquo; Biography';
+				break;
+
+			default :	
+				$data .= ' - '.$release['release_title'];
+		}
+	}
+	
+	return $data;
 }
 
 register_activation_hook(__FILE__, 'ribcage_activate');
