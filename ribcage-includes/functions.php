@@ -4,6 +4,7 @@
  *
  * @author Alex Andrews
  * @package Ribcage
+ * @subpackage Core
  **/
 
 $wpdb->ribcage_artists = $wpdb->prefix."ribcage_artists";
@@ -135,9 +136,13 @@ function list_artist_releases ($artist_id, $forthcoming = FALSE ) {
 
 // TODO Errors, bailing out if we can't find the artist, track, etc.
 
-// get_product 
-// Input product id
-// Returns product as associative array.
+/**
+ * Gets the details of a specific product.
+ *
+ * @author Alex Andrews
+ * @param int $product_id The product ID in question.
+ * @return array Details of the products as an associative array.
+ */
 function get_product ($product_id) {
 	global $wpdb;
 	
@@ -447,7 +452,7 @@ function ribcage_slugize ($to_slug)
  *
  * @author Alexander Andrews
  * @param string $slug Slug of the release.
- * @return The artist_id
+ * @return string The artist_id
  */
 function slug_to_artist_id ($slug)
 {	
@@ -498,8 +503,9 @@ function object_to_array( $object )
 /**
  * Converts a catalogue number to a release number.
  *
+ * @author Alex Andrews
+ * @param string $cat Catalogue number to be converted.
  * @return string The release number of a catalogue number.
- * @author Alexander Lazarus
  **/
 function cat_to_release_id ($cat)
 {

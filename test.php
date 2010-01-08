@@ -16,7 +16,6 @@ $server = DB_HOST;
 		<h1>Add Release</h1>
 	<?php
 	if (isset($_POST['musicbrainz_id'])) {
-		require_once dirname(__FILE__) . '/wp-content/plugins/ribcage/ribcage-includes/phpbrainz/phpBrainz.class.php';
 		?>
 		<p>Looking up Musicbrainz ID</p> 
 		<?php
