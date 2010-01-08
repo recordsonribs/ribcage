@@ -71,6 +71,25 @@ function is_artist_page ()
 }
 
 /**
+ * Tells us if we are on a Ribcage page or not.
+ *
+ * @author Alex Andrews
+ * @return bool True if we are on a Ribcage page, false if we are not.
+ */
+function is_ribcage_page() {
+	global $wp_query;
+	
+	$query_vars = ribcage_queryvars(array());
+	
+	foreach ($query_vars as $qvar) {
+		if (isset($wp_query->query_vars["$qvar"])) {
+			return TRUE;
+		}
+	}	
+	return FALSE;
+}
+
+/**
  * Retrieve or display the name of the product.
  *
  * @author Alex Andrews
