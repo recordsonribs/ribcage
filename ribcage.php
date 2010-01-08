@@ -25,9 +25,9 @@
 	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA	
 */
 
-require_once dirname(__FILE__) . '/ribcage-includes/functions.php';
-require_once dirname(__FILE__) . '/ribcage-includes/log.php';
-require_once dirname(__FILE__) . '/ribcage-includes/template.php';
+include ('ribcage-includes/functions.php');
+include ('ribcage-includes/log.php');
+include ('ribcage-includes/template.php');
 
 require_once dirname(__FILE__) . '/admin.php';
 require_once dirname(__FILE__) . '/download.php';
