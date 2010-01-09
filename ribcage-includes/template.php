@@ -95,6 +95,45 @@ function is_ribcage_page() {
 }
 
 /**
+ * Filter on the_title and single_post_title that adds Ribcage elements to it.
+ *
+ * @author Alex Andrews
+ */
+function ribcage_title (){
+	global $wp_query;
+	global $artist, $release, $releases;
+	
+	if ($wp_query->query_vars['pagename'] == 'artists'){
+		$data = 'Artists';
+	}
+	
+	if ($wp_query->query_vars['pagename'] == 'releases'){
+		$data = 'Releases';
+	}
+	
+	if (isset($wp_query->query_vars['artist_slug'])) {
+		$data  = $artist['artist_name'];
+	}
+	
+	if (is_artist_page()){	
+		switch ($wp_query->query_vars['artist_page']) {
+			case 'press':
+				$data .= ' &rsaquo; Press';
+				break;
+
+			case 'bio':
+				$data .= ' &rsaquo; Biography';
+				break;
+
+			default :	
+				$data .= ' &rsaquo; '.$release['release_title'];
+		}
+	}
+	
+	echo $data;
+}
+
+/**
  * Retrieve or display the name of the product.
  *
  * @author Alex Andrews

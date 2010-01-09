@@ -412,46 +412,6 @@ function ribcage_page_title ($title, $sep = '&raquo;', $seplocation = '') {
 	return ($title);
 }
 
-/**
- * Filter on the_title and single_post_title that adds Ribcage elements to it.
- *
- * @author Alex Andrews
- * @param string $data The current state of the_title, pre-filtering.
- */
-function ribcage_title (){
-	global $wp_query;
-	global $artist, $release, $releases;
-	
-	if ($wp_query->query_vars['pagename'] == 'artists'){
-		$data = 'Artists';
-	}
-	
-	if ($wp_query->query_vars['pagename'] == 'releases'){
-		$data = 'Releases';
-	}
-	
-	if (isset($wp_query->query_vars['artist_slug'])) {
-		$data  = $artist['artist_name'];
-	}
-	
-	if (is_artist_page()){	
-		switch ($wp_query->query_vars['artist_page']) {
-			case 'press':
-				$data .= ' &rsaquo; Press';
-				break;
-
-			case 'bio':
-				$data .= ' &rsaquo; Biography';
-				break;
-
-			default :	
-				$data .= ' &rsaquo; '.$release['release_title'];
-		}
-	}
-	
-	echo $data;
-}
-
 register_activation_hook(__FILE__, 'ribcage_activate');
 
 function ribcage_activate(){
