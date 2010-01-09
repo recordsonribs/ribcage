@@ -65,19 +65,23 @@ function ribcage_init (){
 		return;
 	}
 	
+	$GLOBALS['ribcage_page'] = TRUE;
+	
 	// Add our bits to the page title in the header ans elsewhere.
 	add_filter('wp_title', 'ribcage_page_title',10,3);
-	add_filter ( 'the_title', 'ribcage_header_title');
+	//add_filter ( 'the_title', 'ribcage_title',10,3);
 	
 	// Donate IPN from Paypal	
 	if (isset($wp_query->query_vars['ribcage_donate_ipn'])) {
-			ribcage_donate_ipn();
+		ribcage_donate_ipn();
 	}
 	
 	// Artist Index
 	if (isset($wp_query->query_vars['artist_index'])) {
 		$artists = list_artists_blurb();
 		$artist = $artists [$current_artist];
+		
+		$wp_query->query_vars['pagename'] = 'artists';
 
 		$load = ribcage_load_template ('artist-index.php');
 	}
@@ -85,6 +89,8 @@ function ribcage_init (){
 	// Individual Artist (including bio, contact et al)
 	if (isset($wp_query->query_vars['artist_slug'])) {
 		$artist = get_artist_by_slug ($wp_query->query_vars['artist_slug']);
+		
+		$wp_query->query_vars['pagename'] = $wp_query->query_vars['artist_slug'];
 		
 		if (is_artist_page()){
 			switch ($wp_query->query_vars['artist_page']) {
@@ -119,6 +125,8 @@ function ribcage_init (){
 	if (isset($wp_query->query_vars['release_index']) or isset($wp_query->query_vars['release_feed'])) {
 		$releases = list_recent_releases_blurb();
 		$artists = list_artists_blurb();
+		
+		$wp_query->query_vars['pagename'] = 'releases';
 		
 		if (isset($wp_query->query_vars['release_feed'])){
 			$load = ribcage_load_template ('feeds/release-rss2.php');
@@ -410,24 +418,20 @@ function ribcage_page_title ($title, $sep = '&raquo;', $seplocation = '') {
  * @author Alex Andrews
  * @param string $data The current state of the_title, pre-filtering.
  */
-function ribcage_header_title ($data){
+function ribcage_title (){
 	global $wp_query;
 	global $artist, $release, $releases;
 	
-	if (isset($wp_query->query_vars['release_index'])) {
-		$data = "Releases";
+	if ($wp_query->query_vars['pagename'] == 'artists'){
+		$data = 'Artists';
 	}
 	
-	if (isset($wp_query->query_vars['artist_index'])) {
-		$data = "Artists";
+	if ($wp_query->query_vars['pagename'] == 'releases'){
+		$data = 'Releases';
 	}
 	
 	if (isset($wp_query->query_vars['artist_slug'])) {
-		$data = $artist['artist_name'];
-	}
-	
-	if (isset($wp_query->query_vars['ribcage_buy']) && isset($wp_query->query_vars['ribcage_product_id'])) {
-		$data = $product['product_name'];
+		$data  = $artist['artist_name'];
 	}
 	
 	if (is_artist_page()){	
@@ -441,11 +445,11 @@ function ribcage_header_title ($data){
 				break;
 
 			default :	
-				$data .= ' - '.$release['release_title'];
+				$data .= ' &rsaquo; '.$release['release_title'];
 		}
 	}
 	
-	return $data;
+	echo $data;
 }
 
 register_activation_hook(__FILE__, 'ribcage_activate');

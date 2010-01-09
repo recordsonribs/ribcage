@@ -59,7 +59,11 @@ function ribcage_load_template ( $filename ) {
  */
 function is_artist_page ()
 {
-	global $wp_query;
+	global $wp_query, $ribcage_page;
+	
+	if (isset($ribcage_page)){
+		return $ribcage_page;
+	}
 	
 	if (isset($wp_query->query_vars['artist_page'])){
 		return TRUE;
@@ -69,6 +73,7 @@ function is_artist_page ()
 		return FALSE;
 	}
 }
+
 
 /**
  * Tells us if we are on a Ribcage page or not.
