@@ -95,7 +95,7 @@ function is_ribcage_page() {
 }
 
 /**
- * Filter on the_title and single_post_title that adds Ribcage elements to it.
+ * Creates titles for Ribcage pages.
  *
  * @author Alex Andrews
  */
