@@ -136,6 +136,55 @@ function ribcage_title (){
 }
 
 /**
+ * Outputs a number of recent albums in an unordered list of various kinds.
+ *
+ * @author Alex Andrews
+ * @param int $amount The number of recent albums you want to output.
+ * @param string $mode Different formats: 'list' simple list, 'covers' list of covers, similar to the sidebar widget.
+ * @param bool $nav_bar Displays a navigation bar for each release.
+ * @param string $css An optional css marker to put in the style of each element.
+ */
+function ribcage_albums ($amount = 5, $mode = 'list', $nav_bar = TRUE, $css = NULL) {
+	global $releases, $release;
+	global $artist;
+	
+	if ($releases == NULL) {
+		$releases = list_recent_releases_blurb($amount);
+	}
+	
+	?>
+	<ul class="ribcage albums<?php if (isset($css)) { print " $css";}?>">
+	<?php while ( have_releases () ) : the_release() ; ?>
+	<?php $artist = get_artist($release['release_artist']); ?>
+		<li class="ribcage albums<?php if (isset($css)) { print " $css";}?> <?php release_slug(); ?>">
+			<ul class="ribcage albums<?php if (isset($css)) { print " $css";}?> <?php release_slug(); ?>">
+				<?php if ($mode == 'covers') : ?>
+				<li class="album_cover"><a class="ribcage albums album_cover" href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><img src="<?php release_cover_tiny ();?>" alt="<?php release_title(); ?>" /></a></li>
+				<?php endif; ?>
+				<li class="artist"><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a></li>
+				<li class="title"><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></li>
+				<?php if ($nav_bar) : ?>
+				<li class="nav">
+					<ul class="nav">
+						<li class="more"><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>">More</a></li>
+						<li class="listen"><a href="javascript:popUp('<?php release_player_link (); ?>')">Listen</a></li>
+						<?php if (release_physical()) : ?>
+						<li class="download"><a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/">Download</a></li>
+							<li class="last buy"><a href="<?php get_option('siteurl'); ?>/buy/<?php release_product_id(); ?>">Buy</a></li>
+						<?php else: ?>
+						<li class="last download"><a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/">Download</a></li>
+						<?php endif; ?>
+					</ul>
+				</li>
+				<?php endif; ?>
+			</ul>
+		</li>
+	<?php endwhile; ?>
+	</ul>
+	<?php
+}
+
+/**
  * Retrieve or display the name of the product.
  *
  * @author Alex Andrews
