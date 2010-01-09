@@ -413,7 +413,6 @@ function ribcage_page_title ($title, $sep = '&raquo;', $seplocation = '') {
 }
 
 register_activation_hook(__FILE__, 'ribcage_activate');
-
 function ribcage_activate(){
 	global $wpdb, $table_prefix;
 	
