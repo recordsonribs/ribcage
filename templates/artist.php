@@ -2,7 +2,7 @@
 <div id="container">
 	<div id="content">
 		<div id="post-17" class="hentry p1 page publish author-alex category-uncategorized tag- y2007 m07 d19 h23">
-			<h2 class="entry-title"><?php the_title(); ?></h2>
+			<h2 class="entry-title"><?php ribcage_title(); ?></h2>
 				<div class="entry-content">
 					<p><img src="<?php artist_picture_1(); ?>" style="border: 1px solid #000;" alt="<?php artist_name(); ?>" /></p><?php artist_bio(); ?>
 					<p>

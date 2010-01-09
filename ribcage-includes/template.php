@@ -61,10 +61,6 @@ function is_artist_page ()
 {
 	global $wp_query, $ribcage_page;
 	
-	if (isset($ribcage_page)){
-		return $ribcage_page;
-	}
-	
 	if (isset($wp_query->query_vars['artist_page'])){
 		return TRUE;
 	}
@@ -83,6 +79,10 @@ function is_artist_page ()
  */
 function is_ribcage_page() {
 	global $wp_query;
+	
+	if (isset($ribcage_page)){
+		return $ribcage_page;
+	}
 	
 	$query_vars = ribcage_queryvars(array());
 	
@@ -104,21 +104,23 @@ function ribcage_title (){
 	global $artist, $release, $releases;
 	
 	if ($wp_query->query_vars['pagename'] == 'artists'){
-		$data = 'Artists';
+		echo 'Artists';
 	}
 	
 	if ($wp_query->query_vars['pagename'] == 'releases'){
-		$data = 'Releases';
+		echo 'Releases';
 	}
 	
 	if (isset($wp_query->query_vars['artist_slug'])) {
-		$data  = $artist['artist_name'];
+		?><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a><?php
 	}
 	
 	if (is_artist_page()){	
 		switch ($wp_query->query_vars['artist_page']) {
 			case 'press':
-				$data .= ' &rsaquo; Press';
+				?>
+			&rsaquo; <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a> 
+				<?php
 				break;
 
 			case 'bio':
@@ -126,11 +128,11 @@ function ribcage_title (){
 				break;
 
 			default :	
-				$data .= ' &rsaquo; '.$release['release_title'];
+				?>
+			&rsaquo; <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug();?>"><?php release_title(); ?></a>
+				<?php
 		}
 	}
-	
-	echo $data;
 }
 
 /**
