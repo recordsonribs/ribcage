@@ -118,14 +118,15 @@ function ribcage_title (){
 	if (is_artist_page()){	
 		switch ($wp_query->query_vars['artist_page']) {
 			case 'press':
-				echo "WE ARE IN PRESS!";
 				?>
-			&rsaquo; <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a> 
+			&rsaquo; <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/press">Press</a> 
 				<?php
 				break;
 
 			case 'bio':
-				$data .= ' &rsaquo; Biography';
+				?>
+				<a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/bio">Biography</a>
+				<?php
 				break;
 
 			default :	
