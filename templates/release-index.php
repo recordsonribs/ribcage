@@ -1,24 +1,45 @@
+<?php $pageArray = query_posts('pagename=releases'); ?>
+
 <?php
 global $releases, $release, $artist;
 ?>
+
 <?php get_header() ?>
-	<div id="container">
-		<div id="content">
-			<div id="post-17" class="hentry p1 page publish author-alex category-uncategorized tag- y2007 m07 d19 h23">
-				<h2 class="entry-title"><a href="<?php echo get_option('siteurl'); ?>/releases/" title="Releases">Releases</a></h2>
-				<div class="entry-content">
-					<?php while ( have_releases () ) : the_release() ; ?>
-					<?php $artist = get_artist($release['release_artist']); ?>
-					<div class="ribcage-release">
-					<a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><img src="<?php release_cover_tiny ();?>" align="right" style="margin-left: 20px; border: 1px solid #000;" alt="<?php release_title(); ?>"/></a>
-					<h3><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a> - <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h3>
-					<p><?php release_blurb_short(); ?></p>
-					<p><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>">More Information</a> - <a href="javascript:popUp('<?php release_player_link (); ?>')">Listen Now</a> - <a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/">Free Download</a><?php if (release_physical()) : ?> - <a href="<?php get_option('siteurl'); ?>/buy/<?php release_product_id(); ?>">Buy</a><?php endif; ?></p>
-					</div>
-					<?php endwhile; ?>
-				</div><!-- .entry-content-->
-			</div><!-- .post -->
-		</div><!-- #content -->
-	</div><!-- #container -->
+
+	<div id="left">
+		<?php while ( have_releases () ) : the_release() ; ?>
+			<div class="mod post release toggler">
+				<div class="mod-meta artist_slug">
+					<a href="<?php release_cover_large(); ?>" rel="lightbox" title="'<?php release_title(); ?>' Cover Artwork"><img src="<?php release_cover_tiny ();?>" alt="<?php release_title(); ?>" /><?php if (release_physical()) : ?><img class="case" src="<?php echo get_bloginfo('stylesheet_directory'); ?>/images/case.png" alt="CD Available for Purchase" title="CD Available for Purchase" /><?php endif; ?></a>
+				</div>
+				<div class="mod-body">
+					<div class="entry">
+						<?php $artist = get_artist($release['release_artist']); ?>
+						<div class="ribcage-release">
+							<small class="artist"><strong><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a></strong></small>
+							<h2 class="album"><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h2>
+							<p><?php release_blurb_short(); ?></p>
+						</div> <!-- end div.ribcage-release -->
+					</div> <!-- end div.entry -->
+					<div class="menu element">
+						<ul class="artist_slug_meta">
+							<li class="more"><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>">More</a></li>
+							<li class="listen"><a href="javascript:popUp('<?php release_player_link (); ?>')">Listen</a></li>
+						<?php if (release_physical()) : ?>
+							<li class="download"><a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/">Download</a></li>
+							<li class="last buy"><a href="<?php get_option('siteurl'); ?>/buy/<?php release_product_id(); ?>">Buy</a></li>
+						<?php else: ?>
+							<li class="last download"><a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/">Download</a></li>
+						<?php endif; ?>
+						</ul>
+					</div> <!-- end div.menu -->
+					<div class="clear"></div>
+				</div> <!-- end div.mod-body -->
+			<div class="clear"></div>
+			</div> <!-- end div.post -->
+		<?php endwhile; ?>
+	</div> <!-- end #left -->
+
 <?php get_sidebar() ?>
+
 <?php get_footer() ?>

@@ -1,38 +1,57 @@
 <?php get_header(); ?>
-<div id="container">
-	<div id="content">
-		<div id="post-17" class="hentry p1 page publish author-alex category-uncategorized tag- y2007 m07 d19 h23">
-			<h2 class="entry-title"><?php ribcage_title(); ?></h2>
-			<div class="entry-content">
-				<img src="<?php release_cover_large (); ?>" align="right" style="margin-left: 20px; border: 1px solid #000;" alt="<?php release_title(); ?>"/>
-				<p>
-				<?php while ( have_tracks () ) : the_track() ; ?>
-				<?php track_no(); ?>. <?php track_title(); ?> (<?php track_time(); ?>)<br />
-				<?php endwhile; ?>
-				</p>
-				<p>
-					<a href="<?php release_download_link (); ?>">Free Download</a> - <a href="javascript:popUp('<?php release_player_link (); ?>')">Listen Now</a><?php if (release_physical()) : ?> - <a href="<?php get_option('siteurl'); ?>/buy/<?php release_product_id(); ?>">Buy</a><?php endif; ?>
-				</p>
-				<?php release_blurb_long(); ?>
-				<?php if (have_reviews()) : ?>
-				<h3>Reviews</h3>
-				<?php while ( have_reviews () ) : the_review() ; ?>
-				<p>
-					<?php review_text(); ?><br />
-					<a href="<?php review_link(); ?>"><?php review_author(); ?></a>
-				</p>
-				<?php endwhile; ?>
-				<?php endif; ?>
-				</p>
-				<p>		<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
-						<img alt="Creative Commons License" style="border-width:0; float:right;margin-left:20px;" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" />
-						</a>This release is licensed under a 
-						<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-Noncommercial-Share Alike 3.0 Unported License</a>. Essentially, this means you can give it to your friends if you like, as long as you aren't charging for it.</p>
-				<p><a href="#" onclick="history.back();" >&larr; Back</a></p>
-			</div><!-- .entry-content-->
-		</div><!-- .post -->
-	</div><!-- #content -->
-</div><!-- #container -->
 
-<?php get_sidebar (); ?>
+	<div id="left">
+		<div class="mod page">
+			<div class="entry">
+				<?php release_blurb_long(); ?>
+			</div> <!-- end div.entry -->
+		</div> <!-- end div.page mod.1 -->
+	<?php if (have_reviews()) : ?>
+		<div class="mod page">
+			<div class="entry">
+					<h3>Reviews</h3>
+					<?php while ( have_reviews () ) : the_review() ; ?>
+						<blockquote><p><?php review_text(); ?></p></blockquote>
+						<p class="review_author"><em>&mdash;<a href="<?php review_link(); ?>"><?php review_author(); ?></a></em></p>
+					<?php endwhile; ?>
+			</div> <!-- end div.entry -->
+		</div> <!-- end div.page mod.2 -->
+	<?php endif; ?>
+		<div class="mod post cc">
+			<div class="mod-meta">
+				<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" src="<?php bloginfo('stylesheet_directory'); ?>/images/release_cc.png" /></a>
+			</div>
+			<div class="mod-body">
+				<p><small>This release is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-Noncommercial-Share Alike 3.0 Unported License</a>. Essentially, this means you can give it to your friends if you like, as long as you aren't charging for it.</small></p>
+			</div>
+		</div> <!-- end div.page mod.3 -->
+	</div> <!-- end #left -->
+
+<div id="right">
+	<div class="mod album_release">
+		<img class="album_picture" src="<?php release_cover_large (); ?>" alt="<?php release_title(); ?>" />
+		<div class="album_slug_info">
+			<ul class="album_slug_meta">
+				<li class="listen"><a href="javascript:popUp('<?php release_player_link (); ?>')">Listen</a></li>
+				<?php if (release_physical()) : ?>
+					<li class="download"><a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/" title="Free Download">Download</a></li>
+					<li class="last buy"><a href="<?php get_option('siteurl'); ?>/buy/<?php release_product_id(); ?>">Buy</a></li>
+				<?php else: ?>
+					<li class="download"><a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/" title="Free Download">Download</a></li>
+					<li class="last buy disabled"><span class="buy">Buy</span></li>
+				<?php endif; ?>
+			</ul>
+		<div class="clear"></div>
+		</div> <!-- end div.artist_slug_info -->
+	</div>
+	<div class="mod">
+		<h3>Track List</h3>
+		<ul class="tracklist">
+		<?php while ( have_tracks () ) : the_track() ; ?>
+			<li><?php track_no(); ?>. <?php track_title(); ?> (<?php track_time(); ?>)</li>
+		<?php endwhile; ?>
+		</ul>
+	</div>
+</div>
+
 <?php get_footer();?>

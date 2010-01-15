@@ -89,7 +89,7 @@ function ribcage_init (){
 	// Individual Artist (including bio, contact et al)
 	if (isset($wp_query->query_vars['artist_slug'])) {
 		$artist = get_artist_by_slug ($wp_query->query_vars['artist_slug']);
-		$wp_query->query_vars['pagename'] = $wp_query->query_vars['artist_slug'];
+		$wp_query->query_vars['pagename'] = 'artists';
 		
 		if (is_artist_page()){
 			switch ($wp_query->query_vars['artist_page']) {
