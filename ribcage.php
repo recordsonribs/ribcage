@@ -94,20 +94,23 @@ function ribcage_init (){
 		if (is_artist_page()){
 			switch ($wp_query->query_vars['artist_page']) {
 				case 'press':
+					$wp_query->query_vars['pagename'] = 'artists';
 					$releases = list_artist_releases ($artist['artist_id'], TRUE);
 					$load = ribcage_load_template('press.php');
 					break;
 					
 				case 'bio':
+					$wp_query->query_vars['pagename'] = 'artists';
 					$load  = ribcage_load_template('bio.php');
 					break;
 					
-				case 'feed':		
+				case 'feed':
 					$releases = list_artist_releases ($artist['artist_id']);
 					$load = ribcage_load_template ('feeds/artist-rss2.php');
 					break;
 					
 				default :
+					$wp_query->query_vars['pagename'] = 'releases';
 					$release = get_release_by_slug ($wp_query->query_vars['artist_page']);
 					$tracks = $release ['release_tracks'];
 					$reviews = $release['release_reviews'];
@@ -115,6 +118,7 @@ function ribcage_init (){
 			}
 		}
 		else {
+			$wp_query->query_vars['pagename'] = 'artists';
 			$releases = list_artist_releases ($artist['artist_id']);
 			$load = ribcage_load_template ('artist.php');
 		}
@@ -155,6 +159,7 @@ function ribcage_init (){
 			}
 			
 			else if ($wp_query->query_vars['format'] == 'skip') {
+				$wp_query->query_vars['pagename'] = 'releases';
 				$release = get_release_by_slug ($wp_query->query_vars['release_slug'], FALSE, FALSE);
 				$artist = get_artist ($release['release_artist']);
 				$load = ribcage_load_template('download.php');
@@ -174,6 +179,8 @@ function ribcage_init (){
 		else if (isset($wp_query->query_vars['release_slug'])) {
 			$release = get_release_by_slug ($wp_query->query_vars['release_slug'], FALSE, FALSE);
 			$artist = get_artist ($release['release_artist']);
+			
+			$wp_query->query_vars['pagename'] = 'releases';
 			
 			// If we haven't seen the user before, then nag them about the download.
 			if (!isset($_COOKIE["ask_donate"])){
@@ -227,6 +234,8 @@ function ribcage_init (){
 		
 		// Lookup the item they are looking for in the database.
 		$product = get_product($wp_query->query_vars['ribcage_product_id']);
+		
+		$wp_query->query_vars['pagename'] = 'releases';
 		
 		if (isset($wp_query->query_vars['ribcage_buy_mode'])){		
 			switch ($wp_query->query_vars['ribcage_buy_mode']) {			
