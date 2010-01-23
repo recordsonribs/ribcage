@@ -9,6 +9,12 @@
 
 require_once dirname(__FILE__) . '/ribcage-includes/paypal/paypal.class.php';
 
+/**
+ * Sends the donating user out to PayPal to make their donation.
+ *
+ * @author Alex Andrews
+ * @return void
+ */
 function ribcage_donate (){
 	global $paypal;
 	global $artist, $release;
@@ -31,6 +37,12 @@ function ribcage_donate (){
     $paypal->submit_paypal_post(); // submit the fields to paypal
 }
 
+/**
+ * Displays thank you message to the user returning from PayPal
+ *
+ * @author Alex Andrews
+ * @return void
+ */
 function ribcage_donate_download_thanks  () {
 	global $release, $artist, $wp_query;
 	
@@ -39,6 +51,13 @@ function ribcage_donate_download_thanks  () {
 	$load = ribcage_load_template('download-thanks.php');
 }
 
+/**
+ * Validates IPN from Paypal, records the donation in the database and e-mails the user thank and the admin
+ * to let them know.
+ *
+ * @author Alex Andrews
+ * @return void
+ */
 function ribcage_donate_ipn () {
 	global $paypal;
 	global $wpdb;
