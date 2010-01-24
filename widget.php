@@ -7,11 +7,19 @@
  * @package Ribcage
  * @subpackage Widgets
  **/
+
+/**
+ * Adds the Ribcage Widgets.
+ *
+ * @author Alex Andrews
+ */
 class ribcage_widgets {	
+	
 	/**
 	 * Registers Ribcage sidebar widgets and their controls.
 	 *
 	 * @author Alex Andrews
+	 * @return void
 	 */
 	function init () {
 		register_sidebar_widget('Forthcoming Releases', array('ribcage_widgets','forthcoming_releases'));
@@ -25,6 +33,8 @@ class ribcage_widgets {
 	 * Adds a widget for recent releases, the quantity of which is defined by an option.
 	 *
 	 * Revisions and streamlining of CSS by Bryan Klausmeyer of Ivy Street http://ivystreet.net/. Thanks very much indeed.
+	 *
+	 * @return void
 	 **/
 	function recent_releases ($args) {
 		global $releases, $release, $artist;
@@ -69,6 +79,7 @@ class ribcage_widgets {
 	 * Adds a widget for forthcoming releases. The quantity of which are defined by an option.
 	 *
 	 * @author Alexander Andrews
+	 * @return void
 	 */
 	function forthcoming_releases ($args) {
 		global $releases, $release, $artist; // Probably
