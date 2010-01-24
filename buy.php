@@ -1,7 +1,20 @@
 <?php
+/**
+ * Functions that are concerned with buying products.
+ *
+ * @author Alex Andrews
+ * @package Ribcage
+ * @subpackage Buy
+ **/
 
 require_once dirname(__FILE__) . '/ribcage-includes/paypal/paypal.class.php';
 
+/**
+ * Sends the user out to PayPal to purchase a product.
+ *
+ * @author Alex Andrews
+ * @return void
+ */
 function ribcage_buy_process ()
 {
 	global $paypal;
@@ -34,10 +47,17 @@ function ribcage_buy_process ()
 	$paypal->add_field('currency_code', 'GBP');
 	
 	$paypal->add_field('amount', $amount );
-
-    $paypal->submit_paypal_post(); // submit the fields to paypal
+	
+	// Submit the fields to PayPal
+    $paypal->submit_paypal_post(); 
 }
 
+/**
+ * Validates and processes the IPN returned from PayPal.
+ *
+ * @author Alex Andrews
+ * @return void
+ */
 function ribcage_buy_ipn () {
 	global $paypal;
 	global $wpdb;
