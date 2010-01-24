@@ -7,6 +7,11 @@
  * @subpackage Administration
  **/
 
+/**
+ * Shows the index of Ribcage administration.
+ *
+ * @author Alex Andrews
+ */
 function ribcage_admin_index ()
 {	
 	?>
@@ -71,9 +76,9 @@ function ribcage_options()
 /**
  * Adds the remote downloads from Legaltorrents.
  *
- * @param bool $echo
- * @return void
  * @author Alex Andrews
+ * @param bool $echo If true the remote downloads are displayed.
+ * @return void
  */
 function remote_downloads( $echo = TRUE )
 {
@@ -119,6 +124,13 @@ function remote_downloads( $echo = TRUE )
 	return 	$total_downloads;
 }
 
+/**
+ * Gets the total downloads for a specific torrent on LegalTorrents.
+ *
+ * @author Alex Andrews
+ * @param string $torrent The full URL of the torrent file we are getting.
+ * @return int Total number of download of the torrent.
+ */
 function get_remote_downloads ($torrent) 
 {
 	$torrent = str_replace(array('http://','https://'), '', $torrent);
@@ -128,7 +140,7 @@ function get_remote_downloads ($torrent)
 	$xml = simplexml_load_file($request_url);
 	
 	if (! $xml) {
-		return new WP_Error('legaltorrents_xml_not_found', __("The xml file could not be found on Legaltorrents."));
+		return new WP_Error('ribcage-legaltorrents-xml-not-found', __("The xml file could not be found on Legaltorrents."));
 	}
 	
 	return $xml->{'totaldl'};
