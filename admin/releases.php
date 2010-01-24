@@ -349,7 +349,13 @@ function ribcage_add_release()
 	
 }
 
-function ribcage_add_review($value='')
+/**
+ * Add a review of a specific release.
+ *
+ * @author Alex Andrews
+ * @return void
+ */
+function ribcage_add_review()
 {
 	global $releases, $release,$artist, $tracks, $track;
 	
