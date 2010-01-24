@@ -1,5 +1,11 @@
 <?php 		
-// Set up the Ribcage database.
+/**
+ * Ribcage installation functions.
+ *
+ * @author Paolo Tresso of Pixline (supporto@pixline.net)
+ * @package Ribcage
+ * @subpackage Installation
+ **/
 
 if (!empty($wpdb->charset)) { 
 	$charset = "$wpdb->charset";
