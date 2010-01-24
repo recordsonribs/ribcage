@@ -3,7 +3,7 @@
  * Displays a XHTML file that shows the Flash MP3 player
  *
  * @package Ribcage
- * @subpackage Stream
+ * @subpackage Streaming
  **/
 
 /**
