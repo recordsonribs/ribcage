@@ -1,12 +1,19 @@
 <?php
 /**
- * Functions associated with logging downloads
+ * Functions associated with logging downloads.
  *
  * @author Alexander Andrews
  * @package Ribcage
  * @subpackage Logging
  **/
 
+/**
+ * Log the download of a track or of a release.
+ *
+ * @author Alex Andrews
+ * @param bool $t If true we are logging the download of a single track, not a release.
+ * @return void
+ */
 function ribcage_log ( $t = FALSE){
 	global $wpdb, $wp_query;
 	global $userdata;
@@ -70,6 +77,12 @@ function ribcage_log ( $t = FALSE){
 }
 
 // ++ the download counter of a release in our database.
+/**
+ * Add one to the download counter of a release and put this in the database.
+ *
+ * @author Alex Andrews
+ * @return void
+ */
 function ribcage_log_release_plus(){	
 	global $wpdb;
 	global $release;
@@ -82,12 +95,17 @@ function ribcage_log_release_plus(){
 	return(0);
 }
 
-// Player mode log, this information comes directly from the player callback.
-//
-// The callback consist of the POST variables file, title, id, state and duration. 
-// The first three are item properties, the state is either "start" (when an item starts) 
-// or "stop" (when an item has ended or the user switched to a new item). The duration comes
-// only with a stop and contains the time for which the item has been played in seconds.
+/**
+ * Log use of the Flash player. Information here comes directly from the player callback.
+ *
+ * The callback consist of the POST variables file, title, id, state and duration. 
+ * The first three are item properties, the state is either "start" (when an item starts) 
+ * or "stop" (when an item has ended or the user switched to a new item). The duration comes
+ * only with a stop and contains the time for which the item has been played in seconds.
+ *
+ * @author Alex Andrews
+ * @return void
+ */
 function ribcage_log_play () {
 	global $wpdb, $wp_query;
 	global $userdata;
