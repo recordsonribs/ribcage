@@ -3,11 +3,11 @@
  * Provides a stream of a track or a release in various formats.
  *
  * @package Ribcage
- * @subpackage Stream
+ * @subpackage Streaming
  **/
 
 /**
- * Stream a whole release as xspf or m3u
+ * Stream a whole release as xspf or m3u.
  *
  * @return void
  * @param string $release_slug The slug of the release to stream
