@@ -7,7 +7,7 @@
  **/
 
 /**
- * Manages artists - adds, deletes, edits
+ * Manages artists - adds, deletes, edits.
  *
  * @return void
  **/
@@ -247,8 +247,13 @@ function ribcage_manage_artists () {
 	endif;
 }
 
-
-function ribcage_add_press($value='')
+/**
+ * Manages press articles about an artist.
+ *
+ * @author Alex Andrews
+ * @return void
+ */
+function ribcage_manage_press()
 {
 	?>
 	<div class="wrap">
