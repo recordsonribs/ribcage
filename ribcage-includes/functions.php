@@ -115,8 +115,6 @@ function list_artist_releases ($artist_id, $forthcoming = FALSE ) {
 	return $return;
 }
 
-// TODO Errors, bailing out if we can't find the artist, track, etc.
-
 /**
  * Gets the details of a specific product.
  *
@@ -136,6 +134,16 @@ function get_product ($product_id) {
 // Input the release id.
 // Returns release as associative array.
 // TODO: Inefficent to get the reviews and the tracks as well - implement the same method as get_release_by_slug
+
+/**
+ * Gets a release from the database by the release's release ID.
+ *
+ * @author Alex Andrews
+ * @param int $release_id The release ID of the release.
+ * @param bool $tracks If true add the tracks to our release.
+ * @param bool $reviews If true add reviews of the release to it.
+ * @return array Associative array with data about the release.
+ */
 function get_release ($release_id, $tracks = true, $reviews = true){
 	global $wpdb;
 	
@@ -152,9 +160,15 @@ function get_release ($release_id, $tracks = true, $reviews = true){
 	return $return;
 }
 
-// get_release_by_slug
-// Input the release slug and noextras if you don't want the tracks or reviews appended.
-// Returns release as associative array.
+/**
+ * Gets a release from the database by the release's slug.
+ *
+ * @author Alex Andrews
+ * @param int $release_id The slug of the release.
+ * @param bool $tracks If true add the tracks to our release.
+ * @param bool $reviews If true add reviews of the release to it.
+ * @return array Associative array with data about the release.
+ */
 function get_release_by_slug ($release_slug, $tracks = true, $reviews = true){
 	global $wpdb;
 	
@@ -173,6 +187,13 @@ function get_release_by_slug ($release_slug, $tracks = true, $reviews = true){
 	return $return;
 }
 
+/**
+ * Get the name of a release from its slug.
+ *
+ * @author Alex Andrews
+ * @param string $release_slug The slug of the release.
+ * @return string The name of the release.
+ */
 function get_releasename_by_slug ($release_slug){
 	global $wpdb;
 	$return = $wpdb->get_var("SELECT release_title FROM $wpdb->ribcage_releases WHERE release_slug = '$release_slug'");
@@ -180,18 +201,26 @@ function get_releasename_by_slug ($release_slug){
 	return $return;
 }
 
-// get_artist
-// Input the artist id.
-// Returns artist information as associative array.
+/**
+ * Get an artist by their artist ID.
+ *
+ * @author Alex Andrews
+ * @param int $artist_id Artist ID of the artist.
+ * @return array Associative array of data about the artist.
+ */
 function get_artist ($artist_id){
 	global $wpdb;
 	$return = $wpdb->get_row("SELECT * FROM $wpdb->ribcage_artists WHERE artist_id = $artist_id", ARRAY_A);	
 	return $return;
 }
 
-// get_artist_by_slug
-// Input the artist id.
-// Returns artist information as associative array.
+/**
+ * Get an artist by their artist slug.
+ *
+ * @author Alex Andrews
+ * @param string $artist_slug The slug of the artist.
+ * @return array Associative array of data about the artist.
+ */
 function get_artist_by_slug ($artist_slug){
 	global $wpdb;
 	$querystr = "SELECT * FROM $wpdb->ribcage_artists WHERE artist_slug = '$artist_slug'";
@@ -199,9 +228,13 @@ function get_artist_by_slug ($artist_slug){
 	return $return;
 }
 
-// get_tracks
-// Input the release id.
-// Returns tracks on release as an associative array.
+/**
+ * Gets tracks from a specific release.
+ *
+ * @author Alex Andrews
+ * @param int $release_id The release ID.
+ * @return array Associative array of tracks of the release.
+ */
 function get_tracks ($release_id){
 	global $wpdb;
 	$querystr = "
@@ -212,9 +245,13 @@ function get_tracks ($release_id){
 	return $return;	
 }
 
-//get_reviews
-// Input the release id.
-// Returns reviews of the release as an associative array.
+/**
+ * Gets reviews from a specific release.
+ *
+ * @author Alex Andrews
+ * @param int $release_id The release ID.
+ * @return array Associative array of reviews of the release.
+ */
 function get_reviews ($release_id){
 	global $wpdb;
 	$querystr = "
@@ -225,9 +262,13 @@ function get_reviews ($release_id){
 	return $return;
 }
 
-// get_track_by_slug
-// Input the track slug.
-// Returns track as an associative array.
+/**
+ * Get a track by its slug.
+ *
+ * @author Alex Andrews
+ * @param string $track_slug The slug of the track.
+ * @return array Associative array of data about the track.
+ */
 function get_track_by_slug ($track_slug) {
 	global $wpdb;
 	$querystr = "SELECT * FROM $wpdb->ribcage_tracks WHERE track_slug = '$track_slug'";
@@ -235,24 +276,41 @@ function get_track_by_slug ($track_slug) {
 	return ($return);
 }
 
-// get_artistname_by_id
-// Input artist id.
+/**
+ * Get the name of the artist from the artist's ID.
+ *
+ * @author Alex Andrews
+ * @param int $artist_id The artist ID.
+ * @return string Artist's name.
+ */
 function get_artistname_by_id ($artist_id) {
 	global $wpdb;
 	$return = $wpdb->get_var("SELECT artist_name FROM $wpdb->ribcage_artists WHERE artist_id = $artist_id");	
 	return $return;
 }
 
-// get_artistname_by_id
-// Input artist id.
+/**
+ * Get the name of the artist from the artist's slug.
+ *
+ * @author Alex Andrews
+ * @param string $artist_slug The artist slug.
+ * @return string Artist's name.
+ */
 function get_artistname_by_slug ($artist_slug) {
 	global $wpdb;
 	$return = $wpdb->get_var("SELECT artist_name FROM $wpdb->ribcage_artists WHERE artist_slug = '$artist_slug'");	
 	return $return;
 }
 
-
-// from wp-download manager by Lester 'GaMerZ' Chan (http://lesterchan.net/portfolio/programming.php)
+/**
+ * Format file size from bytes to human readable.
+ *
+ * From wp-download manager by Lester 'GaMerZ' Chan (http://lesterchan.net/portfolio/programming.php)
+ *
+ * @author Lester 'GaMerZ' Chan
+ * @param string $rawSize The raw size of the file in bytes.
+ * @return string The formatted human readable version of the file size.
+ */
 function ribcage_format_filesize($rawSize) {
 	if($rawSize / 1099511627776 > 1) {
 		return round($rawSize/1099511627776, 1) . ' TB';
@@ -273,7 +331,7 @@ function ribcage_format_filesize($rawSize) {
  * Displays a dropdown XHTML select box for the various Creative Commons Licenses.
  * A list of the licenses can be found at http://creativecommons.org/about/licenses/meet-the-licenses
  *
- * @author Alex Andrews
+ * @author Paolo Tresso of Pixline (supporto@pixline.net)
  * @param string $selected If a particular license is selected in the box.
  * @return string HTML <select> tag group containing possible Creative Commons Licenses
  */
@@ -446,7 +504,7 @@ function slug_to_artist_id ($slug)
 }
 
 /**
- * Converts miliseconds to SQL time format.
+ * Converts milliseconds to SQL time format.
  *
  * @author Alexander Andrews
  * @param int Time in miliseconds
