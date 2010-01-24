@@ -368,7 +368,7 @@ function release_onesheet ( $echo = true ) {
  *
  * @author Alex Andrews
  * @param bool $echo When true we echo the download URL.
- * @return string The download URL of a release.
+ * @return string The download URL of the release.
  */
 function release_download_link ( $echo = true ) {
 	global $release;
@@ -379,6 +379,13 @@ function release_download_link ( $echo = true ) {
 	return get_option('siteurl').'/download/'.$release['release_slug'];
 }
 
+/**
+ * Retrieve or display the URL for an internal link to MP3 download of specific release.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the link to the MP3 download.
+ * @return string The download URL of the MP3 download of the release.
+ */
 function release_download_link_mp3 ( $echo = true ) {
 	global $release;
 	
@@ -388,6 +395,13 @@ function release_download_link_mp3 ( $echo = true ) {
 	return get_option('siteurl').'/download/'.$release['release_slug'].'/mp3';
 }
 
+/**
+ * Retrieve or display the human readable file size of a release in MP3 format.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the size of the release in MP3 format.
+ * @return string The human readable file size of a release in MP3 format.
+ */
 function release_download_size_mp3 ( $echo = true ) {
 	global $release;
 	
@@ -397,6 +411,13 @@ function release_download_size_mp3 ( $echo = true ) {
 	return filesize(ABSPATH.$release['release_mp3']);
 }
 
+/**
+ * Retrieve or display the URL for an internal link to Flac download of specific release.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the link to the Flac download.
+ * @return string The download URL of the Flac download of the release.
+ */
 function release_download_link_flac ( $echo = true ) {
 	global $release;
 	
@@ -406,6 +427,13 @@ function release_download_link_flac ( $echo = true ) {
 	return get_option('siteurl').'/download/'.$release['release_slug'].'/flac';
 }
 
+/**
+ * Retrieve or display the human readable file size of a release in Flac format.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the size of the release in Flac format.
+ * @return string The human readable file size of a release in Flac format.
+ */
 function release_download_size_flac ( $echo = true ) {
 	global $release;
 	
@@ -415,6 +443,13 @@ function release_download_size_flac ( $echo = true ) {
 	return ribcage_format_filesize(filesize(ABSPATH.$release['release_flac']));
 }
 
+/**
+ * Retrieve or display the URL for an internal link to Ogg download of specific release.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the link to the Ogg download.
+ * @return string The download URL of the Ogg download of the release.
+ */
 function release_download_link_ogg ( $echo = true ) {
 	global $release;
 	
@@ -424,6 +459,13 @@ function release_download_link_ogg ( $echo = true ) {
 	return get_option('siteurl').'/download/'.$release['release_slug'].'/ogg';
 }
 
+/**
+ * Retrieve or display the human readable file size of a release in Ogg format.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the size of the release in Ogg format.
+ * @return string The human readable file size of a release in Ogg format.
+ */
 function release_download_size_ogg ( $echo = true ) {
 	global $release;
 	
@@ -433,6 +475,13 @@ function release_download_size_ogg ( $echo = true ) {
 	return ribcage_format_filesize(filesize(ABSPATH.$release['release_ogg']));
 }
 
+/**
+ * Retrieve or display the URL of a Bittorrent file that allows the download of the release as MP3 files.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the URL of a Bittorrent file that allows the download of the release as MP3 files.
+ * @return string The URL of a Bittorrent file that allows the download of the release as MP3 files.
+ */
 function release_download_link_bittorrent_mp3 ( $echo = true ) {
 	global $release;
 	
@@ -442,6 +491,13 @@ function release_download_link_bittorrent_mp3 ( $echo = true ) {
 	return $release['release_torrent_mp3'];
 }
 
+/**
+ * Retrieve or display the URL of a Bittorrent file that allows the download of the release as Ogg files.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the URL of a Bittorrent file that allows the download of the release as Ogg files.
+ * @return string The URL of a Bittorrent file that allows the download of the release as Ogg files.
+ */
 function release_download_link_bittorrent_ogg ( $echo = true ) {
 	global $release;
 	
@@ -451,6 +507,13 @@ function release_download_link_bittorrent_ogg ( $echo = true ) {
 	return $release['release_torrent_ogg'];
 }
 
+/**
+ * Retrieve or display the URL of a Bittorrent file that allows the download of the release as Flac files.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the URL of a Bittorrent file that allows the download of the release as Flac files.
+ * @return string The URL of a Bittorrent file that allows the download of the release as Flac files.
+ */
 function release_download_link_bittorrent_flac ( $echo = true ) {
 	global $release;
 	
@@ -460,6 +523,12 @@ function release_download_link_bittorrent_flac ( $echo = true ) {
 	return $release['release_torrent_flac'];
 }
 
+/**
+ * Returns true if the release has any BitTorrent served versions for download.
+ *
+ * @author Alex Andrews
+ * @return bool True if we have BitTorrent served versions of the release.
+ */
 function release_bittorrent () {
 	global $release;
 	
@@ -471,6 +540,13 @@ function release_bittorrent () {
 	}
 }
 
+/**
+ * Retrieve or display the URL of the largest version of a release artwork.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the URL of the largest version of a release artwork.
+ * @return string The URL of the largest version of a release artwork.
+ */
 function release_cover_huge ( $echo = true ) {
 	global $release;
 	
@@ -480,6 +556,13 @@ function release_cover_huge ( $echo = true ) {
 	return $release['release_cover_image_huge'];
 }
 
+/**
+ * Retrieve or display the URL of a large version of a release artwork.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the URL of a large version of a release artwork.
+ * @return string The URL of a large version of a release artwork.
+ */
 function release_cover_large ( $echo = true ) {
 	global $release;
 	
@@ -489,6 +572,13 @@ function release_cover_large ( $echo = true ) {
 	return $release['release_cover_image_large'];
 }
 
+/**
+ * Retrieve or display the URL of a small version of a release artwork.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the URL of a small version of a release artwork.
+ * @return string The URL of a small version of a release artwork.
+ */
 function release_cover_tiny ( $echo = true ) {
 	global $release;
 	
@@ -498,6 +588,13 @@ function release_cover_tiny ( $echo = true ) {
 	return $release['release_cover_image_tiny'];
 }
 
+/**
+ * Retrieve or display the catalogue number of a release.
+ *
+ * @author Alex Andrews
+ * @param bool $echo When true we echo the catalogue number of a release.
+ * @return string The catalogue number of a release.
+ */
 function release_cat_no ( $echo = true ) {
 	global $release;
 	
@@ -507,6 +604,13 @@ function release_cat_no ( $echo = true ) {
 	return 	get_option('ribcage_mark').str_pad($release['release_id'], 3, "0", STR_PAD_LEFT);
 }
 
+/**
+ * Retrieve or display the release ID of a release.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the release ID of a release.
+ * @return string The release ID of a release.
+ */
 function release_id ( $echo = true ) {
 	global $release;
 	
@@ -516,6 +620,13 @@ function release_id ( $echo = true ) {
 	return 	$release['release_id'];
 }
 
+/**
+ * Retrieve or display the URL of the Flash player for a release.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the URL of the Flash player for a release.
+ * @return string The URL of the Flash player for a release.
+ */
 function release_player_link ( $echo = true ) {
 	global $release;
 	
@@ -525,6 +636,12 @@ function release_player_link ( $echo = true ) {
 	return get_option('siteurl').'/download/'.$release['release_slug'].'/';
 }
 
+/**
+ * Returns true if the release has a physical version.
+ *
+ * @author Alex Andrews
+ * @return bool True if there is a physical version of the release.
+ */
 function release_physical () {
 	global $release;
 	
@@ -536,6 +653,13 @@ function release_physical () {
 	}
 }
 
+/**
+ * Retrieve or display product ID of a release.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the URL of the Flash player for a release.
+ * @return string The URL of the Flash player for a release.
+ */
 function release_product_id ( $echo = TRUE ) {
 	global $release;
 	
@@ -545,6 +669,13 @@ function release_product_id ( $echo = TRUE ) {
 	return 	$release['release_physical_cat_no'];
 }
 
+/**
+ * Retrieve or display the number of downloads of a release.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display number of downloads of a release.
+ * @return string The number of downloads of a release.
+ */
 function release_downloads ( $echo = TRUE ) {
 	global $release;
 	
@@ -554,6 +685,13 @@ function release_downloads ( $echo = TRUE ) {
 	return 	$release['release_downloads'];
 }
 
+/**
+ * Retrieve or display the artist ID of the artist.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the artist ID of the artist.
+ * @return string The artist ID of the artist.
+ */
 function artist_id ( $echo = true ) {
 	global $artist;
 	
@@ -563,6 +701,13 @@ function artist_id ( $echo = true ) {
 	return $artist['artist_id'];
 }
 
+/**
+ * Retrieve or display the name of the artist.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the name of the artist.
+ * @return string The name of an artist.
+ */
 function artist_name ( $echo = true ) {
 	global $artist;
 	
@@ -572,6 +717,13 @@ function artist_name ( $echo = true ) {
 	return $artist['artist_name'];
 }
 
+/**
+ * Retrieve or display the sorting name of the artist.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the sorting name of the artist.
+ * @return string The sorting name of an artist.
+ */
 function artist_name_sort ( $echo = true ) {
 	global $artist;
 	
@@ -581,6 +733,13 @@ function artist_name_sort ( $echo = true ) {
 	return $artist['artist_name_sort'];
 }
 
+/**
+ * Retrieve or display the biography of the artist.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the biography of the artist.
+ * @return string The biography of the artist.
+ */
 function artist_bio ( $echo = true ) {
 	global $artist;
 	
@@ -591,6 +750,13 @@ function artist_bio ( $echo = true ) {
 	return $artist['artist_bio'];
 }
 
+/**
+ * Retrieve or display the slug of the artist.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the slug of the artist.
+ * @return string The the slug of the artist.
+ */
 function artist_slug ( $echo = true ) {
 	global $artist;
 	
@@ -600,6 +766,13 @@ function artist_slug ( $echo = true ) {
 	return $artist['artist_slug'];
 }
 
+/**
+ * Retrieve or display the URL for a press link of the artist.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the URL for a press link of the artist.
+ * @return string The URL for a press link of the artist.
+ */
 function artist_press_link ( $echo = true ) {
 	global $artist;
 	$presslink = get_option('siteurl').'/artists/'.$artist['artist_slug'].'/press/';
@@ -610,6 +783,13 @@ function artist_press_link ( $echo = true ) {
 	return $presslink;
 }
 
+/**
+ * Retrieve or display the URL for the artist's website.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the URL for the artist's website.
+ * @return string The URL for the artist's website.
+ */
 function artist_website_link ( $echo = true ) {
 	global $artist;
 	
@@ -619,6 +799,13 @@ function artist_website_link ( $echo = true ) {
 	return $artist['artist_link_website'];
 }
 
+/**
+ * Retrieve or display the URL for the artist's MySpace.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the URL for the artist's MySpace.
+ * @return string The URL for the artist's MySpace.
+ */
 function artist_myspace_link ( $echo = true ) {
 	global $artist;
 	
@@ -628,6 +815,13 @@ function artist_myspace_link ( $echo = true ) {
 	return $artist['artist_link_myspace'];
 }
 
+/**
+ * Retrieve or display the URL for the artist's Facebook.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the URL for the artist's Facebook.
+ * @return string The URL for the artist's Facebook.
+ */
 function artist_facebook_link ( $echo = true ) {
 	global $artist;
 	
@@ -637,6 +831,13 @@ function artist_facebook_link ( $echo = true ) {
 	return $artist['artist_link_facebook'];
 }
 
+/**
+ * Retrieve or display the URL for the artist's Last.fm.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the URL for the artist's Last.fm.
+ * @return string The URL for the artist's Last.fm.
+ */
 function artist_lastfm_link ( $echo = true ) {
 	global $artist;
 	
@@ -647,6 +848,13 @@ function artist_lastfm_link ( $echo = true ) {
 	return $lastfmlink;
 }
 
+/**
+ * Retrieve or display the URL for the artist's Musicbrainz index.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the URL for the artist's Musicbrainz index.
+ * @return string The URL for the artist's Musicbrainz index.
+ */
 function artist_musicbrainz_link ( $echo = true ) {
 	global $artist;
 	
@@ -657,6 +865,13 @@ function artist_musicbrainz_link ( $echo = true ) {
 	return $mblink;
 }
 
+/**
+ * Retrieve or display the artist's Musicbrainz ID.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the artist's Musicbrainz ID.
+ * @return string The artist's Musicbrainz ID..
+ */
 function artist_musicbrainz ( $echo = true ) {
 	global $artist;
 	
@@ -666,6 +881,13 @@ function artist_musicbrainz ( $echo = true ) {
 	return $artist['artist_mbid'];
 }
 
+/**
+ * Retrieve or display the tiny blurb for the artist.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the tiny blurb for the artist.
+ * @return string The tiny blurb of the artist.
+ */
 function artist_blurb_tiny ( $echo = true ) {
 	global $artist;
 	
@@ -675,6 +897,13 @@ function artist_blurb_tiny ( $echo = true ) {
 	return $artist['artist_blurb_tiny'];
 }
 
+/**
+ * Retrieve or display the short blurb for the artist.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the short blurb for the artist.
+ * @return string The short blurb of the artist.
+ */
 function artist_blurb_short ( $echo = true ) {
 	global $artist;
 	
@@ -684,6 +913,13 @@ function artist_blurb_short ( $echo = true ) {
 	return $artist['artist_blurb_short'];
 }
 
+/**
+ * Retrieve or display the URL of the first artist picture.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the URL of the first artist picture.
+ * @return string The URL of the first artist picture.
+ */
 function artist_picture_1 ( $echo = true ) {
 	global $artist;
 	
@@ -693,6 +929,13 @@ function artist_picture_1 ( $echo = true ) {
 	return $artist['artist_picture_1'];
 }
 
+/**
+ * Retrieve or display the URL of the second artist picture.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the URL of the second artist picture.
+ * @return string The URL of the second artist picture.
+ */
 function artist_picture_2 ( $echo = true ) {
 	global $artist;
 	
@@ -702,6 +945,13 @@ function artist_picture_2 ( $echo = true ) {
 	return $artist['artist_picture_2'];
 }
 
+/**
+ * Retrieve or display the URL of the third artist picture.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the URL of the third artist picture.
+ * @return string The URL of the third artist picture.
+ */
 function artist_picture_3 ( $echo = true ) {
 	global $artist;
 	
@@ -711,6 +961,13 @@ function artist_picture_3 ( $echo = true ) {
 	return $artist['artist_picture_3'];
 }
 
+/**
+ * Retrieve or display the URL of the zipped artist picture collection.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the URL of the zipped artist picture collection.
+ * @return string The URL of the zipped artist picture collection.
+ */
 function artist_picture_zip ( $echo = true ) {
 	global $artist;
 	
@@ -720,7 +977,13 @@ function artist_picture_zip ( $echo = true ) {
 	return $artist['artist_picture_zip'];
 }
 
-
+/**
+ * Retrieve or display the URL of the artist's thumbnail.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the URL of the artist's thumbnail.
+ * @return string The URL of the artist's thumbnail.
+ */
 function artist_thumb ( $echo = true ) {
 	global $artist;
 	
@@ -730,6 +993,12 @@ function artist_thumb ( $echo = true ) {
 	return $artist['artist_thumb'];
 }
 
+/**
+ * Looping function that steps through artists.
+ *
+ * @author Alex Andrews
+ * @return The current artist.
+ */
 function have_artists () {
 	global $artists, $current_artist;
 	
@@ -742,6 +1011,12 @@ function have_artists () {
 	return $have_artists;
 }
 
+/**
+ * Sets the current artist to the next artist in global variable $artists.
+ *
+ * @author Alex Andrews
+ * @return void
+ */
 function the_artist (){
 	global $artists, $artist, $current_artist;
 
@@ -749,6 +1024,13 @@ function the_artist (){
 	$GLOBALS['current_artist']++;
 }
 
+/**
+ * Retrieve or display the title of the track.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the title of the track.
+ * @return string The title of the track.
+ */
 function track_title ( $echo = true ) {
 	global $track;
 	
@@ -758,6 +1040,13 @@ function track_title ( $echo = true ) {
 	return $track['track_title'];
 }
 
+/**
+ * Retrieve or display the stream URL of the track.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the stream URL of the track.
+ * @return string The stream URL of the track.
+ */
 function track_stream ( $echo = true ) {
 	global $track;
 	
@@ -767,6 +1056,13 @@ function track_stream ( $echo = true ) {
 	return $track['track_stream'];
 }
 
+/**
+ * Retrieve or display the number of the track.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the number of the track.
+ * @return string The number of the track.
+ */
 function track_no ( $echo = true ) {
 	global $track;
 	
@@ -776,6 +1072,13 @@ function track_no ( $echo = true ) {
 	return $track['track_number'];
 }
 
+/**
+ * Retrieve or display the ID of the track.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the ID of the track.
+ * @return string The ID of the track.
+ */
 function track_id ( $echo = true ) {
 	global $track;
 	
@@ -785,6 +1088,13 @@ function track_id ( $echo = true ) {
 	return $track['track_id'];
 }
 
+/**
+ * Retrieve or display the time of the track.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the time of the track.
+ * @return string The time of the track.
+ */
 function track_time ( $echo = true ) {
 	global $track;
 	
@@ -803,6 +1113,12 @@ function track_time ( $echo = true ) {
 	return $split[1].'.'.$split[2];
 }
 
+/**
+ * Looping function that steps through tracks.
+ *
+ * @author Alex Andrews
+ * @return The current track.
+ */
 function have_tracks () {
 	global $tracks, $current_track;
 	
@@ -815,6 +1131,12 @@ function have_tracks () {
 	return $have_tracks;
 }
 
+/**
+ * Sets the current track to the next track in global variable $tracks.
+ *
+ * @author Alex Andrews
+ * @return void
+ */
 function the_track (){
 	global $tracks, $track, $current_track;
 
@@ -822,6 +1144,12 @@ function the_track (){
 	$GLOBALS['current_track']++;
 }
 
+/**
+ * Looping function that steps through releases.
+ *
+ * @author Alex Andrews
+ * @return The current release.
+ */
 function have_releases () {
 	global $releases, $current_release;
 	
@@ -834,6 +1162,12 @@ function have_releases () {
 	return $have_releases;
 }
 
+/**
+ * Sets the current release to the next release in global variable $releases.
+ *
+ * @author Alex Andrews
+ * @return void
+ */
 function the_release (){
 	global $releases, $release, $current_release, $tracks;
 
@@ -842,6 +1176,12 @@ function the_release (){
 	$GLOBALS['current_release']++;
 }
 
+/**
+ * Looping function that steps through reviews.
+ *
+ * @author Alex Andrews
+ * @return The current review.
+ */
 function have_reviews () {
 	global $reviews, $current_review;
 	
@@ -854,6 +1194,12 @@ function have_reviews () {
 	return $have_reviews;
 }
 
+/**
+ * Sets the current review to the next review in global variable $reviews.
+ *
+ * @author Alex Andrews
+ * @return void
+ */
 function the_review (){
 	global $reviews, $review, $current_review;
 
@@ -861,6 +1207,13 @@ function the_review (){
 		$GLOBALS['current_review']++;
 }
 
+/**
+ * Retrieve or display the text of the review.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the text of the review.
+ * @return string The text of the review.
+ */
 function review_text ( $echo=true ){
 	global $review;
 	
@@ -870,6 +1223,13 @@ function review_text ( $echo=true ){
 	return $review['review_text'];
 }
 
+/**
+ * Retrieve or display the author of the review.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the author of the review.
+ * @return string The author of the review.
+ */
 function review_author ( $echo=true ){
 	global $review;
 	
@@ -879,6 +1239,13 @@ function review_author ( $echo=true ){
 	return $review['review_author'];
 }
 
+/**
+ * Retrieve or display the URL of the review.
+ *
+ * @author Alex Andrews
+ * @param bool $echo If true display the URL of the review.
+ * @return string The URL of the review.
+ */
 function review_link ( $echo=true ){
 	global $review;
 	
