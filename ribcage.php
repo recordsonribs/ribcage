@@ -47,6 +47,13 @@ $paypal = new paypal_class;
 //$paypal->paypal_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 $paypal->paypal_url = 'https://www.paypal.com/cgi-bin/webscr';
 
+/**
+ * Runs the whole of Ribcage.
+ * A filter on the template that tries to find out if we are on a Ribcage page and responds accordingly.
+ *
+ * @author Alex Andrews
+ * @return void
+ */
 function ribcage_init (){
 	global $wp_query;
 	global $artists, $artist, $current_artist;
@@ -268,6 +275,13 @@ function ribcage_init (){
 	die ();
 }
 
+/**
+ * Adds Ribcage specific re-write rules to Wordpress rules.
+ * Filter on generate_rewrite_rules, which is called every time Wordpress works out its rewrite rules.
+ *
+ * @author Alex Andrews
+ * @return void
+ */
 function ribcage_add_rewrite_rules ( $wp_rewrite ) {
 	$new_rules = array(
 		"(artists)/(.*)/(.*)" => 'index.php?artist_slug='.$wp_rewrite->preg_index(2).'&artist_page='.$wp_rewrite->preg_index(3),
@@ -299,6 +313,12 @@ function ribcage_add_rewrite_rules ( $wp_rewrite ) {
 }
 add_action('generate_rewrite_rules', 'ribcage_add_rewrite_rules');
 
+/**
+ * Adds the various Ribcage query variables to wp_query.
+ * Filter on query_vars.
+ *
+ * @return void
+ */
 function ribcage_queryvars ($qvars){ 	
 	// Artist Listings
 	$qvars[] = 'artist_index';
@@ -337,8 +357,8 @@ add_filter('query_vars', 'ribcage_queryvars' );
 /**
  * Flushes Ribcage rewrite rules
  *
- * @return void
  * @author Alexander Andrews
+ * @return void
  **/
 function ribcage_flush_rules (){
 	global $wp_rewrite;
@@ -411,7 +431,13 @@ function ribcage_page_title ($title, $sep = '&raquo;', $seplocation = '') {
 	return ($title);
 }
 
-register_activation_hook(__FILE__, 'ribcage_activate');
+/**
+ * Activates the Ribcage plugin. 
+ * Adds Ribcage tables to the database and options to wp_options with defaults installed.
+ *
+ * @author Alex Andrews
+ * @return void
+ */
 function ribcage_activate(){
 	global $wpdb, $table_prefix;
 	
@@ -430,12 +456,18 @@ function ribcage_activate(){
 	}
 	ribcage_flush_rules();
 }
+register_activation_hook(__FILE__, 'ribcage_activate');
 
-register_deactivation_hook(__FILE__, "ribcage_deactivate");
-
+/**
+ * De-activates Ribcage and removes its databases and wp_options entries.
+ *
+ * @author Alex Andrews
+ * @return void
+ */
 function ribcage_deactivate(){
 	global $wpdb;
 	//delete_option("ribcage_db_version");
 }
+register_deactivation_hook(__FILE__, "ribcage_deactivate");
 
 ?>
