@@ -375,6 +375,7 @@ function delete_artist($artist_id)
  * Uses a simple XML get to avoid the bloat of loading huge Musicbrainz object infested libraries.
  *
  * @author Alexander Andrews
+ * @param string $mbid Musicbrainz ID to get.
  * @return array The details of the release.
  */
 function mb_get_release ($mbid)
