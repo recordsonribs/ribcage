@@ -420,10 +420,17 @@ function release_download_link_mp3 ( $echo = true ) {
 function release_download_size_mp3 ( $echo = true ) {
 	global $release;
 	
-	if ( $echo )
-		echo ribcage_format_filesize(filesize(ABSPATH.$release['release_mp3']));
+	if (file_exists(ABSPATH.$release['release_mp3'])) {
+		$filesize = filesize(ABSPATH.$release['release_mp3']);
+	}
+	else {
+		$filesize = 0;
+	}
 	
-	return filesize(ABSPATH.$release['release_mp3']);
+	if ( $echo )
+		echo ribcage_format_filesize($filesize);
+	
+	return ribcage_format_filesize($filesize);
 }
 
 /**
@@ -452,10 +459,17 @@ function release_download_link_flac ( $echo = true ) {
 function release_download_size_flac ( $echo = true ) {
 	global $release;
 	
-	if ( $echo )
-		echo ribcage_format_filesize(filesize(ABSPATH.$release['release_flac']));
+	if (file_exists(ABSPATH.$release['release_flac'])) {
+		$filesize = filesize(ABSPATH.$release['release_flac']);
+	}
+	else {
+		$filesize = 0;
+	}
 	
-	return ribcage_format_filesize(filesize(ABSPATH.$release['release_flac']));
+	if ( $echo )
+		echo ribcage_format_filesize($filesize);
+	
+	return ribcage_format_filesize($filesize);
 }
 
 /**
@@ -484,10 +498,17 @@ function release_download_link_ogg ( $echo = true ) {
 function release_download_size_ogg ( $echo = true ) {
 	global $release;
 	
-	if ( $echo )
-		echo ribcage_format_filesize(filesize(ABSPATH.$release['release_ogg']));
+	if (file_exists(ABSPATH.$release['release_ogg'])) {
+		$filesize = filesize(ABSPATH.$release['release_ogg']);
+	}
+	else {
+		$filesize = 0;
+	}
 	
-	return ribcage_format_filesize(filesize(ABSPATH.$release['release_ogg']));
+	if ( $echo )
+		echo ribcage_format_filesize($filesize);
+	
+	return ribcage_format_filesize($filesize);
 }
 
 /**
