@@ -9,6 +9,7 @@
 /**
  * Manages artists - adds, deletes, edits.
  *
+ * @author Alex Andrews
  * @return void
  **/
 function ribcage_manage_artists () {

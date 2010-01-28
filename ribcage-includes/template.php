@@ -187,6 +187,21 @@ function ribcage_albums ($amount = 5, $mode = 'list', $nav_bar = TRUE, $css = NU
 }
 
 /**
+ * Loads a random artist into our $artist variable for use.
+ *
+ * @author Alex Andrews
+ **/
+function random_artist () {
+	global $artist;
+	
+	$artists = list_artists_blurb();
+	
+	$no = rand(0,count($artists));
+	
+	$artist = $artists[$no];
+}
+
+/**
  * Retrieve or display the name of the product.
  *
  * @author Alex Andrews
