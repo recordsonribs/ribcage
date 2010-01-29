@@ -59,7 +59,7 @@
 </div>
 
 <?php 
-$slug artist_slug(false);
+$slug = artist_slug(false);
 query_posts("tag=$slug");?>
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 	We have posts!
@@ -67,5 +67,4 @@ query_posts("tag=$slug");?>
 	No we don't!
 <?php endif; ?>
 <?php wp_reset_query(); ?>
-
 <?php get_footer() ?>
