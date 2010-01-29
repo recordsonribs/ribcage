@@ -98,8 +98,9 @@ function is_ribcage_page() {
  * Creates titles for Ribcage pages.
  *
  * @author Alex Andrews
+ * @param string The separator to use between the elements of the title.
  */
-function ribcage_title (){
+function ribcage_title ($sep = '&rsaquo;'){
 	global $wp_query;
 	global $artist, $release, $releases;
 	
@@ -112,7 +113,7 @@ function ribcage_title (){
 	}
 	
 	if (isset($wp_query->query_vars['ribcage_download'])){
-		?>Downloading <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug();?>"><?php release_title(); ?></a> by <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a>
+		?>Downloading <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a> <?php echo $sep; ?> <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug();?>"><?php release_title(); ?></a>
 		<?php
 	}
 	
@@ -124,19 +125,19 @@ function ribcage_title (){
 		switch ($wp_query->query_vars['artist_page']) {
 			case 'press':
 				?>
-			&rsaquo; <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/press">Press</a> 
+			<?php echo $sep; ?> <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/press">Press</a> 
 				<?php
 				break;
 
 			case 'bio':
 				?>
-				<a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/bio">Biography</a>
+				<?php echo $sep; ?> <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/bio">Biography</a>
 				<?php
 				break;
 
 			default :	
 				?>
-			&rsaquo; <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug();?>"><?php release_title(); ?></a>
+				<?php echo $sep; ?> <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug();?>"><?php release_title(); ?></a>
 				<?php
 		}
 	}
