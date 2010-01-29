@@ -113,7 +113,7 @@ function ribcage_title ($sep = '&rsaquo;'){
 	}
 	
 	if (isset($wp_query->query_vars['ribcage_download'])){
-		?>Downloading <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a> <?php echo $sep; ?> <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug();?>"><?php release_title(); ?></a>
+		?>Downloading <?php echo $sep; ?> <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a> <?php echo $sep; ?> <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug();?>"><?php release_title(); ?></a>
 		<?php
 	}
 	
