@@ -111,6 +111,11 @@ function ribcage_title (){
 		echo 'Releases';
 	}
 	
+	if (isset($wp_query->query_vars['ribcage_download'])){
+		?>Downloading <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug();?>"><?php release_title(); ?></a> by <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a>
+		<?php
+	}
+	
 	if (isset($wp_query->query_vars['artist_slug'])) {
 		?><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a><?php
 	}
