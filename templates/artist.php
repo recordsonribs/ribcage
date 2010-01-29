@@ -62,9 +62,9 @@
 $slug = artist_slug(false);
 query_posts("tag=$slug");?>
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-	We have posts!
+	<a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a>
 <?php endwhile; else: ?>
-	No we don't!
+	<!-- We have no posts with the tag <?php $slug ?> -->
 <?php endif; ?>
 <?php wp_reset_query(); ?>
 <?php get_footer() ?>
