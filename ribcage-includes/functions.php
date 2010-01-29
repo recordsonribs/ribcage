@@ -130,11 +130,6 @@ function get_product ($product_id) {
 	return $return;
 }
 
-// get_release
-// Input the release id.
-// Returns release as associative array.
-// TODO: Inefficent to get the reviews and the tracks as well - implement the same method as get_release_by_slug
-
 /**
  * Gets a release from the database by the release's release ID.
  *
