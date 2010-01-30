@@ -202,7 +202,8 @@ function random_artist () {
 	
 	$artists = list_artists_blurb();
 	
-	$no = rand(0,count($artists));
+	// An array runs from zero and count() doesn't, so we need to take one off it.
+	$no = rand(0,count($artists)-1);
 	
 	$artist = $artists[$no];
 }
