@@ -52,6 +52,21 @@ function ribcage_load_template ( $filename ) {
 }
 
 /**
+ * Returns a completed e-mail template for various applications.
+ *
+ * @author Alex Andrews
+ * @param string $filename Filename of the template below the ribcage-includes/email.
+ * @return string The completed template.
+ */
+function ribcage_load_email_template ( $filename ) {
+	ob_start();
+	
+	$load = ribcage_load_template ('email/$filename.php');
+	
+	return ob_get_clean();
+}
+
+/**
  * Tells us if the page is an artist page or not.
  *
  * @author Alex Andrews

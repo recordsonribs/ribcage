@@ -63,21 +63,19 @@ function ribcage_buy_ipn () {
 	global $wpdb;
 
 	if ($paypal->validate_ipn()) {        
-		
 		// Add order to the database.
 		
-		// Send e-mail to the administrator informing them of the new order.
-		
-		// Send e-mail to the customer thanking them for their order.
-		
-		$subject = 'Instant Payment Notification - Recieved Payment';
+		// Send e-mail to the administrator informing them of the new order.	
+		$subject = 'Instant Payment Notification - Order Recieved';
 		$to = get_option('ribcage_paypal_email');
-		$body =  "An instant payment notification was successfully recieved\n";
-		$body .= "from ".$paypal->ipn_data['payer_email']." on ".date('m/d/Y');
-		$body .= " at ".date('g:i A')."\n\nDetails:\n";
-		foreach ($paypal->ipn_data as $key => $value) { $body .= "\n$key: $value"; }
-			wp_mail ($to, $subject, $body);
-		}
+		$body = ribcage_load_email_template ('to-administrator.php');
+			
+		wp_mail ($to, $subject, $body);
+	
+		// Send e-mail to the customer thanking them for their order.
+		//$body = ribcage_load_email_template ('to-buyer.php');
+		
+	}	
 
 }
 ?>
