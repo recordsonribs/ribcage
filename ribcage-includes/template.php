@@ -222,7 +222,7 @@ function paypal_redirect () {
 	foreach ($paypal->fields as $name => $value) {
 		echo"<input type=\"hidden\" name=\"$name\" value=\"$value\"/>\n";
 	}
-	
+	echo "<input type=\"submit\" value=\"click here\">";
 	echo "</form>";
 }
 
