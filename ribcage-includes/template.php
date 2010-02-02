@@ -218,6 +218,7 @@ function paypal_redirect () {
 	
 	?>
 	<form method="post" name="paypal" action="<?php echo $paypal->paypal_url; ?>">
+	<?php
 	foreach ($paypal->fields as $name => $value) {
 		?>
 		<input type="hidden" name="<?php echo $name; ?>" value="<?php echo $value; ?>"/>
