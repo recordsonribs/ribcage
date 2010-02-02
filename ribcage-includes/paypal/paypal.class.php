@@ -134,13 +134,12 @@ class paypal_class {
    }
 	
 	/**
-	 * Loads a Ribcage template for redirection.
+	 * Loads a Ribcage template for redirection. Adapted from original element of paypal.class
 	 *
 	 * @author Alex Andrews
 	 * @return void
 	 */
 	function submit_paypal_post() {
-		echo "Here we are";
 		$load = ribcage_load_template ('paypal-redirect.php');
 		
 		if (is_wp_error($load))	{
