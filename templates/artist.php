@@ -56,15 +56,23 @@
 			<li></li>
 		</ul>
 	</div>
+
+	<?php 
+		$slug = artist_slug(false);
+		query_posts("tag=$slug");
+	?>
+	<?php if ( have_posts() ) : ?>
+		<div class="mod">
+		<h3>Tagged Posts</h3>
+		<ul>
+
+		<?php while ( have_posts() ) : the_post(); ?>
+			<li><a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a></li>
+		<?php endwhile; ?>
+
+		</div>
+	<?php endif; ?>
+	<?php wp_reset_query(); ?>
 </div>
 
-<?php 
-$slug = artist_slug(false);
-query_posts("tag=$slug");?>
-<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-	<a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a>
-<?php endwhile; else: ?>
-	<!-- We have no posts with the tag <?php $slug ?> -->
-<?php endif; ?>
-<?php wp_reset_query(); ?>
 <?php get_footer() ?>
