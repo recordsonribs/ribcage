@@ -132,15 +132,14 @@ class paypal_class {
             
       $this->fields["$field"] = $value;
    }
-
+	
+	/**
+	 * Loads a Ribcage template for redirection.
+	 *
+	 * @author Alex Andrews
+	 * @return void
+	 */
 	function submit_paypal_post() {
-		$form =  "<form method=\"post\" name=\"paypal_form\" ";
-		$form .= "action=\"".$this->paypal_url."\">\n";
-
-		foreach ($this->fields as $name => $value) {
-			$form .= "<input type=\"hidden\" name=\"$name\" value=\"$value\"/>\n";
-		}
-		
 		$load = ribcage_load_template ('paypal-redirect.php');		
 	}
    

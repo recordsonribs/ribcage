@@ -209,6 +209,24 @@ function random_artist () {
 }
 
 /**
+ * Redirect the user to PayPal as per the PayPal library.
+ *
+ * @author Alex Andrews
+ */
+function paypal_redirect () {
+	global $paypal;
+	
+	echo "<form method=\"post\" name=\"paypal_form\" ";
+	echo = "action=\"".$paypal->paypal_url."\">\n";
+
+	foreach ($paypal->fields as $name => $value) {
+		echo"<input type=\"hidden\" name=\"$name\" value=\"$value\"/>\n";
+	}
+	
+	echo "</form>";
+}
+
+/**
  * Retrieve or display the name of the product.
  *
  * @author Alex Andrews

@@ -15,6 +15,6 @@
 <div class="loading">
 	<span>Redirecting . . .</span>
 </div>
-<?php echo $form; ?>
+<?php paypal_redirect(); ?>
 </body>
 </html>
