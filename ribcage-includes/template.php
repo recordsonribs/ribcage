@@ -216,13 +216,16 @@ function random_artist () {
 function paypal_redirect () {
 	global $paypal;
 	
-	echo "<form method=\"post\" name=\"paypal\" ";
-	echo "action=\"".$paypal->paypal_url."\">\n";
-
+	?>
+	<form method="post" name="paypal" action="<?php echo $paypal->paypal_url; ?>">
 	foreach ($paypal->fields as $name => $value) {
-		echo"<input type=\"hidden\" name=\"$name\" value=\"$value\"/>\n";
+		?>
+		<input type="hidden" name="<?php echo $name; ?>" value="<?php echo $value; ?>"/>
+		<?php
 	}
-	echo "</form>";
+	?>
+	</form>
+	<?php
 }
 
 /**
