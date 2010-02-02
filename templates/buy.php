@@ -12,7 +12,7 @@
 		</div> <!-- end div.page -->
 		<div class="mod post paypal">
 			<div class="mod-meta">
-				<a href="#" onclick="javascript:window.open('https://www.paypal.com/us/cgi-bin/webscr?cmd=xpt/cps/popup/OLCWhatIsPayPal-outside','olcwhatispaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=400, height=350');"><img alt="Make a Donation!" src="<?php bloginfo('stylesheet_directory'); ?>/images/release_paypal.png" alt="Make a Donation!" /></a>
+				<a href="#" onclick="javascript:window.open('https://www.paypal.com/us/cgi-bin/webscr?cmd=xpt/cps/popup/OLCWhatIsPayPal-outside','olcwhatispaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=400, height=350');"><img alt="Make a Donation!" src="<?php bloginfo('stylesheet_directory'); ?>/images/release_paypal-m.png" alt="Make a Donation!" /></a>
 			</div>
 			<div class="mod-body">
 				<p><small>When you click Buy Now you will be redirected to Paypal for secure online payment. Then we'll send you back here.</small></p>
@@ -46,4 +46,4 @@
 	</div>
 </div>
 
-<?php get_footer();?>	
+<?php get_footer();?>
