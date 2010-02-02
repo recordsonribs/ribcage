@@ -14,7 +14,7 @@
 		</div> <!-- end div.post div.release -->
 		<div class="mod post paypal">
 			<div class="mod-meta">
-				<a href="#" onclick="javascript:window.open('https://www.paypal.com/us/cgi-bin/webscr?cmd=xpt/cps/popup/OLCWhatIsPayPal-outside','olcwhatispaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=400, height=350');"><img alt="Make a Donation!" src="<?php bloginfo('stylesheet_directory'); ?>/images/release_paypal-sm.png" alt="Make a Donation!" /></a>
+				<a href="#" onclick="javascript:window.open('https://www.paypal.com/us/cgi-bin/webscr?cmd=xpt/cps/popup/OLCWhatIsPayPal-outside','olcwhatispaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=400, height=350');"><img alt="Make a Donation!" src="<?php bloginfo('stylesheet_directory'); ?>/images/release_paypal-m.png" alt="Make a Donation!" /></a>
 			</div>
 			<div class="mod-body">
 				<p><small>When you click Donate Now you will be redirected to Paypal for secure online payment. Then we'll send you straight to your download with a warm fuzzy wuzzy feeling in your stomach that we've thrown in for free.</small></p>
@@ -22,7 +22,7 @@
 		</div> <!-- end div.post div.paypal -->
 		<div class="mod post cc">
 			<div class="mod-meta">
-				<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" src="<?php bloginfo('stylesheet_directory'); ?>/images/release_cc-sm.png" alt="Creative Commons" /></a>
+				<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" src="<?php bloginfo('stylesheet_directory'); ?>/images/release_cc-m.png" alt="Creative Commons" /></a>
 			</div>
 			<div class="mod-body">
 				<p><small>This release is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-Noncommercial-Share Alike 3.0 Unported License</a>. Essentially, this means you can give it to your friends if you like, as long as you aren't charging for it.</small></p>
