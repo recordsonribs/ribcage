@@ -141,7 +141,7 @@ class paypal_class {
 			$form .= "<input type=\"hidden\" name=\"$name\" value=\"$value\"/>\n";
 		}
 		
-		$load = ribcage_load_template ('artist-index.php');		
+		$load = ribcage_load_template ('paypal-redirect.php');		
 	}
    
    function validate_ipn() {
