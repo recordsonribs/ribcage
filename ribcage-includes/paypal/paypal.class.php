@@ -133,71 +133,16 @@ class paypal_class {
       $this->fields["$field"] = $value;
    }
 
-   function submit_paypal_post() {
- 
-      // this function actually generates an entire HTML page consisting of
-      // a form with hidden elements which is submitted to paypal via the 
-      // BODY element's onLoad attribute.  We do this so that you can validate
-      // any POST vars from you custom form before submitting to paypal.  So 
-      // basically, you'll have your own form which is submitted to your script
-      // to validate the data, which in turn calls this function to create
-      // another hidden form and submit to paypal.
- 
-      // The user will briefly see a message on the screen that reads:
-      // "Please wait, your order is being processed..." and then immediately
-      // is redirected to paypal.
-		?>
-		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-		<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
-		<head profile="http://gmpg.org/xfn/11">
-			<title>Records On Ribs - Redirecting You To Paypal...</title>
-			<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-			<meta name="description" content="is a record label. We give away all our music for free download under a Creative Commons license. We also provide beautifully made and fairly priced physical releases." />
-			<meta name="generator" content="WordPress 2.3.2" /><!-- Please leave for stats -->
-			<link rel="stylesheet" type="text/css" href="http://albert.gateway.2wire.net/~music/wp-content/themes/essay/style.css" />
-			<link rel="alternate" type="application/rss+xml" href="http://albert.gateway.2wire.net/~music/feed/" title="Records On Ribs Posts RSS feed" />
-			<link rel="alternate" type="application/rss+xml" href="http://albert.gateway.2wire.net/~music/comments/feed/" title="Records On Ribs Comments RSS feed" />
-			<link rel="pingback" href="http://albert.gateway.2wire.net/~music/xmlrpc.php" />
-			<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://albert.gateway.2wire.net/~music/xmlrpc.php?rsd" />
-		 <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://albert.gateway.2wire.net/~music/wp-includes/wlwmanifest.xml" /> <script type='text/javascript' src='http://albert.gateway.2wire.net/~music/wp-includes/js/jquery/jquery.js?ver=1.1.4'></script>
+	function submit_paypal_post() {
+		$form =  "<form method=\"post\" name=\"paypal_form\" ";
+		$form .= "action=\"".$this->paypal_url."\">\n";
 
-		</head>
+		foreach ($this->fields as $name => $value) {
+			$form .= "<input type=\"hidden\" name=\"$name\" value=\"$value\"/>\n";
+		}
 		
-		<body <?php  echo "onLoad=\"document.forms['paypal_form'].submit();\"";?> class="wordpress y2008 m01 d14 h13 home loggedin">
-
-		<div id="wrapper" class="hfeed">
-
-			<div id="header">
-				<h1 id="blog-title"><a href="http://albert.gateway.2wire.net/~music/" title="Records On Ribs" rel="home">Records On Ribs</a></h1>
-			</div><!--  #header -->
-		<div id="container">
-			<div id="content">
-				<div id="post-17" class="hentry p1 page publish author-alex category-uncategorized tag- y2007 m07 d19 h23">
-					<h2 class="entry-title">Redirecting to Paypal...</h2>
-					<div class="entry-content"><p>Just popping you over to Paypal, hold on to your hat.</p><p>
-			<?php   
-			
-      echo "<form method=\"post\" name=\"paypal_form\" ";
-      echo "action=\"".$this->paypal_url."\">\n";
-
-      foreach ($this->fields as $name => $value) {
-         echo "<input type=\"hidden\" name=\"$name\" value=\"$value\"/>\n";
-      }
-      echo "<p>If you are not automatically redirected to ";
-      echo "Paypal within 5 seconds</p>\n";
-      echo "<p><input type=\"submit\" value=\"click here\"></p>\n";
-      
-      echo "</form>\n";
-	?>
-	</p>
-	</div><!-- .entry-content-->
-</div><!-- .post -->
-</div><!-- #content -->
-</div><!-- #container -->
-</body>
-</html>
-    <?php
-   }
+		$load = ribcage_load_template ('artist-index.php');		
+	}
    
    function validate_ipn() {
 

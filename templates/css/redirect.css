@@ -1,0 +1,31 @@
+* { padding: 0; margin: 0; }
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans serif;
+	font-size: 62.5%;
+	color: #fff;
+	text-align: center;
+	min-width: 90em;
+	background: #2a2a2a;
+}
+
+div.logo {
+	margin: 150px auto 50px auto;
+	width: 150px;
+	height: 150px;
+	background: url(../images/redirect_logo.png) no-repeat top left;
+}
+
+div.logo h1 span { display: none; }
+
+
+div.loading {
+	margin: 0 auto;
+	width: 42px;
+	height: 42px;
+	background: url(../images/redirect_loading.gif) no-repeat top left;
+}
+
+div.loading span { display: none; }
