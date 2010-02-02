@@ -69,7 +69,7 @@ class ribcage_widgets {
 				</div> <!-- end div.artist_slug -->
 				<?php endwhile; ?>
 				<div class="clear"></div>
-				<p><a href="<?php echo get_option('siteurl'); ?>/releases/">more releases &rsaquo;</a></p>
+				<p class="more_link"><a href="<?php echo get_option('siteurl'); ?>/releases/">more releases &rsaquo;</a></p>
 			</div>
 	        <?php echo $after_widget; ?>
 	<?php
