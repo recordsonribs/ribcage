@@ -68,8 +68,8 @@ function ribcage_buy_ipn () {
 		// Send e-mail to the administrator informing them of the new order.	
 		$subject = 'Instant Payment Notification - Order Recieved';
 		$to = get_option('ribcage_paypal_email');
-		$body = ribcage_load_email_template ('to-administrator.php');
-			
+		//$body = ribcage_load_email_template ('to-administrator.php');
+		$body = "Testing, testing.";
 		wp_mail ($to, $subject, $body);
 	
 		// Send e-mail to the customer thanking them for their order.
