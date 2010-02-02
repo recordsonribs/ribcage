@@ -140,7 +140,12 @@ class paypal_class {
 	 * @return void
 	 */
 	function submit_paypal_post() {
-		$load = ribcage_load_template ('paypal-redirect.php');		
+		echo "Here we are";
+		$load = ribcage_load_template ('paypal-redirect.php');
+		
+		if (is_wp_error($load))	{
+			echo "We got an error loading up the template";
+		}
 	}
    
    function validate_ipn() {
