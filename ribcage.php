@@ -419,7 +419,7 @@ function ribcage_page_title ($title, $sep = '&raquo;', $seplocation = '') {
 	
 	// If we have the title on the right, then switch the whole thing around.
 	if ($seplocation == 'right') {
-		// $title_array = array_reverse($title_array);
+		$title_array = array_reverse($title_array);
 		$title_array [] = $title;
 	}
 	else {
