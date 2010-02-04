@@ -423,11 +423,15 @@ function ribcage_page_title ($title, $sep = '&raquo;', $seplocation = '') {
 		$title_array [] = $title;
 	}
 	else {
-		array_unshift ($title_array,$title);
+		if (count($title_array) > 1) {
+			array_unshift ($title_array,$title);
+		}	
 	}
 	
-	$title = implode (" $sep ",$title_array);
-	
+	if (count($title_array) > 1) {
+		$title = implode (" $sep ",$title_array);
+	}
+
 	return ($title);
 }
 
