@@ -127,6 +127,14 @@ function ribcage_title ($sep = '&rsaquo;'){
 		echo 'Releases';
 	}
 	
+	if (isset($wp_query->query_vars['ribcage_buy']) && isset($wp_query->query_vars['ribcage_product_id'])) {
+		?>Buy <?php echo $sep; ?> <?php product_name(); ?><?php
+	}
+	
+	if ($wp_query->query_vars['ribcage_buy_mode'] == 'thanks') {
+		?><?php echo $sep; ?> Thanks!<?php
+	}
+	
 	if (isset($wp_query->query_vars['ribcage_download'])){
 		?>Downloading <?php echo $sep; ?> <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a> <?php echo $sep; ?> <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug();?>"><?php release_title(); ?></a>
 		<?php
