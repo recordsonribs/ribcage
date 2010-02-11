@@ -234,8 +234,15 @@ function ribcage_init (){
 		
 		// Lookup the item they are looking for in the database.
 		$product = get_product($wp_query->query_vars['ribcage_product_id']);
-		$release = get_release($product['product_related_release']);
-		$artist = get_artist($release['release_artist']);
+		
+		// Some products are associated with releases, some are not.
+		if (isset($product['product_related_release'])) {
+			$release = get_release($product['product_related_release']);
+			$artist = get_artist($release['release_artist']);
+		}
+	
+		// Set this so the feeds at the bottom of the page show up for the artist.
+		$wp_query->query_vars['artist_slug'] = true;
 		
 		if (isset($wp_query->query_vars['ribcage_buy_mode'])){		
 			switch ($wp_query->query_vars['ribcage_buy_mode']) {			
