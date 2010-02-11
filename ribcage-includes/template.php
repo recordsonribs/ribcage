@@ -128,7 +128,7 @@ function ribcage_title ($sep = '&rsaquo;'){
 	}
 	
 	if (isset($wp_query->query_vars['ribcage_buy']) && isset($wp_query->query_vars['ribcage_product_id'])) {
-		?>Buy <?php echo $sep; ?> <?php product_name(); ?><?php
+		?>Buy <?php echo $sep; ?> <?php artist_name(); ?> <?php echo $sep; ?> <?php product_name(); ?><?php
 	}
 	
 	if ($wp_query->query_vars['ribcage_buy_mode'] == 'thanks') {
