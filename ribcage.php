@@ -234,6 +234,8 @@ function ribcage_init (){
 		
 		// Lookup the item they are looking for in the database.
 		$product = get_product($wp_query->query_vars['ribcage_product_id']);
+		$release = get_release($product['product_related_release']);
+		$artist = get_artist($release['release_artist']);
 		
 		if (isset($wp_query->query_vars['ribcage_buy_mode'])){		
 			switch ($wp_query->query_vars['ribcage_buy_mode']) {			
