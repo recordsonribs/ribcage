@@ -18,12 +18,22 @@ function stream_release ($release_slug, $stream_format) {
 	global $tracks, $track, $current_track;
 	
 	if (empty ($release_slug)) {
-			return new WP_Error ('no-release-to-stream', __("You didn't specify a release to stream."));
-                        ribcage_404();
+            return new WP_Error ('no-release-to-stream', __("You didn't specify a release to stream."));
+            ribcage_404();
 	}
 	
 	$release = get_release_by_slug ($release_slug, TRUE, FALSE);
+
+        if (is_wp_error($release)){
+            ribcage_404();
+        }
+
 	$artist['artist_name'] = get_artistname_by_id ($release['release_artist']);
+
+        if (is_wp_error($artist)){
+            ribcage_404();
+        }
+
 	$tracks = $release['release_tracks'];
 	$track = $tracks[$current_track];
 	
