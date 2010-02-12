@@ -125,7 +125,13 @@ function list_artist_releases ($artist_id, $forthcoming = FALSE ) {
 function get_product ($product_id) {
 	global $wpdb;
 	
-	$return = $wpdb->get_row("SELECT * FROM $wpdb->ribcage_products WHERE product_id = $product_id", ARRAY_A);
+        $query = "SELECT * FROM $wpdb->ribcage_products WHERE product_id = $product_id";
+
+        if ($wpdb->query($query) == false or $wpdb->query($query) == 0) {
+            return new WP_Error('product_not_found', __("We can't find a product with $product_id."));
+        }
+
+	$return = $wpdb->get_row($query, ARRAY_A);
 	
 	return $return;
 }
@@ -168,8 +174,14 @@ function get_release_by_slug ($release_slug, $tracks = true, $reviews = true){
 	global $wpdb;
 	
 	$now_date = gmdate('Y-m-d');
+        
+        $query = "SELECT * FROM $wpdb->ribcage_releases WHERE release_slug = '$release_slug' AND release_date <= '$now_date'";
+
+        if ($wpdb->query($query) == false or $wpdb->query($query) == 0) {
+            return new WP_Error('release_not_found', __("We can't find a release with $release_slug."));;
+        }
 	
-	$return = $wpdb->get_row("SELECT * FROM $wpdb->ribcage_releases WHERE release_slug = '$release_slug' AND release_date <= '$now_date'", ARRAY_A);
+	$return = $wpdb->get_row($query, ARRAY_A);
 	
 	if ($tracks == true){
 		$return['release_tracks'] = get_tracks ($return['release_id']);
@@ -192,7 +204,6 @@ function get_release_by_slug ($release_slug, $tracks = true, $reviews = true){
 function get_releasename_by_slug ($release_slug){
 	global $wpdb;
 	$return = $wpdb->get_var("SELECT release_title FROM $wpdb->ribcage_releases WHERE release_slug = '$release_slug'");
-	
 	return $return;
 }
 
@@ -205,7 +216,15 @@ function get_releasename_by_slug ($release_slug){
  */
 function get_artist ($artist_id){
 	global $wpdb;
-	$return = $wpdb->get_row("SELECT * FROM $wpdb->ribcage_artists WHERE artist_id = $artist_id", ARRAY_A);	
+
+        $query = "SELECT * FROM $wpdb->ribcage_artists WHERE artist_id = $artist_id";
+
+        if ($wpdb->query($query) == false or $wpdb->query($query) == 0) {
+            return new WP_Error('artist_not_found', __("We can't find a release with artist ID of $artist_id."));
+        }
+
+	$return = $wpdb->get_row($query, ARRAY_A);
+        
 	return $return;
 }
 
@@ -218,8 +237,15 @@ function get_artist ($artist_id){
  */
 function get_artist_by_slug ($artist_slug){
 	global $wpdb;
-	$querystr = "SELECT * FROM $wpdb->ribcage_artists WHERE artist_slug = '$artist_slug'";
-	$return = $wpdb->get_row($querystr, ARRAY_A);	
+	$query = "SELECT * FROM $wpdb->ribcage_artists WHERE artist_slug = '$artist_slug'";
+
+        if ($wpdb->query($query) == false or $wpdb->query($query) == 0) {
+            return new WP_Error('artist_not_found', __("We can't find an artist with $artist_slug."));
+            ribcage_404();
+        }
+
+	$return = $wpdb->get_row($query, ARRAY_A);
+
 	return $return;
 }
 
@@ -551,4 +577,40 @@ function cat_to_release_id ($cat)
 	return($release_id);
 }
 
+/**
+ * Returns a 404 when we make a mistake then dies.
+ *
+ * @author Alex Andrews
+ */
+function ribcage_404 () {
+        global $artist, $artists;
+        global $release, $releases;
+        global $review, $review;
+        global $track, $tracks;
+
+        // Reset everything.
+        $artists = null;
+        $artist = null;
+        $current_artist = 0;
+
+        $releases = null;
+        $release = null;
+        $current_release = 0;
+
+        $tracks = null;
+        $track = null;
+        $current_track = 0;
+
+        $reviews = null;
+        $review = null;
+        $current_review = 0;
+
+        $product = null;
+
+        //
+        $template = get_404_template();
+        include($template);
+
+        die();
+}
 ?>

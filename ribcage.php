@@ -76,7 +76,6 @@ function ribcage_init (){
 	
 	// Add our bits to the page title in the header ans elsewhere.
 	add_filter('wp_title', 'ribcage_page_title',10,3);
-	//add_filter ( 'the_title', 'ribcage_title',10,3);
 	
 	// Donate IPN from Paypal	
 	if (isset($wp_query->query_vars['ribcage_donate_ipn'])) {
@@ -96,8 +95,13 @@ function ribcage_init (){
 	// Individual Artist (including bio, contact et al)
 	if (isset($wp_query->query_vars['artist_slug'])) {
 		$artist = get_artist_by_slug ($wp_query->query_vars['artist_slug']);
-		$wp_query->query_vars['pagename'] = $wp_query->query_vars['artist_slug'];
-		
+
+                if (is_wp_error($artist)){
+                    ribcage_404();
+                }
+                
+                $wp_query->query_vars['pagename'] = $wp_query->query_vars['artist_slug'];
+                
 		if (is_artist_page()){
 			switch ($wp_query->query_vars['artist_page']) {
 				case 'press':
@@ -116,6 +120,11 @@ function ribcage_init (){
 					
 				default :
 					$release = get_release_by_slug ($wp_query->query_vars['artist_page']);
+
+                                        if (is_wp_error($release)){
+                                            ribcage_404();
+                                        }
+
 					$tracks = $release ['release_tracks'];
 					$reviews = $release['release_reviews'];
 					$load = ribcage_load_template ('release.php');				
@@ -152,7 +161,17 @@ function ribcage_init (){
 			// Re-direct them to donate at Paypal
 			if ($wp_query->query_vars['format'] == 'donate') {
 				$release = get_release_by_slug ($wp_query->query_vars['release_slug'], FALSE, FALSE);
+
+                                if (is_wp_error($release)){
+                                    ribcage_404();
+                                }
+
 				$artist = get_artist ($release['release_artist']);
+
+                                if (is_wp_error($artist)){
+                                    ribcage_404();
+                                }
+                                
 				ribcage_donate();
 			}
 			
@@ -163,7 +182,17 @@ function ribcage_init (){
 			
 			else if ($wp_query->query_vars['format'] == 'skip') {
 				$release = get_release_by_slug ($wp_query->query_vars['release_slug'], FALSE, FALSE);
+
+                                if (is_wp_error($release)){
+                                    ribcage_404();
+                                }
+
 				$artist = get_artist ($release['release_artist']);
+
+                                if (is_wp_error($artist)){
+                                    ribcage_404();
+                                }
+
 				$load = ribcage_load_template('download.php');
 			}
 			
@@ -180,7 +209,16 @@ function ribcage_init (){
 		// Download nag/links page.
 		else if (isset($wp_query->query_vars['release_slug'])) {
 			$release = get_release_by_slug ($wp_query->query_vars['release_slug'], FALSE, FALSE);
+
+                        if (is_wp_error($release)){
+                            ribcage_404();
+                        }
+
 			$artist = get_artist ($release['release_artist']);
+
+                        if (is_wp_error($artist)){
+                            ribcage_404();
+                        }
 			
 			// If we haven't seen the user before, then nag them about the download.
 			if (!isset($_COOKIE["ask_donate"])){
@@ -234,6 +272,10 @@ function ribcage_init (){
 		
 		// Lookup the item they are looking for in the database.
 		$product = get_product($wp_query->query_vars['ribcage_product_id']);
+
+                if (is_wp_error($product)){
+                    ribcage_404();
+                }
 		
 		// Some products are associated with releases, some are not.
 		if (isset($product['product_related_release'])) {
@@ -388,6 +430,11 @@ function ribcage_flush_rules (){
 function ribcage_page_title ($title, $sep = '&raquo;', $seplocation = '') {
 	global $wp_query;
 	global $release, $artist, $product;
+
+        // We've got a 404 situation here.
+        if (is_wp_error($artist) or is_wp_error($release) or is_wp_error($product)){
+            return;
+        }
 	
 	if (isset($wp_query->query_vars['release_index'])) {
 		$title_array [] = "Releases";

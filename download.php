@@ -19,6 +19,7 @@ function download_release ($release_slug, $format) {
 	
 	if (empty ($release_slug)) {
 		return new WP_Error ('ribcage-no-release-to-download', __("You didn't specify a release to grab."));
+                ribcage_404();
 	}
 		
 	$release = get_release_by_slug ($release_slug, FALSE, FALSE);
@@ -26,7 +27,7 @@ function download_release ($release_slug, $format) {
 	// If we don't know the release, then error nicely, not with a snarky SQL error.
 	// Remember this page is user viewed. Display a 404.
 	if (is_wp_error ($release)) {
-		return $release;
+		ribcage_404();
 	}
 		
 	if ($format == 'mp3') {
@@ -64,7 +65,7 @@ function download_track ($track_slug, $format) {
 	$track = get_track_by_slug($track_slug);
 	
 	if (is_wp_error ($release)) {
-		return $release;
+		ribcage_404();
 	}
 	
 	if ($format == 'mp3') {

@@ -47,7 +47,16 @@ function ribcage_donate_download_thanks  () {
 	global $release, $artist, $wp_query;
 	
 	$release = get_release_by_slug ($wp_query->query_vars['release_slug'], FALSE, FALSE);
+
+        if (is_wp_error($release)){
+            ribcage_404();
+        }
+
 	$artist = get_artist ($release['release_artist']);
+
+        if (is_wp_error($artist)){
+                                    ribcage_404();
+                                }
 	$load = ribcage_load_template('download-thanks.php');
 }
 

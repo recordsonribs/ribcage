@@ -19,6 +19,7 @@ function stream_release ($release_slug, $stream_format) {
 	
 	if (empty ($release_slug)) {
 			return new WP_Error ('no-release-to-stream', __("You didn't specify a release to stream."));
+                        ribcage_404();
 	}
 	
 	$release = get_release_by_slug ($release_slug, TRUE, FALSE);
@@ -27,7 +28,7 @@ function stream_release ($release_slug, $stream_format) {
 	$track = $tracks[$current_track];
 	
 	if (is_wp_error ($release)) {
-			return $release;
+			ribcage_404();
 	}
 
 	if ($stream_format == 'xspf') {	
@@ -56,7 +57,7 @@ function stream_track ($track_slug) {
 	$track = get_track_by_slug ($track_slug);
 	
 	if (is_wp_error ($release)) {
-			return $track;
+			ribcage_404();
 	}
 	
 	print_r ($track);
