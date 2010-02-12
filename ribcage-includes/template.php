@@ -141,7 +141,7 @@ function ribcage_title ($sep = '&rsaquo;'){
 		<?php
 	}
 	
-	if (isset($wp_query->query_vars['artist_slug'])) {
+	if (isset($wp_query->query_vars['artist_slug']) && !isset($wp_query->query_vars['ribcage_buy'])) {
 		?><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a><?php
 	}
 	
