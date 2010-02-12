@@ -18,14 +18,12 @@ function download_release ($release_slug, $format) {
 	global $release;
 	
 	if (empty ($release_slug)) {
-		return new WP_Error ('ribcage-no-release-to-download', __("You didn't specify a release to grab."));
                 ribcage_404();
+                return new WP_Error ('ribcage-no-release-to-download', __("You didn't specify a release to grab."));
 	}
 		
 	$release = get_release_by_slug ($release_slug, FALSE, FALSE);
-		
-	// If we don't know the release, then error nicely, not with a snarky SQL error.
-	// Remember this page is user viewed. Display a 404.
+
 	if (is_wp_error ($release)) {
 		ribcage_404();
 	}
@@ -40,7 +38,8 @@ function download_release ($release_slug, $format) {
 		$file = $release['release_flac'];
 	}
 	else {
-		return new WP_Error ('ribcage-incorrect-format', __("$format isn't a format I am aware of.<br />Hence it isn't a format you can download, sorry."));
+                ribcage_404();
+                return new WP_Error ('ribcage-incorrect-format', __("$format isn't a format I am aware of.<br />Hence it isn't a format you can download, sorry."));
 	}
 	
 	ribcage_log();			
@@ -59,6 +58,7 @@ function download_track ($track_slug, $format) {
 	global $track;
 	
 	if (empty ($track_slug)) {
+                ribcage_404();
 		return new WP_Error ('ribcage-no-track-to-download', __("You didn't specify a track to grab."));
 	}
 	
@@ -78,6 +78,7 @@ function download_track ($track_slug, $format) {
 		$file = $track['track_flac'];
 	}
 	else {
+                ribcage_404();
 		return new WP_Error('ribcage-incorrect-format', __("$format isn't a format I am aware of.<br />Hence it isn't a format you can download."));
 	}
 	
