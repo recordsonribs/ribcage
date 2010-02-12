@@ -241,7 +241,6 @@ function get_artist_by_slug ($artist_slug){
 
         if ($wpdb->query($query) == false or $wpdb->query($query) == 0) {
             return new WP_Error('artist_not_found', __("We can't find an artist with $artist_slug."));
-            ribcage_404();
         }
 
 	$return = $wpdb->get_row($query, ARRAY_A);

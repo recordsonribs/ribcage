@@ -57,6 +57,7 @@ function ribcage_donate_download_thanks  () {
         if (is_wp_error($artist)){
                                     ribcage_404();
                                 }
+
 	$load = ribcage_load_template('download-thanks.php');
 }
 

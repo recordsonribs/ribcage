@@ -118,6 +118,11 @@ function is_ribcage_page() {
 function ribcage_title ($sep = '&rsaquo;'){
 	global $wp_query;
 	global $artist, $release, $releases;
+
+        // We've got a 404 situation here.
+        if (is_wp_error($artist) or is_wp_error($release) or is_wp_error($product)){
+            return;
+        }
 	
 	if ($wp_query->query_vars['pagename'] == 'artists'){
 		echo 'Artists';
