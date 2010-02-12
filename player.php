@@ -18,7 +18,16 @@ function show_player ($release_slug) {
 	global $releases, $release, $current_release;
 	
 	$release = get_release_by_slug ($release_slug, FALSE, FALSE);
+
+        if (is_wp_error($release)){
+            ribcage_404();
+        }
+
 	$artist['artist_name'] = get_artistname_by_id($release['release_artist']);
+
+        if (is_wp_error($artist)){
+            ribcage_404();
+        }
 
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -31,6 +40,7 @@ function show_player ($release_slug) {
 		padding: 0;
 	}
 </style>
+</head>
 <body>
 <embed src="<?php echo get_option('siteurl'); ?>/wp-content/plugins/ribcage/flash/mp3player.swf" width="320" height="140" allowfullscreen="true" allowscriptaccess="always" flashvars="&file=<?php echo get_option('siteurl').'/stream/'.$release_slug.'/xspf/'; ?>&height=140&width=320&displaywidth=120&showicons=false&repeat=list&autostart=true&shuffle=false&callback=<?php echo get_option('siteurl'); ?>/player/stats/" />
 </body>

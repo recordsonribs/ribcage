@@ -305,7 +305,15 @@ function get_track_by_slug ($track_slug) {
  */
 function get_artistname_by_id ($artist_id) {
 	global $wpdb;
-	$return = $wpdb->get_var("SELECT artist_name FROM $wpdb->ribcage_artists WHERE artist_id = $artist_id");	
+	
+        $query = "SELECT artist_name FROM $wpdb->ribcage_artists WHERE artist_id = $artist_id";
+
+        if ($wpdb->query($query) == false or $wpdb->query($query) == 0) {
+            return new WP_Error('artist_not_found', __("We can't find an artist with $artist_slug."));
+        }
+
+        $return = $wpdb->get_var($query);
+
 	return $return;
 }
 
