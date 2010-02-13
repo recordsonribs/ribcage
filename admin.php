@@ -10,18 +10,21 @@
 /**
  * Adds Ribcage admin panes
  *
+ * With a little advice from Davide Benini's Event Manager for an example. (benini.davide@gmail.com)
+ *
  * @return void
  */
-function ribcage_admin_menu() { 	
-	add_menu_page('Ribcage', 'Ribcage', 8, dirname(__FILE__).'/admin.php', 'ribcage_admin_index');
+function ribcage_admin_menu() {
+        add_object_page(__('Ribcage', 'ribcage'),__('Ribcage', 'ribcage'),administrator,__FILE__,ribcage_admin_index, '');
+
+        add_submenu_page(__FILE__, __('Manage Artists'),__('Manage Artists'),administrator,__FILE__,ribcage_manage_artists);
+	add_submenu_page( __FILE__, 'Ribcage', 'Add Artist', 8,'add_artist', 'ribcage_manage_artists');
+	add_submenu_page(__FILE__, 'Ribcage', 'Manage Press', 8, 'manage_press', 'ribcage_manage_press');	
 	
-	add_submenu_page(dirname(__FILE__).'/admin.php', 'Ribcage', 'Add Artist', 8,'add_artist', 'ribcage_manage_artists');	
-	add_submenu_page(dirname(__FILE__).'/admin.php', 'Ribcage', 'Manage Artists', 8, 'manage_artists', 'ribcage_manage_artists');	
-	add_submenu_page(dirname(__FILE__).'/admin.php', 'Ribcage', 'Manage Press', 8, 'manage_press', 'ribcage_manage_press');	
-	
-	add_submenu_page(dirname(__FILE__).'/admin.php', 'Ribcage', 'Manage Releases', 8, 'manage_releases', 'ribcage_manage_releases');
-	add_submenu_page(dirname(__FILE__).'/admin.php', 'Ribcage', 'Add Release', 8, 'add_release', 'ribcage_add_release');
-	add_options_page('Ribcage', 'Ribcage', 8, 'ribcage_options', 'ribcage_options');
+	add_submenu_page(__FILE__, 'Ribcage', 'Manage Releases', 8, 'manage_releases', 'ribcage_manage_releases');
+	add_submenu_page(__FILE__, 'Ribcage', 'Add Release', 8, 'add_release', 'ribcage_add_release');
+
+        add_options_page('Ribcage', 'Ribcage', 8, 'ribcage_options', 'ribcage_options');
 	
 	register_setting('ribcage','ribcage_paypal_email'); // E-mail to send money to via Paypal
 	register_setting('ribcage','ribcage_image_location'); // The directory to begin the directory tree of images for artists and release covers
