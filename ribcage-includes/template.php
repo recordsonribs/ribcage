@@ -12,6 +12,7 @@
  * This plugin can be found at http://robm.me.uk/projects/ - this is why we have the GPL!
  **/
 
+
 $artists = null;
 $artist = null;
 $current_artist = 0;
@@ -46,7 +47,7 @@ function ribcage_load_template ( $filename ) {
 		$template = ABSPATH . PLUGINDIR ."/ribcage/templates/$filename";
 	
 	if ( !file_exists($template) )
-		return new WP_Error('template-missing', sprintf(__("Oops! The template file %s could not be found in either the Ribcage template directory or your theme's Ribcage directory.", NRTD), "<code>$filename</code>"));
+		return new WP_Error('ribcage-template-missing', sprintf(__("Oops! The template file %s could not be found in either the Ribcage template directory or your theme's Ribcage directory.", NRTD), "<code>$filename</code>"));
 	
 	load_template($template);
 }

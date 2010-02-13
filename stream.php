@@ -18,7 +18,7 @@ function stream_release ($release_slug, $stream_format) {
 	global $tracks, $track, $current_track;
 	
 	if (empty ($release_slug)) {
-            return new WP_Error ('no-release-to-stream', __("You didn't specify a release to stream."));
+            return new WP_Error ('ribcage-no-release-to-stream', __("You didn't specify a release to stream."));
             ribcage_404();
 	}
 	
@@ -61,7 +61,7 @@ function stream_release ($release_slug, $stream_format) {
  **/
 function stream_track ($track_slug) {
 	if (empty ($track_slug)) {
-			return new WP_Error ('no-release-to-stream', __("You didn't specify a track to stream."));
+			return new WP_Error ('ribcage-no-release-to-stream', __("You didn't specify a track to stream."));
 	}
 	
 	$track = get_track_by_slug ($track_slug);

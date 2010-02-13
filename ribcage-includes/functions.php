@@ -128,7 +128,7 @@ function get_product ($product_id) {
         $query = "SELECT * FROM $wpdb->ribcage_products WHERE product_id = $product_id";
 
         if ($wpdb->query($query) == false or $wpdb->query($query) == 0) {
-            return new WP_Error('product_not_found', __("We can't find a product with $product_id."));
+            return new WP_Error('ribcage-product-not-found', __("We can't find a product with $product_id."));
         }
 
 	$return = $wpdb->get_row($query, ARRAY_A);
@@ -178,7 +178,7 @@ function get_release_by_slug ($release_slug, $tracks = true, $reviews = true){
         $query = "SELECT * FROM $wpdb->ribcage_releases WHERE release_slug = '$release_slug' AND release_date <= '$now_date'";
 
         if ($wpdb->query($query) == false or $wpdb->query($query) == 0) {
-            return new WP_Error('release_not_found', __("We can't find a release with $release_slug."));;
+            return new WP_Error('ribcage-release-not-found', __("We can't find a release with $release_slug."));;
         }
 	
 	$return = $wpdb->get_row($query, ARRAY_A);
@@ -220,7 +220,7 @@ function get_artist ($artist_id){
         $query = "SELECT * FROM $wpdb->ribcage_artists WHERE artist_id = $artist_id";
 
         if ($wpdb->query($query) == false or $wpdb->query($query) == 0) {
-            return new WP_Error('artist_not_found', __("We can't find a release with artist ID of $artist_id."));
+            return new WP_Error('ribcage-artist-not-found', __("We can't find a release with artist ID of $artist_id."));
         }
 
 	$return = $wpdb->get_row($query, ARRAY_A);
@@ -240,7 +240,7 @@ function get_artist_by_slug ($artist_slug){
 	$query = "SELECT * FROM $wpdb->ribcage_artists WHERE artist_slug = '$artist_slug'";
 
         if ($wpdb->query($query) == false or $wpdb->query($query) == 0) {
-            return new WP_Error('artist_not_found', __("We can't find an artist with $artist_slug."));
+            return new WP_Error('ribcage-artist-not-found', __("We can't find an artist with $artist_slug."));
         }
 
 	$return = $wpdb->get_row($query, ARRAY_A);
@@ -309,7 +309,7 @@ function get_artistname_by_id ($artist_id) {
         $query = "SELECT artist_name FROM $wpdb->ribcage_artists WHERE artist_id = $artist_id";
 
         if ($wpdb->query($query) == false or $wpdb->query($query) == 0) {
-            return new WP_Error('artist_not_found', __("We can't find an artist with $artist_slug."));
+            return new WP_Error('ribcage-artist-not-found', __("We can't find an artist with $artist_slug."));
         }
 
         $return = $wpdb->get_var($query);
@@ -414,7 +414,7 @@ function mb_get_release ($mbid)
 	$xml = simplexml_load_file($request_url);
 	
 	if (! $xml) {
-		return new WP_Error('mb_not_found', __("The MBID $mbid couldn't be found in the Musicbrainz database."));
+		return new WP_Error('ribcage-not-found', __("The MBID $mbid couldn't be found in the Musicbrainz database."));
 	}
 	
 	$xml = object_to_array($xml);
@@ -449,7 +449,7 @@ function mb_get_release ($mbid)
 	// If we can't put anything in the artist, then the artist is actually not in the database. Bail out.
 	if (! $artist) {
 		$artist = $xml['release']['artist']['name'];
-		return new WP_Error('artist_not_found', __("Sorry, $artist is not in the Ribcage database"));
+		return new WP_Error('ribcage-artist-not-found', __("Sorry, $artist is not in the Ribcage database"));
 	}
 	
 	$track_no = 1;
