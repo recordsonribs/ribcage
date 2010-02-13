@@ -8,20 +8,6 @@
  **/
 
 /**
- * Shows the index of Ribcage administration.
- *
- * @author Alex Andrews
- */
-function ribcage_admin_index ()
-{	
-	?>
-	<div class="wrap">
-		<h2>Ribcage</h2>
-	</div>	
-	<?php
-}
-
-/**
  * Displays form for changing Ribcage options.
  *
  * @return void
