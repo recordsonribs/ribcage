@@ -383,17 +383,31 @@ function ribcage_cc_dropdown($selected = false){
 }
 
 /**
- * Delete an artist from the database
+ * Delete an artist from the database.
  * 
- * @author Alexander Andrews
+ * @author Alex Andrews
  * @param int $artist_id Artist ID for deletion.
  * @return bool True if this worked, false if it didn't.
  **/
-function delete_artist($artist_id)
-{
+function delete_artist($artist_id) {
 	global $wpdb;
 	
 	$result = $wpdb->query("DELETE FROM `$wpdb->ribcage_artists` WHERE `artist_id` = $artist_id LIMIT 1;");
+	
+	return ($result);
+}
+
+/**
+ * Delete a release from the database.
+ *
+ * @author Alex Andrews
+ * @param int $release_id Release ID for deletion.
+ * @return bool True if this worked, false if not.
+ */
+function delete_release($release_id) {
+        global $wpdb;
+	
+        $result = $wpdb->query("DELETE FROM `$wpdb->ribcage_releases` WHERE `release_id` = $release_id LIMIT 1;");
 	
 	return ($result);
 }

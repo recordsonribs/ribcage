@@ -13,13 +13,39 @@
  * @author Alex Andrews, Eric Lee (ericaustinlee@gmail.com)
  * @return void
  */
-function ribcage_manage_releases()
-{
+function ribcage_manage_releases() {
 	global $release, $releases, $artist;
 	
 	$total_downloads = 0;
-	
-	$nonce= wp_create_nonce ('ribcage_manage_releases');
+        
+	if (isset($_REQUEST['_wpnonce'])) {
+            if (wp_verify_nonce($nonce, 'ribcage_manage_releases')) {
+                die("Security check failed.");
+            }
+        }
+
+	$nonce = wp_create_nonce ('ribcage_manage_releases');
+
+        if (isset($_REQUEST['release'])) {
+            switch($_REQUEST['ribcage_action']) {
+                case 'stats':
+                    ribcage_release_stats();
+                break;
+
+                case 'edit':
+                    ribcage_edit_release();
+                break;
+
+                case 'reviews':
+                    ribcage_manage_reviews();
+                break;
+
+                case 'delete':
+                    ribcage_delete_release();
+                break;
+            }
+            return;
+        }
 	
 	register_column_headers('ribcage-manage-releases',
 	array (
@@ -56,11 +82,11 @@ function ribcage_manage_releases()
 							<?php echo ($alt % 2) ? '<tr valign="top" class="">' : '<tr valign="top" class="alternate">'; ++$alt; ?>		
 							<th scope="row" class="check-column"><input type="checkbox" name="artistcheck[]" value="2" /></th>
 							<td class="column-icon"><img src="<?php release_cover_tiny ();?>" height="65px" width="65px" alt="<?php release_title(); ?>" /></td>
-							<td class="column-name"><strong><a class="row-title" href="?page=manage_releases&release=<?php artist_id(); ?>" title="<?php artist_name(); ?>" ><?php artist_name(); ?> - <?php release_title(); ?></strong></a><br /><div class="row-actions">Stats | <span class='edit'><a href="?page=manage_releases&release=<?php release_id(); ?>&amp;_wpnonce=<?php echo $nonce ?>">Edit</a> | </span><span class='delete'><a class='submitdelete' href='?page=manage_releases&release=<?php release_id(); ?>&amp;ribcage_action=delete&amp;_wpnonce=<?php echo $nonce ?>' onclick="if ( confirm('You are about to delete \'<?php artist_name(); ?> - <?php release_title(); ?>\'\n  \'Cancel\' to stop, \'OK\' to delete.') ) { return true;}return false;">Delete</a></span></div></td>
+                                                        <td class="column-name"><strong><a class="row-title" href="?page=manage_releases&release=<?php artist_id(); ?>" title="<?php artist_name(); ?>" ><?php artist_name(); ?> - <?php release_title(); ?></strong></a><br /><div class="row-actions"><span class='stats'><a href="?page=manage_releases&release=<?php release_id(); ?>&amp;ribcage_action=stats&amp;_wpnonce=<?php echo $nonce ?>">Stats</a></span> | <span class='edit'><a href="?page=manage_releases&release=<?php release_id(); ?>&amp;ribcage_action=edit&amp;_wpnonce=<?php echo $nonce ?>">Edit</a></span> | <span class='reviews'><a href="?page=manage_releases&release=<?php release_id(); ?>&amp;ribcage_action=reviews&amp;_wpnonce=<?php echo $nonce ?>">Reviews</a></span> | <span class='delete'><a class='submitdelete' href='?page=manage_releases&release=<?php release_id(); ?>&amp;ribcage_action=delete&amp;_wpnonce=<?php echo $nonce ?>' onclick="if ( confirm('You are about to delete \'<?php artist_name(); ?> - <?php release_title(); ?>\'\n  \'Cancel\' to stop, \'OK\' to delete.') ) { return true;}return false;">Delete</a></span></div></td>
 							<td class="column-name"><?php echo date('j F Y',strtotime($release['release_date'])); ?></td>
 							<td class="column-name"><?php release_downloads(); // Need to implement a function that takes them from Legaltorrents too ?></td>
-							<td class="column-name"><?remote_downloads(); ?></td>
-							<td class="column-name"><?echo number_format(remote_downloads(FALSE)+release_downloads(FALSE)); $total_downloads = $total_downloads + remote_downloads(FALSE)+release_downloads(FALSE); ?></td>
+							<td class="column-name"><?php remote_downloads(); ?></td>
+							<td class="column-name"><?php echo number_format(remote_downloads(FALSE)+release_downloads(FALSE)); $total_downloads = $total_downloads + remote_downloads(FALSE)+release_downloads(FALSE); ?></td>
 							</tr>
 							<?php endwhile; ?>
 						</tbody>
@@ -77,8 +103,7 @@ function ribcage_manage_releases()
  * @return void
  * @author Alex Andrews
  */
-function ribcage_add_release()
-{
+function ribcage_add_release() {
 	global $release, $artist, $tracks, $track;
 	
 	?>
@@ -355,58 +380,78 @@ function ribcage_add_release()
  * @author Alex Andrews
  * @return void
  */
-function ribcage_add_review()
-{
+function ribcage_manage_reviews() {
 	global $releases, $release,$artist, $tracks, $track;
-	
-	$releases = list_recent_releases_blurb();
-	
-	?>
-	<div class="wrap">
-		<h2>Add Review</h2>
-		<?php
-		if (isset($_POST['release_id'])){
-			$release = get_release($_POST['release_id']);
-			$artist = get_artist($release['release_artist']);
-			?>
-			<form>
-			<p>Add a review of <strong><?php artist_name(); ?> - <?php release_title(); ?></strong></p>
-			<table class="form-table">             
-				<tr valign="top">
-					<th scope="row"><label for="review_url">Review URL</label></th> 
-					<td><input type="text" name="review_url" value="" class="regular-text code"/><span class="description">The URL of the review, if the review is online.</span>								
-					</td> 
+
+        $release = get_release($_REQUEST['release'],false,true);
+        $reviews = $release['release_reviews'];
+        $artist['artist_name'] = get_artistname_by_id($release['release_artist']);
+        
+        ?>
+        <div class="wrap">
+		<h2>Manage Reviews of <?php artist_name(); ?> - <?php release_title(); ?></h2>
+        <?php
+        if (count($reviews) == 0) {
+            echo "<p>No reviews yet. Why not add one now?</p>";
+        }
+        else {
+            register_column_headers('ribcage-manage-reviews',
+            array (
+		'cb'=>'<input type="checkbox" />',
+		'review_'=>'Reviewer'
+            )
+            );
+            
+            echo "<pre>".print_r($reviews)."</pre>";
+        }
+        ?>
+                <h3>Add a review</h3>
+                <table class="form-table">
+                <tr valign="top">
+                    <th scope="row"><label for="review_url">Review URL</label></th>
+                    <td><input type="text" name="review_url" value="" class="regular-text code"/><span class="description">The URL of the review, if the review is online.</span>								</td>
+		</tr>
+		<tr valign="top">
+                    <th scope="row"><label for="review_url">Publication</label></th>
+                    <td><input type="text" name="review_url" value="" class="regular-text code"/><span class="description">The name of the publication that reviewed the release</span>
+					</td>
 				</tr>
-				<tr valign="top">
-					<th scope="row"><label for="review_url">Publication</label></th> 
-					<td><input type="text" name="review_url" value="" class="regular-text code"/><span class="description">The name of the publication that reviewed the release</span>								
-					</td> 
-				</tr>
-			</table>
-			<p class="submit">
-				<input type="submit" name="Submit" class="button-primary" value="Add Review" />
-			</p>
-			</form>
-			<?php
-		}
-		else {
-		?>
-		<p>Add a review of one of your releases.</p>
-		<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>" method="post" id="ribcage_add_review" name="add_review">
-		<select name="release_id" id="release_id">
-			<?php while ( have_releases () ) : the_release() ; ?>
-			<?php $artist = get_artist($release['release_artist']); ?>
-			<option value="<?php release_id (); ?>"><?php artist_name(); ?> - <?php release_title(); ?></option>
-			<?php endwhile; ?>
-		</select>
+		</table>
 		<p class="submit">
-			<input type="submit" name="Submit" class="button-primary" value="Next" />
-		</p>
+                    <input type="submit" name="Submit" class="button-primary" value="Add Review" />
+                </p>
 		</form>
-	<?php
-	}
-	?>
-	</div>
-	<?php
+        </div>
+        <?php
+}
+
+/**
+ * Produces a page of statistics about the release we have.
+ *
+ * @author Alex Andrews
+ * @return void
+ */
+function ribcage_release_stats () {
+    echo "Stats";
+}
+
+/**
+ * Allows you to edit a release, adding tracks etc.
+ *
+ * @author Alex Andrews
+ * @return void
+ */
+function ribcage_edit_release () {
+    echo "Edit";
+}
+
+/**
+ * Deletes a release from the database.
+ *
+ * @author Alex Andrews
+ * @return void
+ */
+function ribcage_delete_release () {
+    echo "Delete";
 }
 ?>

@@ -12,6 +12,7 @@
  *
  * With a little advice from Davide Benini's Event Manager for an example. (benini.davide@gmail.com)
  *
+ * @author Alex Andrews
  * @return void
  */
 function ribcage_admin_menu() {
@@ -37,6 +38,7 @@ function ribcage_admin_menu() {
 	register_setting('ribcage','ribcage_postage_country'); // The default postage for a purchased item within the country you are in
 	register_setting('ribcage','ribcage_postage_worldwide'); // The default postage for a purchased item worldwide
 	register_setting('ribcage','ribcage_press_contact'); // E-mail for the press contact
+        register_setting('ribcage','ribcage_total_downloads'); // Total number of downloads so far
 	
 }
 add_action('admin_menu', 'ribcage_admin_menu');
