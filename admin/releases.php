@@ -86,7 +86,7 @@ function ribcage_manage_releases() {
 							<td class="column-name"><?php echo date('j F Y',strtotime($release['release_date'])); ?></td>
 							<td class="column-name"><?php release_downloads(); // Need to implement a function that takes them from Legaltorrents too ?></td>
 							<td class="column-name"><?php remote_downloads(); ?></td>
-							<td class="column-name"><?php echo number_format(remote_downloads(FALSE)+release_downloads(FALSE)); $total_downloads = $total_downloads + remote_downloads(FALSE)+release_downloads(FALSE); ?></td>
+							<td class="column-name"><?php echo number_format(remote_downloads(FALSE)+release_downloads(FALSE)); $total_downloads = $total_downloads + remote_downloads(FALSE)+release_downloads(FALSE); update_option('ribcage_total_downloads', $total_downloads); ?></td>
 							</tr>
 							<?php endwhile; ?>
 						</tbody>
@@ -95,6 +95,7 @@ function ribcage_manage_releases() {
 			<p>Served <?php echo number_format($total_downloads) ?> downloads so far.</p>
 	</div>
 	<?php
+        update_option('ribcage_total_downloads', $total_downloads);
 }
 
 /**

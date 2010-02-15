@@ -107,8 +107,6 @@ function remote_downloads( $echo = TRUE )
 		<?php
 	}
 
-        update_option('ribcage_total_downloads', $total_downloads);
-
 	return 	$total_downloads;
 }
 

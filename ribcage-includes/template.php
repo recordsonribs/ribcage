@@ -1350,7 +1350,7 @@ function review_link ( $echo=true ){
 }
 
 function ribcage_total_downloads_shortcode () {
-    return get_option('ribcage_total_downloads');
+    return number_format(get_option('ribcage_total_downloads'));
 }
 add_shortcode('total_downloads','ribcage_total_downloads_shortcode');
 ?>
