@@ -96,11 +96,9 @@ function ribcage_download ($file) {
 	// The full path is the site root plus whatever is in the database.
 	$path = ABSPATH.$file;
 	
-	echo "Here we go... echo $path\n";
 	if(!is_file($path)) {
 		header('HTTP/1.0 404 Not Found');
 		die(__('File does not exist.', 'ribcage'));
-		echo "\nInside loop...";
 	}
 	/*			
 	header("Pragma: public");
@@ -111,9 +109,9 @@ function ribcage_download ($file) {
 	header("Content-Type: application/download");
 	header("Content-Disposition: attachment; filename=".basename($file).";");
 	header("Content-Transfer-Encoding: binary");					
-	header("Content-Length: ".filesize($path));
+	header("Content-Length: ".filesize($path));*/
 	@readfile($path);
-	*/
+	
 	return(0);
 }
 
