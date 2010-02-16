@@ -105,9 +105,9 @@ function ribcage_download ($file) {
 	    echo('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 	    echo('Pragma: public');
 	    echo('Content-Length: ' . filesize($file));
-	    ob_clean();
-	    flush();
-	    readfile($file);
+	    //ob_clean();
+	    //flush();
+	    //readfile($file);
 	    exit;
 	}
 	else {
