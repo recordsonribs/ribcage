@@ -94,23 +94,25 @@ function download_track ($track_slug, $format) {
  */
 function ribcage_download ($file) {
 	// The full path is the site root plus whatever is in the database.
-	$path = ABSPATH.$file;
+	$file = ABSPATH.$file;
 	
-	if(!is_file($path)) {
-		header('HTTP/1.0 404 Not Found');
-		die(__('File does not exist.', 'ribcage'));
+	if (file_exists($file)) {
+	    header('Content-Description: File Transfer');
+	    header('Content-Type: application/octet-stream');
+	    header('Content-Disposition: attachment; filename='.basename($file));
+	    header('Content-Transfer-Encoding: binary');
+	    header('Expires: 0');
+	    header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+	    header('Pragma: public');
+	    header('Content-Length: ' . filesize($file));
+	    ob_clean();
+	    flush();
+	    readfile($file);
+	    exit;
 	}
-	/*			
-	header("Pragma: public");
-	header("Expires: 0");
-	header("Cache-Control: must-revalidate, post-check=0, pre-check=0"); 
-	header("Content-Type: application/force-download");
-	header("Content-Type: application/octet-stream");
-	header("Content-Type: application/download");
-	header("Content-Disposition: attachment; filename=".basename($file).";");
-	header("Content-Transfer-Encoding: binary");					
-	header("Content-Length: ".filesize($path));*/
-	readfile($path);
+	else {
+		echo "Go nothing";
+	}
 	
 	return(0);
 }
