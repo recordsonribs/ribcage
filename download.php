@@ -110,7 +110,7 @@ function ribcage_download ($file) {
 	header("Content-Disposition: attachment; filename=".basename($file).";");
 	header("Content-Transfer-Encoding: binary");					
 	header("Content-Length: ".filesize($path));*/
-	@readfile($path);
+	readfile($path);
 	
 	return(0);
 }
