@@ -96,7 +96,7 @@ function ribcage_download ($file) {
 	// The full path is the site root plus whatever is in the database.
 	$path = ABSPATH.$file;
 	
-	if (file_exists($path) {
+	if (file_exists($path)) {
 		header("Pragma: public");
 		header("Expires: 0");
 		header("Cache-Control: must-revalidate, post-check=0, pre-check=0"); 
