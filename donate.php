@@ -2,7 +2,7 @@
 /**
  * Functions concerned with handling donations.
  *
- * @author Alexander Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @package Ribcage
  * @subpackage Donations
  **/

@@ -2,7 +2,7 @@
 /**
  * Functions associated with logging downloads.
  *
- * @author Alexander Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @package Ribcage
  * @subpackage Logging
  **/

@@ -78,7 +78,7 @@ class ribcage_widgets {
 	/**
 	 * Adds a widget for forthcoming releases. The quantity of which are defined by an option.
 	 *
-	 * @author Alexander Andrews
+	 * @author Alex Andrews (alex@recordsonribs.com)
 	 * @return void
 	 */
 	function forthcoming_releases ($args) {

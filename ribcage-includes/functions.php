@@ -416,7 +416,7 @@ function delete_release($release_id) {
  * Gets a release from Musicbrainz then puts the values of it into the global $release variable.
  * Uses a simple XML get to avoid the bloat of loading huge Musicbrainz object infested libraries.
  *
- * @author Alexander Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param string $mbid Musicbrainz ID to get.
  * @return array The details of the release.
  */
@@ -504,7 +504,7 @@ function mb_get_release ($mbid)
 /**
  * Makes a ribcage style slug for a track, artist or release.
  * 
- * @author Alexander Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param string Convert this to a slug
  * @return string The slug
  **/
@@ -532,7 +532,7 @@ function ribcage_slugize ($to_slug)
 /**
  * Converts a slug to an artist ID.
  *
- * @author Alexander Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param string $slug Slug of the release.
  * @return string The artist_id
  */
@@ -549,7 +549,7 @@ function slug_to_artist_id ($slug)
 /**
  * Converts milliseconds to SQL time format.
  *
- * @author Alexander Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param int Time in miliseconds
  * @return string Time formatted in an SQL format.
  **/

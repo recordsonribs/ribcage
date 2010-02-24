@@ -2,7 +2,7 @@
 /**
  * Includes the administration functions and adds admin panes.
  *
- * @author Alexander Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @package Ribcage
  * @subpackage Administration
  **/

@@ -408,7 +408,7 @@ add_filter('query_vars', 'ribcage_queryvars' );
 /**
  * Flushes Ribcage rewrite rules
  *
- * @author Alexander Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @return void
  **/
 function ribcage_flush_rules (){

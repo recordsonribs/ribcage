@@ -2,7 +2,7 @@
 /**
  * General functions for administration.
  *
- * @author Alexander Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @package Ribcage
  * @subpackage Administration
  **/

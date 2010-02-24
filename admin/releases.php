@@ -2,7 +2,7 @@
 /**
  * Functions for handling releases, adding reviews to releases, etc.
  *
- * @author Alexander Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @package Ribcage
  * @subpackage Administration
  **/
