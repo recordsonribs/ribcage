@@ -2,7 +2,7 @@
 /**
  * Includes the administration functions and adds admin panes.
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  * @package Ribcage
  * @subpackage Administration
  **/
@@ -12,7 +12,7 @@
  *
  * With a little advice from Davide Benini's Event Manager for an example. (benini.davide@gmail.com)
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
 function ribcage_admin_menu() {

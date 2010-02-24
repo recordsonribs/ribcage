@@ -11,7 +11,7 @@
  *
  * @param string $release_slug The release_slug of the release to display a player for.
  * @return void
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  **/
 function show_player ($release_slug) {
 	global $artists, $artist, $current_artist;

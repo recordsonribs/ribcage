@@ -51,7 +51,7 @@ $paypal->paypal_url = 'https://www.paypal.com/cgi-bin/webscr';
  * Runs the whole of Ribcage.
  * A filter on the template that tries to find out if we are on a Ribcage page and responds accordingly.
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
 function ribcage_init (){
@@ -330,7 +330,7 @@ function ribcage_init (){
  * Adds Ribcage specific re-write rules to Wordpress rules.
  * Filter on generate_rewrite_rules, which is called every time Wordpress works out its rewrite rules.
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
 function ribcage_add_rewrite_rules ( $wp_rewrite ) {
@@ -408,7 +408,7 @@ add_filter('query_vars', 'ribcage_queryvars' );
 /**
  * Flushes Ribcage rewrite rules
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  **/
 function ribcage_flush_rules (){
@@ -425,7 +425,7 @@ function ribcage_flush_rules (){
  * @param string $title The title as it currently stands - what we are adding to.
  * @param string $seplocation Optional. Direction to display title, 'right'.
  * @return string The title with added Ribcage
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  **/
 function ribcage_page_title ($title, $sep = '&raquo;', $seplocation = '') {
 	global $wp_query;
@@ -495,7 +495,7 @@ function ribcage_page_title ($title, $sep = '&raquo;', $seplocation = '') {
  * Activates the Ribcage plugin. 
  * Adds Ribcage tables to the database and options to wp_options with defaults installed.
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
 function ribcage_activate(){
@@ -521,7 +521,7 @@ register_activation_hook(__FILE__, 'ribcage_activate');
 /**
  * De-activates Ribcage and removes its databases and wp_options entries.
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
 function ribcage_deactivate(){

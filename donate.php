@@ -2,7 +2,7 @@
 /**
  * Functions concerned with handling donations.
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  * @package Ribcage
  * @subpackage Donations
  **/
@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/ribcage-includes/paypal/paypal.class.php';
 /**
  * Sends the donating user out to PayPal to make their donation.
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
 function ribcage_donate (){
@@ -40,7 +40,7 @@ function ribcage_donate (){
 /**
  * Displays thank you message to the user returning from PayPal
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
 function ribcage_donate_download_thanks  () {
@@ -65,7 +65,7 @@ function ribcage_donate_download_thanks  () {
  * Validates IPN from Paypal, records the donation in the database and e-mails the user thank and the admin
  * to let them know.
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
 function ribcage_donate_ipn () {

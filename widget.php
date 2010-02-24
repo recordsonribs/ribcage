@@ -11,14 +11,14 @@
 /**
  * Adds the Ribcage Widgets.
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  */
 class ribcage_widgets {	
 	
 	/**
 	 * Registers Ribcage sidebar widgets and their controls.
 	 *
-	 * @author Alex Andrews (alex@recordsonribs.com)
+	 * @author Alex Andrews <alex@recordsonribs.com>
 	 * @return void
 	 */
 	function init () {
@@ -78,7 +78,7 @@ class ribcage_widgets {
 	/**
 	 * Adds a widget for forthcoming releases. The quantity of which are defined by an option.
 	 *
-	 * @author Alex Andrews (alex@recordsonribs.com)
+	 * @author Alex Andrews <alex@recordsonribs.com>
 	 * @return void
 	 */
 	function forthcoming_releases ($args) {

@@ -9,7 +9,7 @@
 /**
  * Outputs the file selected from database to user for download.
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  * @param string $release_slug The slug of the release to download.
  * @param string $format The format of the release to download, flac|mp3|ogg
  * @return void
@@ -49,7 +49,7 @@ function download_release ($release_slug, $format) {
 /**
  * Outputs an individual track for the user to download.
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  * @param string $track_slug The slug of the track that is to be downloaded.
  * @param string $format The format of the release to download, flac|mp3|ogg
  * @return void
@@ -89,7 +89,7 @@ function download_track ($track_slug, $format) {
  *
  * Borrowed a good deal of code from Lester 'GaMerZ' Chan's WP-DownloadManager (http://lesterchan.net/portfolio/programming.php)
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  * @param string $file File path of the file to download
  */
 function ribcage_download ($file) {

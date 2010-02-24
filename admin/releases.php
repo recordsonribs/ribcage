@@ -2,7 +2,7 @@
 /**
  * Functions for handling releases, adding reviews to releases, etc.
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  * @package Ribcage
  * @subpackage Administration
  **/
@@ -10,7 +10,7 @@
 /**
  * Manage releases panel - sends you out to add releases, remove releases, add reviews (and eventually add tracks).
  *
- * @author Alex Andrews (alex@recordsonribs.com), Eric Lee (ericaustinlee@gmail.com)
+ * @author Alex Andrews <alex@recordsonribs.com>, Eric Lee (ericaustinlee@gmail.com)
  * @return void
  */
 function ribcage_manage_releases() {
@@ -102,7 +102,7 @@ function ribcage_manage_releases() {
  * Administration panel for adding a release.
  *
  * @return void
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  */
 function ribcage_add_release() {
 	global $release, $artist, $tracks, $track;
@@ -378,7 +378,7 @@ function ribcage_add_release() {
 /**
  * Add a review of a specific release.
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
 function ribcage_manage_reviews() {
@@ -429,7 +429,7 @@ function ribcage_manage_reviews() {
 /**
  * Produces a page of statistics about the release we have.
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
 function ribcage_release_stats () {
@@ -439,7 +439,7 @@ function ribcage_release_stats () {
 /**
  * Allows you to edit a release, adding tracks etc.
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
 function ribcage_edit_release () {
@@ -449,7 +449,7 @@ function ribcage_edit_release () {
 /**
  * Deletes a release from the database.
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
 function ribcage_delete_release () {

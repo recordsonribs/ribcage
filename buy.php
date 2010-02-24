@@ -2,7 +2,7 @@
 /**
  * Functions that are concerned with buying products.
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  * @package Ribcage
  * @subpackage Buy
  **/
@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/ribcage-includes/paypal/paypal.class.php';
 /**
  * Sends the user out to PayPal to purchase a product.
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
 function ribcage_buy_process ()
@@ -55,7 +55,7 @@ function ribcage_buy_process ()
 /**
  * Validates and processes the IPN returned from PayPal.
  *
- * @author Alex Andrews (alex@recordsonribs.com)
+ * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
 function ribcage_buy_ipn () {
