@@ -2,7 +2,7 @@
 /**
  * Various useful global functions for Ribcage.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @package Ribcage
  * @subpackage Core
  **/
@@ -27,7 +27,7 @@ $wpdb->ribcage_donations = $wpdb->prefix."ribcage_donations";
  * Writes HTML code for insertion of Ribcage specific releases feeds into the header of a page.
  *
  * @return void
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  */
 function ribcage_release_feeds(){
 	global $wp_query;
@@ -46,7 +46,7 @@ function ribcage_release_feeds(){
 /**
  * Returns a quantity of recent releases and their details in an associative array.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param int $amount Quantity of recent releases you want returned.
  * @param bool $forthcoming Should we include forthcoming releases (true), or simply those whose release date is passed (false)? 
  * @return array Associative array of recent releases and their details.
@@ -75,7 +75,7 @@ function list_recent_releases_blurb ( $amount = 0, $forthcoming = FALSE )
 /**
  * Returns a list of all artists in an associative array, sorted alphabetically by their name.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @return array An associative array with all the artist details in.
  */
 function list_artists_blurb (){
@@ -90,7 +90,7 @@ function list_artists_blurb (){
 /**
  * Lists the releases of an artist specified by their artist_id
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param int $artist_id The artist ID of the artist you which to retrieve the releases of.
  * @param bool $forthcoming Should we include forthcoming releases (true), or simply those whose release date is passed (false)? 
  * @return array Associative array with the details of the artist in it.
@@ -118,7 +118,7 @@ function list_artist_releases ($artist_id, $forthcoming = FALSE ) {
 /**
  * Gets the details of a specific product.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param int $product_id The product ID in question.
  * @return array Details of the products as an associative array.
  */
@@ -139,7 +139,7 @@ function get_product ($product_id) {
 /**
  * Gets a release from the database by the release's release ID.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param int $release_id The release ID of the release.
  * @param bool $tracks If true add the tracks to our release.
  * @param bool $reviews If true add reviews of the release to it.
@@ -164,7 +164,7 @@ function get_release ($release_id, $tracks = true, $reviews = true){
 /**
  * Gets a release from the database by the release's slug.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param int $release_id The slug of the release.
  * @param bool $tracks If true add the tracks to our release.
  * @param bool $reviews If true add reviews of the release to it.
@@ -197,7 +197,7 @@ function get_release_by_slug ($release_slug, $tracks = true, $reviews = true){
 /**
  * Get the name of a release from its slug.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param string $release_slug The slug of the release.
  * @return string The name of the release.
  */
@@ -210,7 +210,7 @@ function get_releasename_by_slug ($release_slug){
 /**
  * Get an artist by their artist ID.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param int $artist_id Artist ID of the artist.
  * @return array Associative array of data about the artist.
  */
@@ -231,7 +231,7 @@ function get_artist ($artist_id){
 /**
  * Get an artist by their artist slug.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param string $artist_slug The slug of the artist.
  * @return array Associative array of data about the artist.
  */
@@ -251,7 +251,7 @@ function get_artist_by_slug ($artist_slug){
 /**
  * Gets tracks from a specific release.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param int $release_id The release ID.
  * @return array Associative array of tracks of the release.
  */
@@ -268,7 +268,7 @@ function get_tracks ($release_id){
 /**
  * Gets reviews from a specific release.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param int $release_id The release ID.
  * @return array Associative array of reviews of the release.
  */
@@ -285,7 +285,7 @@ function get_reviews ($release_id){
 /**
  * Get a track by its slug.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param string $track_slug The slug of the track.
  * @return array Associative array of data about the track.
  */
@@ -299,7 +299,7 @@ function get_track_by_slug ($track_slug) {
 /**
  * Get the name of the artist from the artist's ID.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param int $artist_id The artist ID.
  * @return string Artist's name.
  */
@@ -320,7 +320,7 @@ function get_artistname_by_id ($artist_id) {
 /**
  * Get the name of the artist from the artist's slug.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param string $artist_slug The artist slug.
  * @return string Artist's name.
  */
@@ -385,7 +385,7 @@ function ribcage_cc_dropdown($selected = false){
 /**
  * Delete an artist from the database.
  * 
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param int $artist_id Artist ID for deletion.
  * @return bool True if this worked, false if it didn't.
  **/
@@ -400,7 +400,7 @@ function delete_artist($artist_id) {
 /**
  * Delete a release from the database.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param int $release_id Release ID for deletion.
  * @return bool True if this worked, false if not.
  */
@@ -565,7 +565,7 @@ function miliseconds_to_sql ($milsec)
 /**
  * Converts and object to an array.
  * 
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param object An object.
  * @return array An array.
  **/
@@ -585,7 +585,7 @@ function object_to_array( $object )
 /**
  * Converts a catalogue number to a release number.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param string $cat Catalogue number to be converted.
  * @return string The release number of a catalogue number.
  **/
@@ -601,7 +601,7 @@ function cat_to_release_id ($cat)
 /**
  * Returns a 404 when we make a mistake then dies.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  */
 function ribcage_404 () {
         global $artist, $artists;

@@ -11,14 +11,14 @@
 /**
  * Adds the Ribcage Widgets.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  */
 class ribcage_widgets {	
 	
 	/**
 	 * Registers Ribcage sidebar widgets and their controls.
 	 *
-	 * @author Alex Andrews
+	 * @author Alex Andrews (alex@recordsonribs.com)
 	 * @return void
 	 */
 	function init () {

@@ -36,7 +36,7 @@ $product = null;
  * There is one, a template from the currently being used theme is loaded, otherwise it is loaded from the plugin.
  * Owes a great deal to Rob Millers' Now Reading plugin. Thanks a great deal.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param string $filename Filename of template to be loaded.
  * @return void
  */
@@ -55,7 +55,7 @@ function ribcage_load_template ( $filename ) {
 /**
  * Returns a completed e-mail template for various applications.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param string $filename Filename of the template below the ribcage-includes/email.
  * @return string The completed template.
  */
@@ -70,7 +70,7 @@ function ribcage_load_email_template ( $filename ) {
 /**
  * Tells us if the page is an artist page or not.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @return bool True if it is an artist page, false if it is not.
  */
 function is_artist_page ()
@@ -90,7 +90,7 @@ function is_artist_page ()
 /**
  * Tells us if we are on a Ribcage page or not.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @return bool True if we are on a Ribcage page, false if we are not.
  */
 function is_ribcage_page() {
@@ -113,7 +113,7 @@ function is_ribcage_page() {
 /**
  * Creates titles for Ribcage pages.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param string The separator to use between the elements of the title.
  */
 function ribcage_title ($sep = '&rsaquo;'){
@@ -176,7 +176,7 @@ function ribcage_title ($sep = '&rsaquo;'){
 /**
  * Outputs a number of recent albums in an unordered list of various kinds.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param int $amount The number of recent albums you want to output.
  * @param string $mode Different formats: 'list' simple list, 'covers' list of covers, similar to the sidebar widget.
  * @param bool $nav_bar Displays a navigation bar for each release.
@@ -225,7 +225,7 @@ function ribcage_albums ($amount = 5, $mode = 'list', $nav_bar = TRUE, $css = NU
 /**
  * Loads a random artist into our $artist variable for use.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  **/
 function random_artist () {
 	global $artist;
@@ -241,7 +241,7 @@ function random_artist () {
 /**
  * Redirect the user to PayPal as per the PayPal library.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  */
 function paypal_redirect () {
 	global $paypal;
@@ -262,7 +262,7 @@ function paypal_redirect () {
 /**
  * Retrieve or display the name of the product.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the product.
  * @return string The name of the product.
  */
@@ -278,7 +278,7 @@ function product_name ( $echo = true ) {
 /**
  * Retrieve or display the description of the product.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the product description.
  * @return string The description of the product
  */
@@ -294,7 +294,7 @@ function product_description ( $echo = true ) {
 /**
  * Retrieve or display the cost of the product.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the cost of the product.
  * @return string The cost of the product.
  */
@@ -310,7 +310,7 @@ function product_cost_c ( $echo = true ) {
 /**
  * Retrieve or display the cost of the product.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the cost of the product.
  * @return string The cost of the product.
  */
@@ -326,7 +326,7 @@ function product_cost_ww ( $echo = true ) {
 /**
  * Retrieve or display the product ID number of the product.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the product ID number of the product.
  * @return string The product ID number of the product.
  */
@@ -342,7 +342,7 @@ function product_id ( $echo = true ) {
 /**
  * Retrieve or display the title of the release.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the title of the release.
  * @return string The title of the release.
  */
@@ -359,7 +359,7 @@ function release_title ( $echo = true ) {
  * Retrieve or display the slug of the release.
  * Release slugs serve the same function as post slugs - they up part of the URL of the release.Ì
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the slug of the release.
  * @return string The slug of the release.
  */
@@ -375,7 +375,7 @@ function release_slug ( $echo = true ) {
 /**
  * Retrieve or display a very short, one sentence blurb for the release.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the tiny blurb of the release.
  * @return string The tiny blurb for the release.
  */
@@ -391,7 +391,7 @@ function release_blurb_tiny ( $echo = true ) {
 /**
  * Retrieve or display a short, paragraph long blurb for the release.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the short blurb of the release.
  * @return string The short blurb for the release.
  */
@@ -407,7 +407,7 @@ function release_blurb_short ( $echo = true ) {
 /**
  * Retrieve or display a long blurb for the release.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the long blurb of the release.
  * @return string The long blurb for the release.
  */
@@ -423,7 +423,7 @@ function release_blurb_long ( $echo = true ) {
 /**
  * Retrieve or display the URL of the one sheet press release for the release.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the URL of the one sheet of the release.
  * @return string The URL of the one sheet of the release.
  */
@@ -439,7 +439,7 @@ function release_onesheet ( $echo = true ) {
 /**
  * Generate or display the URL for a download of a specific release.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the download URL.
  * @return string The download URL of the release.
  */
@@ -455,7 +455,7 @@ function release_download_link ( $echo = true ) {
 /**
  * Retrieve or display the URL for an internal link to MP3 download of specific release.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the link to the MP3 download.
  * @return string The download URL of the MP3 download of the release.
  */
@@ -471,7 +471,7 @@ function release_download_link_mp3 ( $echo = true ) {
 /**
  * Retrieve or display the human readable file size of a release in MP3 format.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the size of the release in MP3 format.
  * @return string The human readable file size of a release in MP3 format.
  */
@@ -494,7 +494,7 @@ function release_download_size_mp3 ( $echo = true ) {
 /**
  * Retrieve or display the URL for an internal link to Flac download of specific release.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the link to the Flac download.
  * @return string The download URL of the Flac download of the release.
  */
@@ -510,7 +510,7 @@ function release_download_link_flac ( $echo = true ) {
 /**
  * Retrieve or display the human readable file size of a release in Flac format.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the size of the release in Flac format.
  * @return string The human readable file size of a release in Flac format.
  */
@@ -533,7 +533,7 @@ function release_download_size_flac ( $echo = true ) {
 /**
  * Retrieve or display the URL for an internal link to Ogg download of specific release.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the link to the Ogg download.
  * @return string The download URL of the Ogg download of the release.
  */
@@ -549,7 +549,7 @@ function release_download_link_ogg ( $echo = true ) {
 /**
  * Retrieve or display the human readable file size of a release in Ogg format.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the size of the release in Ogg format.
  * @return string The human readable file size of a release in Ogg format.
  */
@@ -572,7 +572,7 @@ function release_download_size_ogg ( $echo = true ) {
 /**
  * Retrieve or display the URL of a Bittorrent file that allows the download of the release as MP3 files.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the URL of a Bittorrent file that allows the download of the release as MP3 files.
  * @return string The URL of a Bittorrent file that allows the download of the release as MP3 files.
  */
@@ -588,7 +588,7 @@ function release_download_link_bittorrent_mp3 ( $echo = true ) {
 /**
  * Retrieve or display the URL of a Bittorrent file that allows the download of the release as Ogg files.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the URL of a Bittorrent file that allows the download of the release as Ogg files.
  * @return string The URL of a Bittorrent file that allows the download of the release as Ogg files.
  */
@@ -604,7 +604,7 @@ function release_download_link_bittorrent_ogg ( $echo = true ) {
 /**
  * Retrieve or display the URL of a Bittorrent file that allows the download of the release as Flac files.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the URL of a Bittorrent file that allows the download of the release as Flac files.
  * @return string The URL of a Bittorrent file that allows the download of the release as Flac files.
  */
@@ -620,7 +620,7 @@ function release_download_link_bittorrent_flac ( $echo = true ) {
 /**
  * Returns true if the release has any BitTorrent served versions for download.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @return bool True if we have BitTorrent served versions of the release.
  */
 function release_bittorrent () {
@@ -637,7 +637,7 @@ function release_bittorrent () {
 /**
  * Retrieve or display the URL of the largest version of a release artwork.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the URL of the largest version of a release artwork.
  * @return string The URL of the largest version of a release artwork.
  */
@@ -653,7 +653,7 @@ function release_cover_huge ( $echo = true ) {
 /**
  * Retrieve or display the URL of a large version of a release artwork.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the URL of a large version of a release artwork.
  * @return string The URL of a large version of a release artwork.
  */
@@ -669,7 +669,7 @@ function release_cover_large ( $echo = true ) {
 /**
  * Retrieve or display the URL of a small version of a release artwork.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the URL of a small version of a release artwork.
  * @return string The URL of a small version of a release artwork.
  */
@@ -685,7 +685,7 @@ function release_cover_tiny ( $echo = true ) {
 /**
  * Retrieve or display the catalogue number of a release.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo When true we echo the catalogue number of a release.
  * @return string The catalogue number of a release.
  */
@@ -701,7 +701,7 @@ function release_cat_no ( $echo = true ) {
 /**
  * Retrieve or display the release ID of a release.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the release ID of a release.
  * @return string The release ID of a release.
  */
@@ -717,7 +717,7 @@ function release_id ( $echo = true ) {
 /**
  * Retrieve or display the URL of the Flash player for a release.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the URL of the Flash player for a release.
  * @return string The URL of the Flash player for a release.
  */
@@ -733,7 +733,7 @@ function release_player_link ( $echo = true ) {
 /**
  * Returns true if the release has a physical version.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @return bool True if there is a physical version of the release.
  */
 function release_physical () {
@@ -750,7 +750,7 @@ function release_physical () {
 /**
  * Retrieve or display product ID of a release.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the URL of the Flash player for a release.
  * @return string The URL of the Flash player for a release.
  */
@@ -766,7 +766,7 @@ function release_product_id ( $echo = TRUE ) {
 /**
  * Retrieve or display the number of downloads of a release.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display number of downloads of a release.
  * @return string The number of downloads of a release.
  */
@@ -782,7 +782,7 @@ function release_downloads ( $echo = TRUE ) {
 /**
  * Retrieve or display the artist ID of the artist.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the artist ID of the artist.
  * @return string The artist ID of the artist.
  */
@@ -798,7 +798,7 @@ function artist_id ( $echo = true ) {
 /**
  * Retrieve or display the name of the artist.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the name of the artist.
  * @return string The name of an artist.
  */
@@ -814,7 +814,7 @@ function artist_name ( $echo = true ) {
 /**
  * Retrieve or display the sorting name of the artist.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the sorting name of the artist.
  * @return string The sorting name of an artist.
  */
@@ -830,7 +830,7 @@ function artist_name_sort ( $echo = true ) {
 /**
  * Retrieve or display the biography of the artist.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the biography of the artist.
  * @return string The biography of the artist.
  */
@@ -847,7 +847,7 @@ function artist_bio ( $echo = true ) {
 /**
  * Retrieve or display the slug of the artist.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the slug of the artist.
  * @return string The the slug of the artist.
  */
@@ -863,7 +863,7 @@ function artist_slug ( $echo = true ) {
 /**
  * Retrieve or display the URL for a press link of the artist.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the URL for a press link of the artist.
  * @return string The URL for a press link of the artist.
  */
@@ -880,7 +880,7 @@ function artist_press_link ( $echo = true ) {
 /**
  * Retrieve or display the URL for the artist's website.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the URL for the artist's website.
  * @return string The URL for the artist's website.
  */
@@ -896,7 +896,7 @@ function artist_website_link ( $echo = true ) {
 /**
  * Retrieve or display the URL for the artist's MySpace.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the URL for the artist's MySpace.
  * @return string The URL for the artist's MySpace.
  */
@@ -912,7 +912,7 @@ function artist_myspace_link ( $echo = true ) {
 /**
  * Retrieve or display the URL for the artist's Facebook.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the URL for the artist's Facebook.
  * @return string The URL for the artist's Facebook.
  */
@@ -928,7 +928,7 @@ function artist_facebook_link ( $echo = true ) {
 /**
  * Retrieve or display the URL for the artist's Last.fm.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the URL for the artist's Last.fm.
  * @return string The URL for the artist's Last.fm.
  */
@@ -945,7 +945,7 @@ function artist_lastfm_link ( $echo = true ) {
 /**
  * Retrieve or display the URL for the artist's Musicbrainz index.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the URL for the artist's Musicbrainz index.
  * @return string The URL for the artist's Musicbrainz index.
  */
@@ -962,7 +962,7 @@ function artist_musicbrainz_link ( $echo = true ) {
 /**
  * Retrieve or display the artist's Musicbrainz ID.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the artist's Musicbrainz ID.
  * @return string The artist's Musicbrainz ID..
  */
@@ -978,7 +978,7 @@ function artist_musicbrainz ( $echo = true ) {
 /**
  * Retrieve or display the tiny blurb for the artist.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the tiny blurb for the artist.
  * @return string The tiny blurb of the artist.
  */
@@ -994,7 +994,7 @@ function artist_blurb_tiny ( $echo = true ) {
 /**
  * Retrieve or display the short blurb for the artist.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the short blurb for the artist.
  * @return string The short blurb of the artist.
  */
@@ -1010,7 +1010,7 @@ function artist_blurb_short ( $echo = true ) {
 /**
  * Retrieve or display the URL of the first artist picture.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the URL of the first artist picture.
  * @return string The URL of the first artist picture.
  */
@@ -1026,7 +1026,7 @@ function artist_picture_1 ( $echo = true ) {
 /**
  * Retrieve or display the URL of the second artist picture.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the URL of the second artist picture.
  * @return string The URL of the second artist picture.
  */
@@ -1042,7 +1042,7 @@ function artist_picture_2 ( $echo = true ) {
 /**
  * Retrieve or display the URL of the third artist picture.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the URL of the third artist picture.
  * @return string The URL of the third artist picture.
  */
@@ -1058,7 +1058,7 @@ function artist_picture_3 ( $echo = true ) {
 /**
  * Retrieve or display the URL of the zipped artist picture collection.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the URL of the zipped artist picture collection.
  * @return string The URL of the zipped artist picture collection.
  */
@@ -1074,7 +1074,7 @@ function artist_picture_zip ( $echo = true ) {
 /**
  * Retrieve or display the URL of the artist's thumbnail.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the URL of the artist's thumbnail.
  * @return string The URL of the artist's thumbnail.
  */
@@ -1090,7 +1090,7 @@ function artist_thumb ( $echo = true ) {
 /**
  * Looping function that steps through artists.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @return The current artist.
  */
 function have_artists () {
@@ -1108,7 +1108,7 @@ function have_artists () {
 /**
  * Sets the current artist to the next artist in global variable $artists.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @return void
  */
 function the_artist (){
@@ -1121,7 +1121,7 @@ function the_artist (){
 /**
  * Retrieve or display the title of the track.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the title of the track.
  * @return string The title of the track.
  */
@@ -1137,7 +1137,7 @@ function track_title ( $echo = true ) {
 /**
  * Retrieve or display the stream URL of the track.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the stream URL of the track.
  * @return string The stream URL of the track.
  */
@@ -1153,7 +1153,7 @@ function track_stream ( $echo = true ) {
 /**
  * Retrieve or display the number of the track.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the number of the track.
  * @return string The number of the track.
  */
@@ -1169,7 +1169,7 @@ function track_no ( $echo = true ) {
 /**
  * Retrieve or display the ID of the track.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the ID of the track.
  * @return string The ID of the track.
  */
@@ -1185,7 +1185,7 @@ function track_id ( $echo = true ) {
 /**
  * Retrieve or display the time of the track.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the time of the track.
  * @return string The time of the track.
  */
@@ -1210,7 +1210,7 @@ function track_time ( $echo = true ) {
 /**
  * Looping function that steps through tracks.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @return The current track.
  */
 function have_tracks () {
@@ -1228,7 +1228,7 @@ function have_tracks () {
 /**
  * Sets the current track to the next track in global variable $tracks.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @return void
  */
 function the_track (){
@@ -1241,7 +1241,7 @@ function the_track (){
 /**
  * Looping function that steps through releases.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @return The current release.
  */
 function have_releases () {
@@ -1259,7 +1259,7 @@ function have_releases () {
 /**
  * Sets the current release to the next release in global variable $releases.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @return void
  */
 function the_release (){
@@ -1273,7 +1273,7 @@ function the_release (){
 /**
  * Looping function that steps through reviews.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @return The current review.
  */
 function have_reviews () {
@@ -1291,7 +1291,7 @@ function have_reviews () {
 /**
  * Sets the current review to the next review in global variable $reviews.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @return void
  */
 function the_review (){
@@ -1304,7 +1304,7 @@ function the_review (){
 /**
  * Retrieve or display the text of the review.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the text of the review.
  * @return string The text of the review.
  */
@@ -1320,7 +1320,7 @@ function review_text ( $echo=true ){
 /**
  * Retrieve or display the author of the review.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the author of the review.
  * @return string The author of the review.
  */
@@ -1336,7 +1336,7 @@ function review_author ( $echo=true ){
 /**
  * Retrieve or display the URL of the review.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true display the URL of the review.
  * @return string The URL of the review.
  */

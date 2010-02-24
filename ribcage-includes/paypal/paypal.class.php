@@ -136,7 +136,7 @@ class paypal_class {
 	/**
 	 * Loads a Ribcage template for redirection. Adapted from original element of paypal.class
 	 *
-	 * @author Alex Andrews
+	 * @author Alex Andrews (alex@recordsonribs.com)
 	 * @return void
 	 */
 	function submit_paypal_post() {

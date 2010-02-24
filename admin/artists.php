@@ -9,7 +9,7 @@
 /**
  * Manages artists - adds, deletes, edits.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @return void
  **/
 function ribcage_manage_artists () {
@@ -251,7 +251,7 @@ function ribcage_manage_artists () {
 /**
  * Manages press articles about an artist.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @return void
  */
 function ribcage_manage_press()

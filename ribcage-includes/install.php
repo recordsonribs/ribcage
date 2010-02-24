@@ -2,7 +2,7 @@
 /**
  * Ribcage installation functions.
  *
- * @author Paolo Tresso of Pixline (supporto@pixline.net)
+ * @author Paolo Tresso of Pixline (supporto@pixline.net), Alex Andrews (alex@recordsonribs.com)
  * @package Ribcage
  * @subpackage Installation
  **/

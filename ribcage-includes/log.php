@@ -10,7 +10,7 @@
 /**
  * Log the download of a track or of a release.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $t If true we are logging the download of a single track, not a release.
  * @return void
  */
@@ -80,7 +80,7 @@ function ribcage_log ( $t = FALSE){
 /**
  * Add one to the download counter of a release and put this in the database.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @return void
  */
 function ribcage_log_release_plus(){	
@@ -103,7 +103,7 @@ function ribcage_log_release_plus(){
  * or "stop" (when an item has ended or the user switched to a new item). The duration comes
  * only with a stop and contains the time for which the item has been played in seconds.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @return void
  */
 function ribcage_log_play () {

@@ -62,7 +62,7 @@ function ribcage_options()
 /**
  * Adds the remote downloads from Legaltorrents.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param bool $echo If true the remote downloads are displayed.
  * @return void
  */
@@ -113,7 +113,7 @@ function remote_downloads( $echo = TRUE )
 /**
  * Gets the total downloads for a specific torrent on LegalTorrents.
  *
- * @author Alex Andrews
+ * @author Alex Andrews (alex@recordsonribs.com)
  * @param string $torrent The full URL of the torrent file we are getting.
  * @return int Total number of download of the torrent.
  */
