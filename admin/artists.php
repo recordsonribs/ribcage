@@ -214,7 +214,7 @@ function ribcage_manage_artists () {
 	</div>
 <?php else : ?>
 	<?php 
-	$nonce= wp_create_nonce  ('ribcage_manage'); 
+	$nonce = wp_create_nonce  ('ribcage_manage'); 
 	$artists = list_artists_blurb();
 	$alt = 0;
 	?>

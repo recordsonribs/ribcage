@@ -30,6 +30,8 @@ $review = null;
 $current_review = 0;
 
 $product = null;
+$products = null;
+$current_product = 0;
 
 /**
  * Loads a template for Ribcage specific output. 
@@ -1353,4 +1355,36 @@ function ribcage_total_downloads_shortcode () {
     return number_format(get_option('ribcage_total_downloads'));
 }
 add_shortcode('total_downloads','ribcage_total_downloads_shortcode');
+
+/**
+ * Looping function that steps through reviews.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @return The current review.
+ */
+function have_products () {
+	global $products, $current_product;
+	
+	$have_products = ( !empty($products[$current_product]) );
+
+	if ( !$have_products ) {
+		$GLOBALS['products']	= null;
+		$GLOBALS['current_product'] = 0;
+	}
+	return $have_products;
+}
+
+/**
+ * Sets the current review to the next review in global variable $reviews.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @return void
+ */
+function the_product (){
+	global $products, $product, $current_product;
+
+	$GLOBALS['product'] = $products [$current_product];
+	$GLOBALS['current_product']++;
+}
+
 ?>

@@ -51,7 +51,7 @@ function ribcage_release_feeds(){
  * @param bool $forthcoming Should we include forthcoming releases (true), or simply those whose release date is passed (false)? 
  * @return array Associative array of recent releases and their details.
  */
-function list_recent_releases_blurb ( $amount = 0, $forthcoming = FALSE )
+function list_recent_releases_blurb ($amount = 0, $forthcoming = FALSE)
 {
 	global $wpdb;
 	
@@ -125,17 +125,44 @@ function list_artist_releases ($artist_id, $forthcoming = FALSE ) {
 function get_product ($product_id) {
 	global $wpdb;
 	
-        $query = "SELECT * FROM $wpdb->ribcage_products WHERE product_id = $product_id";
+	$query = "SELECT * FROM $wpdb->ribcage_products WHERE product_id = $product_id";
 
-        if ($wpdb->query($query) == false or $wpdb->query($query) == 0) {
-            return new WP_Error('ribcage-product-not-found', __("We can't find a product with $product_id."));
-        }
+	if ($wpdb->query($query) == false or $wpdb->query($query) == 0) {
+		return new WP_Error('ribcage-product-not-found', __("We can't find a product with $product_id."));
+	}
 
 	$return = $wpdb->get_row($query, ARRAY_A);
 	
 	return $return;
 }
 
+/**
+ * Returns a quantity of products and their details in an associative array.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @param int $amount Quantity of products you want returned.
+ * @return array Associative array of products and their details.
+ */
+function list_products ($amount = 0) {
+	global $wpdb;
+
+	if ($amount) {
+		$products = $wpdb->get_results("SELECT product_id FROM $wpdb->ribcage_products WHERE product_id > 0 LIMIT $amount", ARRAY_A);
+	}
+	else {
+		$products = $wpdb->get_results("SELECT product_id FROM $wpdb->ribcage_products WHERE product_id > 0", ARRAY_A);
+	}
+
+	if (isset($products)) {
+		foreach ($products as $product){
+			$return[] = get_product($product['product_id']);		
+		}
+	}
+
+	return $return;
+}
+
+$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_date <= '$now_date' ORDER BY release_id DESC", ARRAY_A);
 /**
  * Gets a release from the database by the release's release ID.
  *
@@ -413,6 +440,21 @@ function delete_release($release_id) {
 }
 
 /**
+ * Delete a product from the database.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @param int $product_id Product ID for deletion.
+ * @return bool True if this worked, false if not.
+ */
+function delete_product ($product_id) {
+	global $wpdb;
+	
+	$result = $wpdb->query("DELETE FROM `$wpdb->ribcage_products` WHERE `product_id` = $product_id LIMIT 1;");
+	
+	return ($result);
+}
+
+/**
  * Gets a release from Musicbrainz then puts the values of it into the global $release variable.
  * Uses a simple XML get to avoid the bloat of loading huge Musicbrainz object infested libraries.
  *
@@ -633,5 +675,16 @@ function ribcage_404 () {
         include($template);
 
         die();
+}
+
+/**
+ * Displays a quick list of possible Creative Commons licenses by using the CC REST API.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @param string $selected If a particular license is selected in the box.
+ * @return string HTML <select> tag group containing possible Creative Commons Licenses
+ **/
+function ribcage_cc_api_dropdown ($selected = false) {
+	
 }
 ?>
