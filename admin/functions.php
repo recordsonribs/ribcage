@@ -2,7 +2,6 @@
 /**
  * General functions for administration.
  *
- * @author Alex Andrews <alex@recordsonribs.com>
  * @package Ribcage
  * @subpackage Administration
  **/
@@ -62,7 +61,6 @@ function ribcage_options()
 /**
  * Adds the remote downloads from Legaltorrents.
  *
- * @author Alex Andrews <alex@recordsonribs.com>
  * @param bool $echo If true the remote downloads are displayed.
  * @return void
  */
@@ -113,7 +111,6 @@ function remote_downloads( $echo = TRUE )
 /**
  * Gets the total downloads for a specific torrent on LegalTorrents.
  *
- * @author Alex Andrews <alex@recordsonribs.com>
  * @param string $torrent The full URL of the torrent file we are getting.
  * @return int Total number of download of the torrent.
  */
@@ -130,5 +127,29 @@ function get_remote_downloads ($torrent)
 	}
 	
 	return $xml->{'totaldl'};
+}
+
+/**
+ * Displays a drop down menu of all the artists. 
+ *
+ * @param string $var_name Optional variable name which the dropdown corresponds to. For example release_artist is the default.
+ * @param int $artist_id Optional artist to make selected.
+ */
+function ribcage_artists_dropdown ($var_name = 'release_artist', $artist_id = null) {
+	global $artists, $artist;
+
+	$artists = list_artists_blurb();
+	$artist = $artists [$current_artist];
+	?>
+	<select name="<?php echo $var_name; ?>" id="<?php echo $var_name; ?>">
+	<?php while (have_artists ()) : the_artist(); ?>
+	<?php if ($artist['artist_id'] == $artist_id) { ?>
+	<option selected value="<?php artist_id();?>"><?php artist_name(); ?></option>
+	<?php } 
+	else { ?>
+	<option value="<?php artist_id();?>"><?php artist_name(); ?></option>
+	<?php } ?>
+	<?php endwhile; ?>
+	<?php
 }
 ?>

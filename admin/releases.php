@@ -2,7 +2,6 @@
 /**
  * Functions for handling releases, adding reviews to releases, etc.
  *
- * @author Alex Andrews <alex@recordsonribs.com>
  * @package Ribcage
  * @subpackage Administration
  **/
@@ -10,7 +9,6 @@
 /**
  * Manage releases panel - sends you out to add releases, remove releases, add reviews (and eventually add tracks).
  *
- * @author Alex Andrews <alex@recordsonribs.com>, Eric Lee <ericaustinlee@gmail.com>
  * @return void
  */
 function ribcage_manage_releases() {
@@ -34,12 +32,18 @@ function ribcage_manage_releases() {
                 break;
 
                 case 'edit':
+?>
+				<div class="wrap">
+					<div id="icon-options-general" class="icon32"><br /></div>
+					<?php
                     $release = get_release($_REQUEST['release']);
 					$artist = get_artist($release['release_artist']);
-					$tracks = $release['release_tracks'];
-					ribcage_release_form();
-					ribcage_tracks_form();
-					return;
+					$tracks = $release['release_tracks'];?>
+					<h2>Editing <?php release_title(); ?></h2>
+					<?php ribcage_release_form(); ?>
+					<?php ribcage_tracks_form(); ?>
+				</div> 
+				<?php	return;
                 break;
 
                 case 'reviews':
@@ -113,7 +117,6 @@ function ribcage_manage_releases() {
  * Administration panel for adding a release.
  *
  * @return void
- * @author Alex Andrews <alex@recordsonribs.com>
  */
 function ribcage_add_release() {
 	global $release, $artist, $tracks, $track;
@@ -132,6 +135,9 @@ function ribcage_add_release() {
 	
 	// Stage 3 - Add the release to the database.
 	if ($_REQUEST['ribcage_action'] == 'add_release' && $_REQUEST['ribcage_step'] == '2'){	
+		$release = get_transient('ribcage_temp_data');
+		$release = unserialize($release);
+		
 		$total_tracks = $release['release_tracks_no'];
 		$t = 1;
 		
@@ -184,23 +190,36 @@ function ribcage_add_release() {
 			//$results = $wpdb->query($sql);
 		}
 		
+		delete_transient('ribcage_temp_tracks');
+		delete_transient('ribcage_temp_data');
+		
 		$wpdb->hide_errors();
 		
-		echo '<pre>';
-		print_r($release);
-		print_r($tracks);
-		echo '</pre>';
 		return 0;
 	}
 	
 	// Stage 2 - Check release tracks are correct.
 	elseif ($_REQUEST['ribcage_action'] == 'add_release') {
-		// Get the tracks we have been sent, if we have been sent any.
-		if (isset($_POST['release_tracks'])){
-			$tracks = $_POST['release_tracks'];
-			$tracks = stripslashes($tracks);
-			$tracks = unserialize($tracks);
+		// Get the tracks that have been set, if we have been sent any.
+		$tracks = get_transient('ribcage_temp_tracks');
+		$tracks = unserialize($tracks);
+		
+		if ($tracks == 0) {
+			$track_count = 0;
+			while ($track_count < $_POST['release_tracks_no']) {
+				$track_count++;
+				$tracks [] = array(
+						'track_title' => '',
+				    	'track_time' => '',
+						'track_release_id' => $release['release_id'],
+						'track_mbid' => '',
+						'track_slug' => '',
+						'track_number' => $track_count,
+						'track_stream' => ''
+						);
+			}
 		}
+		print_r($tracks);
 		
 		$artist = get_artist($_POST['release_artist']);
 		$release['release_artist'] = $_POST['release_artist'];
@@ -260,8 +279,7 @@ function ribcage_add_release() {
 		}
 		
 		$tracks = serialize($release['release_tracks']);
-		
-		// If we haven't got an artist from Musicbrainz then we need to display a drop down of all the artists so they can choose.
+
 		// Stage 1 - Add the details of the release or correct those from Musicbrainz
 		?>
 		<h1></h1>
@@ -270,6 +288,9 @@ function ribcage_add_release() {
 	}
 	// Display the start with the Musicbrainz lookup form.
 	else {
+		// Clear the memory decks, in case we have a half finished transaction.
+		delete_transient('ribcage_temp_tracks');
+		delete_transient('ribcage_temp_data');
 	?>
 		<form method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
 		<p>Please enter the <a href="http://musicbrainz.org">Musicbrainz</a> ID and Ribcage will lookup the release and fill in the details automtically. This should be the Musicbrainz ID of the specific release, not the release group.</p> <p>If your release does not have a Musicbrainz ID, or if you wish to enter the release entirely manually, click on Skip.</p>
@@ -295,8 +316,8 @@ function ribcage_add_release() {
 /**
  * Displays a form with all the variables of a particular release.
  * Note, doesn't display tracks, that is done by ribcage_tracks_form.
- *
- * @author Alex Andrews <alex@recordsonribs.com>
+ * 
+ * @return void
  */
 function ribcage_release_form () {
 	global $artists, $tracks, $artist, $track, $release;
@@ -305,9 +326,9 @@ function ribcage_release_form () {
 	<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&ribcage_action=add_release" method="post" id="ribcage_add_release" name="add_release">
 	<table class="form-table">             
 		<tr valign="top">
-			<th scope="row"><label for="artist_name">Artist</label></th> 
+			<th scope="row"><label for="release_artist">Release Artist</label></th> 
 			<td>
-				<?php artist_name(); ?>												
+			<?php ribcage_artists_dropdown('release_artist', $release['release_artist']); ?>
 			</td> 
 		</tr>
 		<tr valign="top">
@@ -360,19 +381,26 @@ function ribcage_release_form () {
 				<span class="description">Is there a physical version of this release you are intending to sell?</span>									
 			</td>
 	</table>
-	<input type="hidden" name="release_mbid" value="<?php echo $release['release_mbid']; ?>" />
-	<input type="hidden" name="release_artist" value="<?php echo $release['release_artist']; ?>" />
-	<input type="hidden" name="release_physical_cat_no" value="<?php echo $release['release_physical_cat_no']; ?>" />
-	
-	<input type="hidden" name="release_cover_image_tiny" value="<?php echo $release['release_cover_image_tiny']; ?>" />
-	<input type="hidden" name="release_cover_image_large" value="<?php echo $release['release_cover_image_large']; ?>" />
-	<input type="hidden" name="release_cover_image_huge" value="<?php echo $release['release_cover_image_huge']; ?>" />
-	
-	<input type="hidden" name="release_mp3" value="<?php echo $release['release_mp3']; ?>" />	
-	<input type="hidden" name="release_ogg" value="<?php echo $release['release_ogg']; ?>" />	
-	<input type="hidden" name="release_flac" value="<?php echo $release['release_flac']; ?>" />
-	
-	<input type="hidden" name="release_tracks" value='<?php print_r($tracks); ?>' />
+	<?php
+	// Anything else goes in a transient until further notice.
+	if ($release) {
+		set_transient('ribcage_temp_tracks', $tracks, 60*60);
+		
+		$temp = array (
+			'release_mbid'=>$release['release_mbid'],
+			'release_physical_cat_no'=>$release['release_physical_cat_no'],
+			'release_cover_image_tiny'=>$release['release_cover_image_tiny'],
+			'release_cover_image_large'=>$release['release_cover_image_large'],
+			'release_cover_image_huge'=>$release['release_cover_image_huge'],
+			'release_mp3'=>$release['release_mp3'],
+			'release_ogg'=>$release['release_ogg'],
+			'release_flac'=>$release['release_flac'],
+			);
+			
+		$temp = serialize($temp);
+		set_transient('ribcage_temp_data',$temp, 60*60);
+	}
+	?>
 	<p class="submit">
 		<input type="submit" name="Submit" class="button-primary" value="Next" />
 	</p>
@@ -383,7 +411,7 @@ function ribcage_release_form () {
 /**
  * Displays form for with tracks, allowing adding or editing.
  *
- * @author Alex Andrews <alex@recordsonribs.com>
+ * @return void
  */
 function ribcage_tracks_form () {
 	global $release, $tracks, $track;
@@ -397,8 +425,8 @@ function ribcage_tracks_form () {
 			<td>Length</td>		
 		</tr>
 		</thead>
-		<?php $track_count = 1;?>
-		<?php while ( have_tracks () ) : the_track() ; ?>
+		<?php $track_count = 1; ?>
+		<?php while (have_tracks ()) : the_track(); ?>
 		<tr>
 			<th scope="row">
 				<input type="text" style="width:30px;" class="regular-text" value="<?php track_no(); ?>" name="track_number_<?php echo $track_count; ?>" id="track_number_<?php echo $track_count; ?>" maxlength="200" />
@@ -412,16 +440,26 @@ function ribcage_tracks_form () {
 			</td>
 		</tr>
 		<?php $track_count++;?>
-		<?php endwhile; ?>      
+		<?php endwhile; ?>
 	</table>
 	<p class="submit">
 		<input type="submit" name="Submit" class="button-primary" value="Save Changes" />
 	</p>
 	<?php
-	// All the other variables are hidden.
 	unset($release['release_tracks']);
-	$release = serialize($release); ?>
-	<input type="hidden" name="release" value='<?php print_r($release); ?>' />
+	
+	$saved_temp = unserialize(get_transient('ribcage_temp_data'));
+	
+	if($saved_temp) {
+		$temp = array_merge($release,$saved_temp); 
+		$temp = serialize($temp);
+	}
+	else {
+		$temp = serialize($release);
+	}
+	
+	set_transient('ribcage_temp_data',$temp, 60*60);
+	?>
 	</form>
 	<?php
 }
@@ -429,7 +467,6 @@ function ribcage_tracks_form () {
 /**
  * Add a review of a specific release.
  *
- * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
 function ribcage_manage_reviews() {
@@ -480,7 +517,6 @@ function ribcage_manage_reviews() {
 /**
  * Produces a page of statistics about the release we have.
  *
- * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
 function ribcage_release_stats () {
