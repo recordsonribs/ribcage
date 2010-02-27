@@ -41,6 +41,28 @@ function ribcage_manage_products () {
 		
 		switch($_REQUEST['ribcage_action']) {
 			case 'add':
+				// Do we have all the fields we need to add something?
+				if ($_POST['product_name'] == null) {
+					$product = $_POST;
+					ribcage_edit_product_form('Sorry you missed the name of your product.');
+					return;
+				}
+				elseif ($_POST['product_cost'] == null) {
+					$product = $_POST;
+					ribcage_edit_product_form("Sorry you didn't set a price for your product.");
+					return;
+				}
+				elseif ($_POST['product_description'] == null) {
+					$product = $_POST;
+					ribcage_edit_product_form("Sorry you didn't write a description for your product.");
+					return;
+				}
+				elseif (!is_numeric($_POST['product_cost'])){
+					$product = $_POST;
+					ribcage_edit_product_form("Sorry but that isn't a number for the cost of the product.");
+					return;
+				}
+				
 				$sql = "INSERT INTO ".$wpdb->prefix."ribcage_products
 						($string_keys)
 						VALUES
@@ -57,6 +79,27 @@ function ribcage_manage_products () {
 			break;
 			
 			case 'edited':
+				if ($_POST['product_name'] == null) {
+					$product = $_POST;
+					ribcage_edit_product_form('Sorry you missed the name of your product.');
+					return;
+				}
+				elseif ($_POST['product_cost'] == null) {
+					$product = $_POST;
+					ribcage_edit_product_form("Sorry you didn't set a price for your product.");
+					return;
+				}
+				elseif ($_POST['product_description'] == null) {
+					$product = $_POST;
+					ribcage_edit_product_form("Sorry you didn't set a price for your product.");
+					return;
+				}
+				elseif (!is_numeric($_POST['product_cost'])){
+					$product = $_POST;
+					ribcage_edit_product_form("Sorry but that isn't a number for the cost of the product.");
+					return;
+				}
+				
 				$sql = "UPDATE ".$wpdb->prefix."ribcage_products
 						SET ";
 				
@@ -139,7 +182,7 @@ function ribcage_manage_products () {
  * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
-function ribcage_edit_product_form () {
+function ribcage_edit_product_form ($error = 0) {
 	global $artist;
 	global $release, $releases;
 	global $product;
@@ -149,6 +192,10 @@ function ribcage_edit_product_form () {
 	}
 
 	$releases = list_recent_releases_blurb();
+	
+	if ($error) {
+		echo '<div id="message" class="error"><p><strong>'.$error.'</strong></p></div>';
+	}
 	?>
 	<div class="wrap">
 		<div id="icon-options-general" class="icon32"><br /></div>
