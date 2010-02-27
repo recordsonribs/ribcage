@@ -65,7 +65,7 @@ function ribcage_manage_products () {
 				
 				// Do we already have a physical product for this release?
 				if ($_POST['product_related_release']) {
-					$sql = "SELECT release_physical FROM ".$wpdb->prefix."ribcage_releases WHERE release_id = ".$_POST['product_related_release'];
+					$sql = "SELECT release_physical FROM ".$wpdb->releases." WHERE release_id = ".$_POST['product_related_release'];
 					$check = $wpdb->get_row($sql, ARRAY_A);
 					
 					if ($check['release_physical'] == 1) {
@@ -75,7 +75,7 @@ function ribcage_manage_products () {
 					}
 				}
 				
-				$sql = "INSERT INTO ".$wpdb->prefix."ribcage_products
+				$sql = "INSERT INTO ".$wpdb->products."
 						($string_keys)
 						VALUES
 						($string_vals)";
@@ -84,10 +84,10 @@ function ribcage_manage_products () {
 				
 				// Update our _ribcage_releases data with the correct details if we are relating this to a release.
 				if ($_POST['product_related_release']) {
-					$sql = "SELECT product_id FROM ".$wpdb->prefix."ribcage_products ORDER BY product_id DESC LIMIT 0,1";
+					$sql = "SELECT product_id FROM ".$wpdb->products." ORDER BY product_id DESC LIMIT 0,1";
 					$product = $wpdb->get_row($sql, ARRAY_A);
 					
-					$sql = "UPDATE ".$wpdb->prefix."ribcage_releases SET release_physical = 1, release_physical_cat_no ='".$product['product_id']."' WHERE release_id = ".$_POST['product_related_release'];
+					$sql = "UPDATE ".$wpdb->releases." SET release_physical = 1, release_physical_cat_no ='".$product['product_id']."' WHERE release_id = ".$_POST['product_related_release'];
 					
 					$results = $wpdb->query($sql);
 				}
