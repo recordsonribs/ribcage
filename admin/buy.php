@@ -49,7 +49,7 @@ function ribcage_manage_products () {
 				}
 				elseif ($_POST['product_cost'] == null) {
 					$product = $_POST;
-					ribcage_edit_product_form("Sorry you didn't set a price for your product.");
+					ribcage_edit_product_form("Sorry you didn't set a cost for your product.");
 					return;
 				}
 				elseif ($_POST['product_description'] == null) {
@@ -63,11 +63,34 @@ function ribcage_manage_products () {
 					return;
 				}
 				
+				// Do we already have a physical product for this release?
+				if ($_POST['product_related_release']) {
+					$sql = "SELECT release_physical FROM ".$wpdb->prefix."ribcage_releases WHERE release_id = ".$_POST['product_related_release'];
+					$check = $wpdb->get_row($sql, ARRAY_A);
+					
+					if ($check['release_physical'] == 1) {
+						$product = $_POST;
+						ribcage_edit_product_form("Sorry but that release already has a physical product associated with it.");
+						return;
+					}
+				}
+				
 				$sql = "INSERT INTO ".$wpdb->prefix."ribcage_products
 						($string_keys)
 						VALUES
 						($string_vals)";
 				$results = $wpdb->query($sql);
+				$wpdb->hide_errors();
+				
+				// Update our _ribcage_releases data with the correct details if we are relating this to a release.
+				if ($_POST['product_related_release']) {
+					$sql = "SELECT product_id FROM ".$wpdb->prefix."ribcage_products ORDER BY product_id DESC LIMIT 0,1";
+					$product = $wpdb->get_row($sql, ARRAY_A);
+					
+					$sql = "UPDATE ".$wpdb->prefix."ribcage_releases SET release_physical = 1, release_physical_cat_no ='".$product['product_id']."' WHERE release_id = ".$_POST['product_related_release'];
+					
+					$results = $wpdb->query($sql);
+				}
 				
 				$message = ' added';
 			break;
@@ -100,6 +123,7 @@ function ribcage_manage_products () {
 					return;
 				}
 				
+				$product_before = get_product($_REQUEST['product']);
 				$sql = "UPDATE ".$wpdb->prefix."ribcage_products
 						SET ";
 				
@@ -115,13 +139,28 @@ function ribcage_manage_products () {
 					
 				$results = $wpdb->query($sql);
 				$wpdb->hide_errors();
+				
+				// Update our _ribcage_releases data if we have changed the associated product.
+				if ($product_before['product_related_release'] != $_REQUEST['product_related_release']) {
+					// Delete it from our previous holder of the release.
+					$sql = "UPDATE ".$wpdb->prefix."ribcage_releases SET release_physical = 0, release_physical_cat_no = 0 WHERE release_id = ".$product_before['product_related_release'];
+					$results = $wpdb->query($sql);
+					
+					// Add it to the current holder of the release.
+					$sql = "UPDATE ".$wpdb->prefix."ribcage_releases SET release_physical = 1, release_physical_cat_no ='".$_REQUEST['product']."' WHERE release_id = ".$_POST['product_related_release'];	
+					$results = $wpdb->query($sql);	
+				}
 
 				$message = ' updated';
 			break;
 			
 			case 'delete':
-				$product = get_product($_REQUEST['product']);
+				$product_before = get_product($_REQUEST['product']);
 				delete_product($_REQUEST['product']);
+				
+				$sql = "UPDATE ".$wpdb->prefix."ribcage_releases SET release_physical = 0, release_physical_cat_no = 0 WHERE release_id = ".$product_before['product_related_release'];
+				$results = $wpdb->query($sql);
+				
 				$message = " deleted";
 			break;
 		}
@@ -181,9 +220,11 @@ function ribcage_manage_products () {
  * Displays a form used for editing or adding a product to database.
  *
  * @author Alex Andrews <alex@recordsonribs.com>
+ * @param string $error Error message from the manage_products form.
+ * @param bool $related_to_release If true then we are passing from adding a release in general so we set the relation to this automatically
  * @return void
  */
-function ribcage_edit_product_form ($error = 0) {
+function ribcage_edit_product_form ($error = 0, $related_to_release = 0) {
 	global $artist;
 	global $release, $releases;
 	global $product;
@@ -240,7 +281,7 @@ function ribcage_edit_product_form ($error = 0) {
 					<tr valign="top">
 						<th scope="row"><label for="product_name">Product Description</label></th> 
 						<td>
-							<textarea rows="5" cols="50" name="product_description" id="product_description" class="regular-text"><?php product_description(); ?></textarea>					
+							<textarea rows="10" cols="100" name="product_description" id="product_description" class="regular-text"><?php product_description(); ?></textarea>					
 						</td> 
 					</tr>
 				</table>
