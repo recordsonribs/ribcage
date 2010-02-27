@@ -10,7 +10,7 @@
 /**
  * Manage releases panel - sends you out to add releases, remove releases, add reviews (and eventually add tracks).
  *
- * @author Alex Andrews <alex@recordsonribs.com>, Eric Lee (ericaustinlee@gmail.com)
+ * @author Alex Andrews <alex@recordsonribs.com>, Eric Lee <ericaustinlee@gmail.com>
  * @return void
  */
 function ribcage_manage_releases() {
