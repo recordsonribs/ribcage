@@ -14,7 +14,7 @@
  * @return void
  */
 function ribcage_manage_releases() {
-	global $release, $releases, $artist;
+	global $release, $releases, $artist, $tracks;
 	
 	$total_downloads = 0;
         
@@ -30,23 +30,34 @@ function ribcage_manage_releases() {
             switch($_REQUEST['ribcage_action']) {
                 case 'stats':
                     ribcage_release_stats();
+					return;
                 break;
 
                 case 'edit':
-                    ribcage_edit_release();
+                    $release = get_release($_REQUEST['release']);
+					$artist = get_artist($release['release_artist']);
+					$tracks = $release['release_tracks'];
+					ribcage_release_form();
+					ribcage_tracks_form();
+					return;
                 break;
 
                 case 'reviews':
                     ribcage_manage_reviews();
+					return;
                 break;
 
                 case 'delete':
-                    ribcage_delete_release();
+                    delete_release($_REQUEST['release']);
+					$message = " deleted";
                 break;
             }
-            return;
         }
-	
+		
+		if (isset($message)){
+			echo '<div id="message" class="updated fade"><p><strong>Release '.$message.'.</strong></p></div>';
+		}
+		
 	register_column_headers('ribcage-manage-releases',
 	array (
 		'cb'=>'<input type="checkbox" />',
@@ -139,8 +150,7 @@ function ribcage_add_release() {
 		
 		?>
 		<h3>Stage 3 of 3</h3>
-		<p>Added <?php artist_name(); ?> - <?php release_title(); ?> to the database.</p>
-		<p>It will be live on the site on </p>
+		<p>Added <?php release_title(); ?> to the database.</p>
 		<?php
 		global $wpdb;
 			
@@ -154,8 +164,8 @@ function ribcage_add_release() {
 					($string_keys)
 					VALUES
 					($string_values)";
-		$results = $wpdb->query( $sql );
-		
+		echo $sql;
+		//$results = $wpdb->query($sql);
 		
 		// Add tracks to database
 		foreach ($tracks as $tr) {
@@ -170,7 +180,8 @@ function ribcage_add_release() {
 			($string_values)
 			";
 			
-			$results = $wpdb->query($sql);
+			echo $sql;
+			//$results = $wpdb->query($sql);
 		}
 		
 		$wpdb->hide_errors();
@@ -201,42 +212,8 @@ function ribcage_add_release() {
 		}
 		?>
 		<h3>Stage 2 of 3</h3>
-		<p>Please check the following details of the release.</p>
-		<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&ribcage_step=2" method="post" id="ribcage_add_release" name="add_release">
-		<table class="form-table">  
-			<tr>
-				<th scope="row"><strong><?php artist_name(); ?> - <?php release_title(); ?></strong></th>
-			</tr>
-			<?php $track_count = 1;?>
-			<?php while ( have_tracks () ) : the_track() ; ?>
-			<tr>
-				<th scope="row">
-					<input type="text" style="width:30px;" class="regular-text" value="<?php track_no(); ?>" name="track_number_<?php echo $track_count; ?>" id="track_number_<?php echo $track_count; ?>" maxlength="200" />
-				</th>
-				<td>
-					<input type="text" style="width:320px;" class="regular-text" value="<?php track_title(); ?>" name="track_title_<?php echo $track_count; ?>" id="track_title_<?php echo $track_count; ?>" maxlength="200" />						
-				</td>
-				<td>
-					<input type="text" style="width:40px;" class="regular-text" value="<?php echo $track['track_time']; ?>" name="track_time_<?php echo $track_count; ?>" id="track_time_<?php echo $track_count; ?>" maxlength="200" />
-					<input type="hidden" name="track_mbid_<?php echo $track_count; ?>" value='<?php echo $track['track_mbid'] ?>' />											
-				</td>
-			</tr>
-			<?php $track_count++;?>
-			<?php endwhile; ?>      
-		</table>
-		<p class="submit">
-			<input type="submit" name="Submit" class="button-primary" value="Save Changes" />
-		</p>
-		<?php
-		echo '<pre>';
-		print $sql;
-		print_r($release);
-		echo '</pre>';
-		// All the other variables as hidden.
-		unset($release['release_tracks']);
-		$release = serialize($release); ?>
-		<input type="hidden" name="release" value='<?php print_r($release); ?>' />
-		</form>
+		<p>Please check the following details for <?php artist_name(); ?> - <?php release_title();?>.</p>
+		<?php ribcage_tracks_form(); ?>
 		</div>
 		<?php
 		return 0;
@@ -287,69 +264,9 @@ function ribcage_add_release() {
 		// If we haven't got an artist from Musicbrainz then we need to display a drop down of all the artists so they can choose.
 		// Stage 1 - Add the details of the release or correct those from Musicbrainz
 		?>
-		<h3>Stage 1 of 3</h3>
-		<p>Add the following details for the release, then you will be able to add tracks.</p>
-		<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&ribcage_action=add_release" method="post" id="ribcage_add_release" name="add_release">
-		<table class="form-table">             
-			<tr valign="top">
-				<th scope="row"><label for="artist_name">Artist</label></th> 
-				<td>
-					<?php artist_name(); ?>												
-				</td> 
-			</tr>
-			<tr valign="top">
-				<th scope="row"><label for="release_title">Release Name</label></th> 
-				<td>
-					<input type="text" style="width:320px;" class="regular-text code" value="<?php release_title(); ?>" name="release_title" id="release_title" maxlength="200" />										
-				</td> 
-			</tr>
-			<tr valign="top">
-				<th scope="row"><label for="release_title">Release Slug</label></th> 
-				<td>
-					<input type="text" style="width:320px;" class="regular-text code" value="<?php release_slug(); ?>" name="release_slug" id="release_slug" maxlength="200" /><span class="description">The URL you want for the release after the artist name, for example <?php echo get_option('siteurl'); ?>/artist_name/release_slug</span>										
-				</td> 
-			</tr>
-			<tr valign="top">
-				<th scope="row"><label for="release_title">Release Date</label></th> 
-				<td>
-					<input type="text" style="width:320px;" class="regular-text code" value="<?php echo $release['release_date']; ?>" name="release_date" id="release_date" maxlength="200" /><span class="description">When is the record going to come out?</span>										
-				</td> 
-			</tr>
-			<tr valign="top">
-				<th scope="row"><label for="release_id">Catalogue Number</label></th> 
-				<td>
-					<?php echo get_option('ribcage_mark'); ?><input type="text" style="width:30px;" class="regular-text code" value="<?php echo $release['release_id']; ?>" name="release_id" id="release_id" maxlength="10" /><span class="description">This will be padded to be three digits</span>									
-				</td> 
-			</tr>
-			<tr valign="top">
-				<th scope="row"><label for="release_tracks_no">Number Of Tracks</label></th> 
-				<td>
-					<input type="text" style="width:30px;" class="regular-text code" value="<?php echo $release['release_tracks_no']; ?>" name="release_tracks_no" id="release_tracks_no" />									
-				</td> 
-			</tr>
-			<?php
-			// Rough way of doing this until I have set each of the elements by hand, as it were.
-			foreach ($release as $key => $val){
-				?>
-				<tr valign="top">
-					<th scope="row"><label for="<?php echo "$key"; ?>"><?php echo "$key"; ?></label></th> 
-					<td>
-						<input type="text" style="width:300px;" class="regular-text code" value="<?php echo "$val"; ?>" name="<?php echo "$key"; ?>" id="<?php echo "$key"; ?>" />									
-					</td> 
-				</tr>
-				<?php
-			}
-			?>
-		</table>
-		<input type="hidden" name="release_mbid" value="<?php echo $release['release_mbid']; ?>" />
-		<input type="hidden" name="release_artist" value="<?php echo $release['release_artist']; ?>" />
-		<input type="hidden" name="release_tracks" value='<?php print_r($tracks); ?>' />
-		<p class="submit">
-			<input type="submit" name="Submit" class="button-primary" value="Next" />
-		</p>
-		</form>
-		<pre><?php print_r($release); ?></pre>
+		<h1></h1>
 		<?php
+		ribcage_release_form ();
 	}
 	// Display the start with the Musicbrainz lookup form.
 	else {
@@ -373,6 +290,140 @@ function ribcage_add_release() {
 	</div>
 	<?php
 	
+}
+
+/**
+ * Displays a form with all the variables of a particular release.
+ * Note, doesn't display tracks, that is done by ribcage_tracks_form.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ */
+function ribcage_release_form () {
+	global $artists, $tracks, $artist, $track, $release;
+	
+	?>
+	<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&ribcage_action=add_release" method="post" id="ribcage_add_release" name="add_release">
+	<table class="form-table">             
+		<tr valign="top">
+			<th scope="row"><label for="artist_name">Artist</label></th> 
+			<td>
+				<?php artist_name(); ?>												
+			</td> 
+		</tr>
+		<tr valign="top">
+			<th scope="row"><label for="release_title">Release Name</label></th> 
+			<td>
+				<input type="text" style="width:320px;" class="regular-text code" value="<?php release_title(); ?>" name="release_title" id="release_title" maxlength="200" />										
+			</td> 
+		</tr>
+		<tr valign="top">
+			<th scope="row"><label for="release_title">Release Slug</label></th> 
+			<td>
+				<input type="text" style="width:320px;" class="regular-text code" value="<?php release_slug(); ?>" name="release_slug" id="release_slug" maxlength="200" /><span class="description">The URL you want for the release after the artist name, for example <?php echo get_option('siteurl'); ?>/artist_name/release_slug</span>										
+			</td> 
+		</tr>
+		<tr valign="top">
+			<th scope="row"><label for="release_title">Release Date</label></th> 
+			<td>
+				<input type="text" style="width:320px;" class="regular-text code" value="<?php echo $release['release_date']; ?>" name="release_date" id="release_date" maxlength="200" /><span class="description">When is the record going to come out?</span>										
+			</td> 
+		</tr>
+		<tr valign="top">
+			<th scope="row"><label for="release_id">Catalogue Number</label></th> 
+			<td>
+				<?php echo get_option('ribcage_mark'); ?><input type="text" style="width:30px;" class="regular-text code" value="<?php echo $release['release_id']; ?>" name="release_id" id="release_id" maxlength="10" /><span class="description">This will be padded to be three digits</span>									
+			</td> 
+		</tr>
+		<tr valign="top">
+			<th scope="row"><label for="release_tracks_no">Number Of Tracks</label></th> 
+			<td>
+				<input type="text" style="width:30px;" class="regular-text code" value="<?php echo $release['release_tracks_no']; ?>" name="release_tracks_no" id="release_tracks_no" />									
+			</td> 
+		</tr>
+		<tr valign="top">
+			<th scope="row"><label for="release_time">Length of Release</label></th> 
+			<td>
+				<input type="text" style="width:70px;" class="regular-text code" value="<?php echo $release['release_time']; ?>" name="release_time" id="time" /><span class="description">Length of release in hh:mm:ss</span>	
+			</td> 
+		</tr>
+		<tr valign="top">
+			<th scope="row"><label for="release_physical">Physical Release</label></th>
+			<td>
+				<select name="release_physical" id="release_physical">
+					<?php if (isset($release['release_physical'])) { ?>
+					<option selected value ="<?php echo $release['release_physical'];?>"><?php if ($release['release_physical'] == 1) { echo 'Yes';} else { echo 'No';};?></option>
+					<option value="<?php if ($release['release_physical'] == 1) { echo '0'; } else { echo '1'; }?>"><?php if ($release['release_physical'] == 1){ echo 'No'; } else { echo 'Yes'; };?></option>
+					<?php } ?>
+					<option value ="0">No</option>
+					<option value = "1">Yes</option>
+				</select>
+				<span class="description">Is there a physical version of this release you are intending to sell?</span>									
+			</td>
+	</table>
+	<input type="hidden" name="release_mbid" value="<?php echo $release['release_mbid']; ?>" />
+	<input type="hidden" name="release_artist" value="<?php echo $release['release_artist']; ?>" />
+	<input type="hidden" name="release_physical_cat_no" value="<?php echo $release['release_physical_cat_no']; ?>" />
+	
+	<input type="hidden" name="release_cover_image_tiny" value="<?php echo $release['release_cover_image_tiny']; ?>" />
+	<input type="hidden" name="release_cover_image_large" value="<?php echo $release['release_cover_image_large']; ?>" />
+	<input type="hidden" name="release_cover_image_huge" value="<?php echo $release['release_cover_image_huge']; ?>" />
+	
+	<input type="hidden" name="release_mp3" value="<?php echo $release['release_mp3']; ?>" />	
+	<input type="hidden" name="release_ogg" value="<?php echo $release['release_ogg']; ?>" />	
+	<input type="hidden" name="release_flac" value="<?php echo $release['release_flac']; ?>" />
+	
+	<input type="hidden" name="release_tracks" value='<?php print_r($tracks); ?>' />
+	<p class="submit">
+		<input type="submit" name="Submit" class="button-primary" value="Next" />
+	</p>
+	</form>
+	<?php
+}
+
+/**
+ * Displays form for with tracks, allowing adding or editing.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ */
+function ribcage_tracks_form () {
+	global $release, $tracks, $track;
+	?>
+	<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&ribcage_step=2" method="post" id="ribcage_add_release" name="add_release">
+	<table width="200px"> 
+		<thead>
+		<tr>
+			<td>No</td>
+			<td>Track Name</td>
+			<td>Length</td>		
+		</tr>
+		</thead>
+		<?php $track_count = 1;?>
+		<?php while ( have_tracks () ) : the_track() ; ?>
+		<tr>
+			<th scope="row">
+				<input type="text" style="width:30px;" class="regular-text" value="<?php track_no(); ?>" name="track_number_<?php echo $track_count; ?>" id="track_number_<?php echo $track_count; ?>" maxlength="200" />
+			</th>
+			<td>
+				<input type="text" style="width:320px;" class="regular-text" value="<?php track_title(); ?>" name="track_title_<?php echo $track_count; ?>" id="track_title_<?php echo $track_count; ?>" maxlength="200" />						
+			</td>
+			<td>
+				<input type="text" style="width:70px;" class="regular-text" value="<?php echo $track['track_time']; ?>" name="track_time_<?php echo $track_count; ?>" id="track_time_<?php echo $track_count; ?>" maxlength="200" />
+				<input type="hidden" name="track_mbid_<?php echo $track_count; ?>" value='<?php echo $track['track_mbid'] ?>' />											
+			</td>
+		</tr>
+		<?php $track_count++;?>
+		<?php endwhile; ?>      
+	</table>
+	<p class="submit">
+		<input type="submit" name="Submit" class="button-primary" value="Save Changes" />
+	</p>
+	<?php
+	// All the other variables are hidden.
+	unset($release['release_tracks']);
+	$release = serialize($release); ?>
+	<input type="hidden" name="release" value='<?php print_r($release); ?>' />
+	</form>
+	<?php
 }
 
 /**
@@ -434,16 +485,6 @@ function ribcage_manage_reviews() {
  */
 function ribcage_release_stats () {
     echo "Stats";
-}
-
-/**
- * Allows you to edit a release, adding tracks etc.
- *
- * @author Alex Andrews <alex@recordsonribs.com>
- * @return void
- */
-function ribcage_edit_release () {
-    echo "Edit";
 }
 
 /**

@@ -16,7 +16,7 @@
  * @return void
  */
 function ribcage_admin_menu() {
-	add_object_page(__('Ribcage', 'ribcage'),__('Ribcage', 'ribcage'),administrator,__FILE__,ribcage_admin_index, '');
+	add_object_page(__('Ribcage', 'ribcage'),__('Ribcage', 'ribcage'),administrator,__FILE__,ribcage_manage_artists, '');
 
     add_submenu_page(__FILE__, __('Manage Artists'),__('Manage Artists'),administrator,__FILE__,ribcage_manage_artists);
 	add_submenu_page( __FILE__, 'Ribcage', 'Add Artist', 8,'add_artist', 'ribcage_manage_artists');
