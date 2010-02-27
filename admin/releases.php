@@ -486,14 +486,4 @@ function ribcage_manage_reviews() {
 function ribcage_release_stats () {
     echo "Stats";
 }
-
-/**
- * Deletes a release from the database.
- *
- * @author Alex Andrews <alex@recordsonribs.com>
- * @return void
- */
-function ribcage_delete_release () {
-    echo "Delete";
-}
 ?>
