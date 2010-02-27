@@ -68,7 +68,6 @@ function ribcage_manage_products () {
 						VALUES
 						($string_vals)";
 				$results = $wpdb->query($sql);
-				$wpdb->hide_errors();
 				
 				$message = ' added';
 			break;
@@ -79,6 +78,7 @@ function ribcage_manage_products () {
 			break;
 			
 			case 'edited':
+				// Do we have all the fields we need to add something?
 				if ($_POST['product_name'] == null) {
 					$product = $_POST;
 					ribcage_edit_product_form('Sorry you missed the name of your product.');
@@ -104,6 +104,7 @@ function ribcage_manage_products () {
 						SET ";
 				
 				$i = 0;
+				
 				foreach($post_keys as $field):
 						$sql .= $field ."='".$post_vals[$i]."', ";
 						$i++;
@@ -121,7 +122,7 @@ function ribcage_manage_products () {
 			case 'delete':
 				$product = get_product($_REQUEST['product']);
 				delete_product($_REQUEST['product']);
-				$message = product_name()." deleted";
+				$message = " deleted";
 			break;
 		}
 		
