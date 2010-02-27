@@ -20,13 +20,15 @@ function ribcage_admin_menu() {
 
     add_submenu_page(__FILE__, __('Manage Artists'),__('Manage Artists'),administrator,__FILE__,ribcage_manage_artists);
 	add_submenu_page( __FILE__, 'Ribcage', 'Add Artist', 8,'add_artist', 'ribcage_manage_artists');
-	add_submenu_page(__FILE__, 'Ribcage', 'Manage Press', 8, 'manage_press', 'ribcage_manage_press');	
+	//add_submenu_page(__FILE__, 'Ribcage', 'Manage Press', 8, 'manage_press', 'ribcage_manage_press');	
 	
 	add_submenu_page(__FILE__, 'Ribcage', 'Manage Releases', 8, 'manage_releases', 'ribcage_manage_releases');
 	add_submenu_page(__FILE__, 'Ribcage', 'Add Release', 8, 'add_release', 'ribcage_add_release');
 	
 	add_submenu_page(__FILE__, 'Ribcage', 'Manage Products', 8, 'manage_products', 'ribcage_manage_products');
 	add_submenu_page(__FILE__, 'Ribcage', 'Add Product', 8, 'add_product', 'ribcage_edit_product_form');
+	
+	add_submenu_page(__FILE__, 'Ribcage', 'Orders', 8, 'manage_orders', 'ribcage_manage_orders');
 
    	add_options_page('Ribcage', 'Ribcage', 8, 'ribcage_options', 'ribcage_options');
 	
@@ -50,4 +52,5 @@ require_once dirname(__FILE__) . '/admin/functions.php';
 require_once dirname(__FILE__) . '/admin/artists.php';
 require_once dirname(__FILE__) . '/admin/releases.php';
 require_once dirname(__FILE__) . '/admin/buy.php';
+require_once dirname(__FILE__) . '/admin/orders.php';
 ?>
