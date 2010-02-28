@@ -153,7 +153,14 @@ function ribcage_add_release() {
 			}
 			$release[$key] = $var;
 		}
-		
+		/*
+		?>
+		<pre>
+		<?php print_r($release); ?>
+		<?php print_r($tracks); ?>
+		</pre>
+		<?php
+		*/
 		// Save all of this just incase we have a problem.
 		set_transient('ribcage_temp_data',serialize($release),60*60);
 		set_transient('ribcage_temp_tracks',serialize($release),60*60);
@@ -276,6 +283,7 @@ function ribcage_add_release() {
 		if (!$release['release_mbid']) {
 			echo "<p>Don't forget to add the release to <a href=\"http://musicbrainz.org\">MusicBrainz</a>. It will make your life a lot easier!</p>";
 		}
+
 		return 0;
 	}
 	
@@ -547,6 +555,7 @@ function ribcage_add_release() {
 						<?php
 					break;
 					case 'artist_not_found': ?>
+						// TODO Find out if we don't have this artist.
 						<p><?php echo $artist; ?> is not an artist in the Ribcage database. Yet.</p>
 						<p>You need to <a href="admin.php?page=add_artist">add an artist</a> before you can add their releases.</p>
 						<?php
@@ -721,6 +730,16 @@ function ribcage_release_form () {
 					<option selected value="1">Yes</option>
 					<option value="0">No</option>
 				</select>								
+			</td>
+		</tr>
+		<tr valign="top">
+			<th scope="row"><label for="release_blurb_short">Short Description Of Release</label></th>
+			<td><textarea name="release_blurb_short" id="release_blurb_short" rows="5" cols="80"></textarea>
+			</td>
+		</tr>
+		<tr valign="top">
+			<th scope="row"><label for="release_blurb_long">Long Description Of Release</label></th>
+			<td><textarea name="release_blurb_long" id="release_blurb_long" rows="15" cols="80"></textarea>						
 			</td>
 		</tr>
 	</table>
