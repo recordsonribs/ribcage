@@ -154,38 +154,72 @@ function ribcage_add_release() {
 		set_transient('ribcage_temp_tracks',serialize($release),60*60);
 		
 		// Checks on the data so far.
+		foreach ($tracks as $track) {
+			if (false === @file_get_contents($track['track_stream'])){
+				$errors[] = '<p>The streaming file for the track '.$track['track_title'].' does not exist at <code>'.$track['track_stream']. '</code>.</p>';
+			}
+		}
+		
 		$formats = array('mp3','ogg','flac');
 		
 		foreach ($formats as $format) {
-			if (!file_exists(ABSPATH.$release["release_$format"])){
-				$errors[] = '<p>The file you set for the '.$format.' downloads does not exist at <code>'.$release["release_$format"]. '</code>.</p>';
+			if ($release["release_$format"]){
+				if (!file_exists(ABSPATH.$release["release_$format"])){
+					$errors[] = '<p>The file you set for the '.$format.' downloads does not exist at <code>'.$release["release_$format"]. '</code>.</p>';
+					$missing_uploads = true;
+				}
 			}
 		}
 		
 		if (!file_exists(ABSPATH.$release["release_one_sheet"])){
 			$errors[] = '<p>The file you set for the one sheet does not exist at <code>'.$release["release_one_sheet"]. '</code>.</p>';
+			$missing_uploads = 1;
 		}
 		
 		foreach ($formats as $format) {
-			if (false === @file_get_contents($release["release_torrent_$format"],0,null,0,1)) {
-				$errors[] = '<p>The file you set for the '.$format.' torrent does not exist at <code>'.$release["release_torrent_$format"]. '</code>.</p>';
+			if ($release["release_torrent_$format"]){
+				if (false === @file_get_contents($release["release_torrent_$format"],0,null,0,1)) {
+					$errors[] = '<p>The file you set for the '.$format.' torrent does not exist at <code>'.$release["release_torrent_$format"]. '</code>.</p>';
+				}
 			}
 		}
 		
 		$sizes = array ('tiny','large','huge');
 		
 		foreach ($sizes as $size) {
-			if (false === @file_get_contents($release["release_cover_image_$size"],0,null,0,1)) {
-				$errors[] = '<p>The file you set for the '.$size.' cover image does not exist at <code>'.$release["release_cover_image_$size"]. '</code>.</p>';
+			if ($release["release_cover_image_$size"]){
+				if (false === @file_get_contents($release["release_cover_image_$size"],0,null,0,1)) {
+					$errors[] = '<p>The '.$size.' cover image does not exist at <code>'.$release["release_cover_image_$size"]. '</code>.</p>';
+					$missing_uploads = true;
+				}
+				$check_images = true;
 			}
+		}
+		
+		if (!$check_images) {
+			$errors[] = '<p>No cover images have been set!</p>';
+		}
+		
+		if ($missing_uploads) {
+			$errors[] = "<p>We've got missing files here, don't forget to upload them!</p>";
 		}
 		
 		// Show errors.
 		if (is_array($errors)) { ?>
-			<p>We have the following errors in what you have entered.</p> 
+			<h3>Errors</h3>
+			<p>The following errors have been found in what you have entered.</p> 
 			<?php
 			foreach ($errors as $error) {
 				print $error;
+			}
+			// TODO Set some kind of flag to remind the user that their are incomplete elements of the release.
+			if ($fatal_error){ ?>
+				<p>There are too many errors to continue, please go back and correct them.</p>
+				<p class="submit">
+					<input type="submit" name="Submit" class="button-primary" value="Back" />
+				</p>
+				<?php
+				return;
 			}
 		}
 		?>
@@ -228,6 +262,9 @@ function ribcage_add_release() {
 		
 		$wpdb->hide_errors();
 		
+		if (!$release['release_mbid']) {
+			echo "<p>Don't forget to add the release to <a href=\"http://musicbrainz.org\">MusicBrainz</a>. It will make your life a lot easier!</p>"
+		}
 		return 0;
 	}
 	
