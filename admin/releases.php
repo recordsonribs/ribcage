@@ -133,13 +133,63 @@ function ribcage_add_release() {
 	unset($_POST['Submit']);
 	
 	// Stage 4 - Add the release to the database.
-	if ($_REQUEST['ribcage_action'] == 'add_release' && $_REQUEST['ribcage_step'] == '4'){	
-		$release = get_transient('ribcage_temp_data');
-		$release = unserialize($release);		
+	if ($_REQUEST['ribcage_action'] == 'add_release' && $_REQUEST['ribcage_step'] == '4'){ 
 		?>
 		<h2>Add Release - Adding To Database</h2>
+		<?php
+		// Load everything we have so far.
+		$release = get_transient('ribcage_temp_data');
+		$release = unserialize($release);
+		
+		$tracks = get_transient('ribcage_temp_tracks');
+		$tracks = unserialize($tracks);
+		
+		// Correct the data we have here with additions from the previous form.
+		foreach ($_POST as $key => $var) {
+			$release[$key] = $var;
+		}
+		
+		// Save all of this just incase we have a problem.
+		set_transient('ribcage_temp_data',serialize($release),60*60);
+		set_transient('ribcage_temp_tracks',serialize($release),60*60);
+		
+		// Checks on the data so far.
+		$formats = array('mp3','ogg','flac');
+		
+		foreach ($formats as $format) {
+			if (!file_exists(ABSPATH.$release["release_$format"])){
+				$errors[] = '<p>The file you set for the '.$format.' downloads does not exist at <code>'.$release["release_$format"]. '</code>.</p>';
+			}
+		}
+		
+		if (!file_exists(ABSPATH.$release["release_one_sheet"])){
+			$errors[] = '<p>The file you set for the one sheet does not exist at <code>'.$release["release_one_sheet"]. '</code>.</p>';
+		}
+		
+		foreach ($formats as $format) {
+			if (false === @file_get_contents($release["release_torrent_$format"],0,null,0,1)) {
+				$errors[] = '<p>The file you set for the '.$format.' torrent does not exist at <code>'.$release["release_torrent_$format"]. '</code>.</p>';
+			}
+		}
+		
+		$sizes = array ('tiny','large','huge');
+		
+		foreach ($sizes as $size) {
+			if (false === @file_get_contents($release["release_cover_image_$size"],0,null,0,1)) {
+				$errors[] = '<p>The file you set for the '.$size.' cover image does not exist at <code>'.$release["release_cover_image_$size"]. '</code>.</p>';
+			}
+		}
+		
+		// Show errors.
+		if (is_array($errors)) { ?>
+			<p>We have the following errors in what you have entered.</p> 
+			<?php
+			foreach ($errors as $error) {
+				print $error;
+			}
+		}
+		?>
 		<p>Added <?php release_title(); ?> to the database.</p>
-		<pre>
 		<?php
 		global $wpdb;
 			
@@ -178,8 +228,6 @@ function ribcage_add_release() {
 		
 		$wpdb->hide_errors();
 		
-		echo '</pre>';
-		
 		return 0;
 	}
 	
@@ -206,6 +254,7 @@ function ribcage_add_release() {
 			$t++;
 		}
 		
+		set_transient('ribcage_temp_tracks',serialize($tracks),60*60);
 		?>
 		<h2>Add Release - Upload Files</h2>
 		<h3>Downloads</h3>
@@ -248,6 +297,28 @@ function ribcage_add_release() {
 			<?php
 		}
 		?>
+		</table>
+		<h3>Torrents</h3>
+		<p>The locations of your torrents for those downloads.</p>
+		<table class="form-table">
+			<tr valign="top">
+				<th scope="row"><label for="release_torrent_mp3">Torrent For MP3</label></th> 
+				<td>
+				<input type="text" style="width:480px;" class="regular-text code" value="<?php print $release['release_torrent_mp3']; ?>" name="release_torrent_mp3" id="release_torrent_mp3" maxlength="200" />
+				</td> 
+			</tr>
+			<tr valign="top">
+				<th scope="row"><label for="release_torrent_ogg">Torrent For Ogg</label></th> 
+				<td>
+				<input type="text" style="width:480px;" class="regular-text code" value="<?php print $release['release_torrent_ogg']; ?>" name="release_torrent_ogg" id="release_torrent_ogg" maxlength="200" />
+				</td> 
+			</tr>
+			<tr valign="top">
+				<th scope="row"><label for="release_torrent_flac">Torrent For Flac</label></th> 
+				<td>
+				<input type="text" style="width:480px;" class="regular-text code" value="<?php print $release['release_torrent_flac']; ?>" name="release_torrent_flac" id="release_torrent_flac" maxlength="200" />
+				</td> 
+			</tr>
 		</table>
 		<h3>Streams</h3>
 		<p>The following is our guess where the files to stream your release are located.</p>
@@ -297,10 +368,15 @@ function ribcage_add_release() {
 				</td> 
 			</tr>
 		</table>
+		<h3>Press</h4>
+		<p>Release One Sheet  <input type="text" style="width:480px;" class="regular-text code" value="<?php print $release['release_one_sheet']; ?>" name="release_one_sheet" id="release_one_sheet" maxlength="200" /></p>
 		<p class="submit">
 			<input type="submit" name="Submit" class="button-primary" value="Next" />
 		</p>
 		</form>
+		<pre>
+			<?php print_r($release); ?>
+		</pre>
 		<?php
 	}
 	
@@ -333,6 +409,28 @@ function ribcage_add_release() {
 		// Whack all the inputed variables into $release
 		foreach ($_POST as $key => $var) {
 			$release[$key] = $var;
+		}
+		
+		// If we don't have any data from Musicbrainz then this is the time to guess some stuff.
+		$test = get_transient('ribcage_got_mb');
+		
+		if ($test != 1) {
+			$artist = get_artist($release['release_artist']);
+			$artist_slug = $artist['artist_slug'];
+			
+			$release = array_merge($release,array(
+				'release_cover_image_tiny' => get_option('siteurl').get_option('ribcage_image_location').'covers/tiny/'.$release['release_slug'].'.jpg',
+				'release_cover_image_large' => get_option('siteurl').get_option('ribcage_image_location').'covers/large/'.$release['release_slug'].'.jpg',
+				'release_cover_image_huge' =>get_option('siteurl').get_option('ribcage_image_location').'covers/huge/'.$release['release_slug'].'.jpg',
+				'release_mp3' => get_option('ribcage_file_location').$artist_slug.'/'.$release['release_slug'].'/download/zip/'.$release['release_slug'].'-mp3.zip',
+				'release_ogg' => get_option('ribcage_file_location').$artist_slug.'/'.$release['release_slug'].'/download/zip/'.$release['release_slug'].'-ogg.zip',
+				'release_flac' => get_option('ribcage_file_location').$artist_slug.'/'.$release['release_slug'].'/download/zip/'.$release['release_slug'].'-flac.zip',
+				'release_torrent_mp3'=>'',
+				'release_torrent_ogg'=>'',
+				'release_torrent_flac'=>'',
+		'release_one_sheet'=>get_option('siteurl').get_option('ribcage_file_location').'pdf/onesheets/'.$release['release_slug'].'.pdf',
+			)
+			);
 		}
 		?>
 		<h2>Add Release - Track Details</h2>
@@ -390,6 +488,9 @@ function ribcage_add_release() {
 			
 			$artist_slug = $artist['artist_slug'];
 			
+			// Let people know we got some interesting things from Musicbrainz.
+			set_transient('ribcage_got_mb','1',60*60);
+			
 			// Guess some things about our release.
 			$release = array_merge($release,array(
 				'release_cover_image_tiny' => get_option('siteurl').get_option('ribcage_image_location').'covers/tiny/'.$release['release_slug'].'.jpg',
@@ -398,7 +499,12 @@ function ribcage_add_release() {
 				'release_mp3' => get_option('ribcage_file_location').$artist_slug.'/'.$release['release_slug'].'/download/zip/'.$release['release_slug'].'-mp3.zip',
 				'release_ogg' => get_option('ribcage_file_location').$artist_slug.'/'.$release['release_slug'].'/download/zip/'.$release['release_slug'].'-ogg.zip',
 				'release_flac' => get_option('ribcage_file_location').$artist_slug.'/'.$release['release_slug'].'/download/zip/'.$release['release_slug'].'-flac.zip',
-			));
+				'release_torrent_mp3'=>'',
+				'release_torrent_ogg'=>'',
+				'release_torrent_flac'=>'',
+		'release_one_sheet'=>get_option('siteurl').get_option('ribcage_file_location').'pdf/onesheets/'.$release['release_slug'].'.pdf',
+			)
+			);
 		}
 		
 		$tracks = serialize($release['release_tracks']);
@@ -419,6 +525,7 @@ function ribcage_add_release() {
 				'release_mp3'=>$release['release_mp3'],
 				'release_ogg'=>$release['release_ogg'],
 				'release_flac'=>$release['release_flac'],
+				'release_one_sheet'=>$release['release_one_sheet']
 				);
 
 			$temp = serialize($temp);
