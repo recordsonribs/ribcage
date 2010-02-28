@@ -31,8 +31,7 @@ function ribcage_manage_releases() {
 					return;
                 break;
 
-                case 'edit':
-?>
+                case 'edit': ?>
 				<div class="wrap">
 					<div id="icon-options-general" class="icon32"><br /></div>
 					<?php
@@ -42,8 +41,8 @@ function ribcage_manage_releases() {
 					<h2>Editing <?php release_title(); ?></h2>
 					<?php ribcage_release_form(); ?>
 					<?php ribcage_tracks_form(); ?>
-				</div> 
-				<?php	return;
+				</div> <?php	
+					return;
                 break;
 
                 case 'reviews':
@@ -237,8 +236,8 @@ function ribcage_add_release() {
 					($string_keys)
 					VALUES
 					($string_values)";
-		echo $sql;
-		//$results = $wpdb->query($sql);
+		//echo $sql;
+		$results = $wpdb->query($sql);
 		
 		// Add tracks to database
 		foreach ($tracks as $tr) {
@@ -253,8 +252,8 @@ function ribcage_add_release() {
 			($string_values)
 			";
 			
-			echo $sql;
-			//$results = $wpdb->query($sql);
+			//echo $sql;
+			$results = $wpdb->query($sql);
 		}
 		
 		delete_transient('ribcage_temp_tracks');
@@ -263,7 +262,7 @@ function ribcage_add_release() {
 		$wpdb->hide_errors();
 		
 		if (!$release['release_mbid']) {
-			echo "<p>Don't forget to add the release to <a href=\"http://musicbrainz.org\">MusicBrainz</a>. It will make your life a lot easier!</p>"
+			echo "<p>Don't forget to add the release to <a href=\"http://musicbrainz.org\">MusicBrainz</a>. It will make your life a lot easier!</p>";
 		}
 		return 0;
 	}
@@ -411,9 +410,6 @@ function ribcage_add_release() {
 			<input type="submit" name="Submit" class="button-primary" value="Next" />
 		</p>
 		</form>
-		<pre>
-			<?php print_r($release); ?>
-		</pre>
 		<?php
 	}
 	
