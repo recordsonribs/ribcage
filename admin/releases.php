@@ -122,7 +122,7 @@ function ribcage_add_release() {
 	
 	?>
 	<div class="wrap">
-		<div id="icon-options-general" class="icon32"><br /></div>
+	<div id="icon-options-general" class="icon32"><br /></div>
 	<?php
 	$release = $_POST['release'];
 	$release = stripslashes($release);
@@ -153,6 +153,7 @@ function ribcage_add_release() {
 			}
 			$release[$key] = $var;
 		}
+		
 		/*
 		?>
 		<pre>
@@ -161,6 +162,7 @@ function ribcage_add_release() {
 		</pre>
 		<?php
 		*/
+		
 		// Save all of this just incase we have a problem.
 		set_transient('ribcage_temp_data',serialize($release),60*60);
 		set_transient('ribcage_temp_tracks',serialize($release),60*60);
@@ -169,7 +171,7 @@ function ribcage_add_release() {
 		foreach ($tracks as $track) {
 			if (false === @file_get_contents($track['track_stream'])){
 				$errors[] = '<p>The streaming file for the track '.$track['track_title'].' does not exist at <code>'.$track['track_stream']. '</code>.</p>';
-				$fatal_error = true;
+				//$fatal_error = true;
 			}
 		}
 		
