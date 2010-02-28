@@ -98,9 +98,9 @@ function ribcage_manage_releases() {
 							<td class="column-icon"><img src="<?php release_cover_tiny ();?>" height="65px" width="65px" alt="<?php release_title(); ?>" /></td>
                                                         <td class="column-name"><strong><a class="row-title" href="?page=manage_releases&release=<?php artist_id(); ?>" title="<?php artist_name(); ?>" ><?php artist_name(); ?> - <?php release_title(); ?></strong></a><br /><div class="row-actions"><span class='stats'><a href="?page=manage_releases&release=<?php release_id(); ?>&amp;ribcage_action=stats&amp;_wpnonce=<?php echo $nonce ?>">Stats</a></span> | <span class='edit'><a href="?page=manage_releases&release=<?php release_id(); ?>&amp;ribcage_action=edit&amp;_wpnonce=<?php echo $nonce ?>">Edit</a></span> | <span class='reviews'><a href="?page=manage_releases&release=<?php release_id(); ?>&amp;ribcage_action=reviews&amp;_wpnonce=<?php echo $nonce ?>">Reviews</a></span> | <span class='delete'><a class='submitdelete' href='?page=manage_releases&release=<?php release_id(); ?>&amp;ribcage_action=delete&amp;_wpnonce=<?php echo $nonce ?>' onclick="if ( confirm('You are about to delete \'<?php artist_name(); ?> - <?php release_title(); ?>\'\n  \'Cancel\' to stop, \'OK\' to delete.') ) { return true;}return false;">Delete</a></span></div></td>
 							<td class="column-name"><?php echo date('j F Y',strtotime($release['release_date'])); ?></td>
-							<td class="column-name"><?php release_downloads(); // Need to implement a function that takes them from Legaltorrents too ?></td>
-							<td class="column-name"><?php remote_downloads(); ?></td>
-							<td class="column-name"><?php echo number_format(remote_downloads(FALSE)+release_downloads(FALSE)); $total_downloads = $total_downloads + remote_downloads(FALSE)+release_downloads(FALSE); update_option('ribcage_total_downloads', $total_downloads); ?></td>
+							<td class="column-name"><?php release_downloads(); ?></td>
+							<td class="column-name"><?php //remote_downloads(); ?></td>
+							<td class="column-name"><?php //echo number_format(remote_downloads(FALSE)+release_downloads(FALSE)); $total_downloads = $total_downloads + remote_downloads(FALSE)+release_downloads(FALSE); update_option('ribcage_total_downloads', $total_downloads); ?></td>
 							</tr>
 							<?php endwhile; ?>
 						</tbody>
@@ -145,6 +145,12 @@ function ribcage_add_release() {
 		
 		// Correct the data we have here with additions from the previous form.
 		foreach ($_POST as $key => $var) {
+			if (preg_match("/^track_stream_/",$key)) {
+				$number = str_replace('track_stream_','',$key);
+				$number = $number - 1;
+				$tracks [$number]['track_stream'] = $var;
+				continue;
+			}
 			$release[$key] = $var;
 		}
 		
@@ -156,6 +162,7 @@ function ribcage_add_release() {
 		foreach ($tracks as $track) {
 			if (false === @file_get_contents($track['track_stream'])){
 				$errors[] = '<p>The streaming file for the track '.$track['track_title'].' does not exist at <code>'.$track['track_stream']. '</code>.</p>';
+				$fatal_error = true;
 			}
 		}
 		
@@ -276,7 +283,10 @@ function ribcage_add_release() {
 		// Set the tracks from the previous stage $_POST
 		$total_tracks = $release['release_tracks_no'];
 		$t = 1;
-
+		
+		$artist = get_artist($release['release_artist']);
+		$artist_slug = $artist['artist_slug'];
+		
 		while (count($tracks) != $total_tracks){
 			$tracks [] = array(
 				'track_number'=>$_POST["track_number_$t"],
@@ -285,7 +295,7 @@ function ribcage_add_release() {
 				'track_release_id' => $release['release_id'],
 				'track_mbid' => $_POST["track_mbid_$t"],
 				'track_slug' => ribcage_slugize($_POST["track_title_$t"]),
-				'track_stream' => get_option('siteurl').get_option('ribcage_file_location').'audio'.ribcage_slugize($_POST['track_title_$t']).'/'.ribcage_slugize($release['release_title']).'/stream/'.str_pad($t,2, "0", STR_PAD_LEFT).'.mp3'
+				'track_stream' => get_option('siteurl').get_option('ribcage_file_location').'audio'.ribcage_slugize($_POST['track_title_$t'])."/$artist_slug/".ribcage_slugize($release['release_title']).'/stream/'.str_pad($t,2, "0", STR_PAD_LEFT).'.mp3'
 				);
 			$t++;
 		}
@@ -376,7 +386,7 @@ function ribcage_add_release() {
 					<?php track_title(); ?>
 				</td>
 				<td>
-					<input type="text" style="width:500px;" class="regular-text" value="<?php echo $track['track_stream']; ?>" name="track_time_<?php echo $track_count; ?>" id="track_time_<?php echo $track_count; ?>" maxlength="200" />											
+					<input type="text" style="width:500px;" class="regular-text" value="<?php echo $track['track_stream']; ?>" name="track_stream_<?php echo $track_count; ?>" id="track_stream_<?php echo $track_count; ?>" maxlength="200" />											
 				</td>
 			</tr>
 			<?php $track_count++;?>
