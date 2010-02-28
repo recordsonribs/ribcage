@@ -204,7 +204,7 @@ function ribcage_add_release() {
 		$tracks = get_transient('ribcage_temp_tracks');
 		$tracks = unserialize($tracks);
 		
-		if ($tracks == 0) {
+		if (!$tracks) {
 			$track_count = 0;
 			while ($track_count < $_POST['release_tracks_no']) {
 				$track_count++;

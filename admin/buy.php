@@ -2,7 +2,6 @@
 /**
  * Product management
  *
- * @author Alex Andrews <alex@recordsonribs.com>
  * @package Ribcage
  * @subpackage Administration
  */
@@ -10,7 +9,7 @@
 /**
  * Manages products - adds, edits, deletes products.
  *
- * @author Alex Andrews <alex@recordsonribs.com>
+ * @return void
  */
 function ribcage_manage_products () {
 	global $wpdb;
@@ -219,7 +218,6 @@ function ribcage_manage_products () {
 /**
  * Displays a form used for editing or adding a product to database.
  *
- * @author Alex Andrews <alex@recordsonribs.com>
  * @param string $error Error message from the manage_products form.
  * @param bool $related_to_release If true then we are passing from adding a release in general so we set the relation to this automatically
  * @return void
