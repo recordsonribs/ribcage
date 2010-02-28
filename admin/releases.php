@@ -124,7 +124,6 @@ function ribcage_add_release() {
 	?>
 	<div class="wrap">
 		<div id="icon-options-general" class="icon32"><br /></div>
-		<h2>Add Release</h2>
 	<?php
 	$release = $_POST['release'];
 	$release = stripslashes($release);
@@ -133,30 +132,14 @@ function ribcage_add_release() {
 	unset($_POST['release']);
 	unset($_POST['Submit']);
 	
-	// Stage 3 - Add the release to the database.
-	if ($_REQUEST['ribcage_action'] == 'add_release' && $_REQUEST['ribcage_step'] == '2'){	
+	// Stage 4 - Add the release to the database.
+	if ($_REQUEST['ribcage_action'] == 'add_release' && $_REQUEST['ribcage_step'] == '4'){	
 		$release = get_transient('ribcage_temp_data');
-		$release = unserialize($release);
-		
-		$total_tracks = $release['release_tracks_no'];
-		$t = 1;
-		
-		while (count($tracks) != $total_tracks){
-			$tracks [] = array(
-				'track_number'=>$_POST["track_number_$t"],
-				'track_title'=>$_POST["track_title_$t"],
-				'track_time'=>$_POST["track_time_$t"],
-				'track_release_id' => $release['release_id'],
-				'track_mbid' => $_POST["track_mbid_$t"],
-				'track_slug' => ribcage_slugize($_POST["track_title_$t"]),
-				'track_stream' => get_option('siteurl').get_option('ribcage_file_location').'audio'.ribcage_slugize($_POST['track_title_$t']).'/'.ribcage_slugize($release['release_title']).'/stream/'.str_pad($t,2, "0", STR_PAD_LEFT).'.mp3'
-				);
-			$t++;
-		}
-		
+		$release = unserialize($release);		
 		?>
-		<h3>Stage 3 of 3</h3>
+		<h2>Add Release - Adding To Database</h2>
 		<p>Added <?php release_title(); ?> to the database.</p>
+		<pre>
 		<?php
 		global $wpdb;
 			
@@ -195,7 +178,130 @@ function ribcage_add_release() {
 		
 		$wpdb->hide_errors();
 		
+		echo '</pre>';
+		
 		return 0;
+	}
+	
+	// Stage 3 - Where are the files related to this release?
+	elseif ($_REQUEST['ribcage_action'] == 'add_release' && $_REQUEST['ribcage_step'] == '3') {
+		// Load everything up of any interest. By now we should have a fair bit.
+		$release = get_transient('ribcage_temp_data');
+		$release = unserialize($release);
+		
+		// Set the tracks from the previous stage $_POST
+		$total_tracks = $release['release_tracks_no'];
+		$t = 1;
+
+		while (count($tracks) != $total_tracks){
+			$tracks [] = array(
+				'track_number'=>$_POST["track_number_$t"],
+				'track_title'=>$_POST["track_title_$t"],
+				'track_time'=>$_POST["track_time_$t"],
+				'track_release_id' => $release['release_id'],
+				'track_mbid' => $_POST["track_mbid_$t"],
+				'track_slug' => ribcage_slugize($_POST["track_title_$t"]),
+				'track_stream' => get_option('siteurl').get_option('ribcage_file_location').'audio'.ribcage_slugize($_POST['track_title_$t']).'/'.ribcage_slugize($release['release_title']).'/stream/'.str_pad($t,2, "0", STR_PAD_LEFT).'.mp3'
+				);
+			$t++;
+		}
+		
+		?>
+		<h2>Add Release - Upload Files</h2>
+		<h3>Downloads</h3>
+		<p>At the moment Ribcage has no facility to upload downloads for your release. But it has made the following guess as to where your downloads might be - please check them.</p>
+		<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&ribcage_action=add_release&ribcage_step=4" method="post" id="ribcage_add_release" name="add_release">
+		<table class="form-table">             
+		<?php
+		
+		if ($release['release_mp3']) {
+			?>
+			<tr valign="top">
+				<th scope="row"><label for="release_mp3">.zip Location For MP3</label></th> 
+				<td>
+				<input type="text" style="width:480px;" class="regular-text code" value="<?php print $release['release_mp3']; ?>" name="release_mp3" id="release_mp3" maxlength="200" />
+				</td> 
+			</tr>
+			<?php
+			
+		}
+		
+		if ($release['release_ogg']) {
+			?>
+			<tr valign="top">
+				<th scope="row"><label for="release_ogg">.zip Location For Ogg</label></th> 
+				<td>
+				<input type="text" style="width:480px;" class="regular-text code" value="<?php print $release['release_ogg']; ?>" name="release_ogg" id="release_ogg" maxlength="200" />
+				</td> 
+			</tr>
+			<?php
+		}
+		
+		if ($release['release_flac']) {
+			?>
+			<tr valign="top">
+				<th scope="row"><label for="release_ogg">.zip Location For Flac</label></th> 
+				<td>
+				<input type="text" style="width:480px;" class="regular-text code" value="<?php print $release['release_flac']; ?>" name="release_flac" id="release_flac" maxlength="200" />
+				</td> 
+			</tr>
+			<?php
+		}
+		?>
+		</table>
+		<h3>Streams</h3>
+		<p>The following is our guess where the files to stream your release are located.</p>
+		<table width="800px"> 
+			<thead>
+			<tr>
+				<td>No</td>
+				<td>Track Name</td>
+				<td>Stream Location</td>		
+			</tr>
+			</thead>
+			<?php $track_count = 1; ?>
+			<?php while (have_tracks ()) : the_track(); ?>
+			<tr>
+				<th scope="row">
+					<?php track_no(); ?>
+				</th>
+				<td>
+					<?php track_title(); ?>
+				</td>
+				<td>
+					<input type="text" style="width:500px;" class="regular-text" value="<?php echo $track['track_stream']; ?>" name="track_time_<?php echo $track_count; ?>" id="track_time_<?php echo $track_count; ?>" maxlength="200" />											
+				</td>
+			</tr>
+			<?php $track_count++;?>
+			<?php endwhile; ?>
+		</table>
+		<h3>Artwork</h3>
+		<p>The following is our guess where the images for the artwork for your release are located.</p>
+		<table class="form-table">
+			<tr valign="top">
+				<th scope="row"><label for="release_cover_image_tiny">Tiny Cover Image</label></th> 
+				<td>
+				<input type="text" style="width:480px;" class="regular-text code" value="<?php print $release['release_cover_image_tiny']; ?>" name="release_cover_image_tiny" id="release_cover_image_tiny" maxlength="200" />
+				</td> 
+			</tr>
+			<tr valign="top">
+				<th scope="row"><label for="release_cover_image_large">Large Cover Image</label></th> 
+				<td>
+				<input type="text" style="width:480px;" class="regular-text code" value="<?php print $release['release_cover_image_large']; ?>" name="release_cover_image_large" id="release_cover_image_large" maxlength="200" />
+				</td> 
+			</tr>
+			<tr valign="top">
+				<th scope="row"><label for="release_cover_image_huge">Huge Cover Image</label></th> 
+				<td>
+				<input type="text" style="width:480px;" class="regular-text code" value="<?php print $release['release_cover_image_huge'] ?>" name="release_cover_image_huge" id="release_cover_image_huge" maxlength="200" />
+				</td> 
+			</tr>
+		</table>
+		<p class="submit">
+			<input type="submit" name="Submit" class="button-primary" value="Next" />
+		</p>
+		</form>
+		<?php
 	}
 	
 	// Stage 2 - Check release tracks are correct.
@@ -219,7 +325,6 @@ function ribcage_add_release() {
 						);
 			}
 		}
-		print_r($tracks);
 		
 		$artist = get_artist($_POST['release_artist']);
 		$release['release_artist'] = $_POST['release_artist'];
@@ -230,15 +335,33 @@ function ribcage_add_release() {
 			$release[$key] = $var;
 		}
 		?>
-		<h3>Stage 2 of 3</h3>
+		<h2>Add Release - Track Details</h2>
 		<p>Please check the following details for <?php artist_name(); ?> - <?php release_title();?>.</p>
 		<?php ribcage_tracks_form(); ?>
 		</div>
 		<?php
+		
+		// Dump this because we already have tracks save in $tracks, hased in the database as ribcage_temp_tracks.
+		unset($release['release_tracks']);
+		
+		// Save data.
+		$saved_temp = unserialize(get_transient('ribcage_temp_data'));
+
+		if($saved_temp) {
+			$temp = array_merge($release,$saved_temp); 
+			$temp = serialize($temp);
+		}
+		else {
+			$temp = serialize($release);
+		}
+
+		set_transient('ribcage_temp_data',$temp, 60*60);
+		
 		return 0;
 	}
 	else {
-	if ($_POST['lookup'] != '') {
+	if ($_POST['lookup'] != '') { ?>
+		<h2>Add Release - Release Details</h2> <?php
 		if ($_POST['lookup'] == 'Lookup')	{
 			$mbid = $_POST['musicbrainz_id'];		
 			$result = mb_get_release($mbid);
@@ -281,10 +404,26 @@ function ribcage_add_release() {
 		$tracks = serialize($release['release_tracks']);
 
 		// Stage 1 - Add the details of the release or correct those from Musicbrainz
-		?>
-		<h1></h1>
-		<?php
 		ribcage_release_form ();
+		
+		// Anything else goes in a transient until further notice.
+		if ($release) {
+			set_transient('ribcage_temp_tracks', $tracks, 60*60);
+
+			$temp = array (
+				'release_mbid'=>$release['release_mbid'],
+				'release_physical_cat_no'=>$release['release_physical_cat_no'],
+				'release_cover_image_tiny'=>$release['release_cover_image_tiny'],
+				'release_cover_image_large'=>$release['release_cover_image_large'],
+				'release_cover_image_huge'=>$release['release_cover_image_huge'],
+				'release_mp3'=>$release['release_mp3'],
+				'release_ogg'=>$release['release_ogg'],
+				'release_flac'=>$release['release_flac'],
+				);
+
+			$temp = serialize($temp);
+			set_transient('ribcage_temp_data',$temp, 60*60);
+		}
 	}
 	// Display the start with the Musicbrainz lookup form.
 	else {
@@ -292,8 +431,11 @@ function ribcage_add_release() {
 		delete_transient('ribcage_temp_tracks');
 		delete_transient('ribcage_temp_data');
 	?>
+		<h2>Add Release - Musicbrainz Lookup</h2>
 		<form method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
-		<p>Please enter the <a href="http://musicbrainz.org">Musicbrainz</a> ID and Ribcage will lookup the release and fill in the details automtically. This should be the Musicbrainz ID of the specific release, not the release group.</p> <p>If your release does not have a Musicbrainz ID, or if you wish to enter the release entirely manually, click on Skip.</p>
+		<p>Please enter the <a href="http://musicbrainz.org">Musicbrainz</a> ID and Ribcage will lookup the release and fill in the details automtically. This should be the Musicbrainz ID of the specific release, not the release group.</p> 
+		<p>If your release does not have a Musicbrainz ID, or if you wish to enter the release entirely manually, click on Skip.</p>
+		<p>Adding a track to Musicbrainz and then adding it to Ribcage makes it so you only have to type out the details of your release once. It also means that details of your release will be available on a central database, accessible to all.</p>
 		<table class="form-table">
 		<tr valign="top">
 		<th scope="row"><label for="musicbrainz_id">Musicbrainz ID</label></th>
@@ -381,26 +523,6 @@ function ribcage_release_form () {
 				<span class="description">Is there a physical version of this release you are intending to sell?</span>									
 			</td>
 	</table>
-	<?php
-	// Anything else goes in a transient until further notice.
-	if ($release) {
-		set_transient('ribcage_temp_tracks', $tracks, 60*60);
-		
-		$temp = array (
-			'release_mbid'=>$release['release_mbid'],
-			'release_physical_cat_no'=>$release['release_physical_cat_no'],
-			'release_cover_image_tiny'=>$release['release_cover_image_tiny'],
-			'release_cover_image_large'=>$release['release_cover_image_large'],
-			'release_cover_image_huge'=>$release['release_cover_image_huge'],
-			'release_mp3'=>$release['release_mp3'],
-			'release_ogg'=>$release['release_ogg'],
-			'release_flac'=>$release['release_flac'],
-			);
-			
-		$temp = serialize($temp);
-		set_transient('ribcage_temp_data',$temp, 60*60);
-	}
-	?>
 	<p class="submit">
 		<input type="submit" name="Submit" class="button-primary" value="Next" />
 	</p>
@@ -416,7 +538,7 @@ function ribcage_release_form () {
 function ribcage_tracks_form () {
 	global $release, $tracks, $track;
 	?>
-	<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&ribcage_step=2" method="post" id="ribcage_add_release" name="add_release">
+	<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&ribcage_step=3" method="post" id="ribcage_add_release" name="add_release">
 	<table width="200px"> 
 		<thead>
 		<tr>
@@ -445,21 +567,6 @@ function ribcage_tracks_form () {
 	<p class="submit">
 		<input type="submit" name="Submit" class="button-primary" value="Save Changes" />
 	</p>
-	<?php
-	unset($release['release_tracks']);
-	
-	$saved_temp = unserialize(get_transient('ribcage_temp_data'));
-	
-	if($saved_temp) {
-		$temp = array_merge($release,$saved_temp); 
-		$temp = serialize($temp);
-	}
-	else {
-		$temp = serialize($release);
-	}
-	
-	set_transient('ribcage_temp_data',$temp, 60*60);
-	?>
 	</form>
 	<?php
 }
