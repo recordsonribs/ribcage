@@ -177,9 +177,11 @@ function ribcage_add_release() {
 			}
 		}
 		
-		if (!file_exists(ABSPATH.$release["release_one_sheet"])){
-			$errors[] = '<p>The file you set for the one sheet does not exist at <code>'.$release["release_one_sheet"]. '</code>.</p>';
-			$missing_uploads = 1;
+		if ($release["release_one_sheet"]) {
+			if (!file_exists(ABSPATH.$release["release_one_sheet"])){
+				$errors[] = '<p>The file you set for the one sheet does not exist at <code>'.$release["release_one_sheet"]. '</code>.</p>';
+				$missing_uploads = 1;
+			}
 		}
 		
 		foreach ($formats as $format) {
@@ -266,6 +268,9 @@ function ribcage_add_release() {
 		delete_transient('ribcage_temp_tracks');
 		delete_transient('ribcage_temp_data');
 		
+		delete_transient('ribcage_allow_download');
+		delete_transient('ribcage_allow_torrent');
+		
 		$wpdb->hide_errors();
 		
 		if (!$release['release_mbid']) {
@@ -279,6 +284,9 @@ function ribcage_add_release() {
 		// Load everything up of any interest. By now we should have a fair bit.
 		$release = get_transient('ribcage_temp_data');
 		$release = unserialize($release);
+		
+		$allow_download = get_transient('ribcage_allow_download');
+		$allow_torrent = get_transient('ribcage_allow_torrent');
 		
 		// Set the tracks from the previous stage $_POST
 		$total_tracks = $release['release_tracks_no'];
@@ -303,9 +311,10 @@ function ribcage_add_release() {
 		set_transient('ribcage_temp_tracks',serialize($tracks),60*60);
 		?>
 		<h2>Add Release - Upload Files</h2>
+		<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&ribcage_action=add_release&ribcage_step=4" method="post" id="ribcage_add_release" name="add_release">
+		<?php if ($allow_download == 1) { ?>
 		<h3>Downloads</h3>
 		<p>At the moment Ribcage has no facility to upload downloads for your release. But it has made the following guess as to where your downloads might be - please check them.</p>
-		<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&ribcage_action=add_release&ribcage_step=4" method="post" id="ribcage_add_release" name="add_release">
 		<table class="form-table">             
 		<?php
 		
@@ -341,9 +350,16 @@ function ribcage_add_release() {
 				</td> 
 			</tr>
 			<?php
+			}
+		}
+		else {
+			unset($release['release_mp3']);
+			unset($release['release_ogg']);
+			unset($release['release_flac']);
 		}
 		?>
 		</table>
+		<?php if ($allow_torrent == 1) { ?>
 		<h3>Torrents</h3>
 		<p>The locations of your torrents for those downloads.</p>
 		<table class="form-table">
@@ -366,6 +382,13 @@ function ribcage_add_release() {
 				</td> 
 			</tr>
 		</table>
+		<?php } 
+		else {
+			unset($release['release_torrent_mp3']);
+			unset($release['release_torrent_ogg']);
+			unset($release['release_torrent_flac']);
+		}
+		?>
 		<h3>Streams</h3>
 		<p>The following is our guess where the files to stream your release are located.</p>
 		<table width="800px"> 
@@ -421,6 +444,7 @@ function ribcage_add_release() {
 		</p>
 		</form>
 		<?php
+		set_transient('ribcage_temp_data',serialize($release),60*60);
 	}
 	
 	// Stage 2 - Check release tracks are correct.
@@ -448,6 +472,12 @@ function ribcage_add_release() {
 		$artist = get_artist($_POST['release_artist']);
 		$release['release_artist'] = $_POST['release_artist'];
 		$release['release_tracks'] = $tracks;
+		
+		set_transient('ribcage_allow_download',$_POST['allow_download'], 60*60);
+		set_transient('ribcage_allow_torrent',$_POST['allow_torrent'], 60*60);
+		
+		unset($_POST['allow_download']);
+		unset($_POST['allow_torrent']);
 		
 		// Whack all the inputed variables into $release
 		foreach ($_POST as $key => $var) {
@@ -580,6 +610,8 @@ function ribcage_add_release() {
 		// Clear the memory decks, in case we have a half finished transaction.
 		delete_transient('ribcage_temp_tracks');
 		delete_transient('ribcage_temp_data');
+		delete_transient('ribcage_allow_download');
+		delete_transient('ribcage_allow_torrent');
 	?>
 		<h2>Add Release - Musicbrainz Lookup</h2>
 		<form method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
@@ -672,6 +704,25 @@ function ribcage_release_form () {
 				</select>
 				<span class="description">Is there a physical version of this release you are intending to sell?</span>									
 			</td>
+		</tr>
+		<tr valign="top">
+			<th scope="row"><label for="allow_downloads">Allow Downloads?</label></th>
+			<td>
+				<select name="allow_download" id="allow_downloads">
+					<option selected value="1">Yes</option>
+					<option value="0">No</option>
+				</select>							
+			</td>
+		</tr>
+		<tr valign="top">
+			<th scope="row"><label for="allow_torrents">Allow Downloads By Torrent?</label></th>
+			<td>
+				<select name="allow_torrent" id="allow_torrents">
+					<option selected value="1">Yes</option>
+					<option value="0">No</option>
+				</select>								
+			</td>
+		</tr>
 	</table>
 	<p class="submit">
 		<input type="submit" name="Submit" class="button-primary" value="Next" />
