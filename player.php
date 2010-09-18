@@ -40,7 +40,7 @@ function show_player ($release_slug) {
         'ÿ'=>'y', 'Ŕ'=>'R', 'ŕ'=>'r',
     );
 	
-	echo $release_slug;
+	echo "Release Slug: $release_slug";
 	
 	# Ugly character problem Ga'an hack
 	if ($release_slug == 'gaan') {
