@@ -42,6 +42,7 @@ function show_player ($release_slug) {
 
 	# Ugly character problem Ga'an hack
 	if ($release_slug == 'gaan') {
+		echo "We have Ga'an here!!!!";
 		$release['release_title'] = $release_slug;
 	}
 	
