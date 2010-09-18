@@ -37,18 +37,10 @@ function show_player ($release_slug) {
         'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c', 'è'=>'e', 'é'=>'e',
         'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o',
         'ô'=>'o', 'õ'=>'o', 'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'ý'=>'y', 'þ'=>'b',
-        'ÿ'=>'y', 'Ŕ'=>'R', 'ŕ'=>'r',
+        'ÿ'=>'y', 'Ŕ'=>'R', 'ŕ'=>'r', '’'=>'',
     );
-	
-	echo "Release Slug: $release_slug";
-	
-	# Ugly character problem Ga'an hack
-	if ($release_slug == 'gaan') {
-		echo "We have Ga'an here!!!!";
-		$release['release_title'] = $release_slug;
-	}
-	
-	$url = $artist['artist_name']." ".$release['release_title'];	
+
+	$url = $artist['artist_name']." ".$release['release_title'];
 	$url = preg_replace('/ /', '-', $url);
 	$url = strtr($url, $table);
 	$url = strtolower($url);
