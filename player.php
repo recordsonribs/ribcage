@@ -44,6 +44,7 @@ function show_player ($release_slug) {
 	$url = preg_replace('/ /', '-', $url);
 	$url = strtr($url, $table);
 	$url = strtolower($url);
+	$slug = preg_replace('/\s+/', '', $slug);
 	$url = preg_replace('/\p{P}(?<!-)/', '', $url);
 	$url = urlencode("http://soundcloud.com/records-on-ribs/sets/".$url);
 ?>
