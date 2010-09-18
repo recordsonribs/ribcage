@@ -41,6 +41,7 @@ function show_player ($release_slug) {
     );
 
 	$url = $artist['artist_name']." ".$release['release_title'];
+	$url = utf8_decode($url);
 	$url = preg_replace('/ /', '-', $url);
 	$url = strtr($url, $table);
 	$url = strtolower($url);
