@@ -47,9 +47,6 @@ function show_player ($release_slug) {
 	$slug = preg_replace('/\s+/', '', $slug);
 	$url = preg_replace('/\p{P}(?<!-)/', '', $url);
 	$url = urlencode("http://soundcloud.com/records-on-ribs/sets/".$url);
-	
-	# Hack for the moment to get Ga'an working.
-	$url = preg_replace('/%E2%80%99/','', $url);
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
