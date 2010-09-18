@@ -39,7 +39,9 @@ function show_player ($release_slug) {
         'ô'=>'o', 'õ'=>'o', 'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'ý'=>'y', 'þ'=>'b',
         'ÿ'=>'y', 'Ŕ'=>'R', 'ŕ'=>'r',
     );
-
+	
+	echo $release_slug;
+	
 	# Ugly character problem Ga'an hack
 	if ($release_slug == 'gaan') {
 		echo "We have Ga'an here!!!!";
