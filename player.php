@@ -52,17 +52,17 @@ function show_player ($release_slug) {
 <head>
 	<script type="text/javascript" charset="utf-8">
 		function removejscssfile(filename, filetype){
-		 var targetelement=(filetype=="js")? "script" : (filetype=="css")? "link" : "none" //determine element type to create nodelist from
-		 var targetattr=(filetype=="js")? "src" : (filetype=="css")? "href" : "none" //determine corresponding attribute to test for
+		 var targetelement=(filetype=="js")? "script" : (filetype=="css")? "link" : "none"
+		 var targetattr=(filetype=="js")? "src" : (filetype=="css")? "href" : "none"
 		 var allsuspects=document.getElementsByTagName(targetelement)
-		 for (var i=allsuspects.length; i>=0; i--){ //search backwards within nodelist for matching elements to remove
+		 for (var i=allsuspects.length; i>=0; i--){
 		  if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf(filename)!=-1)
-		   allsuspects[i].parentNode.removeChild(allsuspects[i]) //remove element by calling parentNode.removeChild()
+		   allsuspects[i].parentNode.removeChild(allsuspects[i])
 		 }
 		}
 
-		removejscssfile("index.include.815921251.css", "css") //remove all occurences of "somescript.js" on page
-		removejscssfile("default.include.587656512.js", "js") //remove all occurences "somestyle.css" on page
+		removejscssfile("index.include.815921251.css", "css")
+		removejscssfile("default.include.587656512.js", "js")
 	</script>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>ROR Player</title>
