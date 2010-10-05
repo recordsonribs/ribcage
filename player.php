@@ -60,9 +60,9 @@ function show_player ($release_slug) {
 		   allsuspects[i].parentNode.removeChild(allsuspects[i])
 		 }
 		}
-
-		removejscssfile("index.include.815921251.css", "css")
-		removejscssfile("default.include.587656512.js", "js")
+		
+		removejscssfile("index.include.778216415.css", "css")
+		removejscssfile("default.include.866590059.js", "js")
 	</script>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>ROR Player</title>
