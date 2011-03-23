@@ -52,6 +52,7 @@ $paypal->paypal_url = 'https://www.paypal.com/cgi-bin/webscr';
  * A filter on the template that tries to find out if we are on a Ribcage page and responds accordingly.
  *
  * @author Alex Andrews <alex@recordsonribs.com>
+ * @version 2.0
  * @return void
  */
 function ribcage_init (){
