@@ -1,12 +1,12 @@
 === Ribcage ===
 Contributors: recordsonribs
-Donate link: http://recordsonribs.com
+Donate link: http://recordsonribs.com/ribcage
 Tags: music, mp3, record label, creative commons
-Requires at least: 2.8.4
-Tested up to: 2.8.4
+Requires at least: 3.1
+Tested up to: 3.1
 Stable tag: /trunk/
 
-Manages and monitors artists, releases and downloads for a record label.
+Manages and monitors artists, releases and downloads for a record label. Setup your own Creative Commons label in moments.
 
 == Description ==
 
@@ -63,9 +63,10 @@ the directory of the stable readme.txt, so in this case, `/tags/4.3/screenshot-1
 
 == Changelog ==
 
-= 1.0 =
-* A change since the previous version.
-* Another change.
+= 2.0 =
+* Whole plugin completely re-written, nearly from scratch.
+* Replaced core functionality with custom post types.
 
-= 0.5 =
-* List versions from most recent at top to oldest at bottom.
+
+= 1.0 =
+* This version was never publicly released, but found its way onto Github regardless.
