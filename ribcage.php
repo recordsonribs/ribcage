@@ -25,28 +25,6 @@
 	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA	
 */
 
-include ('ribcage-includes/functions.php');
-include ('ribcage-includes/log.php');
-include ('ribcage-includes/template.php');
-
-require_once dirname(__FILE__) . '/admin.php';
-require_once dirname(__FILE__) . '/download.php';
-require_once dirname(__FILE__) . '/stream.php';
-require_once dirname(__FILE__) . '/player.php';
-
-require_once dirname(__FILE__) . '/donate.php';
-require_once dirname(__FILE__) . '/buy.php';
-
-require_once dirname(__FILE__) . '/widget.php';
-
-add_action('template_redirect','ribcage_init');
-
-$paypal = new paypal_class;
-
-// Uncomment the below line to use Paypal Sandbox not real server.
-//$paypal->paypal_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
-$paypal->paypal_url = 'https://www.paypal.com/cgi-bin/webscr';
-
 /**
  * Runs the whole of Ribcage.
  * A filter on the template that tries to find out if we are on a Ribcage page and responds accordingly.
