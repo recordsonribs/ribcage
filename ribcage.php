@@ -30,7 +30,7 @@
  * 
  * In essence Ribcage is a series of custom post types with tasty taxonomies thrown in for spice.
  * This function sets these up, does some other well documented things and then redirect the user appropriately.
- *
+ * 
  * @author Alex Andrews <alex@recordsonribs.com>
  * @version 2.0
  * @since 1.0
