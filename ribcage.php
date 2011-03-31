@@ -27,15 +27,18 @@
 
 /**
  * Runs the whole of Ribcage.
- * A filter on the template that tries to find out if we are on a Ribcage page and responds accordingly.
+ * 
+ * In essence Ribcage is a series of custom post types with tasty taxonomies throw in for spice.
+ * This function sets these up, does some other well documented things and then redirect the user appropriately.
  *
  * @author Alex Andrews <alex@recordsonribs.com>
  * @version 2.0
+ * @since 1.0
  * @return void
  */
 function ribcage_init (){
     /**
-     * Custom post type for artists
+     * Custom post type for Artists
      *
      * The artist has many releases, which are attached as children to this parent post type.
      * In order to do this, we simply have a customised metabox which allows one to attach artists to releases.
@@ -76,9 +79,98 @@ function ribcage_init (){
         )
     );
     
+    /**
+     * Custom post type for Releases
+     *
+     * The release is the child of the artist, in WordPress as well as actuality.
+     * The release has many tracks, which are added when we add a release.
+     * You can't have orphaned tracks, and their is no direct UI for tracks.
+     *
+     * @author Alex Andrews
+     * @since 2.0
+     * @version 1.0
+     */
+     register_post_type (
+         'ribcage_releases',
+         array()
+     );
+     
+     /**
+      * Custom post type for Tracks
+      *
+      * Tracks are, guess what, children of releases: Artist has many Releases has many Tracks
+      * There is no direct interface with tracks, though they themselves have attachments in the form
+      * of files, which attach the audio files to allow for listening and download.
+      *
+      * @author Alex Andrews
+      * @since 2.0
+      * @version 1.0
+      */
+      register_post_type (
+          'ribcage_tracks',
+          array()
+      );
+      
+     /**
+      * Custom post type for Files
+      *
+      * This is essentially a media type that used the media upload and attaches to tracks.
+      * These can be bundles together to make a release download, or you can download them individually.
+      * They are zipped up and sent out on the fly.
+      *
+      * @author Alex Andrews
+      * @since 2.0
+      * @version 1.0
+      */
+      register_post_type (
+          'ribcage_files',
+          array()
+      );
+      
+      /**
+       * Custom post type for Products
+       *
+       * Products are things to buy. They can be associated with either the Artist, or a release
+       * and hence by proxy and artist, or they can free float as products independent of either.
+       *
+       * @author Alex Andrews
+       * @since 2.0
+       * @version 1.0
+       */
+       register_post_type (
+           'ribcage_products',
+           array()
+       );
+       
+       /**
+        * Custom post type for Events
+        *
+        * Previously Records On Ribs used a external plugin to create events, but it was clunky and suchlike.
+        * This new version intergrates events directly into the core of the plugin.
+        * Events are associated with an artist (or artists) or the label as a whole.
+        * Fancy stuff like maps is handled by copying the best plugin of this kind - XXXX
+        *
+        * @author Alex Andrews
+        * @since 2.0
+        * @version 1.0
+        */
+        register_post_type (
+            'ribcage_events',
+            array()
+        );
 }
 add_action('init','ribcage_init');
 
+/**
+ * Clean up stuff
+ *
+ * This function re-writes lot of things as per user request. 
+ * Liberally borrowed from the excellent Roots theme - http://www.rootstheme.com/
+ * a theme which makes WordPress so much more sexy - what is does documented in code.
+ *
+ * @author Alex Andrews
+ */
+ 
 /**
  * Activates the Ribcage plugin. 
  * Adds Ribcage tables to the database and options to wp_options with defaults installed.
