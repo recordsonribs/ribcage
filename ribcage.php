@@ -146,8 +146,11 @@ function ribcage_init (){
         * Custom post type for Events
         *
         * Previously Records On Ribs used a external plugin to create events, but it was clunky and suchlike.
-        * This new version intergrates events directly into the core of the plugin.
+        * This new version integrates events directly into the core of the plugin.
         * Events are associated with an artist (or artists) or the label as a whole.
+        * They drop of page at the right time as you would expect - when the release date of a record is set,
+        * these also appear automatically on the /events page. How very nice!
+        * 
         * Fancy stuff like maps is handled by copying the best plugin of this kind - XXXX
         *
         * @author Alex Andrews
@@ -158,6 +161,21 @@ function ribcage_init (){
             'ribcage_events',
             array()
         );
+        
+        /**
+         * Post status for Releases
+         *
+         * Releases have unique statuses as befits their status as your records.
+         *
+         * These are:
+         *      - Released
+         *      - Unreleased
+         *      - Scheduled Release - this is the norm for Release, obviously - set it up set a release date and boom!
+         *
+         * @author Alex Andrews
+         * @since 2.0
+         * @version 1.0
+         */
 }
 add_action('init','ribcage_init');
 
