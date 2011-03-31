@@ -163,6 +163,21 @@ function ribcage_init (){
         );
         
         /**
+         * Custom post type for Reviews
+         *
+         * Reviews are good things people have said about your releases that are children of them - nice.
+         * Through the back end you can order them as you like and so on.
+         *
+         * @author Alex Andrews
+         * @since 2.0
+         * @version 1.0
+         */
+         register_post_type (
+             'ribcage_reviews',
+             array()
+         );
+        
+        /**
          * Post status for Releases
          *
          * Releases have unique statuses as befits their status as your records.
