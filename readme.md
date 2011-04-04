@@ -39,29 +39,17 @@ Ribcage does everything you need to setup a record label online in just a few cl
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
-
-e.g.
-
 1. Upload `plugin-name.php` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
+2. Activate the plugin through the 'Plugins' menu in WordPress
+
+or - just install the plugin through the WordPress plugin interface.
 
 == Frequently Asked Questions ==
 
 = Can I use Ribcage for providing paid for downloads? =
 
-As it is released under the GPL, Ribcage could be easily adapted to provide this function. Yet we originally designed Ribcage
+As it is released under the GPL, Ribcage could be easily adapted to provide this function. Yet we originally designed Ribcage for use for a Creative Commons record label and encourage you to consider this licensing for your own releases.
 
-= What about foo bar? =
-
-Answer to foo bar dilemma.
-
-== Screenshots ==
-
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the directory of the stable readme.txt, so in this case, `/tags/4.3/screenshot-1.png` (or jpg, jpeg, gif)
-2. This is the second screen shot
 
 == Changelog ==
 
