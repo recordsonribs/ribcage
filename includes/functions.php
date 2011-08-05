@@ -5,6 +5,8 @@
  * @author Alex Andrews <alex@recordsonribs.com>
  * @package Ribcage
  * @subpackage Core
+ * @version 2.0
+ * @since 1.0
  **/
 
 $wpdb->ribcage_artists = $wpdb->prefix."ribcage_artists";
