@@ -55,9 +55,11 @@ As it is released under the GPL, Ribcage could be easily adapted to provide this
 == Changelog ==
 
 = 2.0 =
+
 * Whole plugin completely re-written, nearly from scratch.
 * Replaced core functionality with custom post types.
 
 
 = 1.0 =
+
 * This version was never publicly released, but found its way onto Github regardless.
