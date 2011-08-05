@@ -16,8 +16,8 @@ if (!function_exists('get_post_by_slug')) {
      *
      * @param string $post_name 
      * @param string $output 
-     * @return void
-     * @author Alex Andrews
+     * @return array | object Standard WordPress post object.
+     * @author Alex Andrews <alex@recordsonribs.com>
      */
     function get_post_by_slug($post_name, $output = OBJECT) {
         global $wpdb;
