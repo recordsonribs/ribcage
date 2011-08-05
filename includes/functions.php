@@ -679,14 +679,4 @@ function ribcage_404 () {
         die();
 }
 
-/**
- * Displays a quick list of possible Creative Commons licenses by using the CC REST API.
- *
- * @author Alex Andrews <alex@recordsonribs.com>
- * @param string $selected If a particular license is selected in the box.
- * @return string HTML <select> tag group containing possible Creative Commons Licenses
- **/
-function ribcage_cc_api_dropdown ($selected = false) {
-	
-}
 ?>
