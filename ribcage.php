@@ -26,7 +26,7 @@
 */
 
 // Setup our custom post types. Keep it dry.
-foreach (array('artists','releases','events','reviews','tracks') as $pt) {
+foreach (array('artists','releases','events','reviews','tracks','files') as $pt) {
 	require_once(TEMPLATEPATH . "/post-types/ribcage_$pt.php");
 }
 
@@ -38,6 +38,7 @@ foreach (array('artists','releases','events','reviews','tracks') as $pt) {
  * 
  * @return void
  * @author Alex Andrews <alex@recordsonribs.com>
+ * @package Ribcage
  * @version 2.0
  * @since 1.0
  */
@@ -52,6 +53,7 @@ add_action('init','ribcage_init');
  *
  * @return void
  * @author Alex Andrews <alex@recordsonribs.com>
+ * @package Ribcage
  * @version 2.0
  * @since 1.0
  */
@@ -65,6 +67,7 @@ register_activation_hook(__FILE__, 'ribcage_activate');
  *
  * @return void
  * @author Alex Andrews <alex@recordsonribs.com>
+ * @package Ribcage
  * @version 2.0
  * @since 1.0
  */
