@@ -27,8 +27,11 @@
 
 // Setup our custom post types. Keep it dry.
 foreach (array('artists','releases','events','reviews','tracks','files') as $pt) {
-	require_once(TEMPLATEPATH . "/post-types/ribcage_$pt.php");
+	require_once(dirname(__FILE__) . "/post-types/ribcage_$pt.php");
 }
+
+require_once(dirname(__FILE__) . "/includes/utility.php");
+require_once(dirname(__FILE__) . "/includes/admin.php");
 
 /**
  * Runs the whole of Ribcage.
@@ -43,7 +46,7 @@ foreach (array('artists','releases','events','reviews','tracks','files') as $pt)
  * @since 1.0
  */
 function ribcage_init (){
-    
+    $artists = new RibcageArtists;
 }
 add_action('init','ribcage_init');
  
