@@ -28,5 +28,56 @@ if (!function_exists('get_post_by_slug')) {
         return null;
     }
 }
+
+/**
+ * Lazy way of making the labels, to keep things really DRY.
+ *
+ * @param string $single Single version of the term
+ * @param string $plural Plural version of the term if in English there is something off going on.
+ * @param string $type Either 'post-type' (by default) or 'taxonomy' - lets us work out what labels are required.
+ * @return array $labels The array of labels the function needs.
+ * @author Alex Andrews
+ * @version 1.0
+ * @since 1.0
+ */
+function make_labels ($single, $plural = false, $type = 'post-type') {
+	if ($plural == false) {
+		$plural = $single . "s";
+	}
+	
+	if ($type == 'taxonomy') {
+	    $labels = array(
+        	'name' => "$plural",
+    		'singular_name' => "$single",
+    		'search_items' => "Search $plural",
+    		'popular_items' => "Popular $plural",
+    		'all_items' => "All $plural",
+    		'edit_item' => "Edit $single",
+    		'update_item' => "Update $single",
+    		'add_new_item' => "Add $single",
+    		'new_item_name' => "New $single"	
+    	);
+    }
+    elseif ($type == 'post-type') {
+        $labels = array(
+            'name' => "$plural",
+            'singular_name' => "$single",
+            'menu_name' => "$plural",
+            'add_new' => "Add $single",
+            'add_new_item' => "Add New $single",
+            'edit' => "Edit",
+            'edit_item' => "Edit $single",
+            'new_item' => "New $single",
+            'view' => "View $single",
+            'view_item' => "View $single",
+            'search_items' => "Search $plural",
+            'not_found' => "No $plural",
+            'not_found_in_trash' => "No $plural in Trash",
+            'parent' => "Parent $single"
+        );
+    }
+
+	return $labels;
+}
 ?>
 
