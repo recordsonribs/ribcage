@@ -69,7 +69,7 @@ function show_player ($release_slug) {
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.1/build/reset/reset-min.css">
 </head>
 <body>
-<object height="300" width="300"> <param name="movie" value="http://player.soundcloud.com/player.swf?url=<?php echo $url ?>&amp;auto_play=true&amp;player_type=artwork&amp;color=ff0004&amp;buying=false&amp;show_playcount=false&amp;download=false&amp;text_buy_set='Free Download'"></param> <param name="allowscriptaccess" value="always"></param> <embed allowscriptaccess="always" height="300" src="http://player.soundcloud.com/player.swf?url=<?php echo $url ?>&amp;auto_play=true&amp;player_type=artwork&amp;color=ff0004&amp;buying=false&amp;show_playcount=false&amp;download=false&amp;text_buy_set='Free Download" type="application/x-shockwave-flash" width="300"></embed> </object>  
+<object height="300" width="300" style="float:left;"> <param name="movie" value="http://player.soundcloud.com/player.swf?url=<?php echo $url ?>&amp;auto_play=true&amp;player_type=artwork&amp;color=ff0004&amp;buying=false&amp;show_playcount=false&amp;download=false&amp;text_buy_set='Free Download'"></param> <param name="allowscriptaccess" value="always"></param> <embed allowscriptaccess="always" height="300" src="http://player.soundcloud.com/player.swf?url=<?php echo $url ?>&amp;auto_play=true&amp;player_type=artwork&amp;color=ff0004&amp;buying=false&amp;show_playcount=false&amp;download=false&amp;text_buy_set='Free Download" type="application/x-shockwave-flash" width="300"></embed> </object>  
 </body>
 </html>
 <?php
