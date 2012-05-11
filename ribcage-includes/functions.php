@@ -162,7 +162,6 @@ function list_products ($amount = 0) {
 	return $return;
 }
 
-$releases = $wpdb->get_results("SELECT release_id FROM $wpdb->ribcage_releases WHERE release_date <= '$now_date' ORDER BY release_id DESC", ARRAY_A);
 /**
  * Gets a release from the database by the release's release ID.
  *
