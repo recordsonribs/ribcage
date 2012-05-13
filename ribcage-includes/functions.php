@@ -6,6 +6,7 @@
  * @package Ribcage
  * @subpackage Core
  **/
+global $wpdb;
 
 $wpdb->ribcage_artists = $wpdb->prefix."ribcage_artists";
 $wpdb->ribcage_releases = $wpdb->prefix."ribcage_releases";

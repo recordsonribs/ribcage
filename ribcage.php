@@ -497,26 +497,20 @@ function ribcage_page_title ($title, $sep = '&raquo;', $seplocation = '') {
  *
  * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
+ * @todo When uninstall and deactive routines are added convert into a class as per http://wordpress.stackexchange.com/questions/25910/uninstall-activate-deactivate-a-plugin-typical-features-how-to/25979#25979
  */
 function ribcage_activate(){
-	global $wpdb, $table_prefix;
-	
-	$version = get_option("ribcage_db_version");
-	if($version != 1){
-	// Upgrade function changed in WordPress 2.3	
-	if (version_compare($wp_version, '2.3-beta', '>='))		
-		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-	else
-		require_once(ABSPATH . 'wp-admin/upgrade-functions.php');
-		
-		require_once dirname(__FILE__) . '/ribcage-includes/install.php';
-		dbDelta($ribcage_schema);
-		update_option('ribcage_db_version',1);
-		update_option('ribcage_release_image_tiny','/tiny');
+	require_once dirname(__FILE__) . '/ribcage-includes/install.php';
+
+	if (! get_option('ribcage_database_version')){
+		ribcage_create_tables();
+		add_option("ribcage_database_version", "1.0");
 	}
+
+	// Flush rewrite rules
 	ribcage_flush_rules();
 }
-register_activation_hook(__FILE__, 'ribcage_activate');
+register_activation_hook(WP_PLUGIN_DIR . '/ribcage/ribcage.php', 'ribcage_activate');
 
 /**
  * De-activates Ribcage and removes its databases and wp_options entries.
@@ -526,8 +520,7 @@ register_activation_hook(__FILE__, 'ribcage_activate');
  */
 function ribcage_deactivate(){
 	global $wpdb;
-	//delete_option("ribcage_db_version");
 }
-register_deactivation_hook(__FILE__, "ribcage_deactivate");
+register_deactivation_hook(WP_PLUGIN_DIR . '/ribcage/ribcage.php', "ribcage_deactivate");
 
 ?>
