@@ -519,7 +519,6 @@ register_activation_hook(WP_PLUGIN_DIR . '/ribcage/ribcage.php', 'ribcage_activa
  * @return void
  */
 function ribcage_deactivate(){
-	global $wpdb;
 }
 register_deactivation_hook(WP_PLUGIN_DIR . '/ribcage/ribcage.php', "ribcage_deactivate");
 
