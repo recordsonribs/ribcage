@@ -513,7 +513,7 @@ function ribcage_activate(){
 register_activation_hook(WP_PLUGIN_DIR . '/ribcage/ribcage.php', 'ribcage_activate');
 
 /**
- * De-activates Ribcage and removes its databases and wp_options entries.
+ * De-activates Ribcage.
  *
  * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
