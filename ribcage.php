@@ -523,4 +523,14 @@ function ribcage_deactivate(){
 }
 register_deactivation_hook(WP_PLUGIN_DIR . '/ribcage/ribcage.php', "ribcage_deactivate");
 
-?>
+?>/**
+ * Removes Ribcage from installation.
+ * 
+ * @author Alex Andrews
+ * @return void
+ *
+ */
+function ribcage_uninstall(){
+	delete_option('ribcage_database_version');
+}
+register_deactivation_hook(WP_PLUGIN_DIR . '/ribcage/ribcage.php', "ribcage_deactivate");
