@@ -502,9 +502,9 @@ function ribcage_page_title ($title, $sep = '&raquo;', $seplocation = '') {
 function ribcage_activate(){
 	require_once dirname(__FILE__) . '/ribcage-includes/install.php';
 
-	if (! get_option('ribcage_database_version')){
+	if (!get_option('ribcage_database_version') || get_option('ribcage_database_version') != '1.1'){
 		ribcage_create_tables();
-		add_option("ribcage_database_version", "1.0");
+		update_option("ribcage_database_version", "1.1");
 	}
 
 	// Flush rewrite rules
