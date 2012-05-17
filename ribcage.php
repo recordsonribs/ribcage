@@ -532,4 +532,4 @@ register_deactivation_hook(WP_PLUGIN_DIR . '/ribcage/ribcage.php', "ribcage_deac
 function ribcage_uninstall(){
 	delete_option('ribcage_database_version');
 }
-register_deactivation_hook(WP_PLUGIN_DIR . '/ribcage/ribcage.php', "ribcage_deactivate");
+register_uninstall_hook(WP_PLUGIN_DIR . '/ribcage/ribcage.php', "ribcage_uninstall");
