@@ -3,7 +3,7 @@ Contributors: recordsonribs
 Donate link: http://recordsonribs.com
 Tags: music, mp3, record label, creative commons
 Requires at least: 2.8.4
-Tested up to: 2.8.4
+Tested up to: 3.3.2
 Stable tag: /trunk/
 
 Manages and monitors artists, releases and downloads for a record label.
