@@ -1,6 +1,7 @@
 [submodule "lib/meta-box"]
 	path = lib/meta-box
 	url = https://github.com/rilwis/meta-box
+	ignore = dirty
 [submodule "lib/wp-abstract"]
 	path = lib/wp-abstract
 	url = git@github.com:recordsonribs/wp-abstract.git
