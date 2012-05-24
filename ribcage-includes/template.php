@@ -34,7 +34,7 @@ $products = null;
 $current_product = 0;
 
 /**
- * Loads a template for Ribcage specific output. 
+ * Loads a template for Ribcage specific output.
  * There is one, a template from the currently being used theme is loaded, otherwise it is loaded from the plugin.
  * Owes a great deal to Rob Millers' Now Reading plugin. Thanks a great deal.
  *
@@ -42,16 +42,18 @@ $current_product = 0;
  * @param string $filename Filename of template to be loaded.
  * @return void
  */
-function ribcage_load_template ( $filename ) {
-	$template = ABSPATH . TEMPLATEPATH ."/ribcage/$filename";
-	
-	if ( !file_exists($template) )
-		$template = ABSPATH . PLUGINDIR ."/ribcage/templates/$filename";
-	
-	if ( !file_exists($template) )
-		return new WP_Error('ribcage-template-missing', sprintf(__("Oops! The template file %s could not be found in either the Ribcage template directory or your theme's Ribcage directory.", NRTD), "<code>$filename</code>"));
-	
-	load_template($template);
+function ribcage_load_template ( $filename )
+{
+    $template = ABSPATH . TEMPLATEPATH ."/ribcage/$filename";
+
+    if ( !file_exists($template) )
+        $template = ABSPATH . PLUGINDIR ."/ribcage/templates/$filename";
+
+    if ( !file_exists($template) )
+
+        return new WP_Error('ribcage-template-missing', sprintf(__("Oops! The template file %s could not be found in either the Ribcage template directory or your theme's Ribcage directory.", NRTD), "<code>$filename</code>"));
+
+    load_template($template);
 }
 
 /**
@@ -61,12 +63,13 @@ function ribcage_load_template ( $filename ) {
  * @param string $filename Filename of the template below the ribcage-includes/email.
  * @return string The completed template.
  */
-function ribcage_load_email_template ( $filename ) {
-	ob_start();
-	
-	$load = ribcage_load_template ('email/$filename.php');
-	
-	return ob_get_clean();
+function ribcage_load_email_template ( $filename )
+{
+    ob_start();
+
+    $load = ribcage_load_template ('email/$filename.php');
+
+    return ob_get_clean();
 }
 
 /**
@@ -77,17 +80,14 @@ function ribcage_load_email_template ( $filename ) {
  */
 function is_artist_page ()
 {
-	global $wp_query;
-	
-	if (isset($wp_query->query_vars['artist_page'])){
-		return TRUE;
-	}
-	
-	else {
-		return FALSE;
-	}
-}
+    global $wp_query;
 
+    if (isset($wp_query->query_vars['artist_page'])) {
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+}
 
 /**
  * Tells us if we are on a Ribcage page or not.
@@ -95,21 +95,23 @@ function is_artist_page ()
  * @author Alex Andrews <alex@recordsonribs.com>
  * @return bool True if we are on a Ribcage page, false if we are not.
  */
-function is_ribcage_page() {
-	global $wp_query, $ribcage_page;
-	
-	if (isset($ribcage_page)){
-		return $ribcage_page;
-	}
-	
-	$query_vars = ribcage_queryvars(array());
-	
-	foreach ($query_vars as $qvar) {
-		if (isset($wp_query->query_vars["$qvar"])) {
-			return TRUE;
-		}
-	}	
-	return FALSE;
+function is_ribcage_page()
+{
+    global $wp_query, $ribcage_page;
+
+    if (isset($ribcage_page)) {
+        return $ribcage_page;
+    }
+
+    $query_vars = ribcage_queryvars(array());
+
+    foreach ($query_vars as $qvar) {
+        if (isset($wp_query->query_vars["$qvar"])) {
+            return TRUE;
+        }
+    }
+
+    return FALSE;
 }
 
 /**
@@ -118,61 +120,62 @@ function is_ribcage_page() {
  * @author Alex Andrews <alex@recordsonribs.com>
  * @param string The separator to use between the elements of the title.
  */
-function ribcage_title ($sep = '&rsaquo;'){
-	global $wp_query;
-	global $artist, $release, $releases;
+function ribcage_title ($sep = '&rsaquo;')
+{
+    global $wp_query;
+    global $artist, $release, $releases;
 
         // We've got a 404 situation here.
-        if (is_wp_error($artist) or is_wp_error($release) or is_wp_error($product)){
+        if (is_wp_error($artist) or is_wp_error($release) or is_wp_error($product)) {
             return;
         }
-	
-	if ($wp_query->query_vars['pagename'] == 'artists'){
-		echo 'Artists';
-	}
-	
-	if ($wp_query->query_vars['pagename'] == 'releases'){
-		echo 'Releases';
-	}
-	
-	if (isset($wp_query->query_vars['ribcage_buy']) && isset($wp_query->query_vars['ribcage_product_id'])) {
-		
-		?>Buy <?php echo $sep; ?> <?php if (isset($artist) && isset($release)) : ?><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a> <?php echo $sep; ?> <?php endif;?><?php product_name(); ?><?php
-	}
-	
-	if ($wp_query->query_vars['ribcage_buy_mode'] == 'thanks') {
-		?><?php echo $sep; ?> Thanks!<?php
-	}
-	
-	if (isset($wp_query->query_vars['ribcage_download'])){
-		?>Downloading <?php echo $sep; ?> <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a> <?php echo $sep; ?> <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug();?>"><?php release_title(); ?></a>
-		<?php
-	}
-	
-	if (isset($wp_query->query_vars['artist_slug']) && !isset($wp_query->query_vars['ribcage_buy'])) {
-		?><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a><?php
-	}
-	
-	if (is_artist_page()){	
-		switch ($wp_query->query_vars['artist_page']) {
-			case 'press':
-				?>
-			<?php echo $sep; ?> <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/press">Press</a> 
-				<?php
-				break;
 
-			case 'bio':
-				?>
-				<?php echo $sep; ?> <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/bio">Biography</a>
-				<?php
-				break;
+    if ($wp_query->query_vars['pagename'] == 'artists') {
+        echo 'Artists';
+    }
 
-			default :	
-				?>
-				<?php echo $sep; ?> <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug();?>"><?php release_title(); ?></a>
-				<?php
-		}
-	}
+    if ($wp_query->query_vars['pagename'] == 'releases') {
+        echo 'Releases';
+    }
+
+    if (isset($wp_query->query_vars['ribcage_buy']) && isset($wp_query->query_vars['ribcage_product_id'])) {
+
+        ?>Buy <?php echo $sep; ?> <?php if (isset($artist) && isset($release)) : ?><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a> <?php echo $sep; ?> <?php endif;?><?php product_name(); ?><?php
+    }
+
+    if ($wp_query->query_vars['ribcage_buy_mode'] == 'thanks') {
+        ?><?php echo $sep; ?> Thanks!<?php
+    }
+
+    if (isset($wp_query->query_vars['ribcage_download'])) {
+        ?>Downloading <?php echo $sep; ?> <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a> <?php echo $sep; ?> <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug();?>"><?php release_title(); ?></a>
+        <?php
+    }
+
+    if (isset($wp_query->query_vars['artist_slug']) && !isset($wp_query->query_vars['ribcage_buy'])) {
+        ?><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a><?php
+    }
+
+    if (is_artist_page()) {
+        switch ($wp_query->query_vars['artist_page']) {
+            case 'press':
+                ?>
+            <?php echo $sep; ?> <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/press">Press</a>
+                <?php
+                break;
+
+            case 'bio':
+                ?>
+                <?php echo $sep; ?> <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/bio">Biography</a>
+                <?php
+                break;
+
+            default :
+                ?>
+                <?php echo $sep; ?> <a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug();?>"><?php release_title(); ?></a>
+                <?php
+        }
+    }
 }
 
 /**
@@ -184,44 +187,45 @@ function ribcage_title ($sep = '&rsaquo;'){
  * @param bool $nav_bar Displays a navigation bar for each release.
  * @param string $css An optional css marker to put in the style of each element.
  */
-function ribcage_albums ($amount = 5, $mode = 'list', $nav_bar = TRUE, $css = NULL) {
-	global $releases, $release;
-	global $artist;
-	
-	if ($releases == NULL) {
-		$releases = list_recent_releases_blurb($amount);
-	}
-	
-	?>
-	<ul class="ribcage albums<?php if (isset($css)) { print " $css";}?>">
-	<?php while ( have_releases () ) : the_release() ; ?>
-	<?php $artist = get_artist($release['release_artist']); ?>
-		<li class="ribcage albums<?php if (isset($css)) { print " $css";}?> <?php release_slug(); ?>">
-			<ul class="ribcage albums<?php if (isset($css)) { print " $css";}?> <?php release_slug(); ?>">
-				<?php if ($mode == 'covers') : ?>
-				<li class="album_cover"><a class="ribcage albums album_cover" href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><img src="<?php release_cover_tiny ();?>" alt="<?php release_title(); ?>" /></a></li>
-				<?php endif; ?>
-				<li class="artist"><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a></li>
-				<li class="title"><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></li>
-				<?php if ($nav_bar) : ?>
-				<li class="nav">
-					<ul class="nav">
-						<li class="more"><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>">More</a></li>
-						<li class="listen"><a href="javascript:popUp('<?php release_player_link (); ?>')">Listen</a></li>
-						<?php if (release_physical()) : ?>
-						<li class="download"><a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/">Download</a></li>
-							<li class="last buy"><a href="<?php get_option('siteurl'); ?>/buy/<?php release_product_id(); ?>">Buy</a></li>
-						<?php else: ?>
-						<li class="last download"><a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/">Download</a></li>
-						<?php endif; ?>
-					</ul>
-				</li>
-				<?php endif; ?>
-			</ul>
-		</li>
-	<?php endwhile; ?>
-	</ul>
-	<?php
+function ribcage_albums ($amount = 5, $mode = 'list', $nav_bar = TRUE, $css = NULL)
+{
+    global $releases, $release;
+    global $artist;
+
+    if ($releases == NULL) {
+        $releases = list_recent_releases_blurb($amount);
+    }
+
+    ?>
+    <ul class="ribcage albums<?php if (isset($css)) { print " $css";}?>">
+    <?php while ( have_releases () ) : the_release() ; ?>
+    <?php $artist = get_artist($release['release_artist']); ?>
+        <li class="ribcage albums<?php if (isset($css)) { print " $css";}?> <?php release_slug(); ?>">
+            <ul class="ribcage albums<?php if (isset($css)) { print " $css";}?> <?php release_slug(); ?>">
+                <?php if ($mode == 'covers') : ?>
+                <li class="album_cover"><a class="ribcage albums album_cover" href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><img src="<?php release_cover_tiny ();?>" alt="<?php release_title(); ?>" /></a></li>
+                <?php endif; ?>
+                <li class="artist"><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a></li>
+                <li class="title"><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></li>
+                <?php if ($nav_bar) : ?>
+                <li class="nav">
+                    <ul class="nav">
+                        <li class="more"><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>">More</a></li>
+                        <li class="listen"><a href="javascript:popUp('<?php release_player_link (); ?>')">Listen</a></li>
+                        <?php if (release_physical()) : ?>
+                        <li class="download"><a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/">Download</a></li>
+                            <li class="last buy"><a href="<?php get_option('siteurl'); ?>/buy/<?php release_product_id(); ?>">Buy</a></li>
+                        <?php else: ?>
+                        <li class="last download"><a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/">Download</a></li>
+                        <?php endif; ?>
+                    </ul>
+                </li>
+                <?php endif; ?>
+            </ul>
+        </li>
+    <?php endwhile; ?>
+    </ul>
+    <?php
 }
 
 /**
@@ -229,15 +233,16 @@ function ribcage_albums ($amount = 5, $mode = 'list', $nav_bar = TRUE, $css = NU
  *
  * @author Alex Andrews <alex@recordsonribs.com>
  **/
-function random_artist () {
-	global $artist;
-	
-	$artists = list_artists_blurb();
-	
-	// An array runs from zero and count() doesn't, so we need to take one off it.
-	$no = rand(0,count($artists)-1);
-	
-	$artist = $artists[$no];
+function random_artist ()
+{
+    global $artist;
+
+    $artists = list_artists_blurb();
+
+    // An array runs from zero and count() doesn't, so we need to take one off it.
+    $no = rand(0,count($artists)-1);
+
+    $artist = $artists[$no];
 }
 
 /**
@@ -245,20 +250,21 @@ function random_artist () {
  *
  * @author Alex Andrews <alex@recordsonribs.com>
  */
-function paypal_redirect () {
-	global $paypal;
-	
-	?>
-	<form method="post" name="paypal" action="<?php echo $paypal->paypal_url; ?>">
-	<?php
-	foreach ($paypal->fields as $name => $value) {
-		?>
-		<input type="hidden" name="<?php echo $name; ?>" value="<?php echo $value; ?>"/>
-		<?php
-	}
-	?>
-	</form>
-	<?php
+function paypal_redirect ()
+{
+    global $paypal;
+
+    ?>
+    <form method="post" name="paypal" action="<?php echo $paypal->paypal_url; ?>">
+    <?php
+    foreach ($paypal->fields as $name => $value) {
+        ?>
+        <input type="hidden" name="<?php echo $name; ?>" value="<?php echo $value; ?>"/>
+        <?php
+    }
+    ?>
+    </form>
+    <?php
 }
 
 /**
@@ -268,13 +274,14 @@ function paypal_redirect () {
  * @param bool $echo When true we echo the product.
  * @return string The name of the product.
  */
-function product_name ( $echo = true ) {
-	global $product;
-	
-	if ( $echo )
-		echo wptexturize($product['product_name']);
-	
-	return $product['product_name'];
+function product_name ( $echo = true )
+{
+    global $product;
+
+    if ( $echo )
+        echo wptexturize($product['product_name']);
+
+    return $product['product_name'];
 }
 
 /**
@@ -284,13 +291,14 @@ function product_name ( $echo = true ) {
  * @param bool $echo When true we echo the product description.
  * @return string The description of the product
  */
-function product_description ( $echo = true ) {
-	global $product;
-	
-	if ( $echo )
-		echo wptexturize($product['product_description']);
-	
-	return $product['product_description'];
+function product_description ( $echo = true )
+{
+    global $product;
+
+    if ( $echo )
+        echo wptexturize($product['product_description']);
+
+    return $product['product_description'];
 }
 
 /**
@@ -300,13 +308,14 @@ function product_description ( $echo = true ) {
  * @param bool $echo When true we echo the cost of the product.
  * @return string The cost of the product.
  */
-function product_cost_c ( $echo = true ) {
-	global $product;
-	
-	if ( $echo )
-		echo wptexturize($product['product_cost']+get_option('ribcage_postage_country'));
-	
-	return $product['product_cost']+get_option('ribcage_postage_country');
+function product_cost_c ( $echo = true )
+{
+    global $product;
+
+    if ( $echo )
+        echo wptexturize($product['product_cost']+get_option('ribcage_postage_country'));
+
+    return $product['product_cost']+get_option('ribcage_postage_country');
 }
 
 /**
@@ -316,13 +325,14 @@ function product_cost_c ( $echo = true ) {
  * @param bool $echo When true we echo the cost of the product.
  * @return string The cost of the product.
  */
-function product_cost_ww ( $echo = true ) {
-	global $product;
-	
-	if ( $echo )
-		echo wptexturize($product['product_cost']+get_option('ribcage_postage_worldwide'));
-	
-	return $product['product_cost']+get_option('ribcage_postage_worldwide');
+function product_cost_ww ( $echo = true )
+{
+    global $product;
+
+    if ( $echo )
+        echo wptexturize($product['product_cost']+get_option('ribcage_postage_worldwide'));
+
+    return $product['product_cost']+get_option('ribcage_postage_worldwide');
 }
 
 /**
@@ -332,13 +342,14 @@ function product_cost_ww ( $echo = true ) {
  * @param bool $echo When true we echo the product ID number of the product.
  * @return string The product ID number of the product.
  */
-function product_id ( $echo = true ) {
-	global $product;
-	
-	if ( $echo )
-		echo $product['product_id'];
-	
-	return $product['product_id'];
+function product_id ( $echo = true )
+{
+    global $product;
+
+    if ( $echo )
+        echo $product['product_id'];
+
+    return $product['product_id'];
 }
 
 /**
@@ -348,13 +359,14 @@ function product_id ( $echo = true ) {
  * @param bool $echo When true we echo the title of the release.
  * @return string The title of the release.
  */
-function release_title ( $echo = true ) {
-	global $release;
-	
-	if ( $echo )
-		echo wptexturize($release['release_title']);
-	
-	return $release['release_title'];
+function release_title ( $echo = true )
+{
+    global $release;
+
+    if ( $echo )
+        echo wptexturize($release['release_title']);
+
+    return $release['release_title'];
 }
 
 /**
@@ -365,13 +377,14 @@ function release_title ( $echo = true ) {
  * @param bool $echo When true we echo the slug of the release.
  * @return string The slug of the release.
  */
-function release_slug ( $echo = true ) {
-	global $release;
-	
-	if ( $echo )
-		echo $release['release_slug'];
-	
-	return $release['release_slug'];
+function release_slug ( $echo = true )
+{
+    global $release;
+
+    if ( $echo )
+        echo $release['release_slug'];
+
+    return $release['release_slug'];
 }
 
 /**
@@ -381,13 +394,14 @@ function release_slug ( $echo = true ) {
  * @param bool $echo When true we echo the tiny blurb of the release.
  * @return string The tiny blurb for the release.
  */
-function release_blurb_tiny ( $echo = true ) {
-	global $release;
-	
-	if ( $echo )
-		echo wptexturize($release['release_blurb_tiny']);
-	
-	return $release['release_blurb_tiny'];
+function release_blurb_tiny ( $echo = true )
+{
+    global $release;
+
+    if ( $echo )
+        echo wptexturize($release['release_blurb_tiny']);
+
+    return $release['release_blurb_tiny'];
 }
 
 /**
@@ -397,13 +411,14 @@ function release_blurb_tiny ( $echo = true ) {
  * @param bool $echo When true we echo the short blurb of the release.
  * @return string The short blurb for the release.
  */
-function release_blurb_short ( $echo = true ) {
-	global $release;
-	
-	if ( $echo )
-		echo wptexturize($release['release_blurb_short']);
-	
-	return $release['release_blurb_short'];
+function release_blurb_short ( $echo = true )
+{
+    global $release;
+
+    if ( $echo )
+        echo wptexturize($release['release_blurb_short']);
+
+    return $release['release_blurb_short'];
 }
 
 /**
@@ -413,13 +428,14 @@ function release_blurb_short ( $echo = true ) {
  * @param bool $echo When true we echo the long blurb of the release.
  * @return string The long blurb for the release.
  */
-function release_blurb_long ( $echo = true ) {
-	global $release;
-	
-	if ( $echo )
-		echo wpautop(wptexturize($release['release_blurb_long']));
-	
-	return $release['release_blurb_long'];
+function release_blurb_long ( $echo = true )
+{
+    global $release;
+
+    if ( $echo )
+        echo wpautop(wptexturize($release['release_blurb_long']));
+
+    return $release['release_blurb_long'];
 }
 
 /**
@@ -429,13 +445,14 @@ function release_blurb_long ( $echo = true ) {
  * @param bool $echo When true we echo the URL of the one sheet of the release.
  * @return string The URL of the one sheet of the release.
  */
-function release_onesheet ( $echo = true ) {
-	global $release;
-	
-	if ( $echo )
-		echo $release['release_one_sheet'];
-	
-	return $release['release_one_sheet'];
+function release_onesheet ( $echo = true )
+{
+    global $release;
+
+    if ( $echo )
+        echo $release['release_one_sheet'];
+
+    return $release['release_one_sheet'];
 }
 
 /**
@@ -445,13 +462,14 @@ function release_onesheet ( $echo = true ) {
  * @param bool $echo When true we echo the download URL.
  * @return string The download URL of the release.
  */
-function release_download_link ( $echo = true ) {
-	global $release;
-	
-	if ( $echo )
-		echo get_option('siteurl').'/download/'.$release['release_slug'];
-	
-	return get_option('siteurl').'/download/'.$release['release_slug'];
+function release_download_link ( $echo = true )
+{
+    global $release;
+
+    if ( $echo )
+        echo get_option('siteurl').'/download/'.$release['release_slug'];
+
+    return get_option('siteurl').'/download/'.$release['release_slug'];
 }
 
 /**
@@ -461,13 +479,14 @@ function release_download_link ( $echo = true ) {
  * @param bool $echo When true we echo the link to the MP3 download.
  * @return string The download URL of the MP3 download of the release.
  */
-function release_download_link_mp3 ( $echo = true ) {
-	global $release;
-	
-	if ( $echo )
-		echo get_option('siteurl').'/download/'.$release['release_slug'].'/mp3';
-	
-	return get_option('siteurl').'/download/'.$release['release_slug'].'/mp3';
+function release_download_link_mp3 ( $echo = true )
+{
+    global $release;
+
+    if ( $echo )
+        echo get_option('siteurl').'/download/'.$release['release_slug'].'/mp3';
+
+    return get_option('siteurl').'/download/'.$release['release_slug'].'/mp3';
 }
 
 /**
@@ -477,20 +496,20 @@ function release_download_link_mp3 ( $echo = true ) {
  * @param bool $echo When true we echo the size of the release in MP3 format.
  * @return string The human readable file size of a release in MP3 format.
  */
-function release_download_size_mp3 ( $echo = true ) {
-	global $release;
-	
-	if (file_exists(ABSPATH.$release['release_mp3'])) {
-		$filesize = filesize(ABSPATH.$release['release_mp3']);
-	}
-	else {
-		$filesize = 0;
-	}
-	
-	if ( $echo )
-		echo ribcage_format_filesize($filesize);
-	
-	return ribcage_format_filesize($filesize);
+function release_download_size_mp3 ( $echo = true )
+{
+    global $release;
+
+    if (file_exists(ABSPATH.$release['release_mp3'])) {
+        $filesize = filesize(ABSPATH.$release['release_mp3']);
+    } else {
+        $filesize = 0;
+    }
+
+    if ( $echo )
+        echo ribcage_format_filesize($filesize);
+
+    return ribcage_format_filesize($filesize);
 }
 
 /**
@@ -500,13 +519,14 @@ function release_download_size_mp3 ( $echo = true ) {
  * @param bool $echo When true we echo the link to the Flac download.
  * @return string The download URL of the Flac download of the release.
  */
-function release_download_link_flac ( $echo = true ) {
-	global $release;
-	
-	if ( $echo )
-		echo get_option('siteurl').'/download/'.$release['release_slug'].'/flac';
-	
-	return get_option('siteurl').'/download/'.$release['release_slug'].'/flac';
+function release_download_link_flac ( $echo = true )
+{
+    global $release;
+
+    if ( $echo )
+        echo get_option('siteurl').'/download/'.$release['release_slug'].'/flac';
+
+    return get_option('siteurl').'/download/'.$release['release_slug'].'/flac';
 }
 
 /**
@@ -516,20 +536,20 @@ function release_download_link_flac ( $echo = true ) {
  * @param bool $echo When true we echo the size of the release in Flac format.
  * @return string The human readable file size of a release in Flac format.
  */
-function release_download_size_flac ( $echo = true ) {
-	global $release;
-	
-	if (file_exists(ABSPATH.$release['release_flac'])) {
-		$filesize = filesize(ABSPATH.$release['release_flac']);
-	}
-	else {
-		$filesize = 0;
-	}
-	
-	if ( $echo )
-		echo ribcage_format_filesize($filesize);
-	
-	return ribcage_format_filesize($filesize);
+function release_download_size_flac ( $echo = true )
+{
+    global $release;
+
+    if (file_exists(ABSPATH.$release['release_flac'])) {
+        $filesize = filesize(ABSPATH.$release['release_flac']);
+    } else {
+        $filesize = 0;
+    }
+
+    if ( $echo )
+        echo ribcage_format_filesize($filesize);
+
+    return ribcage_format_filesize($filesize);
 }
 
 /**
@@ -539,13 +559,14 @@ function release_download_size_flac ( $echo = true ) {
  * @param bool $echo When true we echo the link to the Ogg download.
  * @return string The download URL of the Ogg download of the release.
  */
-function release_download_link_ogg ( $echo = true ) {
-	global $release;
-	
-	if ( $echo )
-		echo get_option('siteurl').'/download/'.$release['release_slug'].'/ogg';
-	
-	return get_option('siteurl').'/download/'.$release['release_slug'].'/ogg';
+function release_download_link_ogg ( $echo = true )
+{
+    global $release;
+
+    if ( $echo )
+        echo get_option('siteurl').'/download/'.$release['release_slug'].'/ogg';
+
+    return get_option('siteurl').'/download/'.$release['release_slug'].'/ogg';
 }
 
 /**
@@ -555,20 +576,20 @@ function release_download_link_ogg ( $echo = true ) {
  * @param bool $echo When true we echo the size of the release in Ogg format.
  * @return string The human readable file size of a release in Ogg format.
  */
-function release_download_size_ogg ( $echo = true ) {
-	global $release;
-	
-	if (file_exists(ABSPATH.$release['release_ogg'])) {
-		$filesize = filesize(ABSPATH.$release['release_ogg']);
-	}
-	else {
-		$filesize = 0;
-	}
-	
-	if ( $echo )
-		echo ribcage_format_filesize($filesize);
-	
-	return ribcage_format_filesize($filesize);
+function release_download_size_ogg ( $echo = true )
+{
+    global $release;
+
+    if (file_exists(ABSPATH.$release['release_ogg'])) {
+        $filesize = filesize(ABSPATH.$release['release_ogg']);
+    } else {
+        $filesize = 0;
+    }
+
+    if ( $echo )
+        echo ribcage_format_filesize($filesize);
+
+    return ribcage_format_filesize($filesize);
 }
 
 /**
@@ -578,13 +599,14 @@ function release_download_size_ogg ( $echo = true ) {
  * @param bool $echo When true we echo the URL of a Bittorrent file that allows the download of the release as MP3 files.
  * @return string The URL of a Bittorrent file that allows the download of the release as MP3 files.
  */
-function release_download_link_bittorrent_mp3 ( $echo = true ) {
-	global $release;
-	
-	if ( $echo )
-		echo $release['release_torrent_mp3'];
-	
-	return $release['release_torrent_mp3'];
+function release_download_link_bittorrent_mp3 ( $echo = true )
+{
+    global $release;
+
+    if ( $echo )
+        echo $release['release_torrent_mp3'];
+
+    return $release['release_torrent_mp3'];
 }
 
 /**
@@ -594,13 +616,14 @@ function release_download_link_bittorrent_mp3 ( $echo = true ) {
  * @param bool $echo When true we echo the URL of a Bittorrent file that allows the download of the release as Ogg files.
  * @return string The URL of a Bittorrent file that allows the download of the release as Ogg files.
  */
-function release_download_link_bittorrent_ogg ( $echo = true ) {
-	global $release;
-	
-	if ( $echo )
-		echo $release['release_torrent_ogg'];
-	
-	return $release['release_torrent_ogg'];
+function release_download_link_bittorrent_ogg ( $echo = true )
+{
+    global $release;
+
+    if ( $echo )
+        echo $release['release_torrent_ogg'];
+
+    return $release['release_torrent_ogg'];
 }
 
 /**
@@ -610,13 +633,14 @@ function release_download_link_bittorrent_ogg ( $echo = true ) {
  * @param bool $echo When true we echo the URL of a Bittorrent file that allows the download of the release as Flac files.
  * @return string The URL of a Bittorrent file that allows the download of the release as Flac files.
  */
-function release_download_link_bittorrent_flac ( $echo = true ) {
-	global $release;
-	
-	if ( $echo )
-		echo $release['release_torrent_flac'];
-	
-	return $release['release_torrent_flac'];
+function release_download_link_bittorrent_flac ( $echo = true )
+{
+    global $release;
+
+    if ( $echo )
+        echo $release['release_torrent_flac'];
+
+    return $release['release_torrent_flac'];
 }
 
 /**
@@ -625,15 +649,15 @@ function release_download_link_bittorrent_flac ( $echo = true ) {
  * @author Alex Andrews <alex@recordsonribs.com>
  * @return bool True if we have BitTorrent served versions of the release.
  */
-function release_bittorrent () {
-	global $release;
-	
-	if ($release['release_torrent_mp3'] or $release['release_torrent_ogg'] or $release['release_torrent_flac']) {
-		return TRUE;
-	}
-	else {
-		return FALSE;
-	}
+function release_bittorrent ()
+{
+    global $release;
+
+    if ($release['release_torrent_mp3'] or $release['release_torrent_ogg'] or $release['release_torrent_flac']) {
+        return TRUE;
+    } else {
+        return FALSE;
+    }
 }
 
 /**
@@ -643,13 +667,14 @@ function release_bittorrent () {
  * @param bool $echo When true we echo the URL of the largest version of a release artwork.
  * @return string The URL of the largest version of a release artwork.
  */
-function release_cover_huge ( $echo = true ) {
-	global $release;
-	
-	if ( $echo )
-		echo $release['release_cover_image_huge'];
-	
-	return $release['release_cover_image_huge'];
+function release_cover_huge ( $echo = true )
+{
+    global $release;
+
+    if ( $echo )
+        echo $release['release_cover_image_huge'];
+
+    return $release['release_cover_image_huge'];
 }
 
 /**
@@ -659,13 +684,14 @@ function release_cover_huge ( $echo = true ) {
  * @param bool $echo When true we echo the URL of a large version of a release artwork.
  * @return string The URL of a large version of a release artwork.
  */
-function release_cover_large ( $echo = true ) {
-	global $release;
-	
-	if ( $echo )
-		echo $release['release_cover_image_large'];
-	
-	return $release['release_cover_image_large'];
+function release_cover_large ( $echo = true )
+{
+    global $release;
+
+    if ( $echo )
+        echo $release['release_cover_image_large'];
+
+    return $release['release_cover_image_large'];
 }
 
 /**
@@ -675,13 +701,14 @@ function release_cover_large ( $echo = true ) {
  * @param bool $echo When true we echo the URL of a small version of a release artwork.
  * @return string The URL of a small version of a release artwork.
  */
-function release_cover_tiny ( $echo = true ) {
-	global $release;
-	
-	if ( $echo )
-		echo $release['release_cover_image_tiny'];
-	
-	return $release['release_cover_image_tiny'];
+function release_cover_tiny ( $echo = true )
+{
+    global $release;
+
+    if ( $echo )
+        echo $release['release_cover_image_tiny'];
+
+    return $release['release_cover_image_tiny'];
 }
 
 /**
@@ -691,13 +718,14 @@ function release_cover_tiny ( $echo = true ) {
  * @param bool $echo When true we echo the catalogue number of a release.
  * @return string The catalogue number of a release.
  */
-function release_cat_no ( $echo = true ) {
-	global $release;
-	
-	if ( $echo )
-		echo get_option('ribcage_mark').str_pad($release['release_id'], 3, "0", STR_PAD_LEFT);
-	
-	return 	get_option('ribcage_mark').str_pad($release['release_id'], 3, "0", STR_PAD_LEFT);
+function release_cat_no ( $echo = true )
+{
+    global $release;
+
+    if ( $echo )
+        echo get_option('ribcage_mark').str_pad($release['release_id'], 3, "0", STR_PAD_LEFT);
+
+    return 	get_option('ribcage_mark').str_pad($release['release_id'], 3, "0", STR_PAD_LEFT);
 }
 
 /**
@@ -707,13 +735,14 @@ function release_cat_no ( $echo = true ) {
  * @param bool $echo If true display the release ID of a release.
  * @return string The release ID of a release.
  */
-function release_id ( $echo = true ) {
-	global $release;
-	
-	if ( $echo )
-		echo $release['release_id'];
-	
-	return 	$release['release_id'];
+function release_id ( $echo = true )
+{
+    global $release;
+
+    if ( $echo )
+        echo $release['release_id'];
+
+    return 	$release['release_id'];
 }
 
 /**
@@ -723,13 +752,14 @@ function release_id ( $echo = true ) {
  * @param bool $echo If true display the URL of the Flash player for a release.
  * @return string The URL of the Flash player for a release.
  */
-function release_player_link ( $echo = true ) {
-	global $release;
-	
-	if ( $echo )
-		echo get_option('siteurl').'/player/'.$release['release_slug'].'/';
-	
-	return get_option('siteurl').'/download/'.$release['release_slug'].'/';
+function release_player_link ( $echo = true )
+{
+    global $release;
+
+    if ( $echo )
+        echo get_option('siteurl').'/player/'.$release['release_slug'].'/';
+
+    return get_option('siteurl').'/download/'.$release['release_slug'].'/';
 }
 
 /**
@@ -738,15 +768,15 @@ function release_player_link ( $echo = true ) {
  * @author Alex Andrews <alex@recordsonribs.com>
  * @return bool True if there is a physical version of the release.
  */
-function release_physical () {
-	global $release;
-	
-	if ($release['release_physical']){
-		return TRUE;
-	}
-	else {
-		return FALSE;
-	}
+function release_physical ()
+{
+    global $release;
+
+    if ($release['release_physical']) {
+        return TRUE;
+    } else {
+        return FALSE;
+    }
 }
 
 /**
@@ -756,13 +786,14 @@ function release_physical () {
  * @param bool $echo If true display the URL of the Flash player for a release.
  * @return string The URL of the Flash player for a release.
  */
-function release_product_id ( $echo = TRUE ) {
-	global $release;
-	
-	if ( $echo )
-		echo $release['release_physical_cat_no'];
-	
-	return 	$release['release_physical_cat_no'];
+function release_product_id ( $echo = TRUE )
+{
+    global $release;
+
+    if ( $echo )
+        echo $release['release_physical_cat_no'];
+
+    return 	$release['release_physical_cat_no'];
 }
 
 /**
@@ -772,13 +803,14 @@ function release_product_id ( $echo = TRUE ) {
  * @param bool $echo If true display number of downloads of a release.
  * @return string The number of downloads of a release.
  */
-function release_downloads ( $echo = TRUE ) {
-	global $release;
-	
-	if ( $echo )
-		echo number_format($release['release_downloads']);
-	
-	return 	$release['release_downloads'];
+function release_downloads ( $echo = TRUE )
+{
+    global $release;
+
+    if ( $echo )
+        echo number_format($release['release_downloads']);
+
+    return 	$release['release_downloads'];
 }
 
 /**
@@ -788,13 +820,14 @@ function release_downloads ( $echo = TRUE ) {
  * @param bool $echo If true display the artist ID of the artist.
  * @return string The artist ID of the artist.
  */
-function artist_id ( $echo = true ) {
-	global $artist;
-	
-	if ($echo) 
-		echo $artist['artist_id'];
+function artist_id ( $echo = true )
+{
+    global $artist;
 
-	return $artist['artist_id'];
+    if ($echo)
+        echo $artist['artist_id'];
+
+    return $artist['artist_id'];
 }
 
 /**
@@ -804,13 +837,14 @@ function artist_id ( $echo = true ) {
  * @param bool $echo If true display the name of the artist.
  * @return string The name of an artist.
  */
-function artist_name ( $echo = true ) {
-	global $artist;
-	
-	if ($echo) 
-		echo wptexturize($artist['artist_name']);
+function artist_name ( $echo = true )
+{
+    global $artist;
 
-	return $artist['artist_name'];
+    if ($echo)
+        echo wptexturize($artist['artist_name']);
+
+    return $artist['artist_name'];
 }
 
 /**
@@ -820,13 +854,14 @@ function artist_name ( $echo = true ) {
  * @param bool $echo If true display the sorting name of the artist.
  * @return string The sorting name of an artist.
  */
-function artist_name_sort ( $echo = true ) {
-	global $artist;
-	
-	if ($echo) 
-		echo wptexturize($artist['artist_name_sort']);
+function artist_name_sort ( $echo = true )
+{
+    global $artist;
 
-	return $artist['artist_name_sort'];
+    if ($echo)
+        echo wptexturize($artist['artist_name_sort']);
+
+    return $artist['artist_name_sort'];
 }
 
 /**
@@ -836,14 +871,15 @@ function artist_name_sort ( $echo = true ) {
  * @param bool $echo If true display the biography of the artist.
  * @return string The biography of the artist.
  */
-function artist_bio ( $echo = true ) {
-	global $artist;
-	
-	if ($echo) {
-		echo wpautop(wptexturize($artist['artist_bio']));
-	}
-	
-	return $artist['artist_bio'];
+function artist_bio ( $echo = true )
+{
+    global $artist;
+
+    if ($echo) {
+        echo wpautop(wptexturize($artist['artist_bio']));
+    }
+
+    return $artist['artist_bio'];
 }
 
 /**
@@ -853,13 +889,14 @@ function artist_bio ( $echo = true ) {
  * @param bool $echo If true display the slug of the artist.
  * @return string The the slug of the artist.
  */
-function artist_slug ( $echo = true ) {
-	global $artist;
-	
-	if ($echo)
-		echo $artist['artist_slug'];
-	
-	return $artist['artist_slug'];
+function artist_slug ( $echo = true )
+{
+    global $artist;
+
+    if ($echo)
+        echo $artist['artist_slug'];
+
+    return $artist['artist_slug'];
 }
 
 /**
@@ -869,14 +906,15 @@ function artist_slug ( $echo = true ) {
  * @param bool $echo If true display the URL for a press link of the artist.
  * @return string The URL for a press link of the artist.
  */
-function artist_press_link ( $echo = true ) {
-	global $artist;
-	$presslink = get_option('siteurl').'/artists/'.$artist['artist_slug'].'/press/';
-	
-	if ($echo)
-		echo $presslink;
-	
-	return $presslink;
+function artist_press_link ( $echo = true )
+{
+    global $artist;
+    $presslink = get_option('siteurl').'/artists/'.$artist['artist_slug'].'/press/';
+
+    if ($echo)
+        echo $presslink;
+
+    return $presslink;
 }
 
 /**
@@ -886,13 +924,14 @@ function artist_press_link ( $echo = true ) {
  * @param bool $echo If true display the URL for the artist's website.
  * @return string The URL for the artist's website.
  */
-function artist_website_link ( $echo = true ) {
-	global $artist;
-	
-	if ($echo)
-		echo $artist['artist_link_website'];
-	
-	return $artist['artist_link_website'];
+function artist_website_link ( $echo = true )
+{
+    global $artist;
+
+    if ($echo)
+        echo $artist['artist_link_website'];
+
+    return $artist['artist_link_website'];
 }
 
 /**
@@ -902,13 +941,14 @@ function artist_website_link ( $echo = true ) {
  * @param bool $echo If true display the URL for the artist's MySpace.
  * @return string The URL for the artist's MySpace.
  */
-function artist_myspace_link ( $echo = true ) {
-	global $artist;
-	
-	if ($echo)
-		echo $artist['artist_link_myspace'];
-	
-	return $artist['artist_link_myspace'];
+function artist_myspace_link ( $echo = true )
+{
+    global $artist;
+
+    if ($echo)
+        echo $artist['artist_link_myspace'];
+
+    return $artist['artist_link_myspace'];
 }
 
 /**
@@ -918,13 +958,14 @@ function artist_myspace_link ( $echo = true ) {
  * @param bool $echo If true display the URL for the artist's Facebook.
  * @return string The URL for the artist's Facebook.
  */
-function artist_facebook_link ( $echo = true ) {
-	global $artist;
-	
-	if ($echo)
-		echo $artist['artist_link_facebook'];
-	
-	return $artist['artist_link_facebook'];
+function artist_facebook_link ( $echo = true )
+{
+    global $artist;
+
+    if ($echo)
+        echo $artist['artist_link_facebook'];
+
+    return $artist['artist_link_facebook'];
 }
 
 /**
@@ -934,14 +975,15 @@ function artist_facebook_link ( $echo = true ) {
  * @param bool $echo If true display the URL for the artist's Last.fm.
  * @return string The URL for the artist's Last.fm.
  */
-function artist_lastfm_link ( $echo = true ) {
-	global $artist;
-	
-	$lastfmlink = 'http://www.last.fm/music/'.str_replace(' ', '+',$artist['artist_name']);
-	if ($echo)
-		echo $lastfmlink;
-	
-	return $lastfmlink;
+function artist_lastfm_link ( $echo = true )
+{
+    global $artist;
+
+    $lastfmlink = 'http://www.last.fm/music/'.str_replace(' ', '+',$artist['artist_name']);
+    if ($echo)
+        echo $lastfmlink;
+
+    return $lastfmlink;
 }
 
 /**
@@ -951,14 +993,15 @@ function artist_lastfm_link ( $echo = true ) {
  * @param bool $echo If true display the URL for the artist's Musicbrainz index.
  * @return string The URL for the artist's Musicbrainz index.
  */
-function artist_musicbrainz_link ( $echo = true ) {
-	global $artist;
-	
-	$mblink = 'http://musicbrainz.org/artist/'.$artist['artist_mbid'].'.html';
-	if ($echo)
-		echo $mblink;
-	
-	return $mblink;
+function artist_musicbrainz_link ( $echo = true )
+{
+    global $artist;
+
+    $mblink = 'http://musicbrainz.org/artist/'.$artist['artist_mbid'].'.html';
+    if ($echo)
+        echo $mblink;
+
+    return $mblink;
 }
 
 /**
@@ -968,13 +1011,14 @@ function artist_musicbrainz_link ( $echo = true ) {
  * @param bool $echo If true display the artist's Musicbrainz ID.
  * @return string The artist's Musicbrainz ID..
  */
-function artist_musicbrainz ( $echo = true ) {
-	global $artist;
-	
-	if ($echo)
-		echo $artist['artist_mbid'];
-		
-	return $artist['artist_mbid'];
+function artist_musicbrainz ( $echo = true )
+{
+    global $artist;
+
+    if ($echo)
+        echo $artist['artist_mbid'];
+
+    return $artist['artist_mbid'];
 }
 
 /**
@@ -984,13 +1028,14 @@ function artist_musicbrainz ( $echo = true ) {
  * @param bool $echo If true display the tiny blurb for the artist.
  * @return string The tiny blurb of the artist.
  */
-function artist_blurb_tiny ( $echo = true ) {
-	global $artist;
-	
-	if ($echo)
-		echo wptexturize($artist['artist_blurb_tiny']);
-	
-	return $artist['artist_blurb_tiny'];
+function artist_blurb_tiny ( $echo = true )
+{
+    global $artist;
+
+    if ($echo)
+        echo wptexturize($artist['artist_blurb_tiny']);
+
+    return $artist['artist_blurb_tiny'];
 }
 
 /**
@@ -1000,13 +1045,14 @@ function artist_blurb_tiny ( $echo = true ) {
  * @param bool $echo If true display the short blurb for the artist.
  * @return string The short blurb of the artist.
  */
-function artist_blurb_short ( $echo = true ) {
-	global $artist;
-	
-	if ($echo)
-		echo wptexturize($artist['artist_blurb_short']);
-	
-	return $artist['artist_blurb_short'];
+function artist_blurb_short ( $echo = true )
+{
+    global $artist;
+
+    if ($echo)
+        echo wptexturize($artist['artist_blurb_short']);
+
+    return $artist['artist_blurb_short'];
 }
 
 /**
@@ -1016,13 +1062,14 @@ function artist_blurb_short ( $echo = true ) {
  * @param bool $echo If true display the URL of the first artist picture.
  * @return string The URL of the first artist picture.
  */
-function artist_picture_1 ( $echo = true ) {
-	global $artist;
-	
-	if ($echo)
-		echo $artist['artist_picture_1'];
-	
-	return $artist['artist_picture_1'];
+function artist_picture_1 ( $echo = true )
+{
+    global $artist;
+
+    if ($echo)
+        echo $artist['artist_picture_1'];
+
+    return $artist['artist_picture_1'];
 }
 
 /**
@@ -1032,13 +1079,14 @@ function artist_picture_1 ( $echo = true ) {
  * @param bool $echo If true display the URL of the second artist picture.
  * @return string The URL of the second artist picture.
  */
-function artist_picture_2 ( $echo = true ) {
-	global $artist;
-	
-	if ($echo)
-		echo $artist['artist_picture_2'];
-	
-	return $artist['artist_picture_2'];
+function artist_picture_2 ( $echo = true )
+{
+    global $artist;
+
+    if ($echo)
+        echo $artist['artist_picture_2'];
+
+    return $artist['artist_picture_2'];
 }
 
 /**
@@ -1048,13 +1096,14 @@ function artist_picture_2 ( $echo = true ) {
  * @param bool $echo If true display the URL of the third artist picture.
  * @return string The URL of the third artist picture.
  */
-function artist_picture_3 ( $echo = true ) {
-	global $artist;
-	
-	if ($echo)
-		echo $artist['artist_picture_3'];
-	
-	return $artist['artist_picture_3'];
+function artist_picture_3 ( $echo = true )
+{
+    global $artist;
+
+    if ($echo)
+        echo $artist['artist_picture_3'];
+
+    return $artist['artist_picture_3'];
 }
 
 /**
@@ -1064,13 +1113,14 @@ function artist_picture_3 ( $echo = true ) {
  * @param bool $echo If true display the URL of the zipped artist picture collection.
  * @return string The URL of the zipped artist picture collection.
  */
-function artist_picture_zip ( $echo = true ) {
-	global $artist;
-	
-	if ( $echo )
-		echo $artist['artist_picture_zip'];
-	
-	return $artist['artist_picture_zip'];
+function artist_picture_zip ( $echo = true )
+{
+    global $artist;
+
+    if ( $echo )
+        echo $artist['artist_picture_zip'];
+
+    return $artist['artist_picture_zip'];
 }
 
 /**
@@ -1080,13 +1130,14 @@ function artist_picture_zip ( $echo = true ) {
  * @param bool $echo If true display the URL of the artist's thumbnail.
  * @return string The URL of the artist's thumbnail.
  */
-function artist_thumb ( $echo = true ) {
-	global $artist;
-	
-	if ($echo)
-		echo $artist['artist_thumb'];
-	
-	return $artist['artist_thumb'];
+function artist_thumb ( $echo = true )
+{
+    global $artist;
+
+    if ($echo)
+        echo $artist['artist_thumb'];
+
+    return $artist['artist_thumb'];
 }
 
 /**
@@ -1095,16 +1146,18 @@ function artist_thumb ( $echo = true ) {
  * @author Alex Andrews <alex@recordsonribs.com>
  * @return The current artist.
  */
-function have_artists () {
-	global $artists, $current_artist;
-	
-	$have_artists = ( !empty($artists[$current_artist]) );
+function have_artists ()
+{
+    global $artists, $current_artist;
 
-	if ( !$have_artists ) {
-		$GLOBALS['artists']	= null;
-		$GLOBALS['current_artist'] = 0;
-	}
-	return $have_artists;
+    $have_artists = ( !empty($artists[$current_artist]) );
+
+    if ( !$have_artists ) {
+        $GLOBALS['artists']	= null;
+        $GLOBALS['current_artist'] = 0;
+    }
+
+    return $have_artists;
 }
 
 /**
@@ -1113,11 +1166,12 @@ function have_artists () {
  * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
-function the_artist (){
-	global $artists, $artist, $current_artist;
+function the_artist ()
+{
+    global $artists, $artist, $current_artist;
 
-	$GLOBALS['artist'] = $artists [$current_artist];
-	$GLOBALS['current_artist']++;
+    $GLOBALS['artist'] = $artists [$current_artist];
+    $GLOBALS['current_artist']++;
 }
 
 /**
@@ -1127,13 +1181,14 @@ function the_artist (){
  * @param bool $echo If true display the title of the track.
  * @return string The title of the track.
  */
-function track_title ( $echo = true ) {
-	global $track;
-	
-	if ($echo)
-		echo wptexturize($track['track_title']);
-	
-	return $track['track_title'];
+function track_title ( $echo = true )
+{
+    global $track;
+
+    if ($echo)
+        echo wptexturize($track['track_title']);
+
+    return $track['track_title'];
 }
 
 /**
@@ -1143,13 +1198,14 @@ function track_title ( $echo = true ) {
  * @param bool $echo If true display the stream URL of the track.
  * @return string The stream URL of the track.
  */
-function track_stream ( $echo = true ) {
-	global $track;
-	
-	if ($echo)
-		echo $track['track_stream'];
-	
-	return $track['track_stream'];
+function track_stream ( $echo = true )
+{
+    global $track;
+
+    if ($echo)
+        echo $track['track_stream'];
+
+    return $track['track_stream'];
 }
 
 /**
@@ -1159,13 +1215,14 @@ function track_stream ( $echo = true ) {
  * @param bool $echo If true display the number of the track.
  * @return string The number of the track.
  */
-function track_no ( $echo = true ) {
-	global $track;
-	
-	if ($echo)
-		echo $track['track_number'];
-	
-	return $track['track_number'];
+function track_no ( $echo = true )
+{
+    global $track;
+
+    if ($echo)
+        echo $track['track_number'];
+
+    return $track['track_number'];
 }
 
 /**
@@ -1175,13 +1232,14 @@ function track_no ( $echo = true ) {
  * @param bool $echo If true display the ID of the track.
  * @return string The ID of the track.
  */
-function track_id ( $echo = true ) {
-	global $track;
-	
-	if ($echo)
-		echo $track['track_id'];
-	
-	return $track['track_id'];
+function track_id ( $echo = true )
+{
+    global $track;
+
+    if ($echo)
+        echo $track['track_id'];
+
+    return $track['track_id'];
 }
 
 /**
@@ -1191,22 +1249,22 @@ function track_id ( $echo = true ) {
  * @param bool $echo If true display the time of the track.
  * @return string The time of the track.
  */
-function track_time ( $echo = true ) {
-	global $track;
-	
- 	$split = explode (':', $track['track_time']);
-	$str = str_split ($split[1]);
-	
-	if ($echo) {
-		if ($str[0] == 0) {
-			echo $str[1].'.'.$split[2];
-		}
-		else {
-			echo $split[1].'.'.$split[2];
-		}
-	}
-	
-	return $split[1].'.'.$split[2];
+function track_time ( $echo = true )
+{
+    global $track;
+
+     $split = explode (':', $track['track_time']);
+    $str = str_split ($split[1]);
+
+    if ($echo) {
+        if ($str[0] == 0) {
+            echo $str[1].'.'.$split[2];
+        } else {
+            echo $split[1].'.'.$split[2];
+        }
+    }
+
+    return $split[1].'.'.$split[2];
 }
 
 /**
@@ -1215,16 +1273,18 @@ function track_time ( $echo = true ) {
  * @author Alex Andrews <alex@recordsonribs.com>
  * @return The current track.
  */
-function have_tracks () {
-	global $tracks, $current_track;
-	
-	$have_tracks = ( !empty($tracks[$current_track]) );
+function have_tracks ()
+{
+    global $tracks, $current_track;
 
-	if ( !$have_tracks ) {
-		$GLOBALS['tracks']	= null;
-		$GLOBALS['current_track'] = 0;
-	}
-	return $have_tracks;
+    $have_tracks = ( !empty($tracks[$current_track]) );
+
+    if ( !$have_tracks ) {
+        $GLOBALS['tracks']	= null;
+        $GLOBALS['current_track'] = 0;
+    }
+
+    return $have_tracks;
 }
 
 /**
@@ -1233,11 +1293,12 @@ function have_tracks () {
  * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
-function the_track (){
-	global $tracks, $track, $current_track;
+function the_track ()
+{
+    global $tracks, $track, $current_track;
 
-	$GLOBALS['track'] = $tracks [$current_track];
-	$GLOBALS['current_track']++;
+    $GLOBALS['track'] = $tracks [$current_track];
+    $GLOBALS['current_track']++;
 }
 
 /**
@@ -1246,16 +1307,18 @@ function the_track (){
  * @author Alex Andrews <alex@recordsonribs.com>
  * @return The current release.
  */
-function have_releases () {
-	global $releases, $current_release;
-	
-	$have_releases = ( !empty($releases[$current_release]) );
+function have_releases ()
+{
+    global $releases, $current_release;
 
-	if ( !$have_releases ) {
-		$GLOBALS['releases']	= null;
-		$GLOBALS['current_release'] = 0;
-	}
-	return $have_releases;
+    $have_releases = ( !empty($releases[$current_release]) );
+
+    if ( !$have_releases ) {
+        $GLOBALS['releases']	= null;
+        $GLOBALS['current_release'] = 0;
+    }
+
+    return $have_releases;
 }
 
 /**
@@ -1264,12 +1327,13 @@ function have_releases () {
  * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
-function the_release (){
-	global $releases, $release, $current_release, $tracks;
+function the_release ()
+{
+    global $releases, $release, $current_release, $tracks;
 
-	$GLOBALS['release'] = $releases [$current_release];
-	$GLOBALS['tracks'] = $release ['release_tracks'];
-	$GLOBALS['current_release']++;
+    $GLOBALS['release'] = $releases [$current_release];
+    $GLOBALS['tracks'] = $release ['release_tracks'];
+    $GLOBALS['current_release']++;
 }
 
 /**
@@ -1278,16 +1342,18 @@ function the_release (){
  * @author Alex Andrews <alex@recordsonribs.com>
  * @return The current review.
  */
-function have_reviews () {
-	global $reviews, $current_review;
-	
-	$have_reviews = ( !empty($reviews[$current_review]) );
+function have_reviews ()
+{
+    global $reviews, $current_review;
 
-	if ( !$have_reviews ) {
-		$GLOBALS['reviews']	= null;
-		$GLOBALS['current_review'] = 0;
-	}
-	return $have_reviews;
+    $have_reviews = ( !empty($reviews[$current_review]) );
+
+    if ( !$have_reviews ) {
+        $GLOBALS['reviews']	= null;
+        $GLOBALS['current_review'] = 0;
+    }
+
+    return $have_reviews;
 }
 
 /**
@@ -1296,11 +1362,12 @@ function have_reviews () {
  * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
-function the_review (){
-	global $reviews, $review, $current_review;
+function the_review ()
+{
+    global $reviews, $review, $current_review;
 
-		$GLOBALS['review'] = $reviews [$current_review];
-		$GLOBALS['current_review']++;
+        $GLOBALS['review'] = $reviews [$current_review];
+        $GLOBALS['current_review']++;
 }
 
 /**
@@ -1310,13 +1377,14 @@ function the_review (){
  * @param bool $echo If true display the text of the review.
  * @return string The text of the review.
  */
-function review_text ( $echo=true ){
-	global $review;
-	
-	if ($echo)
-		echo $review['review_text'];
-	
-	return $review['review_text'];
+function review_text ( $echo=true )
+{
+    global $review;
+
+    if ($echo)
+        echo $review['review_text'];
+
+    return $review['review_text'];
 }
 
 /**
@@ -1326,13 +1394,14 @@ function review_text ( $echo=true ){
  * @param bool $echo If true display the author of the review.
  * @return string The author of the review.
  */
-function review_author ( $echo=true ){
-	global $review;
-	
-	if ($echo)
-		echo $review['review_author'];
-	
-	return $review['review_author'];
+function review_author ( $echo=true )
+{
+    global $review;
+
+    if ($echo)
+        echo $review['review_author'];
+
+    return $review['review_author'];
 }
 
 /**
@@ -1342,16 +1411,18 @@ function review_author ( $echo=true ){
  * @param bool $echo If true display the URL of the review.
  * @return string The URL of the review.
  */
-function review_link ( $echo=true ){
-	global $review;
-	
-	if ($echo)
-		echo $review['review_link'];
-	
-	return $review['review_link'];
+function review_link ( $echo=true )
+{
+    global $review;
+
+    if ($echo)
+        echo $review['review_link'];
+
+    return $review['review_link'];
 }
 
-function ribcage_total_downloads_shortcode () {
+function ribcage_total_downloads_shortcode ()
+{
     return number_format(get_option('ribcage_total_downloads'));
 }
 add_shortcode('total_downloads','ribcage_total_downloads_shortcode');
@@ -1362,16 +1433,18 @@ add_shortcode('total_downloads','ribcage_total_downloads_shortcode');
  * @author Alex Andrews <alex@recordsonribs.com>
  * @return The current review.
  */
-function have_products () {
-	global $products, $current_product;
-	
-	$have_products = ( !empty($products[$current_product]) );
+function have_products ()
+{
+    global $products, $current_product;
 
-	if ( !$have_products ) {
-		$GLOBALS['products']	= null;
-		$GLOBALS['current_product'] = 0;
-	}
-	return $have_products;
+    $have_products = ( !empty($products[$current_product]) );
+
+    if ( !$have_products ) {
+        $GLOBALS['products']	= null;
+        $GLOBALS['current_product'] = 0;
+    }
+
+    return $have_products;
 }
 
 /**
@@ -1380,11 +1453,12 @@ function have_products () {
  * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
-function the_product (){
-	global $products, $product, $current_product;
+function the_product ()
+{
+    global $products, $product, $current_product;
 
-	$GLOBALS['product'] = $products [$current_product];
-	$GLOBALS['current_product']++;
+    $GLOBALS['product'] = $products [$current_product];
+    $GLOBALS['current_product']++;
 }
 
 ?>

@@ -14,36 +14,34 @@
  * @param string $format The format of the release to download, flac|mp3|ogg
  * @return void
  */
-function download_release ($release_slug, $format) {
-	global $release;
-	
-	if (empty ($release_slug)) {
-		return new WP_Error ('ribcage-no-release-to-download', __("You didn't specify a release to grab."));
-	}
-		
-	$release = get_release_by_slug ($release_slug, FALSE, FALSE);
-		
-	// If we don't know the release, then error nicely, not with a snarky SQL error.
-	// Remember this page is user viewed. Display a 404.
-	if (is_wp_error ($release)) {
-		return $release;
-	}
-		
-	if ($format == 'mp3') {
-		$file = $release['release_mp3'];
-	} 
-	elseif ($format == 'ogg') {
-		$file = $release['release_ogg'];
-	} 
-	else if ($format == 'flac') {
-		$file = $release['release_flac'];
-	}
-	else {
-		return new WP_Error ('ribcage-incorrect-format', __("$format isn't a format I am aware of.<br />Hence it isn't a format you can download, sorry."));
-	}
-	
-	ribcage_log();			
-	ribcage_download($file);
+function download_release ($release_slug, $format)
+{
+    global $release;
+
+    if (empty ($release_slug)) {
+        return new WP_Error ('ribcage-no-release-to-download', __("You didn't specify a release to grab."));
+    }
+
+    $release = get_release_by_slug ($release_slug, FALSE, FALSE);
+
+    // If we don't know the release, then error nicely, not with a snarky SQL error.
+    // Remember this page is user viewed. Display a 404.
+    if (is_wp_error ($release)) {
+        return $release;
+    }
+
+    if ($format == 'mp3') {
+        $file = $release['release_mp3'];
+    } elseif ($format == 'ogg') {
+        $file = $release['release_ogg'];
+    } elseif ($format == 'flac') {
+        $file = $release['release_flac'];
+    } else {
+        return new WP_Error ('ribcage-incorrect-format', __("$format isn't a format I am aware of.<br />Hence it isn't a format you can download, sorry."));
+    }
+
+    ribcage_log();
+    ribcage_download($file);
 }
 
 /**
@@ -54,34 +52,32 @@ function download_release ($release_slug, $format) {
  * @param string $format The format of the release to download, flac|mp3|ogg
  * @return void
  */
-function download_track ($track_slug, $format) {
-	global $track;
-	
-	if (empty ($track_slug)) {
-		return new WP_Error ('ribcage-no-track-to-download', __("You didn't specify a track to grab."));
-	}
-	
-	$track = get_track_by_slug($track_slug);
-	
-	if (is_wp_error ($release)) {
-		return $release;
-	}
-	
-	if ($format == 'mp3') {
-			$file = $track['track_mp3'];
-	} 
-	elseif ($format == 'ogg') {
-			$file = $track['track_ogg'];
-	} 
-	elseif ($format == 'flac') {
-		$file = $track['track_flac'];
-	}
-	else {
-		return new WP_Error('ribcage-incorrect-format', __("$format isn't a format I am aware of.<br />Hence it isn't a format you can download."));
-	}
-	
-	ribcage_log (TRUE);	
-	ribcage_download($file);
+function download_track ($track_slug, $format)
+{
+    global $track;
+
+    if (empty ($track_slug)) {
+        return new WP_Error ('ribcage-no-track-to-download', __("You didn't specify a track to grab."));
+    }
+
+    $track = get_track_by_slug($track_slug);
+
+    if (is_wp_error ($release)) {
+        return $release;
+    }
+
+    if ($format == 'mp3') {
+            $file = $track['track_mp3'];
+    } elseif ($format == 'ogg') {
+            $file = $track['track_ogg'];
+    } elseif ($format == 'flac') {
+        $file = $track['track_flac'];
+    } else {
+        return new WP_Error('ribcage-incorrect-format', __("$format isn't a format I am aware of.<br />Hence it isn't a format you can download."));
+    }
+
+    ribcage_log (TRUE);
+    ribcage_download($file);
 }
 
 /**
@@ -92,28 +88,28 @@ function download_track ($track_slug, $format) {
  * @author Alex Andrews <alex@recordsonribs.com>
  * @param string $file File path of the file to download
  */
-function ribcage_download ($file) {
-	// The full path is the site root plus whatever is in the database.
-	$path = ABSPATH.$file;
-	
-	if (file_exists($path)) {
-		header("Pragma: public");
-		header("Expires: 0");
-		header("Cache-Control: must-revalidate, post-check=0, pre-check=0"); 
-		header("Content-Type: application/force-download");
-		header("Content-Type: application/octet-stream");
-		header("Content-Type: application/download");
-		header("Content-Disposition: attachment; filename=".basename($file).";");
-		header("Content-Transfer-Encoding: binary");					
-		header("Content-Length: ".filesize($path));
-		@readfile($path);
-	}
-	else {
-		header('HTTP/1.0 404 Not Found');
-		die(__('File does not exist.', 'ribcage'));
-	}
+function ribcage_download ($file)
+{
+    // The full path is the site root plus whatever is in the database.
+    $path = ABSPATH.$file;
 
-	return(0);
+    if (file_exists($path)) {
+        header("Pragma: public");
+        header("Expires: 0");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Content-Type: application/force-download");
+        header("Content-Type: application/octet-stream");
+        header("Content-Type: application/download");
+        header("Content-Disposition: attachment; filename=".basename($file).";");
+        header("Content-Transfer-Encoding: binary");
+        header("Content-Length: ".filesize($path));
+        @readfile($path);
+    } else {
+        header('HTTP/1.0 404 Not Found');
+        die(__('File does not exist.', 'ribcage'));
+    }
+
+    return(0);
 }
 
 ?>

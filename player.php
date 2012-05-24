@@ -13,23 +13,24 @@
  * @return void
  * @author Alex Andrews <alex@recordsonribs.com>
  **/
-function show_player ($release_slug) {
-	global $artists, $artist, $current_artist;
-	global $releases, $release, $current_release;
-	
-	$release = get_release_by_slug ($release_slug, FALSE, FALSE);
+function show_player ($release_slug)
+{
+    global $artists, $artist, $current_artist;
+    global $releases, $release, $current_release;
 
-	if (is_wp_error($release)){
-		ribcage_404();
-	}
+    $release = get_release_by_slug ($release_slug, FALSE, FALSE);
 
-	$artist['artist_name'] = get_artistname_by_id($release['release_artist']);
-
-    if (is_wp_error($artist)){
-    	ribcage_404();
+    if (is_wp_error($release)) {
+        ribcage_404();
     }
-	
-	$table = array(
+
+    $artist['artist_name'] = get_artistname_by_id($release['release_artist']);
+
+    if (is_wp_error($artist)) {
+        ribcage_404();
+    }
+
+    $table = array(
         'Š'=>'S', 'š'=>'s', 'Đ'=>'Dj', 'đ'=>'dj', 'Ž'=>'Z', 'ž'=>'z', 'Č'=>'C', 'č'=>'c', 'Ć'=>'C', 'ć'=>'c',
         'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
         'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O',
@@ -40,40 +41,42 @@ function show_player ($release_slug) {
         'ÿ'=>'y', 'Ŕ'=>'R', 'ŕ'=>'r', '’'=>'',
     );
 
-	$url = $artist['artist_name']." ".$release['release_title'];
-	$url = preg_replace('/ /', '-', $url);
-	$url = strtr($url, $table);
-	$url = strtolower($url);
-	$slug = preg_replace('/\s+/', '', $slug);
-	$url = preg_replace('/\p{P}(?<!-)/', '', $url);
-	$url = urlencode("http://soundcloud.com/records-on-ribs/sets/".$url);
+    $url = $artist['artist_name']." ".$release['release_title'];
+    $url = preg_replace('/ /', '-', $url);
+    $url = strtr($url, $table);
+    $url = strtolower($url);
+    $slug = preg_replace('/\s+/', '', $slug);
+    $url = preg_replace('/\p{P}(?<!-)/', '', $url);
+    $url = urlencode("http://soundcloud.com/records-on-ribs/sets/".$url);
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<script type="text/javascript" charset="utf-8">
-		function removejscssfile(filename, filetype){
-		 var targetelement=(filetype=="js")? "script" : (filetype=="css")? "link" : "none"
-		 var targetattr=(filetype=="js")? "src" : (filetype=="css")? "href" : "none"
-		 var allsuspects=document.getElementsByTagName(targetelement)
-		 for (var i=allsuspects.length; i>=0; i--){
-		  if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf(filename)!=-1)
-		   allsuspects[i].parentNode.removeChild(allsuspects[i])
-		 }
-		}
-		
-		removejscssfile("index.include.778216415.css", "css")
-		removejscssfile("default.include.866590059.js", "js")
-	</script>
+    <script type="text/javascript" charset="utf-8">
+        function removejscssfile(filename, filetype)
+        {
+         var targetelement=(filetype=="js")? "script" : (filetype=="css")? "link" : "none"
+         var targetattr=(filetype=="js")? "src" : (filetype=="css")? "href" : "none"
+         var allsuspects=document.getElementsByTagName(targetelement)
+         for (var i=allsuspects.length; i>=0; i--) {
+          if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf(filename)!=-1)
+           allsuspects[i].parentNode.removeChild(allsuspects[i])
+         }
+        }
+
+        removejscssfile("index.include.778216415.css", "css")
+        removejscssfile("default.include.866590059.js", "js")
+    </script>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>ROR Player</title>
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.1/build/reset/reset-min.css">
 </head>
 <body>
-<object height="300" width="300" style="float:left;"> <param name="movie" value="http://player.soundcloud.com/player.swf?url=<?php echo $url ?>&amp;auto_play=true&amp;player_type=artwork&amp;color=ff0004&amp;buying=false&amp;show_playcount=false&amp;download=false&amp;text_buy_set='Free Download'"></param> <param name="allowscriptaccess" value="always"></param> <embed allowscriptaccess="always" height="300" src="http://player.soundcloud.com/player.swf?url=<?php echo $url ?>&amp;auto_play=true&amp;player_type=artwork&amp;color=ff0004&amp;buying=false&amp;show_playcount=false&amp;download=false&amp;text_buy_set='Free Download" type="application/x-shockwave-flash" width="300"></embed> </object>  
+<object height="300" width="300" style="float:left;"> <param name="movie" value="http://player.soundcloud.com/player.swf?url=<?php echo $url ?>&amp;auto_play=true&amp;player_type=artwork&amp;color=ff0004&amp;buying=false&amp;show_playcount=false&amp;download=false&amp;text_buy_set='Free Download'"></param> <param name="allowscriptaccess" value="always"></param> <embed allowscriptaccess="always" height="300" src="http://player.soundcloud.com/player.swf?url=<?php echo $url ?>&amp;auto_play=true&amp;player_type=artwork&amp;color=ff0004&amp;buying=false&amp;show_playcount=false&amp;download=false&amp;text_buy_set='Free Download" type="application/x-shockwave-flash" width="300"></embed> </object>
 </body>
 </html>
 <?php
-	return (0);	
+
+    return (0);
 }
 
 ?>
