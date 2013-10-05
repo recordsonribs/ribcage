@@ -675,7 +675,7 @@ function ribcage_release_form () {
 		<tr valign="top">
 			<th scope="row"><label for="release_title">Release Slug</label></th> 
 			<td>
-				<input type="text" style="width:320px;" class="regular-text code" value="<?php release_slug(); ?>" name="release_slug" id="release_slug" maxlength="200" /><span class="description">The URL you want for the release after the artist name, for example <?php echo get_option('siteurl'); ?>/artist_name/release_slug</span>										
+				<input type="text" style="width:320px;" class="regular-text code" value="<?php release_slug(); ?>" name="release_slug" id="release_slug" maxlength="200" /><span class="description">The URL you want for the release after the artist name, for example <a href="<?php echo home_url(); ?>/artist_name/release_slug</span>										
 			</td> 
 		</tr>
 		<tr valign="top">
