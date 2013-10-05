@@ -139,7 +139,7 @@ function ribcage_title ($sep = '&rsaquo;'){
 	
 	if (isset($wp_query->query_vars['ribcage_buy']) && isset($wp_query->query_vars['ribcage_product_id'])) {
 		
-		?>Buy <?php echo $sep; ?> <?php if (isset($artist) && isset($release)) : ?><a href="<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a> <?php echo $sep; ?> <?php endif;?><?php product_name(); ?><?php
+		?>Buy <?php echo $sep; ?> <?php if (isset($artist) && isset($release)) : ?><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a> <?php echo $sep; ?> <?php endif;?><?php product_name(); ?><?php
 	}
 	
 	if ($wp_query->query_vars['ribcage_buy_mode'] == 'thanks') {
@@ -147,31 +147,31 @@ function ribcage_title ($sep = '&rsaquo;'){
 	}
 	
 	if (isset($wp_query->query_vars['ribcage_download'])){
-		?>Downloading <?php echo $sep; ?> <a href="<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a> <?php echo $sep; ?> <a href="<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug();?>"><?php release_title(); ?></a>
+		?>Downloading <?php echo $sep; ?> <a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a> <?php echo $sep; ?> <a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug();?>"><?php release_title(); ?></a>
 		<?php
 	}
 	
 	if (isset($wp_query->query_vars['artist_slug']) && !isset($wp_query->query_vars['ribcage_buy'])) {
-		?><a href="<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a><?php
+		?><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a><?php
 	}
 	
 	if (is_artist_page()){	
 		switch ($wp_query->query_vars['artist_page']) {
 			case 'press':
 				?>
-			<?php echo $sep; ?> <a href="<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/press">Press</a> 
+			<?php echo $sep; ?> <a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/press">Press</a> 
 				<?php
 				break;
 
 			case 'bio':
 				?>
-				<?php echo $sep; ?> <a href="<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/bio">Biography</a>
+				<?php echo $sep; ?> <a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/bio">Biography</a>
 				<?php
 				break;
 
 			default :	
 				?>
-				<?php echo $sep; ?> <a href="<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug();?>"><?php release_title(); ?></a>
+				<?php echo $sep; ?> <a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug();?>"><?php release_title(); ?></a>
 				<?php
 		}
 	}
@@ -203,18 +203,18 @@ function ribcage_albums ($amount = 5, $mode = 'list', $nav_bar = TRUE, $css = NU
 				<?php if ($mode == 'covers') : ?>
 				<li class="album_cover"><a class="ribcage albums album_cover" href="<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><img src="<?php release_cover_tiny ();?>" alt="<?php release_title(); ?>" /></a></li>
 				<?php endif; ?>
-				<li class="artist"><a href="<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a></li>
-				<li class="title"><a href="<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></li>
+				<li class="artist"><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a></li>
+				<li class="title"><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></li>
 				<?php if ($nav_bar) : ?>
 				<li class="nav">
 					<ul class="nav">
-						<li class="more"><a href="<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>">More</a></li>
+						<li class="more"><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>">More</a></li>
 						<li class="listen"><a href="javascript:popUp('<?php release_player_link (); ?>')">Listen</a></li>
 						<?php if (release_physical()) : ?>
-						<li class="download"><a href="<a href="<?php echo home_url(); ?>/download/<?php release_slug(); ?>/">Download</a></li>
+						<li class="download"><a href="<?php echo home_url(); ?>/download/<?php release_slug(); ?>/">Download</a></li>
 							<li class="last buy"><a href="<?php get_option('siteurl'); ?>/buy/<?php release_product_id(); ?>">Buy</a></li>
 						<?php else: ?>
-						<li class="last download"><a href="<a href="<?php echo home_url(); ?>/download/<?php release_slug(); ?>/">Download</a></li>
+						<li class="last download"><a href="<?php echo home_url(); ?>/download/<?php release_slug(); ?>/">Download</a></li>
 						<?php endif; ?>
 					</ul>
 				</li>

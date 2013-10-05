@@ -3,7 +3,7 @@
 	<div id="left">
 		<div class="mod page">
 			<div class="entry">
-				<p>If you require any further information regarding <a href="<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>"><?php artist_name(); ?></a> or any of our other artists or releases, or wish to contact the artist directly, please do not hesitate to e-mail <a href="mailto:<?php echo get_option('ribcage_press_contact'); ?>"><?php echo get_option('ribcage_press_contact'); ?></a>.</p>
+				<p>If you require any further information regarding <a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>"><?php artist_name(); ?></a> or any of our other artists or releases, or wish to contact the artist directly, please do not hesitate to e-mail <a href="mailto:<?php echo get_option('ribcage_press_contact'); ?>"><?php echo get_option('ribcage_press_contact'); ?></a>.</p>
 			</div> <!-- end div.entry -->
 		</div> <!-- end div.page -->
 
@@ -11,11 +11,11 @@
 		<?php while ( have_releases () ) : the_release() ; ?>
 		<div class="mod post release artist_page">
 			<div class="mod-meta artist_slug">
-				<a href="<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><img src="<?php release_cover_tiny ();?>" alt="<?php release_title(); ?>" /></a>
+				<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><img src="<?php release_cover_tiny ();?>" alt="<?php release_title(); ?>" /></a>
 			</div> <!-- end div.mod-meta -->
 			<div class="mod-body">
 				<?php $artist = get_artist($release['release_artist']); ?>
-				<h2 class="album"><a href="<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h2>
+				<h2 class="album"><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h2>
 				<ul class="press_links">
 					<?php if (release_onesheet(0)) : ?><li class="press"><a href="<?php release_onesheet(); ?>" target="_blank">Press Information Sheet (<abbr title="Portable Document Format">pdf</abbr>)</a></li><?php endif; ?>
 					<?php if (release_cover_huge(0)) : ?><li class="coverart"><a href="<?php release_cover_huge(); ?>" rel="lightbox" title="High Quality Cover Artwork">High Quality Cover Artwork</a><a class="new-window" href="<?php release_cover_huge(); ?>" title="Launch in New Window" target="_blank"><span>Launch in New Window</span></a></li><?php endif; ?>

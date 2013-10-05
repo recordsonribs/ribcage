@@ -52,16 +52,16 @@ class ribcage_widgets {
 					<a class="slug" href="<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><img src="<?php release_cover_tiny ();?>" alt="<?php release_title(); ?>" /></a>
 					<div class="artist_slug_info">
 						<ul class="artist_slug_main">
-							<li class="artist"><a href="<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a><h2><a href="<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h2></li>
+							<li class="artist"><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a><h2><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h2></li>
 						</ul>
 						<ul class="artist_slug_meta">
-							<li class="more"><a href="<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>">More</a></li>
+							<li class="more"><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>">More</a></li>
 							<li class="listen"><a href="javascript:popUp('<?php release_player_link (); ?>')">Listen</a></li>
 						<?php if (release_physical()) : ?>
-							<li class="download"><a href="<a href="<?php echo home_url(); ?>/download/<?php release_slug(); ?>/">Download</a></li>
+							<li class="download"><a href="<?php echo home_url(); ?>/download/<?php release_slug(); ?>/">Download</a></li>
 							<li class="last buy"><a href="<?php get_option('siteurl'); ?>/buy/<?php release_product_id(); ?>">Buy</a></li>
 						<?php else: ?>
-							<li class="last download"><a href="<a href="<?php echo home_url(); ?>/download/<?php release_slug(); ?>/">Download</a></li>
+							<li class="last download"><a href="<?php echo home_url(); ?>/download/<?php release_slug(); ?>/">Download</a></li>
 						<?php endif; ?>
 						</ul>
 					</div> <!-- end div.artist_slug_info -->
@@ -69,7 +69,7 @@ class ribcage_widgets {
 				</div> <!-- end div.artist_slug -->
 				<?php endwhile; ?>
 				<div class="clear"></div>
-				<p class="more_link"><a href="<a href="<?php echo home_url(); ?>/releases/">more releases &rsaquo;</a></p>
+				<p class="more_link"><a href="<?php echo home_url(); ?>/releases/">more releases &rsaquo;</a></p>
 			</div>
 	        <?php echo $after_widget; ?>
 	<?php

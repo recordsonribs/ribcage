@@ -24,8 +24,8 @@
 	<div class="mod">
 		<h3>Album Info</h3>
 		<div class="album_slug_more">
-			<small class="artist"><strong><a href="<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a></strong></small>
-			<h2 class="album"><a href="<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h2>
+			<small class="artist"><strong><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a></strong></small>
+			<h2 class="album"><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h2>
 		</div>
 	</div>
 	<div class="mod album_release">
@@ -34,10 +34,10 @@
 			<ul class="album_slug_meta">
 				<li class="listen"><a href="javascript:popUp('<?php release_player_link (); ?>')">Listen</a></li>
 				<?php if (release_physical()) : ?>
-					<li class="download"><a href="<a href="<?php echo home_url(); ?>/download/<?php release_slug(); ?>/" title="Free Download">Download</a></li>
+					<li class="download"><a href="<?php echo home_url(); ?>/download/<?php release_slug(); ?>/" title="Free Download">Download</a></li>
 					<li class="last buy"><a href="<?php get_option('siteurl'); ?>/buy/<?php release_product_id(); ?>">Buy</a></li>
 				<?php else: ?>
-					<li class="download"><a href="<a href="<?php echo home_url(); ?>/download/<?php release_slug(); ?>/" title="Free Download">Download</a></li>
+					<li class="download"><a href="<?php echo home_url(); ?>/download/<?php release_slug(); ?>/" title="Free Download">Download</a></li>
 					<li class="last buy disabled"><span class="buy">Buy</span></li>
 				<?php endif; ?>
 			</ul>
