@@ -43,11 +43,11 @@ $current_product = 0;
  * @return void
  */
 function ribcage_load_template ( $filename ) {
-	$template = get_template_directory() . "/ribcage/$filename";
-	
-	if ( !file_exists($template) ) {
-		$template = plugin_dir_path(dirname(dirname(__FILE__)) . "/ribcage/templates/$filename";	
-	}
+	$template = get_template_directory() ."/ribcage/$filename";
+
+    if ( !file_exists($template) ) {
+            $template = plugin_dir_path(dirname(__FILE__)) ."templates/$filename";  
+    }
 		
 	if ( !file_exists($template) ) {
 		return new WP_Error('ribcage-template-missing', sprintf(__("Oops! The template file %s could not be found in either the Ribcage template directory or your theme's Ribcage directory.", NRTD), "<code>$filename</code>"));
