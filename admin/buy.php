@@ -241,10 +241,10 @@ function ribcage_edit_product_form ($error = 0, $related_to_release = 0) {
 		<div id="icon-options-general" class="icon32"><br /></div>
 		<?php if (isset($_REQUEST['product'])) { ?>
 		<h2>Editing <?php product_name(); ?></h2>
-		<form action="<?php get_option('siteurl'); ?>/wp-admin/admin.php?page=manage_products&product=<?php product_id() ?>&ribcage_action=edited" method="post" id="ribcage_edit_artist" name="edit_artist">
+		<form action="<?php echo home_url(); ?>/wp-admin/admin.php?page=manage_products&product=<?php product_id() ?>&ribcage_action=edited" method="post" id="ribcage_edit_artist" name="edit_artist">
 		<?php } else { ?>
 		<h2>Add A Product</h2>
-		<form action="<?php get_option('siteurl'); ?>/wp-admin/admin.php?page=manage_products&ribcage_action=add" method="post" id="ribcage_edit_artist" name="edit_artist">
+		<form action="<?php echo home_url(); ?>/wp-admin/admin.php?page=manage_products&ribcage_action=add" method="post" id="ribcage_edit_artist" name="edit_artist">
 		<?php }?>
 				<table class="form-table">             
 					<tr valign="top">
