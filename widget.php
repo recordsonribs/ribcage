@@ -49,7 +49,7 @@ class ribcage_widgets {
 	            <?php while ( have_releases () ) : the_release() ; ?>	
 				<?php $artist = get_artist($release['release_artist']); ?>
 				<div class="artist_slug">
-					<a class="slug" href="<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><img src="<?php release_cover_tiny ();?>" alt="<?php release_title(); ?>" /></a>
+					<a class="slug" href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><img src="<?php release_cover_tiny ();?>" alt="<?php release_title(); ?>" /></a>
 					<div class="artist_slug_info">
 						<ul class="artist_slug_main">
 							<li class="artist"><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a><h2><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h2></li>
