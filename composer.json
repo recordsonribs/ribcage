@@ -1,0 +1,14 @@
+{
+    "name": "recordsonribs/ribcage",
+    "description": "A record label management tool.",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Alex",
+            "email": "alex@recordsonribs.com"
+        }
+    ],
+    "require": {
+
+    }
+}
