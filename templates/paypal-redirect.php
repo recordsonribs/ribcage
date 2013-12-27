@@ -3,7 +3,7 @@
 </script>
 <head profile="http://gmpg.org/xfn/11">
 <title>Redirecting to PayPal . . .</title>
-<link rel="stylesheet" href="<?php echo get_option('siteurl')."/wp-content/plugins/ribcage/templates/css/redirect.css";?>" type="text/css" media="screen" />
+<link rel="stylesheet" href="<?php echo get_option('home')."/wp-content/plugins/ribcage/templates/css/redirect.css";?>" type="text/css" media="screen" />
 </head>
 
 <body onLoad="document.paypal.submit();">

@@ -23,9 +23,9 @@ function ribcage_donate (){
 
 	$paypal->add_field('charset', 'utf-8');
 
-	$paypal->add_field('return', get_option('siteurl').'/download/'.release_slug(FALSE).'/back/');
-	$paypal->add_field('cancel_return', get_option('siteurl').'/download/'.release_slug(FALSE));
-	$paypal->add_field('notify_url', get_option('siteurl').'/donate/ipn');
+	$paypal->add_field('return', get_option('home').'/download/'.release_slug(FALSE).'/back/');
+	$paypal->add_field('cancel_return', get_option('home').'/download/'.release_slug(FALSE));
+	$paypal->add_field('notify_url', get_option('home').'/donate/ipn');
 
 	$paypal->add_field('item_name', release_title(FALSE).' Download Donation');
 	$paypal->add_field('item_number', release_cat_no(FALSE));

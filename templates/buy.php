@@ -2,12 +2,12 @@
 
 	<div id="left">
 		<div class="mod page">
-			<!--<h2><a href="<?php get_option('siteurl') ?>/buy/<?php product_id(); ?>">Buying <?php product_name(); ?></a><h2>-->
+			<!--<h2><a href="<?php get_option('home') ?>/buy/<?php product_id(); ?>">Buying <?php product_name(); ?></a><h2>-->
 				<div class="entry">
 					<p><?php product_description(); ?></p>
 					<h3>Pricing</h3>
-					<p>CD Album & Postage (UK) - &pound;<?php product_cost_c(); ?><br /><a href="<?php get_option('siteurl') ?>/buy/<?php product_id(); ?>/go-uk">Buy Now</a></p>
-					<p>CD Album & Postage (Worldwide) - &pound;<?php product_cost_ww(); ?><br /><a href="<?php get_option('siteurl') ?>/buy/<?php product_id(); ?>/go-ww">Buy Now</a></p>
+					<p>CD Album & Postage (UK) - &pound;<?php product_cost_c(); ?><br /><a href="<?php get_option('home') ?>/buy/<?php product_id(); ?>/go-uk">Buy Now</a></p>
+					<p>CD Album & Postage (Worldwide) - &pound;<?php product_cost_ww(); ?><br /><a href="<?php get_option('home') ?>/buy/<?php product_id(); ?>/go-ww">Buy Now</a></p>
 			</div> <!-- end div.entry -->
 		</div> <!-- end div.page -->
 		<div class="mod post paypal">

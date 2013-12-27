@@ -3,7 +3,7 @@
 	<div id="left">
 		<div class="mod page">
 			<div class="entry">
-				<p>Thanks for your interest in <a href="<?php get_option('siteurl')?>/artists/<?php artist_slug(); ?>"><?php artist_name(); ?></a> and <a href="<?php get_option('siteurl');?>">Records On Ribs</a>!</p>
+				<p>Thanks for your interest in <a href="<?php get_option('home')?>/artists/<?php artist_slug(); ?>"><?php artist_name(); ?></a> and <a href="<?php get_option('home');?>">Records On Ribs</a>!</p>
 				<ul class="download">
 					<li><a href="<?php release_download_link_mp3(); ?>">Download</a> Zipped High Quality MP3 Files (<?php release_download_size_mp3(); ?>).</li>
 					<li><a href="<?php release_download_link_ogg(); ?>">Download</a> Zipped Ogg Files (<?php release_download_size_ogg(); ?>).</li>

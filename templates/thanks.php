@@ -2,7 +2,7 @@
 <div id="container">
 	<div id="content">
 		<div id="post-17" class="hentry p1 page publish author-alex category-uncategorized tag- y2007 m07 d19 h23">
-			<h2 class="entry-title"><a href="<?php get_option('siteurl') ?>/buy/<?php product_id(); ?>">Thanks <?php echo $_POST['first_name'];?></a><h2>
+			<h2 class="entry-title"><a href="<?php get_option('home') ?>/buy/<?php product_id(); ?>">Thanks <?php echo $_POST['first_name'];?></a><h2>
 				<div class="entry-content">
 					<p>Thanks very much for your order. We'll get back to you as soon as possible.</p>
 					<h3>Details</h3>

@@ -18,7 +18,7 @@
 	<?php if (!is_artist_page() ) : ?><h2>Releases</h2><?php endif; ?>
 	<?php while ( have_releases  () ) : the_release (); ?>
 	<div>
-	<h3><a href="<?php get_option('siteurl').'/artists/'.$artist['artist_slug'].release_slug(); ?>"><?php release_title(); ?></a></h3>
+	<h3><a href="<?php get_option('home').'/artists/'.$artist['artist_slug'].release_slug(); ?>"><?php release_title(); ?></a></h3>
 	</div>
 	<?php endwhile; ?>
 	<?php endif; ?>
