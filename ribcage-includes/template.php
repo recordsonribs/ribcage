@@ -451,9 +451,9 @@ function release_download_link ( $echo = true ) {
 	global $release;
 	
 	if ( $echo )
-		echo get_option('siteurl').'/download/'.$release['release_slug'];
+		echo get_option('home').'/download/'.$release['release_slug'];
 	
-	return get_option('siteurl').'/download/'.$release['release_slug'];
+	return get_option('home').'/download/'.$release['release_slug'];
 }
 
 /**
@@ -467,9 +467,9 @@ function release_download_link_mp3 ( $echo = true ) {
 	global $release;
 	
 	if ( $echo )
-		echo get_option('siteurl').'/download/'.$release['release_slug'].'/mp3';
+		echo get_option('home').'/download/'.$release['release_slug'].'/mp3';
 	
-	return get_option('siteurl').'/download/'.$release['release_slug'].'/mp3';
+	return get_option('home').'/download/'.$release['release_slug'].'/mp3';
 }
 
 /**
@@ -506,9 +506,9 @@ function release_download_link_flac ( $echo = true ) {
 	global $release;
 	
 	if ( $echo )
-		echo get_option('siteurl').'/download/'.$release['release_slug'].'/flac';
+		echo get_option('home').'/download/'.$release['release_slug'].'/flac';
 	
-	return get_option('siteurl').'/download/'.$release['release_slug'].'/flac';
+	return get_option('home').'/download/'.$release['release_slug'].'/flac';
 }
 
 /**
@@ -545,9 +545,9 @@ function release_download_link_ogg ( $echo = true ) {
 	global $release;
 	
 	if ( $echo )
-		echo get_option('siteurl').'/download/'.$release['release_slug'].'/ogg';
+		echo get_option('home').'/download/'.$release['release_slug'].'/ogg';
 	
-	return get_option('siteurl').'/download/'.$release['release_slug'].'/ogg';
+	return get_option('home').'/download/'.$release['release_slug'].'/ogg';
 }
 
 /**
@@ -729,9 +729,9 @@ function release_player_link ( $echo = true ) {
 	global $release;
 	
 	if ( $echo )
-		echo get_option('siteurl').'/player/'.$release['release_slug'].'/';
+		echo get_home_url() . '/player/'.$release['release_slug'].'/';
 	
-	return get_option('siteurl').'/download/'.$release['release_slug'].'/';
+	return get_home_url() . '/download/'.$release['release_slug'].'/';
 }
 
 /**
@@ -873,7 +873,7 @@ function artist_slug ( $echo = true ) {
  */
 function artist_press_link ( $echo = true ) {
 	global $artist;
-	$presslink = get_option('siteurl').'/artists/'.$artist['artist_slug'].'/press/';
+	$presslink = get_option('home').'/artists/'.$artist['artist_slug'].'/press/';
 	
 	if ($echo)
 		echo $presslink;
