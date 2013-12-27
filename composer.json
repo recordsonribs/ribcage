@@ -2,6 +2,7 @@
     "name": "recordsonribs/ribcage",
     "description": "A record label management tool.",
     "license": "GPL",
+    "type": "wordpress-plugin",
     "authors": [
         {
             "name": "Alex",
