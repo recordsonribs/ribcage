@@ -58,10 +58,10 @@ class ribcage_widgets {
 							<li class="more"><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>">More</a></li>
 							<li class="listen"><a href="javascript:popUp('<?php release_player_link (); ?>')">Listen</a></li>
 						<?php if (release_physical()) : ?>
-							<li class="download"><a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/">Download</a></li>
+							<li class="download"><a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/">Free Download</a></li>
 							<li class="last buy"><a href="<?php get_option('siteurl'); ?>/buy/<?php release_product_id(); ?>">Buy</a></li>
 						<?php else: ?>
-							<li class="last download"><a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/">Download</a></li>
+							<li class="last download"><a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/">Free Download</a></li>
 						<?php endif; ?>
 						</ul>
 					</div> <!-- end div.artist_slug_info -->

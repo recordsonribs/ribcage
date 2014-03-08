@@ -1,14 +1,15 @@
 <?php get_header(); ?>
-
+<?php global $release;?>
 	<div id="left">
 		<div class="mod page">
 			<div class="entry">
 				<p>Thanks for your interest in <a href="<?php get_option('siteurl')?>/artists/<?php artist_slug(); ?>"><?php artist_name(); ?></a> and <a href="<?php get_option('siteurl');?>">Records On Ribs</a>!</p>
 				<ul class="download">
-					<li><a href="<?php release_download_link_mp3(); ?>">Download</a> Zipped High Quality MP3 Files (<?php release_download_size_mp3(); ?>).</li>
-					<li><a href="<?php release_download_link_ogg(); ?>">Download</a> Zipped Ogg Files (<?php release_download_size_ogg(); ?>).</li>
-					<li><a href="<?php release_download_link_flac(); ?>">Download</a> Zipped Flac Files (<?php release_download_size_flac(); ?>).</li>
+					<li><a href="<?php get_option('siteurl');?><?php echo $release['release_mp3'];?>">Download</a> Zipped High Quality MP3 Files</li>
+					<li><a href="<?php get_option('siteurl');?><?php echo $release['release_ogg'];?>">Download</a> Zipped Ogg Vorbis Files</li>
+					<li><a href="<?php get_option('siteurl');?><?php echo $release['release_flac'];?>">Download</a> Zipped FLAC Fles</li>
 				</ul>
+				<p class="metadata"><script type="text/javascript">SHARETHIS.addEntry({ title: "<?php artist_name();?> - <?php release_title();?> - Free Download", url: "<?php get_option('siteurl'); ?>/<?php artist_slug(); ?>/<?php release_slug();?>" });</script></p>
 			<?php if (release_bittorrent()) : ?>
 				<h3>BitTorrent</h3>
 				<p>The above files are also avaliable for download via Bittorrent. If you don't know what Bittorrent is, don't worry just use the links above. But if you do, please use Bittorrent as it will likely make your download considerably faster particularly at busy times, as well as lightening the load on our server. Once your download is completed, please continue to seed it as long as is possible.</p>
@@ -34,10 +35,10 @@
 
 <div id="right">
 	<div class="mod album_release">
-		<div class="album_slug_more">
+		<!--<div class="album_slug_more">
 			<small class="artist"><strong><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a></strong></small>
 			<h2 class="album"><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h2>
-		</div>
+		</div>-->
 		<img class="album_picture" src="<?php release_cover_large (); ?>" alt="<?php release_title(); ?>" />
 		<div class="album_slug_info">
 			<ul class="album_slug_meta">

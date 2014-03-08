@@ -5,6 +5,7 @@
 			<div class="entry">
 				<?php artist_bio(); ?>
 				<p><a class="press" href="<?php artist_press_link(); ?>">Press Photos and Information &rsaquo;</a></p>
+				<p class="metadata"><script type="text/javascript">SHARETHIS.addEntry({ title: "<?php artist_name();?>", url: "<?php get_option('siteurl'); ?>/<?php artist_slug(); ?>/<?php release_slug();?>" });</script></p></p>
 			</div> <!-- end div.entry-->
 		</div> <!-- end div.page -->
 		<?php if (have_releases() ) : ?>
@@ -26,10 +27,10 @@
 							<li class="more"><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>">More</a></li>
 							<li class="listen"><a href="javascript:popUp('<?php release_player_link (); ?>')">Listen</a></li>
 						<?php if (release_physical()) : ?>
-							<li class="download"><a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/">Download</a></li>
+							<li class="download"><a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/">Free Download</a></li>
 							<li class="last buy"><a href="<?php get_option('siteurl'); ?>/buy/<?php release_product_id(); ?>">Buy</a></li>
 						<?php else: ?>
-							<li class="last download"><a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/">Download</a></li>
+							<li class="last download"><a href="<?php echo get_option('siteurl'); ?>/download/<?php release_slug(); ?>/">Free Download</a></li>
 						<?php endif; ?>
 						</ul>
 					</div> <!-- end div.menu -->
@@ -45,15 +46,22 @@
 	<div class="mod">
 		<img class="artist_picture" src="<?php artist_picture_1(); ?>" alt="<?php artist_name(); ?>" />
 	</div>
+
 	<div class="mod">
 		<h3>Artist Links</h3>
 		<ul>
-			<?php if (artist_website_link(0)) : ?><li><a href="<?php artist_website_link(); ?>">Offical Webpage</a></li><?php endif ?>
-			<?php if (artist_myspace_link(0)) : ?><li><a href="<?php artist_myspace_link(); ?>">My Space</a></li><?php endif ?>
-			<?php if (artist_facebook_link(0)) : ?><li><a href="<?php artist_facebook_link(); ?>">Facebook</a></li><?php endif ?>
-			<li><a href="<?php artist_lastfm_link(); ?>">Last.fm</a></li>
-			<li><a href="<?php artist_musicbrainz_link(); ?>">Musicbrainz</a></li>
-			<li></li>
+			<?php if (artist_website_link(0)) : ?><li class="site"><a href="<?php artist_website_link(); ?>">Offical Webpage</a></li><?php endif ?>
+			<?php if (artist_myspace_link(0)) : ?><li class="myspace"><a href="<?php artist_myspace_link(); ?>">MySpace</a></li><?php endif ?>
+			<?php if (artist_facebook_link(0)) : ?><li class="facebook"><a href="<?php artist_facebook_link(); ?>">Facebook</a></li><?php endif ?>
+			<li class="lastfm"><a href="<?php artist_lastfm_link(); ?>">Last.fm</a></li>
+			<li class="music"><a href="<?php artist_musicbrainz_link(); ?>">Musicbrainz</a></li>
+		</ul>
+	</div>
+
+	<div class="mod">
+		<h3>Gigs</h3>
+		<ul class="events">
+			<?php dbem_get_events_list("limit=3&order=DESC&category=".artist_id(false)); ?>
 		</ul>
 	</div>
 
@@ -63,16 +71,28 @@
 	?>
 	<?php if ( have_posts() ) : ?>
 		<div class="mod">
-		<h3>Tagged Posts</h3>
-		<ul>
-
-		<?php while ( have_posts() ) : the_post(); ?>
-			<li><a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a></li>
-		<?php endwhile; ?>
-
+			<h3>Tagged Posts</h3>
+			<ul>
+			<?php while ( have_posts() ) : the_post(); ?>
+				<li><a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a></li>
+			<?php endwhile; ?>
+			</ul>
 		</div>
 	<?php endif; ?>
+
 	<?php wp_reset_query(); ?>
+
+	<?php if (isset($wp_query->query_vars['artist_slug'])) { ?>
+		<div class="mod">
+			<h3>Artist Feeds</h3>
+			<ul>
+				<li class="rss"><a href="/<?php artist_slug (); ?>/feed/" title="RSS 2.0 Feed">Releases</a></li>
+				<li class="rss"><a href="/tag/<?php artist_slug (); ?>" title="RSS 2.0 Feed">News</a></li>
+				<li class="rss"><a href="/?dbem_rss=main&category=<?php artist_id (); ?>" title="RSS 2.0 Feed">Events</a></li>
+			</ul>
+		</div>
+	<?php } ?>
+
 </div>
 
 <?php get_footer() ?>

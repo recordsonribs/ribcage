@@ -4,6 +4,17 @@
 		<div class="mod page">
 			<div class="entry">
 				<?php release_blurb_long(); ?>
+				
+				<p class="metadata"><script type="text/javascript">SHARETHIS.addEntry({ title: "<?php artist_name();?> - <?php release_title();?> - Free Download", url: "<?php get_option('siteurl'); ?>/<?php artist_slug(); ?>/<?php release_slug();?>" });</script></p>
+				
+				<h3>Track List</h3>
+				<ul class="tracklist">
+				<?php while ( have_tracks () ) : the_track() ; ?>
+					<li><?php track_no(); ?>. <?php track_title(); ?> (<?php track_time(); ?>)</li>
+				<?php endwhile; ?>
+				</ul>
+
+				
 			</div> <!-- end div.entry -->
 		</div> <!-- end div.page mod.1 -->
 	<?php if (have_reviews()) : ?>
@@ -44,14 +55,17 @@
 		<div class="clear"></div>
 		</div> <!-- end div.artist_slug_info -->
 	</div>
-	<div class="mod">
-		<h3>Track List</h3>
-		<ul class="tracklist">
-		<?php while ( have_tracks () ) : the_track() ; ?>
-			<li><?php track_no(); ?>. <?php track_title(); ?> (<?php track_time(); ?>)</li>
-		<?php endwhile; ?>
-		</ul>
-	</div>
+
+	<?php if (isset($wp_query->query_vars['artist_slug'])) { ?>
+		<div class="mod">
+			<h3>Artist Feeds</h3>
+			<ul>
+				<li class="rss"><a href="/<?php artist_slug (); ?>/feed/" title="RSS 2.0 Feed">Releases</a></li>
+				<li class="rss"><a href="/tag/<?php artist_slug (); ?>" title="RSS 2.0 Feed">News</a></li>
+				<li class="rss"><a href="/?dbem_rss=main&category=<?php artist_id (); ?>" title="RSS 2.0 Feed">Events</a></li>
+			</ul>
+		</div>
+	<?php } ?>
 </div>
 
 <?php get_footer();?>

@@ -2,13 +2,23 @@
 
 	<div id="left">
 		<div class="mod page">
-			<!--<h2><a href="<?php get_option('siteurl') ?>/buy/<?php product_id(); ?>">Buying <?php product_name(); ?></a><h2>-->
-				<div class="entry">
-					<p><?php product_description(); ?></p>
-					<h3>Pricing</h3>
-					<p>CD Album & Postage (UK) - &pound;<?php product_cost_c(); ?><br /><a href="<?php get_option('siteurl') ?>/buy/<?php product_id(); ?>/go-uk">Buy Now</a></p>
-					<p>CD Album & Postage (Worldwide) - &pound;<?php product_cost_ww(); ?><br /><a href="<?php get_option('siteurl') ?>/buy/<?php product_id(); ?>/go-ww">Buy Now</a></p>
-			</div> <!-- end div.entry -->
+			<div class="product_description">
+				<h3>Product Description</h3>
+				<p><?php product_description(); ?></p>
+			</div>
+			<div class="pricing">
+				<h3>Pricing</h3>
+				<div class="uk-buy">
+					<div class="cost"><span class="pound">&pound;</span><?php product_cost_c(); ?></div>
+					<div class="more"><p><span class="locale">UK</span><br/>CD Album <span class="amp">&amp;</span> Postage<br /><strong><a href="<?php get_option('siteurl') ?>/buy/<?php product_id(); ?>/go-uk">Buy Now</a></strong></p></div>
+					<div class="clear"></div>
+				</div>
+				<div class="worldwide-buy">
+					<div class="cost"><span class="pound">&pound;</span><?php product_cost_ww(); ?></div>
+					<div class="more"><p><span class="locale">Worldwide</span><br/>CD Album <span class="amp">&amp;</span> Postage<br /><strong><a href="<?php get_option('siteurl') ?>/buy/<?php product_id(); ?>/go-ww">Buy Now</a></strong></p></div>
+					<div class="clear"></div>
+				</div>
+			</div>
 		</div> <!-- end div.page -->
 		<div class="mod post paypal">
 			<div class="mod-meta">
@@ -21,13 +31,13 @@
 	</div> <!-- end #left -->
 
 <div id="right">
-	<div class="mod">
+	<!--<div class="mod">
 		<h3>Album Info</h3>
 		<div class="album_slug_more">
 			<small class="artist"><strong><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a></strong></small>
 			<h2 class="album"><a href="<?php echo get_option('siteurl'); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h2>
 		</div>
-	</div>
+	</div>-->
 	<div class="mod album_release">
 		<img class="album_picture" src="<?php release_cover_large (); ?>" alt="<?php release_title(); ?>" />
 		<div class="album_slug_info">
