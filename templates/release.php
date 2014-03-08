@@ -53,6 +53,16 @@
 		<div class="clear"></div>
 		</div> <!-- end div.artist_slug_info -->
 	</div>
+	<?php if (isset($wp_query->query_vars['artist_slug'])) { ?>
+ 		<div class="mod">
+ 			<h3>Artist Feeds</h3>
+ 			<ul>
+ 				<li class="rss"><a href="/<?php artist_slug (); ?>/feed/" title="RSS 2.0 Feed">Releases</a></li>
+ 				<li class="rss"><a href="/tag/<?php artist_slug (); ?>" title="RSS 2.0 Feed">News</a></li>
+ 				<li class="rss"><a href="/?dbem_rss=main&category=<?php artist_id (); ?>" title="RSS 2.0 Feed">Events</a></li>
+ 			</ul>
+ 		</div>
+ 	<?php } ?>
 </div>
 
 <?php get_footer();?>
