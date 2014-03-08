@@ -21,7 +21,7 @@ global $releases, $release, $artist;
 							<p><?php release_blurb_short(); ?></p>
 						</div> <!-- end div.ribcage-release -->
 					</div> <!-- end div.entry -->
-					<div class="menu element">
+					<div>
 						<ul class="artist_slug_meta">
 							<li class="more"><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>">More</a></li>
 							<li class="listen"><a href="javascript:popUp('<?php release_player_link (); ?>')">Listen</a></li>
