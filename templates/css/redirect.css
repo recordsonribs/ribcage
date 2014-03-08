@@ -8,7 +8,7 @@ body {
 	color: #fff;
 	text-align: center;
 	min-width: 90em;
-	background: #2a2a2a;
+	background: #2a2a2a url(../images/bg.png) repeat;
 }
 
 div.logo {
