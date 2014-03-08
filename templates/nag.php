@@ -30,6 +30,4 @@
 		</div> <!-- end div.post div.cc -->
 	</div> <!-- end #left -->
 
-<?php get_sidebar(); ?>
-
 <?php get_footer();?>
