@@ -57,12 +57,14 @@
 		</ul>
 	</div>
 
+	<php if (function_exists('dbem_get_events_list')) : ?>
 	<div class="mod">
  		<h3>Gigs</h3>
  		<ul class="events">
  			<?php dbem_get_events_list("limit=3&order=DESC&category=".artist_id(false)); ?>
   		</ul>
   	</div>
+  	<?php endif; ?>
 	<?php 
 		$slug = artist_slug(false);
 		query_posts("tag=$slug");
