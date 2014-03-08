@@ -9,16 +9,6 @@
 					<li><a href="<?php get_option('siteurl');?><?php echo $release['release_ogg'];?>">Download</a> Zipped Ogg Vorbis Files</li>
  					<li><a href="<?php get_option('siteurl');?><?php echo $release['release_flac'];?>">Download</a> Zipped FLAC Fles</li>
 				</ul>
-			<?php if (release_bittorrent()) : ?>
-				<h3>BitTorrent</h3>
-				<p>The above files are also avaliable for download via Bittorrent. If you don't know what Bittorrent is, don't worry just use the links above. But if you do, please use Bittorrent as it will likely make your download considerably faster particularly at busy times, as well as lightening the load on our server. Once your download is completed, please continue to seed it as long as is possible.</p>
-				<ul class="bittorrent">
-					<?php if (release_download_link_bittorrent_mp3(0)) : ?><li><a href="<?php release_download_link_bittorrent_mp3 (); ?>">Download Torrent</a> For High Quality MP3 Files.</li><?php endif; ?>
-					<?php if (release_download_link_bittorrent_ogg (0)) : ?><li><a href="<?php release_download_link_bittorrent_ogg (); ?>">Download Torrent</a> For Ogg Files.</li><?php endif; ?>
-					<?php if (release_download_link_bittorrent_flac (0)) : ?><li><a href="<?php release_download_link_bittorrent_flac (); ?>">Download Torrent</a> For Flac Files.</li><?php endif; ?>
-				</ul>
-				<p>Torrent services provided by <a href="http://beta.legaltorrents.com/">LegalTorrents</a>.</p>
-			<?php endif; ?>
 			</div> <!-- end div.entry -->
 		</div> <!-- end div.page mod.1 -->
 
