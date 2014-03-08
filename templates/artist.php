@@ -5,7 +5,6 @@
 			<div class="entry">
 				<?php artist_bio(); ?>
 				<p><a class="press" href="<?php artist_press_link(); ?>">Press Photos and Information &rsaquo;</a></p>
-				<p class="metadata"><script type="text/javascript">SHARETHIS.addEntry({ title: "<?php artist_name();?>", url: "<?php echo home_url(); ?>/<?php artist_slug(); ?>/<?php release_slug();?>" });</script></p></p>
 			</div> <!-- end div.entry-->
 		</div> <!-- end div.page -->
 		<?php if (have_releases() ) : ?>

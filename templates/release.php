@@ -4,8 +4,6 @@
 		<div class="mod page">
 			<div class="entry">
 				<?php release_blurb_long(); ?>
-
-				<p class="metadata"><script type="text/javascript">SHARETHIS.addEntry({ title: "<?php artist_name();?> - <?php release_title();?> - Free Download", url: "<?php echo home_url(); ?>/<?php artist_slug(); ?>/<?php release_slug();?>" });</script></p>
 				
 				<h3>Track List</h3>
  				<ul class="tracklist">
