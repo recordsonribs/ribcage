@@ -34,10 +34,6 @@
 
 <div id="right">
 	<div class="mod album_release">
-		<div class="album_slug_more">
-			<small class="artist"><strong><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a></strong></small>
-			<h2 class="album"><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h2>
-		</div>
 		<img class="album_picture" src="<?php release_cover_large (); ?>" alt="<?php release_title(); ?>" />
 		<div class="album_slug_info">
 			<ul class="album_slug_meta">
