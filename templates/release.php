@@ -6,6 +6,13 @@
 				<?php release_blurb_long(); ?>
 
 				<p class="metadata"><script type="text/javascript">SHARETHIS.addEntry({ title: "<?php artist_name();?> - <?php release_title();?> - Free Download", url: "<?php echo home_url(); ?>/<?php artist_slug(); ?>/<?php release_slug();?>" });</script></p>
+				
+				<h3>Track List</h3>
+ 				<ul class="tracklist">
+ 				<?php while ( have_tracks () ) : the_track() ; ?>
+ 					<li><?php track_no(); ?>. <?php track_title(); ?> (<?php track_time(); ?>)</li>
+ 				<?php endwhile; ?>
+ 				</ul>
 			</div> <!-- end div.entry -->
 		</div> <!-- end div.page mod.1 -->
 	<?php if (have_reviews()) : ?>
@@ -45,14 +52,6 @@
 			</ul>
 		<div class="clear"></div>
 		</div> <!-- end div.artist_slug_info -->
-	</div>
-	<div class="mod">
-		<h3>Track List</h3>
-		<ul class="tracklist">
-		<?php while ( have_tracks () ) : the_track() ; ?>
-			<li><?php track_no(); ?>. <?php track_title(); ?> (<?php track_time(); ?>)</li>
-		<?php endwhile; ?>
-		</ul>
 	</div>
 </div>
 
