@@ -56,7 +56,6 @@
  			<li class="music"><a href="<?php artist_musicbrainz_link(); ?>">Musicbrainz</a></li>
 		</ul>
 	</div>
-
 	<php if (function_exists('dbem_get_events_list')) : ?>
 	<div class="mod">
  		<h3>Gigs</h3>
@@ -73,7 +72,6 @@
 		<div class="mod">
 		<h3>Tagged Posts</h3>
 		<ul>
-
 		<?php while ( have_posts() ) : the_post(); ?>
 			<li><a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a></li>
 		<?php endwhile; ?>
@@ -81,6 +79,16 @@
 		</div>
 	<?php endif; ?>
 	<?php wp_reset_query(); ?>
+	<?php if (isset($wp_query->query_vars['artist_slug'])) : ?>
+ 		<div class="mod">
+ 			<h3>Artist Feeds</h3>
+ 			<ul>
+ 				<li class="rss"><a href="/<?php artist_slug (); ?>/feed/" title="RSS 2.0 Feed">Releases</a></li>
+ 				<li class="rss"><a href="/tag/<?php artist_slug (); ?>" title="RSS 2.0 Feed">News</a></li>
+ 				<li class="rss"><a href="/?dbem_rss=main&category=<?php artist_id (); ?>" title="RSS 2.0 Feed">Events</a></li>
+ 			</ul>
+ 		</div>
+ 	<?php endif; ?>
 </div>
 
 <?php get_footer() ?>
