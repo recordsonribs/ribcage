@@ -25,19 +25,6 @@
 <div id="right">
 	<div class="mod album_release">
 		<img class="album_picture" src="<?php release_cover_large (); ?>" alt="<?php release_title(); ?>" />
-		<div class="album_slug_info">
-			<ul class="album_slug_meta">
-				<li class="listen"><a href="javascript:popUp('<?php release_player_link (); ?>')">Listen</a></li>
-				<?php if (release_physical()) : ?>
-					<li class="download"><a href="<?php echo home_url(); ?>/download/<?php release_slug(); ?>/" title="Free Download">Download</a></li>
-					<li class="last buy"><a href="<?php echo home_url(); ?>/buy/<?php release_product_id(); ?>">Buy</a></li>
-				<?php else: ?>
-					<li class="download"><a href="<?php echo home_url(); ?>/download/<?php release_slug(); ?>/" title="Free Download">Download</a></li>
-					<li class="last buy disabled"><span class="buy">Buy</span></li>
-				<?php endif; ?>
-			</ul>
-		<div class="clear"></div>
-		</div> <!-- end div.artist_slug_info -->
 	</div>
 </div>
 
