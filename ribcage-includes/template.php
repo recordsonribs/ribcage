@@ -472,6 +472,17 @@ function release_download_link_mp3 ( $echo = true ) {
 	return get_option('home').'/download/'.$release['release_slug'].'/mp3';
 }
 
+function release_twitter_promotional_tweet ( $echo = true ) {
+	$tweet = urlencode('I just downloaded ' . release_title(false) . ' by ' . artist_name(false) . ' at @recordsonribs - Download now ' . release_download_link(false). ', listen now');
+				
+	$url = 'https://twitter.com/intent/tweet?text=' . $tweet;
+
+	if ( $echo )
+		echo $url;
+	
+	return $url;
+}
+
 /**
  * Retrieve or display the human readable file size of a release in MP3 format.
  *
