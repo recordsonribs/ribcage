@@ -472,6 +472,13 @@ function release_download_link_mp3 ( $echo = true ) {
 	return get_option('home').'/download/'.$release['release_slug'].'/mp3';
 }
 
+/**
+ * Creates a Twitter intent URL for tweeting about downloading a specific release.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @param bool $echo When true we echo the link to the MP3 download.
+ * @return string The Twitter URL that pre-sets the tweet we are encouraging.
+ */
 function release_twitter_promotional_tweet ( $echo = true ) {
 	$tweet = urlencode('I just downloaded ' . release_title(false) . ' by ' . artist_name(false) . ' at @recordsonribs - Download now ' . release_download_link(false). ', listen now');
 				
