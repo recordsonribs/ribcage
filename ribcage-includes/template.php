@@ -544,16 +544,16 @@ function release_twitter_promotional_tweet ( $echo = true ) {
 		$artist = artist_name( false );
 	}
 
-	$release_link = release_download_short_link();
+	$release_link = release_download_short_link( false );
 
 	if (! $release_link) {
 		$release_link = release_download_link( false );	
 	}
 
-	$stream_link = release_stream_short_link();
+	$stream_link = release_stream_short_link( false );
 
-	if (! $steam_link) {
-		$stream_link = release_soundcloud_url( false );	
+	if (! $stream_link) {
+		$stream_link = release_soundcloud_url( false );
 	}
 
 	$tweet = urlencode('I just downloaded ' . release_title( false ) . ' by ' . $artist . ' at @recordsonribs - Download now ' . $release_link . ', listen now ' . $stream_link);
