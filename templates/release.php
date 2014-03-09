@@ -51,15 +51,49 @@
 		<div class="clear"></div>
 		</div> <!-- end div.artist_slug_info -->
 	</div>
-	<?php if (isset($wp_query->query_vars['artist_slug'])) { ?>
+	<?php if (isset($wp_query->query_vars['artist_slug'])) { 
+				global $releases, $artist, $release;
+				$releases = list_artist_releases ($artist['artist_id']);
+
+				foreach ($releases as $r => $value) {
+					if (strcmp($release['release_title'], $value['release_title']) === 0) {
+						unset($releases[$r]);
+					}
+				}
+
+ 		?>
+ 		<?php if (count($releases) > 0 ) : ?>
  		<div class="mod">
- 			<h3>Artist Feeds</h3>
- 			<ul>
- 				<li class="rss"><a href="/<?php artist_slug (); ?>/feed/" title="RSS 2.0 Feed">Releases</a></li>
- 				<li class="rss"><a href="/tag/<?php artist_slug (); ?>" title="RSS 2.0 Feed">News</a></li>
- 				<li class="rss"><a href="/?dbem_rss=main&category=<?php artist_id (); ?>" title="RSS 2.0 Feed">Events</a></li>
+ 			<h3>More by <?php artist_name() ?></h3>
+ 			<ul class="albums-list">
+ 				<?php foreach ($releases as $release) : ?>
+ 				<li>
+ 					<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><img class="album_picture" src="<?php release_cover_large(); ?>"></a>
+ 					<h3><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h3>
+ 					<?php
+ 					$blurb = strip_tags(release_blurb_short( false ));
+ 					$position = stripos($blurb, '.');
+
+ 					$first_sentence = substr($blurb, 0, $position + 1);
+ 					?>
+ 					<?php echo $first_sentence; ?>
+ 					<div>
+	 					<ul>
+	 						<li><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>">More</a></li>
+							<li><a href="javascript:popUp('<?php release_player_link (); ?>')">Listen</a></li>
+							<?php if (release_physical()) : ?>
+								<li><a href="<?php echo home_url(); ?>/download/<?php release_slug(); ?>/" title="Free Download">Download</a></li>
+								<li><a href="<?php echo home_url(); ?>/buy/<?php release_product_id(); ?>">Buy</a></li>
+							<?php else: ?>
+								<li><a href="<?php echo home_url(); ?>/download/<?php release_slug(); ?>/" title="Free Download">Download</a></li>
+							<?php endif; ?>
+						</ul>
+					</div>
+ 				</li>
+ 				<?php endforeach; ?>
  			</ul>
  		</div>
+ 		<?php endif; ?>
  	<?php } ?>
 </div>
 
