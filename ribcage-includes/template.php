@@ -971,6 +971,41 @@ function artist_facebook_link ( $echo = true ) {
 }
 
 /**
+ * Retrieve or display the URL for the artist's Twitter.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @param bool $echo If true display the URL for the artist's Twitter.
+ * @return string The URL for the artist's Twitter.
+ */
+function artist_twitter_link ( $echo = true ) {
+	global $artist;
+	
+	if ($echo)
+		echo $artist['artist_link_twitter'];
+	
+	return $artist['artist_link_twitter'];
+}
+
+/**
+ * Retrieve or display the user name of the artist's Twitter.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @param bool $echo If true display the user name for the artist's Twitter.
+ * @return string The artist's user name on Twitter.
+ */
+function artist_twitter_user_name ( $echo = true ) {
+	global $artist;
+
+	$info = $artist['artist_link_twitter'];
+	$user_name = $info[count($info) -1]; 
+	
+	if ($echo)
+		echo $user_name;
+	
+	return $user_name;
+}
+
+/**
  * Retrieve or display the URL for the artist's Last.fm.
  *
  * @author Alex Andrews <alex@recordsonribs.com>
