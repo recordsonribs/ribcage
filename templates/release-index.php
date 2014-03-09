@@ -8,13 +8,13 @@ global $releases, $release, $artist;
 
 	<div id="left">
 		<?php while ( have_releases () ) : the_release() ; ?>
+		<?php $artist = get_artist($release['release_artist']); ?>
 			<div class="mod post release toggler">
 				<div class="mod-meta artist_slug">
-					<a href="<?php release_cover_large(); ?>" rel="lightbox" title="'<?php release_title(); ?>' Cover Artwork"><img src="<?php release_cover_tiny ();?>" alt="<?php release_title(); ?>" /><?php if (release_physical()) : ?><img class="case" src="<?php echo get_bloginfo('stylesheet_directory'); ?>/images/case.png" alt="CD Available for Purchase" title="CD Available for Purchase" /><?php endif; ?></a>
+					<a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><img src="<?php release_cover_tiny ();?>" alt="<?php release_title(); ?>" /></a><?php if (release_physical()) : ?><img class="case" src="<?php echo get_bloginfo('stylesheet_directory'); ?>/images/case.png" alt="CD Available for Purchase" title="CD Available for Purchase" /><?php endif; ?></a>
 				</div>
 				<div class="mod-body">
 					<div class="entry">
-						<?php $artist = get_artist($release['release_artist']); ?>
 						<div class="ribcage-release">
 							<small class="artist"><strong><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a></strong></small>
 							<h2 class="album"><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h2>
