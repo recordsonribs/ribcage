@@ -377,6 +377,38 @@ function release_slug ( $echo = true ) {
 }
 
 /**
+ * Returns the minfied link for the release if it exists.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @param bool $echo When true we echo the minified link to release.
+ * @return string The short link of the release.
+ */
+function release_download_short_link ( $echo = true ) {
+	global $release;
+
+	if ( $echo  )
+		echo $release['release_download_short_link'];
+
+	return $release['release_download_short_link'];
+}
+
+/**
+ * Returns the minfied link for the release stream if it exists.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @param bool $echo When true we echo the minified link to release stream.
+ * @return string The short link of the release stream.
+ */
+function release_stream_short_link ( $echo = true ) {
+	global $release;
+
+	if ( $echo  )
+		echo $release['release_stream_short_link'];
+
+	return $release['release_stream_short_link'];
+}
+
+/**
  * Retrieve or display a very short, one sentence blurb for the release.
  *
  * @author Alex Andrews <alex@recordsonribs.com>
@@ -512,7 +544,19 @@ function release_twitter_promotional_tweet ( $echo = true ) {
 		$artist = artist_name( false );
 	}
 
-	$tweet = urlencode('I just downloaded ' . release_title( false ) . ' by ' . $artist . ' at @recordsonribs - Download now ' . release_download_link( false ). ', listen now ' . release_soundcloud_url( false ));
+	$release_link = release_download_short_link();
+
+	if (! $release_link) {
+		$release_link = release_download_link( false );	
+	}
+
+	$stream_link = release_stream_short_link();
+
+	if (! $steam_link) {
+		$stream_link = release_soundcloud_url( false );	
+	}
+
+	$tweet = urlencode('I just downloaded ' . release_title( false ) . ' by ' . $artist . ' at @recordsonribs - Download now ' . $release_link . ', listen now ' . $stream_link);
 				
 	$url = 'https://twitter.com/intent/tweet?text=' . $tweet;
 

@@ -137,6 +137,8 @@ global $wpdb;
 	  `release_physical_cat_no` smallint(6) NOT NULL COMMENT 'The catalogue number of the physical release. (Normally one greater than the download release ID)',
 	  `release_torrent_ogg` tinytext collate ".$collate." NOT NULL,
 	  `release_torrent_flac` tinytext collate ".$collate." NOT NULL,
+	  `release_download_short_link` tinytext collate ".$collate." NOT NULL,
+	  `release_stream_short_link` tinytext collate ".$collate." NOT NULL,
 	  PRIMARY KEY  (`release_id`)
 	) ENGINE=MyISAM  DEFAULT CHARSET=".$charset." COLLATE=".$collate.";
 
