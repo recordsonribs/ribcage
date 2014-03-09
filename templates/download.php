@@ -1,13 +1,13 @@
 <?php get_header(); ?>
-<?php global $release; ?>
+<?php global $release, $artist;?>
 	<div id="left">
 		<div class="mod page">
 			<div class="entry">
 				<p>Thanks for your interest in <a href="<?php get_option('home')?>/artists/<?php artist_slug(); ?>"><?php artist_name(); ?></a> and <a href="<?php get_option('home');?>">Records On Ribs</a>!</p>
 				<ul class="download">
-					<li><a href="<?php get_option('siteurl');?><?php echo $release['release_mp3'];?>">Download</a> Zipped High Quality MP3 Files</li>
-					<li><a href="<?php get_option('siteurl');?><?php echo $release['release_ogg'];?>">Download</a> Zipped Ogg Vorbis Files</li>
- 					<li><a href="<?php get_option('siteurl');?><?php echo $release['release_flac'];?>">Download</a> Zipped FLAC Fles</li>
+					<li><a href="<?php release_download_link_mp3(); ?>">Download</a> Zipped High Quality MP3 Files</li>
+					<li><a href="<?php release_download_link_ogg(); ?>">Download</a> Zipped Ogg Vorbis Files</li>
+ 					<li><a href="<?php release_download_link_flac(); ?>">Download</a> Zipped FLAC Fles</li>
 				</ul>
 			</div> <!-- end div.entry -->
 		</div> <!-- end div.page mod.1 -->

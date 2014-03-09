@@ -377,6 +377,38 @@ function release_slug ( $echo = true ) {
 }
 
 /**
+ * Returns the minfied link for the release if it exists.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @param bool $echo When true we echo the minified link to release.
+ * @return string The short link of the release.
+ */
+function release_download_short_link ( $echo = true ) {
+	global $release;
+
+	if ( $echo  )
+		echo $release['release_download_short_link'];
+
+	return $release['release_download_short_link'];
+}
+
+/**
+ * Returns the minfied link for the release stream if it exists.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @param bool $echo When true we echo the minified link to release stream.
+ * @return string The short link of the release stream.
+ */
+function release_stream_short_link ( $echo = true ) {
+	global $release;
+
+	if ( $echo  )
+		echo $release['release_stream_short_link'];
+
+	return $release['release_stream_short_link'];
+}
+
+/**
  * Retrieve or display a very short, one sentence blurb for the release.
  *
  * @author Alex Andrews <alex@recordsonribs.com>
@@ -470,6 +502,101 @@ function release_download_link_mp3 ( $echo = true ) {
 		echo get_option('home').'/download/'.$release['release_slug'].'/mp3';
 	
 	return get_option('home').'/download/'.$release['release_slug'].'/mp3';
+}
+
+/**
+ * Establishes a SoundCloud URL for a given release.
+ * 
+ * At Records On Ribs our SoundCloud releases have a particular pattern of:
+ * http://soundcloud.com/records-on-ribs/sets/aritist-name-release-title
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @param bool $echo When true we echo the URL of the SoundCloud set.
+ * @return string The URL for the release's SoundCloud set.
+ */
+ function release_soundcloud_url ( $echo = true ) {
+ 	global $release;
+ 	global $artist;
+
+	$url = "http://soundcloud.com/records-on-ribs/sets/" . sanitize_title_with_dashes($artist['artist_name']." ".$release['release_title']);
+
+	if ( $echo )
+		echo $url;
+	
+	return $url;
+ }
+
+
+/**
+ * Creates a Twitter intent URL for tweeting about downloading a specific release.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @param bool $echo When true we echo the link to the MP3 download.
+ * @return string The Twitter URL that pre-sets the tweet we are encouraging.
+ */
+function release_twitter_promotional_tweet ( $echo = true ) {
+	$artist = '';
+
+	if (artist_has_twitter()) {
+		$artist = '@' . artist_twitter_user_name( false );
+	}
+	else {
+		$artist = artist_name( false );
+	}
+
+	$release_link = release_download_short_link( false );
+
+	if (! $release_link) {
+		$release_link = release_download_link( false );	
+	}
+
+	$stream_link = release_stream_short_link( false );
+
+	if (! $stream_link) {
+		$stream_link = release_soundcloud_url( false );
+	}
+
+	$tweet = urlencode('I just downloaded ' . release_title( false ) . ' by ' . $artist . ' at @recordsonribs - Download now ' . $release_link . ', listen now ' . $stream_link);
+				
+	$url = 'https://twitter.com/intent/tweet?text=' . $tweet;
+
+	if ( $echo )
+		echo $url;
+	
+	return $url;
+}
+
+/**
+ * Creates a Twitter follow link for the artist, embedding the Twitter follow code.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @return string Nothing, but echos out the Twitter follow link.
+ */
+function artist_twitter_follow_link () {
+	$html = '';
+	$html .= '<a href="' . artist_twitter_link( false ) . '" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @' . artist_twitter_user_name( false ) . '</a>';
+	$html .= "<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>";
+
+	echo $html;
+}
+
+/**
+ * Creates a Facebook share link for a particular release.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @param bool $echo When true we echo link to the Facebook share for this release.
+ * @return string The Facebook URL to share the release.
+ */
+function release_facebook_share_link ( $echo = true ) {
+	global $artist, $release;
+
+	$release_url = urlencode(home_url() . '/artists/' . $artist['artist_slug'] . '/' . $release['release_slug']);
+	$url = 'https://www.facebook.com/sharer/sharer.php?u=' . $release_url;
+
+	if ( $echo )
+		echo $url;
+
+	return $url;
 }
 
 /**
@@ -927,6 +1054,58 @@ function artist_facebook_link ( $echo = true ) {
 		echo $artist['artist_link_facebook'];
 	
 	return $artist['artist_link_facebook'];
+}
+
+/**
+ * Returns true or false depending on if we have an artist's Twitter account.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @return bool If the artist has a Twitter or not.
+ */
+function artist_has_twitter () {
+	global $artist;
+
+	if ($artist['artist_link_twitter']) {
+		return true;	
+	}
+	else {
+		return false;
+	}
+}
+
+/**
+ * Retrieve or display the URL for the artist's Twitter.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @param bool $echo If true display the URL for the artist's Twitter.
+ * @return string The URL for the artist's Twitter.
+ */
+function artist_twitter_link ( $echo = true ) {
+	global $artist;
+	
+	if ($echo)
+		echo $artist['artist_link_twitter'];
+	
+	return $artist['artist_link_twitter'];
+}
+
+/**
+ * Retrieve or display the user name of the artist's Twitter.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @param bool $echo If true display the user name for the artist's Twitter.
+ * @return string The artist's user name on Twitter.
+ */
+function artist_twitter_user_name ( $echo = true ) {
+	global $artist;
+
+	$info = explode('/', $artist['artist_link_twitter']);
+	$user_name = $info[count($info) -1];
+
+	if ($echo)
+		echo $user_name;
+	
+	return $user_name;
 }
 
 /**

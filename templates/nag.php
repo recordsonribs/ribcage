@@ -9,7 +9,7 @@
 				<div class="entry">
 					<p>Thanks for your interest in <a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>"><?php artist_name(); ?></a>'s record <a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a>.</p>
 					<p>While all our downloads are available for free under a <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons License</a>,  our artists work extremely hard to get them to you. So if you'd like to donate them some money as thanks that would be great.</p>
-					<div class="donate_links"><a class="donate" href="<?php get_option('site_url');?>/download/<?php release_slug();?>/donate">Donate Now</a> or <a class="skip" href="<?php release_download_link (); ?>/skip">Just send me straight to the download &rsaquo;</a></div>
+					<div class="donate_links"><a class="donate" href="<?php get_option('site_url');?>/download/<?php release_slug();?>/donate">Donate Now</a> or <a class="skip" href="<?php release_download_link (); ?>/skip">Just download &rsaquo;</a></div>
 				</div> <!-- end div.entry -->
 			</div> <!-- end div.mod-body -->
 		</div> <!-- end div.post div.release -->
