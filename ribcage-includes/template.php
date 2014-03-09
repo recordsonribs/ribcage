@@ -485,7 +485,7 @@ function release_download_link_mp3 ( $echo = true ) {
  function release_soundcloud_url ( $echo = true ) {
  	global $release;
  	global $artist;
- 	
+
 	$url = "http://soundcloud.com/records-on-ribs/sets/" . sanitize_title_with_dashes($artist['artist_name']." ".$release['release_title']);
 
 	if ( $echo )
