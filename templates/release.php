@@ -64,7 +64,7 @@
  		?>
  		<?php if (count($releases) > 0 ) : ?>
  		<div class="mod">
- 			<h3>More by <?php artist_name() ?></h3>
+ 			<h3>Also by <?php artist_name() ?></h3>
  			<ul class="albums-list">
  				<?php foreach ($releases as $release) : ?>
  				<li>
