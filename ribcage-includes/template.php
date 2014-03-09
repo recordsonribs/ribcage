@@ -473,6 +473,29 @@ function release_download_link_mp3 ( $echo = true ) {
 }
 
 /**
+ * Establishes a SoundCloud URL for a given release.
+ * 
+ * At Records On Ribs our SoundCloud releases have a particular pattern of:
+ * http://soundcloud.com/records-on-ribs/sets/aritist-name-release-title
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @param bool $echo When true we echo the URL of the SoundCloud set.
+ * @return string The URL for the release's SoundCloud set.
+ */
+ function release_soundcloud_url ( $echo = true ) {
+ 	global $release;
+ 	global $artist;
+ 	
+	$url = "http://soundcloud.com/records-on-ribs/sets/" . sanitize_title_with_dashes($artist['artist_name']." ".$release['release_title']);
+
+	if ( $echo )
+		echo $url;
+	
+	return $url;
+ }
+
+
+/**
  * Creates a Twitter intent URL for tweeting about downloading a specific release.
  *
  * @author Alex Andrews <alex@recordsonribs.com>
@@ -480,7 +503,7 @@ function release_download_link_mp3 ( $echo = true ) {
  * @return string The Twitter URL that pre-sets the tweet we are encouraging.
  */
 function release_twitter_promotional_tweet ( $echo = true ) {
-	$tweet = urlencode('I just downloaded ' . release_title(false) . ' by ' . artist_name(false) . ' at @recordsonribs - Download now ' . release_download_link(false). ', listen now');
+	$tweet = urlencode('I just downloaded ' . release_title(false) . ' by ' . artist_name(false) . ' at @recordsonribs - Download now ' . release_download_link( false ). ', listen now ' . release_soundcloud_url( false ));
 				
 	$url = 'https://twitter.com/intent/tweet?text=' . $tweet;
 
