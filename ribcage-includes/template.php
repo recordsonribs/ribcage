@@ -580,6 +580,26 @@ function artist_twitter_follow_link () {
 	echo $html;
 }
 
+/**
+ * Creates a Facebook share link for a particular release.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @param bool $echo When true we echo link to the Facebook share for this release.
+ * @return string The Facebook URL to share the release.
+ */
+function release_facebook_share_link ( $echo = true ) {
+	global $artist, $release;
+
+	$release_url = urlencode(home_url() . '/artists/' . $artist['artist_slug'] . '/' . $release['release_slug']);
+	$url = 'https://www.facebook.com/sharer/sharer.php?u=' . $release_url;
+
+	if ( $echo )
+		echo $url;
+
+	return $url;
+}
+
+/**
  * Retrieve or display the human readable file size of a release in MP3 format.
  *
  * @author Alex Andrews <alex@recordsonribs.com>
