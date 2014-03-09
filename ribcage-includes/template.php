@@ -503,7 +503,16 @@ function release_download_link_mp3 ( $echo = true ) {
  * @return string The Twitter URL that pre-sets the tweet we are encouraging.
  */
 function release_twitter_promotional_tweet ( $echo = true ) {
-	$tweet = urlencode('I just downloaded ' . release_title(false) . ' by ' . artist_name(false) . ' at @recordsonribs - Download now ' . release_download_link( false ). ', listen now ' . release_soundcloud_url( false ));
+	$artist = '';
+
+	if (artist_has_twitter()) {
+		$artist = '@' . artist_twitter_user_name( false );
+	}
+	else {
+		$artist = artist_name( false );
+	}
+
+	$tweet = urlencode('I just downloaded ' . release_title( false ) . ' by ' . $artist . ' at @recordsonribs - Download now ' . release_download_link( false ). ', listen now ' . release_soundcloud_url( false ));
 				
 	$url = 'https://twitter.com/intent/tweet?text=' . $tweet;
 
@@ -1013,9 +1022,9 @@ function artist_twitter_link ( $echo = true ) {
 function artist_twitter_user_name ( $echo = true ) {
 	global $artist;
 
-	$info = $artist['artist_link_twitter'];
-	$user_name = $info[count($info) -1]; 
-	
+	$info = explode('/', $artist['artist_link_twitter']);
+	$user_name = $info[count($info) -1];
+
 	if ($echo)
 		echo $user_name;
 	
