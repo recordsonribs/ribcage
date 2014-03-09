@@ -567,6 +567,19 @@ function release_twitter_promotional_tweet ( $echo = true ) {
 }
 
 /**
+ * Creates a Twitter follow link for the artist, embedding the Twitter follow code.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @return string Nothing, but echos out the Twitter follow link.
+ */
+function artist_twitter_follow_link () {
+	$html = '';
+	$html .= '<a href="' . artist_twitter_link( false ) . '" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @' . artist_twitter_user_name( false ) . '</a>';
+	$html .= "<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>";
+
+	echo $html;
+}
+
  * Retrieve or display the human readable file size of a release in MP3 format.
  *
  * @author Alex Andrews <alex@recordsonribs.com>
