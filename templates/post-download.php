@@ -7,7 +7,8 @@
 				<h2>Get the word out!</h2>
 				<p>While you are waiting for it to download why not tell people you are downloading this release?</p>
 				<p>Its one of the only ways we get the word out, so we'd really appreciate it.</p>
-				<p><a href="<?php release_twitter_promotional_tweet(); ?>" target="_blank">Tweet Now On Twitter</a> | <a href="<?php release_facebook_share_link() ?>" target="_blank">Share Now On Facebook</a></p>
+				<p><a href="<?php release_twitter_promotional_tweet(); ?>" target="_blank">Tweet Now On Twitter</a></p> 
+				<p><a href="<?php release_facebook_share_link() ?>" target="_blank">Share Now On Facebook</a></p>
 				<?php if (artist_has_twitter()) : ?>
 				<h2>Follow <?php artist_name(); ?> on Twitter.</h2>
 				<p>
