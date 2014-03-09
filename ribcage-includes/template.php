@@ -971,6 +971,23 @@ function artist_facebook_link ( $echo = true ) {
 }
 
 /**
+ * Returns true or false depending on if we have an artist's Twitter account.
+ *
+ * @author Alex Andrews <alex@recordsonribs.com>
+ * @return bool If the artist has a Twitter or not.
+ */
+function artist_has_twitter () {
+	global $artist;
+
+	if ($artist['artist_link_twitter']) {
+		return true;	
+	}
+	else {
+		return false;
+	}
+}
+
+/**
  * Retrieve or display the URL for the artist's Twitter.
  *
  * @author Alex Andrews <alex@recordsonribs.com>
