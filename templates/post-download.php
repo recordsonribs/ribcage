@@ -13,7 +13,7 @@
 				<h2>Follow <?php artist_name(); ?> on Twitter</h2>
 				<p>Find out what <?php artist_name() ?> is up to on Twitter.</p>
 				<p>
-					<?php artist_twitter_follow_link(); ?>
+					<a href="https://twitter.com/intent/user?screen_name=<?php artist_twitter_user_name(); ?>" target="_blank">Follow Now</a>
 				</p>
 				<?php endif; ?>
 			</div> <!-- end div.entry -->
