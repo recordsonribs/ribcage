@@ -54,6 +54,7 @@ global $wpdb;
 	  `artist_link_website` tinytext collate ".$collate." NOT NULL COMMENT 'The artist''s website.',
 	  `artist_link_myspace` tinytext collate ".$collate." NOT NULL COMMENT 'The artist''s myspace link.',
 	  `artist_link_facebook` tinytext collate ".$collate." NOT NULL COMMENT 'URL of Facebook Group',
+	  `artist_link_twitter` tinytext collate ".$collate." NOT NULL COMMENT 'URL of artist Twitter link.',
 	  PRIMARY KEY  (`artist_id`)
 	) ENGINE=MyISAM  DEFAULT CHARSET=".$charset." COLLATE=".$collate.";
 
