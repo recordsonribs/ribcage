@@ -21,6 +21,22 @@
 				<p><small>When you click Donate Now you will be redirected to Paypal for secure online payment. Then we'll send you straight to your download with a warm fuzzy wuzzy feeling in your stomach that we've thrown in for free.</small></p>
 			</div>
 		</div> <!-- end div.post div.paypal -->
+		<div class="mod post bitcoin">
+			<div class="mod-meta">
+				<a href="bitcoin:1GYrXenit5UNGMNLLskCeE6SFfGoPvC36w"><img alt="Donate Bitcoin" src="<?php bloginfo('stylesheet_directory'); ?>/images/bitcoin-m.png" /></a>
+			</div>
+			<div class="mod-body">
+				<p><small>You can also donate Bitcoin to Records On Ribs.<br>Our address is <a href="bitcoin:1GYrXenit5UNGMNLLskCeE6SFfGoPvC36w">1GYrXenit5UNGMNLLskCeE6SFfGoPvC36w</a>.</small></p>
+			</div>
+		</div><!-- end div.post div.bitcoin -->
+		<div class="mod post dogecoin">
+			<div class="mod-meta">
+				<a href="dogecoin:DFEhd8fnhATkfvsUZXfRbjNW6QWPTqMwgw"><img src="<?php bloginfo('stylesheet_directory'); ?>/images/dogecoin-m.png" alt="Donate Dogecoin" /></a> 
+			</div>
+			<div class="mod-body">
+				<p><small>So donation, many cryptocurrency, wow. You can donate Dogecoin to Records On Ribs.<br>Our address is <a href="dogecoin:DFEhd8fnhATkfvsUZXfRbjNW6QWPTqMwgw">DFEhd8fnhATkfvsUZXfRbjNW6QWPTqMwgw</a>.</small></p>
+			</div>
+		</div><!-- end div.post div.bitcoin -->
 		<div class="mod post cc">
 			<div class="mod-meta">
 				<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" src="<?php bloginfo('stylesheet_directory'); ?>/images/release_cc-m.png" alt="Creative Commons" /></a>
