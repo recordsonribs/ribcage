@@ -15,50 +15,48 @@ function ribcage_manage_releases() {
 	global $release, $releases, $artist, $tracks;
 	
 	$total_downloads = 0;
-        
-	if (isset($_REQUEST['_wpnonce'])) {
-            if (wp_verify_nonce($nonce, 'ribcage_manage_releases')) {
-                die("Security check failed.");
-            }
-        }
 
 	$nonce = wp_create_nonce ('ribcage_manage_releases');
 
-        if (isset($_REQUEST['release'])) {
-            switch($_REQUEST['ribcage_action']) {
-                case 'stats':
-                    ribcage_release_stats();
-					return;
-                break;
+    if (isset($_REQUEST['release'])) {
+        switch($_REQUEST['ribcage_action']) {
+            case 'stats':
+                ribcage_release_stats();
+				return;
+            break;
 
-                case 'edit': ?>
-				<div class="wrap">
-					<div id="icon-options-general" class="icon32"><br /></div>
-					<?php
-                    $release = get_release($_REQUEST['release']);
-					$artist = get_artist($release['release_artist']);
-					$tracks = $release['release_tracks'];?>
-					<h2>Editing <?php release_title(); ?></h2>
-					<?php ribcage_release_form(); ?>
-					<?php ribcage_tracks_form(); ?>
-				</div> <?php	
-					return;
-                break;
+            case 'edit': 
+            	check_admin_referer('ribcage_manage_releases');
+            ?>
+			<div class="wrap">
+				<div id="icon-options-general" class="icon32"><br /></div>
+				<?php
+                $release = get_release($_REQUEST['release']);
+				$artist = get_artist($release['release_artist']);
+				$tracks = $release['release_tracks'];?>
+				<h2>Editing <?php release_title(); ?></h2>
+				<?php ribcage_release_form(); ?>
+				<?php ribcage_tracks_form(); ?>
+			</div> <?php	
+				return;
+            break;
 
-                case 'reviews':
-                    ribcage_manage_reviews();
-					return;
-                break;
+            case 'reviews':
+            	check_admin_referer('ribcage_manage_releases');
+                ribcage_manage_reviews();
+				return;
+            break;
 
-                case 'delete':
-                    delete_release($_REQUEST['release']);
-					$message = " deleted";
-                break;
-            }
+            case 'delete':
+            	check_admin_referer('ribcage_manage_releases');
+                delete_release($_REQUEST['release']);
+				$message = " deleted";
+            break;
         }
-		
-		if (isset($message)){
-			echo '<div id="message" class="updated fade"><p><strong>Release '.$message.'.</strong></p></div>';
+    }
+	
+	if (isset($message)){
+		echo '<div id="message" class="updated fade"><p><strong>Release '.$message.'.</strong></p></div>';
 		}
 		
 	register_column_headers('ribcage-manage-releases',
@@ -124,15 +122,17 @@ function ribcage_add_release() {
 	<div class="wrap">
 	<div id="icon-options-general" class="icon32"><br /></div>
 	<?php
-	$release = $_POST['release'];
-	$release = stripslashes($release);
-	$release = unserialize($release);
+	if (isset($_POST['release'])) {
+		$release = $_POST['release'];
+		$release = stripslashes($release);
+		$release = unserialize($release);
+	}
 	
 	unset($_POST['release']);
 	unset($_POST['Submit']);
 	
 	// Stage 4 - Add the release to the database.
-	if ($_REQUEST['ribcage_action'] == 'add_release' && $_REQUEST['ribcage_step'] == '4'){ 
+	if (isset($_REQUEST['ribcage_action']) && $_REQUEST['ribcage_action'] == 'add_release' && $_REQUEST['ribcage_step'] == '4'){ 
 		?>
 		<h2>Add Release - Adding To Database</h2>
 		<?php
@@ -154,16 +154,7 @@ function ribcage_add_release() {
 			$release[$key] = $var;
 		}
 		
-		/*
-		?>
-		<pre>
-		<?php print_r($release); ?>
-		<?php print_r($tracks); ?>
-		</pre>
-		<?php
-		*/
-		
-		// Save all of this just incase we have a problem.
+		// Save all of this just in case we have a problem.
 		set_transient('ribcage_temp_data',serialize($release),60*60);
 		set_transient('ribcage_temp_tracks',serialize($release),60*60);
 		
@@ -290,7 +281,7 @@ function ribcage_add_release() {
 	}
 	
 	// Stage 3 - Where are the files related to this release?
-	elseif ($_REQUEST['ribcage_action'] == 'add_release' && $_REQUEST['ribcage_step'] == '3') {
+	elseif (isset($_REQUEST['ribcage_action']) && $_REQUEST['ribcage_action'] == 'add_release' && $_REQUEST['ribcage_step'] == '3') {
 		// Load everything up of any interest. By now we should have a fair bit.
 		$release = get_transient('ribcage_temp_data');
 		$release = unserialize($release);
@@ -458,7 +449,7 @@ function ribcage_add_release() {
 	}
 	
 	// Stage 2 - Check release tracks are correct.
-	elseif ($_REQUEST['ribcage_action'] == 'add_release') {
+	elseif (isset($_REQUEST['ribcage_action']) && $_REQUEST['ribcage_action'] == 'add_release') {
 		// Get the tracks that have been set, if we have been sent any.
 		$tracks = get_transient('ribcage_temp_tracks');
 		$tracks = unserialize($tracks);
@@ -541,7 +532,7 @@ function ribcage_add_release() {
 		return 0;
 	}
 	else {
-	if ($_POST['lookup'] != '') { ?>
+	if (isset($_POST['lookup']) && $_POST['lookup'] != '') { ?>
 		<h2>Add Release - Release Details</h2> <?php
 		if ($_POST['lookup'] == 'Lookup')	{
 			$mbid = $_POST['musicbrainz_id'];		
@@ -849,6 +840,6 @@ function ribcage_manage_reviews() {
  * @return void
  */
 function ribcage_release_stats () {
-    echo "Stats";
+    echo "Stats here";
 }
 ?>
