@@ -15,8 +15,7 @@ require_once dirname(__FILE__) . '/ribcage-includes/paypal/paypal.class.php';
  * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
-function ribcage_buy_process ()
-{
+function ribcage_buy_process() {
 	global $paypal;
 	global $wp_query;
 	global $product;
@@ -58,7 +57,7 @@ function ribcage_buy_process ()
  * @author Alex Andrews <alex@recordsonribs.com>
  * @return void
  */
-function ribcage_buy_ipn () {
+function ribcage_buy_ipn() {
 	global $paypal;
 	global $wpdb;
 
