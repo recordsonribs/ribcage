@@ -55,6 +55,7 @@ function ribcage_release_feeds(){
 function list_recent_releases_blurb ($amount = 0, $forthcoming = FALSE)
 {
 	global $wpdb;
+	$return = array();
 	
 	$now_date = gmdate('Y-m-d');
 	
@@ -69,7 +70,8 @@ function list_recent_releases_blurb ($amount = 0, $forthcoming = FALSE)
 		foreach ($releases as $release){
 			$return[] = get_release($release['release_id']);		
 		}
-	}	
+	}
+
 	return $return;
 }
 

@@ -27,7 +27,7 @@ function ribcage_manage_products () {
 	
 	$nonce = wp_create_nonce ('ribcage_manage_products');
 	
-	if ($_REQUEST['ribcage_action']) {
+	if (isset($_REQUEST['ribcage_action']) && $_REQUEST['ribcage_action']) {
 		array_pop($_POST);
 
 		$post_keys = array_keys($_POST);
