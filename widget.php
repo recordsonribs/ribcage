@@ -8,35 +8,19 @@
  * @subpackage Widgets
  **/
 
-/**
- * Adds the Ribcage Widgets.
- *
- * @author Alex Andrews <alex@recordsonribs.com>
- */
-class ribcage_widgets {	
-	
-	/**
-	 * Registers Ribcage sidebar widgets and their controls.
-	 *
-	 * @author Alex Andrews <alex@recordsonribs.com>
-	 * @return void
-	 */
-	function init () {
-		register_sidebar_widget('Forthcoming Releases', array('ribcage_widgets','forthcoming_releases'));
-		register_sidebar_widget('Recent Releases', array('ribcage_widgets','recent_releases'));
-		
-		//register_sidebar_widget_control('Recent Releases', array('ribcage_widgets', 'widget_ribcage_recent_control'));
-		//register_sidebar_widget_control('Forthcoming Releases', array('ribcage_widgets', 'widget_ribcage_recent_forthcoming'));
+class Recent_Releases extends WP_Widget {
+	function __construct(){
+		parent::__construct(
+			'ribcage_recent_releases',
+			'Recent Releases',
+			array( 'description' => 'Show recent releases.')
+		);	
 	}
-	
+
 	/**
-	 * Adds a widget for recent releases, the quantity of which is defined by an option.
-	 *
-	 * Revisions and streamlining of CSS by Bryan Klausmeyer of Ivy Street http://ivystreet.net/. Thanks very much indeed.
-	 *
-	 * @return void
-	 **/
-	function recent_releases ($args) {
+	 * Displays recent releases widget.
+	 */
+	public function widget ($args, $instance) {
 		global $releases, $release, $artist;
 	
 	    extract($args);
@@ -74,24 +58,10 @@ class ribcage_widgets {
 	        <?php echo $after_widget; ?>
 	<?php
 	}
-	
-	/**
-	 * Adds a widget for forthcoming releases. The quantity of which are defined by an option.
-	 *
-	 * @author Alex Andrews <alex@recordsonribs.com>
-	 * @return void
-	 */
-	function forthcoming_releases ($args) {
-		global $releases, $release, $artist; // Probably
-	
-	    extract($args);	
-		?>
-		        <?php echo $before_widget; ?>
-		            <?php echo $before_title.'Forthcoming Releases'.$after_title; ?>
-				<?php echo $after_widget; ?>
-		<?php
-	}
 }
 
-add_action('plugins_loaded',array('ribcage_widgets','init'));
-?>
+function ror_register_widgets() {
+    register_widget( 'Recent_Releases' );
+}
+
+add_action( 'widgets_init', 'ror_register_widgets' );
