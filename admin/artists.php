@@ -13,11 +13,21 @@
  * @return void
  **/
 function ribcage_manage_artists () {
-
 	global $artists;
 	global $artist;
 
-	$artist_id = (int) $_REQUEST['artist'];
+	$index = false;
+
+	// If we aren't on an artist page then we are on the index page.
+	if (isset($_REQUEST['artist'])) {
+		$artist_id = (int) $_REQUEST['artist'];
+	}
+	elseif (isset($_REQUEST['page']) && $_REQUEST['page'] == 'add_artist' ){
+		$index = false;
+	}
+	else {
+		$index = true;
+	}
 			
 	register_column_headers('ribcage-manage-artist',
 	array (
@@ -26,24 +36,31 @@ function ribcage_manage_artists () {
 		)
 		);
 	
-	if(isset($_REQUEST['ribcage_action'])) {
+	if (isset($_REQUEST['ribcage_action'])) {
 		global $wpdb;
 
-		//slice off two variables at the end to prepare for implodes
-		array_pop($_POST); // submit button var
+		// Refactor, this is a terrible place for this to do this.
+		if ($_REQUEST['ribcage_action'] !== 'add') {
+			check_admin_referer('manage_artists');
+		}
+		else {
+			check_admin_referer('add_artist');	
+		}
+
+		unset($_POST['_wpnonce']);
+		unset($_POST['_wp_http_referer']);
+		unset($_POST['Submit']);
 
 		//split apart associative array into different parts to prepare for implodes
 		$post_keys = array_keys($_POST);
 		$post_vals = array_values($_POST);
-		
+
 		//construct field name list and vals to post
 		$string_keys = implode($post_keys,",");
 		$string_vals = "'".implode($post_vals,"','")."'";
 
 		$wpdb->show_errors();
-		
-		$index = 0;
-		
+
 		switch ($_REQUEST['ribcage_action']) {
 			case 'edit':
 				$sql = "UPDATE ".$wpdb->prefix."ribcage_artists
@@ -74,9 +91,7 @@ function ribcage_manage_artists () {
 				$message = 'added';
 			break;
 			
-			case 'delete':		
-				check_admin_referer('ribcage_manage');
-				
+			case 'delete':
 				$del_artist = get_artistname_by_id($_REQUEST['artist']);
 				
 				delete_artist($_REQUEST['artist']);
@@ -85,20 +100,11 @@ function ribcage_manage_artists () {
 				$index = 1;
 			break;
 		}
-		
-		echo '<div id="message" class="updated fade"><p><strong>Artist '.$message.'.</strong></p></div>';
-	}
-	elseif ($_REQUEST['page']=='add_artist'){
-		$index = 0;
-	}
-	else {
-		if (! isset($_REQUEST['artist']))
-		{
-			$index = 1;
-		}
+
+		echo '<div id="message" class="updated fade"><p><strong>Artist '.$message.'.</strong></p></div>';			
 	}
 
-	if ($index == 0) :
+	if (! $index) :
 
 	if (isset($_REQUEST['artist'])){
 		$artist = get_artist($_REQUEST['artist']);
@@ -109,10 +115,12 @@ function ribcage_manage_artists () {
 		<?php if ($_REQUEST['page']=='add_artist') : ?>
 			<h2>Add Artist</h2>
 			<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&ribcage_action=add" method="post" id="ribcage_edit_artist" name="edit_artist">
+			<?php wp_nonce_field('add_artist'); ?>
 		<?php endif; ?>
-		<?php if ($_REQUEST['page']=='manage_artists' && $_REQUEST['artist']) : ?>
+		<?php if (isset($_REQUEST['artist'])) : ?>
 			<h2>Managing <?php artist_name(); ?></h2>
 			<form action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>&ribcage_action=edit" method="post" id="ribcage_edit_artist" name="edit_artist">
+			<?php wp_nonce_field('manage_artists'); ?>
 		<?php endif; ?>
 					<table class="form-table">             
 						<tr valign="top">
@@ -213,8 +221,7 @@ function ribcage_manage_artists () {
 			</form>
 	</div>
 <?php else : ?>
-	<?php 
-	$nonce = wp_create_nonce  ('ribcage_manage'); 
+	<?php
 	$artists = list_artists_blurb();
 	$alt = 0;
 	?>
@@ -235,9 +242,14 @@ function ribcage_manage_artists () {
 						</tfoot>            
 						<tbody>
 							<?php while ( have_artists () ) : the_artist(); ?>
+							<?php
+							$manage_link = wp_nonce_url('?page=ribcage&artist=' . artist_id(false), 'manage_artists');
+							$delete_link = wp_nonce_url('?page=ribcage&artist=' . artist_id(false) . '&ribcage_action=delete', 'manage_artists');
+							?>
 							<?php echo ($alt % 2) ? '<tr valign="top" class="">' : '<tr valign="top" class="alternate">'; ++$alt; ?>		
 							<th scope="row" class="check-column"><input type="checkbox" name="artistcheck[]" value="2" /></th>
-							<td class="column-name"><strong><a class="row-title" href="?page=manage_artists&artist=<?php artist_id(); ?>" title="<?php artist_name(); ?>" ><?php artist_name(); ?></strong></a><br /><div class="row-actions"><span class='edit'><a href="?page=manage_artists&artist=<?php artist_id(); ?>">Edit</a> | </span><span class='delete'><a class='submitdelete' href='?page=manage_artists&artist=<?php artist_id(); ?>&amp;ribcage_action=delete&amp;_wpnonce=<?php echo $nonce ?>' onclick="if ( confirm('You are about to delete \'<?php artist_name(); ?>\'\n  \'Cancel\' to stop, \'OK\' to delete.') ) { return true;}return false;">Delete</a></span></div></td>
+							<td class="column-name">
+								<strong><a class="row-title" href="?page=manage_artists&artist=<?php artist_id(); ?>" title="<?php artist_name(); ?>" ><?php artist_name(); ?></strong></a><br /><div class="row-actions"><span class='edit'><a href="<?php echo $manage_link ?>">Edit</a> | </span><span class='delete'><a class='submitdelete' href='<?php echo $delete_link ?>' onclick="if ( confirm('You are about to delete \'<?php artist_name(); ?>\'\n  \'Cancel\' to stop, \'OK\' to delete.') ) { return true;}return false;">Delete</a></span></div></td>
 							</tr>
 							<?php endwhile; ?>
 						</tbody>
