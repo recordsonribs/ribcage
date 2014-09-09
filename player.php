@@ -33,26 +33,13 @@ function show_player ($release_slug) {
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<script type="text/javascript" charset="utf-8">
-		function removejscssfile(filename, filetype){
-		 var targetelement=(filetype=="js")? "script" : (filetype=="css")? "link" : "none"
-		 var targetattr=(filetype=="js")? "src" : (filetype=="css")? "href" : "none"
-		 var allsuspects=document.getElementsByTagName(targetelement)
-		 for (var i=allsuspects.length; i>=0; i--){
-		  if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf(filename)!=-1)
-		   allsuspects[i].parentNode.removeChild(allsuspects[i])
-		 }
-		}
-		
-		removejscssfile("index.include.778216415.css", "css")
-		removejscssfile("default.include.866590059.js", "js")
-	</script>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>ROR Player</title>
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.1/build/reset/reset-min.css">
 </head>
 <body>
-<object height="300" width="300" style="float:left;"> <param name="movie" value="http://player.soundcloud.com/player.swf?url=<?php echo $url ?>&amp;auto_play=true&amp;player_type=artwork&amp;color=ff0004&amp;buying=false&amp;show_playcount=false&amp;download=false&amp;text_buy_set='Free Download'"></param> <param name="allowscriptaccess" value="always"></param> <embed allowscriptaccess="always" height="300" src="http://player.soundcloud.com/player.swf?url=<?php echo $url ?>&amp;auto_play=true&amp;player_type=artwork&amp;color=ff0004&amp;buying=false&amp;show_playcount=false&amp;download=false&amp;text_buy_set='Free Download" type="application/x-shockwave-flash" width="300"></embed> </object>  
+<iframe width="100%" height="300" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https://soundcloud.com/records-on-ribs/sets/all-the-empires-of-the-world-sunscraper&auto_play=true&buying=true&liking=false&download=false&sharing=false&show_artwork=false&show_comments=false&show_playcount=false&show_user=false&hide_related=false&visual=true&start_track=0&callback=true">
+</iframe>
 </body>
 </html>
 <?php
