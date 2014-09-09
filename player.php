@@ -38,7 +38,7 @@ function show_player ($release_slug) {
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.1/build/reset/reset-min.css">
 </head>
 <body>
-<iframe width="100%" height="300" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https://soundcloud.com/records-on-ribs/sets/all-the-empires-of-the-world-sunscraper&auto_play=true&buying=true&liking=false&download=false&sharing=false&show_artwork=false&show_comments=false&show_playcount=false&show_user=false&hide_related=false&visual=true&start_track=0&callback=true">
+<iframe width="100%" height="465" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=<?php echo $release_soundcloud_url; ?>&auto_play=true&buying=true&liking=false&download=false&sharing=false&show_artwork=false&show_comments=false&show_playcount=false&show_user=false&hide_related=false&visual=true&start_track=0&callback=true">
 </iframe>
 </body>
 </html>
