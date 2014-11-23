@@ -349,29 +349,29 @@ function ribcage_init (){
  */
 function ribcage_add_rewrite_rules ( $wp_rewrite ) {
 	$new_rules = array(
-		"(artists)/(.*)/(.*)" => 'index.php?artist_slug='.$wp_rewrite->preg_index(2).'&artist_page='.$wp_rewrite->preg_index(3),
-		"(artists)/(.*)" => 'index.php?artist_slug=' . $wp_rewrite->preg_index(2),
-		"(artists)" => 'index.php?artist_index=1',
+		"(artists)/(.*?)/(.*?)/?$" => 'index.php?artist_slug='.$wp_rewrite->preg_index(2).'&artist_page='.$wp_rewrite->preg_index(3),
+		"(artists)/(.*?)/?$" => 'index.php?artist_slug=' . $wp_rewrite->preg_index(2),
+		"(artists)/?$" => 'index.php?artist_index=1',
 		
-		"(releases)/(feed)" => 'index.php?release_feed=1',
-		"(releases)" => 'index.php?release_index=1',
+		"(releases)/(feed)/?$" => 'index.php?release_feed=1',
+		"(releases)/?$" => 'index.php?release_index=1',
 			
-		"(download)/(track)/(.*)/(.*)" => 'index.php?ribcage_download=1&track_slug='.$wp_rewrite->preg_index(3).'&format='.$wp_rewrite->preg_index(4),
-		"(download)/(.*)/(.*)" => 'index.php?ribcage_download=1&release_slug='.$wp_rewrite->preg_index(2).'&format='.$wp_rewrite->preg_index(3),
-		"(download)/(.*)" => 'index.php?ribcage_download=1&release_slug='.$wp_rewrite->preg_index(2),
-		"(download)" => 'index.php?ribcage_download=1',
+		"(download)/(track)/(.*?)/(.*?)/?$" => 'index.php?ribcage_download=1&track_slug='.$wp_rewrite->preg_index(3).'&format='.$wp_rewrite->preg_index(4),
+		"(download)/(.*?)/(.*?)/?$" => 'index.php?ribcage_download=1&release_slug='.$wp_rewrite->preg_index(2).'&format='.$wp_rewrite->preg_index(3),
+		"(download)/(.*?)/?$" => 'index.php?ribcage_download=1&release_slug='.$wp_rewrite->preg_index(2),
+		"(download)/?$" => 'index.php?ribcage_download=1',
 		
-		"(stream)/(track)/(.*)/(.*)/(.*)" => 'index.php?ribcage_stream=1&track_slug='.$wp_rewrite->preg_index(3).'&stream_format='.$wp_rewrite->preg_index(4),
-		"(stream)/(.*)/(.*)" => 'index.php?ribcage_stream=1&release_slug='.$wp_rewrite->preg_index(2).'&stream_format='.$wp_rewrite->preg_index(3),
-		"(stream)" => 'index.php?ribcage_stream=1',
+		"(stream)/(track)/(.*?)/(.*?)/(.*?)/?$" => 'index.php?ribcage_stream=1&track_slug='.$wp_rewrite->preg_index(3).'&stream_format='.$wp_rewrite->preg_index(4),
+		"(stream)/(.*?)/(.*?)/?$" => 'index.php?ribcage_stream=1&release_slug='.$wp_rewrite->preg_index(2).'&stream_format='.$wp_rewrite->preg_index(3),
+		"(stream)/?$" => 'index.php?ribcage_stream=1',
 		
-		"(player)/(.*)" => 'index.php?ribcage_player=1&release_slug='.$wp_rewrite->preg_index(2),
+		"(player)/(.*?)/?$" => 'index.php?ribcage_player=1&release_slug='.$wp_rewrite->preg_index(2),
 		
-		"(buy)/(.*)/(.*)" => 'index.php?ribcage_buy=1&ribcage_product_id='.$wp_rewrite->preg_index(2).'&ribcage_buy_mode='.$wp_rewrite->preg_index(3),
-		"(buy)/(.*)" => 'index.php?ribcage_buy=1&ribcage_product_id='.$wp_rewrite->preg_index(2),
-		"(buy)" => 'index.php?ribcage_buy=1',
+		"(buy)/(.*?)/(.*?)/?$" => 'index.php?ribcage_buy=1&ribcage_product_id='.$wp_rewrite->preg_index(2).'&ribcage_buy_mode='.$wp_rewrite->preg_index(3),
+		"(buy)/(.*?)/?$" => 'index.php?ribcage_buy=1&ribcage_product_id='.$wp_rewrite->preg_index(2),
+		"(buy)/?$" => 'index.php?ribcage_buy=1',
 		
-		"(donate)/(ipn)" => 'index.php?ribcage_donate_ipn=1'	
+		"(donate)/(ipn)/?$" => 'index.php?ribcage_donate_ipn=1'	
 	);
 
 	$wp_rewrite->rules = $new_rules + $wp_rewrite->rules;
