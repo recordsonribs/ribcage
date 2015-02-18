@@ -15,7 +15,6 @@
 				</div>
 				<div class="mod-body">
 					<div class="entry">
-						<?php $artist = get_artist($release['release_artist']); ?>
 						<div class="ribcage-release">
 							<h2 class="album"><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a></h2>
 							<p><?php release_blurb_short(); ?></p>
