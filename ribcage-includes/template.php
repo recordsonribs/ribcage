@@ -125,7 +125,7 @@ function ribcage_title ($sep = '&rsaquo;'){
 	global $artist, $release, $releases;
 
         // We've got a 404 situation here.
-        if (is_wp_error($artist) or is_wp_error($release) or is_wp_error($product)){
+        if (isset($artist) && is_wp_error($artist) || isset($release) && is_wp_error($release) || isset($product) && is_wp_error($product)){
             return;
         }
 	
@@ -142,7 +142,7 @@ function ribcage_title ($sep = '&rsaquo;'){
 		?>Buy <?php echo $sep; ?> <?php if (isset($artist) && isset($release)) : ?><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a> <?php echo $sep; ?> <?php endif;?><?php product_name(); ?><?php
 	}
 	
-	if ($wp_query->query_vars['ribcage_buy_mode'] == 'thanks') {
+	if (isset($wp_query->query_vars['ribcage_buy_mode']) && $wp_query->query_vars['ribcage_buy_mode'] == 'thanks') {
 		?><?php echo $sep; ?> Thanks!<?php
 	}
 	
