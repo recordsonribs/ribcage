@@ -10,7 +10,7 @@
 					<p>Thanks for your interest in <a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>"><?php artist_name(); ?></a>'s record <a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug(); ?>"><?php release_title(); ?></a>.</p>
 					<p>All proceeds from this release go to the <a href="http://www.unicef.org.uk/landing-pages/donate-syria/">UNICEF Christmas Appeal for Syrian Children</a></p>
 					<p>Please give generously if you are able.</p>
-					<div class="donate_links"><a class="donate" href="<?php get_option('site_url');?>/download/<?php release_slug();?>/donate">Donate To The Unicef Christmas Appeal for Syrian Children</a></div>
+					<div class="donate_links"><a class="donate" href="<?php get_option('site_url');?>/download/<?php release_slug();?>/donate">Donate To The UNICEF Christmas Appeal for Syrian Children</a></div>
 					<div class="donate_links"><a href="<?php release_download_link (); ?>/skip" style="color:#a9abae">Download without donating</a></div>
 				</div> <!-- end div.entry -->
 			</div> <!-- end div.mod-body -->
