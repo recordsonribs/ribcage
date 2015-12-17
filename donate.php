@@ -18,7 +18,7 @@ require_once dirname(__FILE__) . '/ribcage-includes/paypal/paypal.class.php';
 function ribcage_donate (){
 	global $paypal;
 	global $artist, $release;
-	
+
 	$paypal->add_field('business', get_option('ribcage_paypal_email'));
 
 	$paypal->add_field('charset', 'utf-8');
@@ -45,20 +45,25 @@ function ribcage_donate (){
  */
 function ribcage_donate_download_thanks  () {
 	global $release, $artist, $wp_query;
-	
+
 	$release = get_release_by_slug ($wp_query->query_vars['release_slug'], FALSE, FALSE);
 
-        if (is_wp_error($release)){
-            ribcage_404();
-        }
+	if (is_wp_error($release)){
+		ribcage_404();
+	}
 
 	$artist = get_artist ($release['release_artist']);
 
-        if (is_wp_error($artist)){
-                                    ribcage_404();
-                                }
+	if (is_wp_error($artist)){
+		ribcage_404();
+	}
 
-	$load = ribcage_load_template('download-thanks.php');
+	if ($release["release_slug"] === 'christmas-koto') {
+		$load = ribcage_load_template('download-thanks-koto.php');
+	}
+	else {
+		$load = ribcage_load_template('download-thanks.php');
+	}
 }
 
 /**
@@ -71,7 +76,7 @@ function ribcage_donate_download_thanks  () {
 function ribcage_donate_ipn () {
 	global $paypal;
 	global $wpdb;
-	
+
 	if ($paypal->validate_ipn()) {
 		// Add the person's donation to the database.
   		$log = sprintf("
@@ -88,9 +93,9 @@ function ribcage_donate_ipn () {
 			);
 
 			$wpdb->query("$log");
-		
+
 		// Send an e-mail to the administrator of the site, telling them they have recieved a donation.
-		
+
 		// Send an e-mail thanking the person for their donation.
 	}
 }
