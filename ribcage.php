@@ -224,15 +224,21 @@ function ribcage_init (){
 		else if (isset($wp_query->query_vars['release_slug'])) {
 			$release = get_release_by_slug ($wp_query->query_vars['release_slug'], FALSE, FALSE);
 
-                        if (is_wp_error($release)){
-                            ribcage_404();
-                        }
+			if (is_wp_error($release)){
+				ribcage_404();
+			}
 
 			$artist = get_artist ($release['release_artist']);
 
-                        if (is_wp_error($artist)){
-                            ribcage_404();
-                        }
+			if (is_wp_error($artist)){
+			    ribcage_404();
+			}
+
+			// Special case for Matthew Jenning's Christmas Koto
+			if ($release["release_slug"] === 'christmas-koto') {
+				$load = ribcage_load_template('koto-nag.php');
+				die();
+			}
 
 			// If we haven't seen the user before, then nag them about the download.
 			if (!isset($_COOKIE["ask_donate"])){
