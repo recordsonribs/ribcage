@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 <div id="container">
 		<div id="content">
-	 
+
 			<h2><a href="<?php echo home_url(); ?>/artists/">Artists</a></h2>
 			<a href="<?php echo home_url(); ?>/<?php artist_slug(); ?>"><h1><?php artist_name(); ?></h1></a>
 	<?php if (is_artist_page()) : ?>
@@ -9,7 +9,6 @@
 		<p><?php artist_bio(); ?>
 		<p>
 		<?php if (artist_website_link(0)) : ?><a href="<?php artist_website_link(); ?>">Offical Webpage</a><br /><?php endif ?>
-		<?php if (artist_myspace_link(0)) : ?><a href="<?php artist_myspace_link(); ?>">My Space</a><br /><?php endif ?>
 		<?php if (artist_facebook_link(0)) : ?><a href="<?php artist_facebook_link(); ?>">Facebook</a><br /><?php endif ?>
 		<a href="<?php artist_lastfm_link(); ?>">Last.fm</a><br />
 		<a href="<?php artist_press_link(); ?>">Press Photos and Information</a></p>

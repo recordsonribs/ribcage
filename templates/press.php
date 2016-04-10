@@ -35,14 +35,13 @@
 		<h3>Online Resources</h3>
 		<ul>
 			<?php if (artist_website_link(0)) : ?><li><a href="<?php artist_website_link(); ?>">Offical Webpage</a></li><?php endif ?>
-			<?php if (artist_myspace_link(0)) : ?><li><a href="<?php artist_myspace_link(); ?>">My Space</a></li><?php endif ?>
 			<?php if (artist_facebook_link(0)) : ?><li><a href="<?php artist_facebook_link(); ?>">Facebook</a></li><?php endif ?>
 			<li><a href="<?php artist_lastfm_link(); ?>">Last.fm</a></li>
 			<li><a href="<?php artist_musicbrainz_link(); ?>">Musicbrainz</a></li>
 		</ul>
 	</div>
 
-	<?php 
+	<?php
 		$slug = artist_slug(false);
 		query_posts("tag=$slug");
 	?>

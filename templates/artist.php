@@ -48,7 +48,6 @@
 		<h3>Artist Links</h3>
 		<ul>
 			<?php if (artist_website_link(0)) : ?><li class="site"><a href="<?php artist_website_link(); ?>">Offical Webpage</a></li><?php endif ?>
- 			<?php if (artist_myspace_link(0)) : ?><li class="myspace"><a href="<?php artist_myspace_link(); ?>">MySpace</a></li><?php endif ?>
  			<?php if (artist_facebook_link(0)) : ?><li class="facebook"><a href="<?php artist_facebook_link(); ?>">Facebook</a></li><?php endif ?>
  			<li class="lastfm"><a href="<?php artist_lastfm_link(); ?>">Last.fm</a></li>
  			<li class="music"><a href="<?php artist_musicbrainz_link(); ?>">Musicbrainz</a></li>
@@ -60,7 +59,7 @@
  			<?php dbem_get_events_list("limit=3&order=DESC&category=".artist_id(false)); ?>
   		</ul>
   	</div>
-	<?php 
+	<?php
 		$slug = artist_slug(false);
 		query_posts("tag=$slug");
 	?>
