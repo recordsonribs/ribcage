@@ -3,7 +3,7 @@
 	<div id="left">
 		<div class="mod page">
 			<div class="entry">
-				<img class="artist_picture" src="<?php artist_picture_1(); ?>" alt="<?php artist_name(); ?>" />
+				<img src="<?php artist_picture_1(); ?>" alt="<?php artist_name(); ?>" />
 				<?php artist_bio(); ?>
 				<p>
 					<a class="press" href="<?php artist_press_link(); ?>">Press Photos and Information &rsaquo;</a>
