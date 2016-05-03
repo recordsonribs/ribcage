@@ -3,8 +3,11 @@
 	<div id="left">
 		<div class="mod page">
 			<div class="entry">
+				<img class="artist_picture" src="<?php artist_picture_1(); ?>" alt="<?php artist_name(); ?>" />
 				<?php artist_bio(); ?>
-				<p><a class="press" href="<?php artist_press_link(); ?>">Press Photos and Information &rsaquo;</a></p>
+				<p>
+					<a class="press" href="<?php artist_press_link(); ?>">Press Photos and Information &rsaquo;</a>
+				</p>
 			</div> <!-- end div.entry-->
 		</div> <!-- end div.page -->
 		<?php if (have_releases() ) : ?>
@@ -41,9 +44,6 @@
 	</div> <!-- end #left -->
 
 <div id="right">
-	<div class="mod">
-		<img class="artist_picture" src="<?php artist_picture_1(); ?>" alt="<?php artist_name(); ?>" />
-	</div>
 	<div class="mod">
 		<h3>Artist Links</h3>
 		<ul>
