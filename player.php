@@ -38,7 +38,7 @@ function show_player ($release_slug) {
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.1/build/reset/reset-min.css">
 </head>
 <body>
-<iframe width="100%" height="465" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=<?php echo $url ?>&auto_play=true&visual=true&autoplay=true">
+<iframe width="100%" height="465" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=<?php echo $url ?>"></iframe>
 </iframe>
 </body>
 </html>
