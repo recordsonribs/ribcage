@@ -16,7 +16,7 @@
 function show_player ($release_slug) {
 	global $artists, $artist, $current_artist;
 	global $releases, $release, $current_release;
-	
+
 	$release = get_release_by_slug ($release_slug, FALSE, FALSE);
 
 	if (is_wp_error($release)){
@@ -28,7 +28,7 @@ function show_player ($release_slug) {
     if (is_wp_error($artist)){
     	ribcage_404();
     }
-	
+
 	$url = release_soundcloud_url( false );
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -38,12 +38,12 @@ function show_player ($release_slug) {
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.1/build/reset/reset-min.css">
 </head>
 <body>
-<iframe width="100%" height="465" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=<?php echo $url; ?>&auto_play=true&buying=true&liking=false&download=false&sharing=false&show_artwork=false&show_comments=false&show_playcount=false&show_user=false&hide_related=false&visual=true&start_track=0&callback=true">
+<iframe width="100%" height="465" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=<?php echo $url ?>&auto_play=true&visual=true&autoplay=true">
 </iframe>
 </body>
 </html>
 <?php
-	return (0);	
+	return (0);
 }
 
 ?>

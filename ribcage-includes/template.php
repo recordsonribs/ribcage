@@ -34,7 +34,7 @@ $products = null;
 $current_product = 0;
 
 /**
- * Loads a template for Ribcage specific output. 
+ * Loads a template for Ribcage specific output.
  * There is one, a template from the currently being used theme is loaded, otherwise it is loaded from the plugin.
  * Owes a great deal to Rob Millers' Now Reading plugin. Thanks a great deal.
  *
@@ -46,13 +46,13 @@ function ribcage_load_template ( $filename ) {
 	$template = get_template_directory() ."/ribcage/$filename";
 
     if ( !file_exists($template) ) {
-            $template = plugin_dir_path(dirname(__FILE__)) ."templates/$filename";  
+            $template = plugin_dir_path(dirname(__FILE__)) ."templates/$filename";
     }
-		
+
 	if ( !file_exists($template) ) {
 		return new WP_Error('ribcage-template-missing', sprintf(__("Oops! The template file %s could not be found in either the Ribcage template directory or your theme's Ribcage directory.", NRTD), "<code>$filename</code>"));
 	}
-	
+
 	load_template($template);
 }
 
@@ -65,9 +65,9 @@ function ribcage_load_template ( $filename ) {
  */
 function ribcage_load_email_template ( $filename ) {
 	ob_start();
-	
+
 	$load = ribcage_load_template ('email/$filename.php');
-	
+
 	return ob_get_clean();
 }
 
@@ -80,11 +80,11 @@ function ribcage_load_email_template ( $filename ) {
 function is_artist_page ()
 {
 	global $wp_query;
-	
+
 	if (isset($wp_query->query_vars['artist_page'])){
 		return TRUE;
 	}
-	
+
 	else {
 		return FALSE;
 	}
@@ -99,18 +99,18 @@ function is_artist_page ()
  */
 function is_ribcage_page() {
 	global $wp_query, $ribcage_page;
-	
+
 	if (isset($ribcage_page)){
 		return $ribcage_page;
 	}
-	
+
 	$query_vars = ribcage_queryvars(array());
-	
+
 	foreach ($query_vars as $qvar) {
 		if (isset($wp_query->query_vars["$qvar"])) {
 			return TRUE;
 		}
-	}	
+	}
 	return FALSE;
 }
 
@@ -128,38 +128,38 @@ function ribcage_title ($sep = '&rsaquo;'){
         if (isset($artist) && is_wp_error($artist) || isset($release) && is_wp_error($release) || isset($product) && is_wp_error($product)){
             return;
         }
-	
+
 	if ($wp_query->query_vars['pagename'] == 'artists'){
 		echo 'Artists';
 	}
-	
+
 	if ($wp_query->query_vars['pagename'] == 'releases'){
 		echo 'Releases';
 	}
-	
+
 	if (isset($wp_query->query_vars['ribcage_buy']) && isset($wp_query->query_vars['ribcage_product_id'])) {
-		
+
 		?>Buy <?php echo $sep; ?> <?php if (isset($artist) && isset($release)) : ?><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a> <?php echo $sep; ?> <?php endif;?><?php product_name(); ?><?php
 	}
-	
+
 	if (isset($wp_query->query_vars['ribcage_buy_mode']) && $wp_query->query_vars['ribcage_buy_mode'] == 'thanks') {
 		?><?php echo $sep; ?> Thanks!<?php
 	}
-	
+
 	if (isset($wp_query->query_vars['ribcage_download'])){
 		?>Downloading <?php echo $sep; ?> <a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a> <?php echo $sep; ?> <a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug();?>"><?php release_title(); ?></a>
 		<?php
 	}
-	
+
 	if (isset($wp_query->query_vars['artist_slug']) && !isset($wp_query->query_vars['ribcage_buy'])) {
 		?><a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/"><?php artist_name(); ?></a><?php
 	}
-	
-	if (is_artist_page()){	
+
+	if (is_artist_page()){
 		switch ($wp_query->query_vars['artist_page']) {
 			case 'press':
 				?>
-			<?php echo $sep; ?> <a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/press">Press</a> 
+			<?php echo $sep; ?> <a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/press">Press</a>
 				<?php
 				break;
 
@@ -169,7 +169,7 @@ function ribcage_title ($sep = '&rsaquo;'){
 				<?php
 				break;
 
-			default :	
+			default :
 				?>
 				<?php echo $sep; ?> <a href="<?php echo home_url(); ?>/artists/<?php artist_slug(); ?>/<?php release_slug();?>"><?php release_title(); ?></a>
 				<?php
@@ -189,11 +189,11 @@ function ribcage_title ($sep = '&rsaquo;'){
 function ribcage_albums ($amount = 5, $mode = 'list', $nav_bar = TRUE, $css = NULL) {
 	global $releases, $release;
 	global $artist;
-	
+
 	if ($releases == NULL) {
 		$releases = list_recent_releases_blurb($amount);
 	}
-	
+
 	?>
 	<ul class="ribcage albums<?php if (isset($css)) { print " $css";}?>">
 	<?php while ( have_releases () ) : the_release() ; ?>
@@ -233,12 +233,12 @@ function ribcage_albums ($amount = 5, $mode = 'list', $nav_bar = TRUE, $css = NU
  **/
 function random_artist () {
 	global $artist;
-	
+
 	$artists = list_artists_blurb();
-	
+
 	// An array runs from zero and count() doesn't, so we need to take one off it.
 	$no = rand(0,count($artists)-1);
-	
+
 	$artist = $artists[$no];
 }
 
@@ -249,7 +249,7 @@ function random_artist () {
  */
 function paypal_redirect () {
 	global $paypal;
-	
+
 	?>
 	<form method="post" name="paypal" action="<?php echo $paypal->paypal_url; ?>">
 	<?php
@@ -272,10 +272,10 @@ function paypal_redirect () {
  */
 function product_name ( $echo = true ) {
 	global $product;
-	
+
 	if ( $echo )
 		echo wptexturize($product['product_name']);
-	
+
 	return $product['product_name'];
 }
 
@@ -288,10 +288,10 @@ function product_name ( $echo = true ) {
  */
 function product_description ( $echo = true ) {
 	global $product;
-	
+
 	if ( $echo )
 		echo wptexturize($product['product_description']);
-	
+
 	return $product['product_description'];
 }
 
@@ -304,10 +304,10 @@ function product_description ( $echo = true ) {
  */
 function product_cost_c ( $echo = true ) {
 	global $product;
-	
+
 	if ( $echo )
 		echo wptexturize($product['product_cost']+get_option('ribcage_postage_country'));
-	
+
 	return $product['product_cost']+get_option('ribcage_postage_country');
 }
 
@@ -320,10 +320,10 @@ function product_cost_c ( $echo = true ) {
  */
 function product_cost_ww ( $echo = true ) {
 	global $product;
-	
+
 	if ( $echo )
 		echo wptexturize($product['product_cost']+get_option('ribcage_postage_worldwide'));
-	
+
 	return $product['product_cost']+get_option('ribcage_postage_worldwide');
 }
 
@@ -336,10 +336,10 @@ function product_cost_ww ( $echo = true ) {
  */
 function product_id ( $echo = true ) {
 	global $product;
-	
+
 	if ( $echo )
 		echo $product['product_id'];
-	
+
 	return $product['product_id'];
 }
 
@@ -352,10 +352,10 @@ function product_id ( $echo = true ) {
  */
 function release_title ( $echo = true ) {
 	global $release;
-	
+
 	if ( $echo )
 		echo wptexturize($release['release_title']);
-	
+
 	return $release['release_title'];
 }
 
@@ -369,10 +369,10 @@ function release_title ( $echo = true ) {
  */
 function release_slug ( $echo = true ) {
 	global $release;
-	
+
 	if ( $echo )
 		echo $release['release_slug'];
-	
+
 	return $release['release_slug'];
 }
 
@@ -417,10 +417,10 @@ function release_stream_short_link ( $echo = true ) {
  */
 function release_blurb_tiny ( $echo = true ) {
 	global $release;
-	
+
 	if ( $echo )
 		echo wptexturize($release['release_blurb_tiny']);
-	
+
 	return $release['release_blurb_tiny'];
 }
 
@@ -433,10 +433,10 @@ function release_blurb_tiny ( $echo = true ) {
  */
 function release_blurb_short ( $echo = true ) {
 	global $release;
-	
+
 	if ( $echo )
 		echo wptexturize($release['release_blurb_short']);
-	
+
 	return $release['release_blurb_short'];
 }
 
@@ -449,10 +449,10 @@ function release_blurb_short ( $echo = true ) {
  */
 function release_blurb_long ( $echo = true ) {
 	global $release;
-	
+
 	if ( $echo )
 		echo wpautop(wptexturize($release['release_blurb_long']));
-	
+
 	return $release['release_blurb_long'];
 }
 
@@ -465,10 +465,10 @@ function release_blurb_long ( $echo = true ) {
  */
 function release_onesheet ( $echo = true ) {
 	global $release;
-	
+
 	if ( $echo )
 		echo $release['release_one_sheet'];
-	
+
 	return $release['release_one_sheet'];
 }
 
@@ -481,10 +481,10 @@ function release_onesheet ( $echo = true ) {
  */
 function release_download_link ( $echo = true ) {
 	global $release;
-	
+
 	if ( $echo )
 		echo get_option('home').'/download/'.$release['release_slug'];
-	
+
 	return get_option('home').'/download/'.$release['release_slug'];
 }
 
@@ -497,16 +497,16 @@ function release_download_link ( $echo = true ) {
  */
 function release_download_link_mp3 ( $echo = true ) {
 	global $release;
-	
+
 	if ( $echo )
 		echo get_option('home').'/download/'.$release['release_slug'].'/mp3';
-	
+
 	return get_option('home').'/download/'.$release['release_slug'].'/mp3';
 }
 
 /**
  * Establishes a SoundCloud URL for a given release.
- * 
+ *
  * At Records On Ribs our SoundCloud releases have a particular pattern of:
  * http://soundcloud.com/records-on-ribs/sets/aritist-name-release-title
  *
@@ -518,11 +518,11 @@ function release_download_link_mp3 ( $echo = true ) {
  	global $release;
  	global $artist;
 
-	$url = "http://soundcloud.com/records-on-ribs/sets/" . sanitize_title($artist['artist_name'] . " " . $release['release_title']);
+	$url = "https://soundcloud.com/records-on-ribs/sets/" . sanitize_title($artist['artist_name'] . " " . $release['release_title']);
 
 	if ( $echo )
 		echo $url;
-	
+
 	return $url;
  }
 
@@ -547,7 +547,7 @@ function release_twitter_promotional_tweet ( $echo = true ) {
 	$release_link = release_download_short_link( false );
 
 	if (! $release_link) {
-		$release_link = release_download_link( false );	
+		$release_link = release_download_link( false );
 	}
 
 	$stream_link = release_stream_short_link( false );
@@ -557,12 +557,12 @@ function release_twitter_promotional_tweet ( $echo = true ) {
 	}
 
 	$tweet = urlencode('I just downloaded ' . release_title( false ) . ' by ' . $artist . ' at @recordsonribs - Download now ' . $release_link . ', listen now ' . $stream_link);
-				
+
 	$url = 'https://twitter.com/intent/tweet?text=' . $tweet;
 
 	if ( $echo )
 		echo $url;
-	
+
 	return $url;
 }
 
@@ -608,17 +608,17 @@ function release_facebook_share_link ( $echo = true ) {
  */
 function release_download_size_mp3 ( $echo = true ) {
 	global $release;
-	
+
 	if (file_exists(ABSPATH.$release['release_mp3'])) {
 		$filesize = filesize(ABSPATH.$release['release_mp3']);
 	}
 	else {
 		$filesize = 0;
 	}
-	
+
 	if ( $echo )
 		echo ribcage_format_filesize($filesize);
-	
+
 	return ribcage_format_filesize($filesize);
 }
 
@@ -631,10 +631,10 @@ function release_download_size_mp3 ( $echo = true ) {
  */
 function release_download_link_flac ( $echo = true ) {
 	global $release;
-	
+
 	if ( $echo )
 		echo get_option('home').'/download/'.$release['release_slug'].'/flac';
-	
+
 	return get_option('home').'/download/'.$release['release_slug'].'/flac';
 }
 
@@ -647,17 +647,17 @@ function release_download_link_flac ( $echo = true ) {
  */
 function release_download_size_flac ( $echo = true ) {
 	global $release;
-	
+
 	if (file_exists(ABSPATH.$release['release_flac'])) {
 		$filesize = filesize(ABSPATH.$release['release_flac']);
 	}
 	else {
 		$filesize = 0;
 	}
-	
+
 	if ( $echo )
 		echo ribcage_format_filesize($filesize);
-	
+
 	return ribcage_format_filesize($filesize);
 }
 
@@ -670,10 +670,10 @@ function release_download_size_flac ( $echo = true ) {
  */
 function release_download_link_ogg ( $echo = true ) {
 	global $release;
-	
+
 	if ( $echo )
 		echo get_option('home').'/download/'.$release['release_slug'].'/ogg';
-	
+
 	return get_option('home').'/download/'.$release['release_slug'].'/ogg';
 }
 
@@ -686,17 +686,17 @@ function release_download_link_ogg ( $echo = true ) {
  */
 function release_download_size_ogg ( $echo = true ) {
 	global $release;
-	
+
 	if (file_exists(ABSPATH.$release['release_ogg'])) {
 		$filesize = filesize(ABSPATH.$release['release_ogg']);
 	}
 	else {
 		$filesize = 0;
 	}
-	
+
 	if ( $echo )
 		echo ribcage_format_filesize($filesize);
-	
+
 	return ribcage_format_filesize($filesize);
 }
 
@@ -709,10 +709,10 @@ function release_download_size_ogg ( $echo = true ) {
  */
 function release_download_link_bittorrent_mp3 ( $echo = true ) {
 	global $release;
-	
+
 	if ( $echo )
 		echo $release['release_torrent_mp3'];
-	
+
 	return $release['release_torrent_mp3'];
 }
 
@@ -725,10 +725,10 @@ function release_download_link_bittorrent_mp3 ( $echo = true ) {
  */
 function release_download_link_bittorrent_ogg ( $echo = true ) {
 	global $release;
-	
+
 	if ( $echo )
 		echo $release['release_torrent_ogg'];
-	
+
 	return $release['release_torrent_ogg'];
 }
 
@@ -741,10 +741,10 @@ function release_download_link_bittorrent_ogg ( $echo = true ) {
  */
 function release_download_link_bittorrent_flac ( $echo = true ) {
 	global $release;
-	
+
 	if ( $echo )
 		echo $release['release_torrent_flac'];
-	
+
 	return $release['release_torrent_flac'];
 }
 
@@ -756,7 +756,7 @@ function release_download_link_bittorrent_flac ( $echo = true ) {
  */
 function release_bittorrent () {
 	global $release;
-	
+
 	if ($release['release_torrent_mp3'] or $release['release_torrent_ogg'] or $release['release_torrent_flac']) {
 		return TRUE;
 	}
@@ -774,10 +774,10 @@ function release_bittorrent () {
  */
 function release_cover_huge ( $echo = true ) {
 	global $release;
-	
+
 	if ( $echo )
 		echo $release['release_cover_image_huge'];
-	
+
 	return $release['release_cover_image_huge'];
 }
 
@@ -790,10 +790,10 @@ function release_cover_huge ( $echo = true ) {
  */
 function release_cover_large ( $echo = true ) {
 	global $release;
-	
+
 	if ( $echo )
 		echo $release['release_cover_image_large'];
-	
+
 	return $release['release_cover_image_large'];
 }
 
@@ -806,10 +806,10 @@ function release_cover_large ( $echo = true ) {
  */
 function release_cover_tiny ( $echo = true ) {
 	global $release;
-	
+
 	if ( $echo )
 		echo $release['release_cover_image_tiny'];
-	
+
 	return $release['release_cover_image_tiny'];
 }
 
@@ -822,10 +822,10 @@ function release_cover_tiny ( $echo = true ) {
  */
 function release_cat_no ( $echo = true ) {
 	global $release;
-	
+
 	if ( $echo )
 		echo get_option('ribcage_mark').str_pad($release['release_id'], 3, "0", STR_PAD_LEFT);
-	
+
 	return 	get_option('ribcage_mark').str_pad($release['release_id'], 3, "0", STR_PAD_LEFT);
 }
 
@@ -838,10 +838,10 @@ function release_cat_no ( $echo = true ) {
  */
 function release_id ( $echo = true ) {
 	global $release;
-	
+
 	if ( $echo )
 		echo $release['release_id'];
-	
+
 	return 	$release['release_id'];
 }
 
@@ -854,10 +854,10 @@ function release_id ( $echo = true ) {
  */
 function release_player_link ( $echo = true ) {
 	global $release;
-	
+
 	if ( $echo )
 		echo get_home_url() . '/player/'.$release['release_slug'].'/';
-	
+
 	return get_home_url() . '/download/'.$release['release_slug'].'/';
 }
 
@@ -869,7 +869,7 @@ function release_player_link ( $echo = true ) {
  */
 function release_physical () {
 	global $release;
-	
+
 	if ($release['release_physical']){
 		return TRUE;
 	}
@@ -887,10 +887,10 @@ function release_physical () {
  */
 function release_product_id ( $echo = TRUE ) {
 	global $release;
-	
+
 	if ( $echo )
 		echo $release['release_physical_cat_no'];
-	
+
 	return 	$release['release_physical_cat_no'];
 }
 
@@ -903,10 +903,10 @@ function release_product_id ( $echo = TRUE ) {
  */
 function release_downloads ( $echo = TRUE ) {
 	global $release;
-	
+
 	if ( $echo )
 		echo number_format($release['release_downloads']);
-	
+
 	return 	$release['release_downloads'];
 }
 
@@ -919,8 +919,8 @@ function release_downloads ( $echo = TRUE ) {
  */
 function artist_id ( $echo = true ) {
 	global $artist;
-	
-	if ($echo) 
+
+	if ($echo)
 		echo $artist['artist_id'];
 
 	return $artist['artist_id'];
@@ -935,8 +935,8 @@ function artist_id ( $echo = true ) {
  */
 function artist_name ( $echo = true ) {
 	global $artist;
-	
-	if ($echo) 
+
+	if ($echo)
 		echo wptexturize($artist['artist_name']);
 
 	return $artist['artist_name'];
@@ -951,8 +951,8 @@ function artist_name ( $echo = true ) {
  */
 function artist_name_sort ( $echo = true ) {
 	global $artist;
-	
-	if ($echo) 
+
+	if ($echo)
 		echo wptexturize($artist['artist_name_sort']);
 
 	return $artist['artist_name_sort'];
@@ -967,11 +967,11 @@ function artist_name_sort ( $echo = true ) {
  */
 function artist_bio ( $echo = true ) {
 	global $artist;
-	
+
 	if ($echo) {
 		echo wpautop(wptexturize($artist['artist_bio']));
 	}
-	
+
 	return $artist['artist_bio'];
 }
 
@@ -984,10 +984,10 @@ function artist_bio ( $echo = true ) {
  */
 function artist_slug ( $echo = true ) {
 	global $artist;
-	
+
 	if ($echo)
 		echo $artist['artist_slug'];
-	
+
 	return $artist['artist_slug'];
 }
 
@@ -1001,10 +1001,10 @@ function artist_slug ( $echo = true ) {
 function artist_press_link ( $echo = true ) {
 	global $artist;
 	$presslink = get_option('home').'/artists/'.$artist['artist_slug'].'/press/';
-	
+
 	if ($echo)
 		echo $presslink;
-	
+
 	return $presslink;
 }
 
@@ -1017,10 +1017,10 @@ function artist_press_link ( $echo = true ) {
  */
 function artist_website_link ( $echo = true ) {
 	global $artist;
-	
+
 	if ($echo)
 		echo $artist['artist_link_website'];
-	
+
 	return $artist['artist_link_website'];
 }
 
@@ -1033,10 +1033,10 @@ function artist_website_link ( $echo = true ) {
  */
 function artist_myspace_link ( $echo = true ) {
 	global $artist;
-	
+
 	if ($echo)
 		echo $artist['artist_link_myspace'];
-	
+
 	return $artist['artist_link_myspace'];
 }
 
@@ -1049,10 +1049,10 @@ function artist_myspace_link ( $echo = true ) {
  */
 function artist_facebook_link ( $echo = true ) {
 	global $artist;
-	
+
 	if ($echo)
 		echo $artist['artist_link_facebook'];
-	
+
 	return $artist['artist_link_facebook'];
 }
 
@@ -1066,7 +1066,7 @@ function artist_has_twitter () {
 	global $artist;
 
 	if ($artist['artist_link_twitter']) {
-		return true;	
+		return true;
 	}
 	else {
 		return false;
@@ -1082,10 +1082,10 @@ function artist_has_twitter () {
  */
 function artist_twitter_link ( $echo = true ) {
 	global $artist;
-	
+
 	if ($echo)
 		echo $artist['artist_link_twitter'];
-	
+
 	return $artist['artist_link_twitter'];
 }
 
@@ -1104,7 +1104,7 @@ function artist_twitter_user_name ( $echo = true ) {
 
 	if ($echo)
 		echo $user_name;
-	
+
 	return $user_name;
 }
 
@@ -1117,11 +1117,11 @@ function artist_twitter_user_name ( $echo = true ) {
  */
 function artist_lastfm_link ( $echo = true ) {
 	global $artist;
-	
+
 	$lastfmlink = 'http://www.last.fm/music/'.str_replace(' ', '+',$artist['artist_name']);
 	if ($echo)
 		echo $lastfmlink;
-	
+
 	return $lastfmlink;
 }
 
@@ -1134,11 +1134,11 @@ function artist_lastfm_link ( $echo = true ) {
  */
 function artist_musicbrainz_link ( $echo = true ) {
 	global $artist;
-	
+
 	$mblink = 'http://musicbrainz.org/artist/'.$artist['artist_mbid'].'.html';
 	if ($echo)
 		echo $mblink;
-	
+
 	return $mblink;
 }
 
@@ -1151,10 +1151,10 @@ function artist_musicbrainz_link ( $echo = true ) {
  */
 function artist_musicbrainz ( $echo = true ) {
 	global $artist;
-	
+
 	if ($echo)
 		echo $artist['artist_mbid'];
-		
+
 	return $artist['artist_mbid'];
 }
 
@@ -1167,10 +1167,10 @@ function artist_musicbrainz ( $echo = true ) {
  */
 function artist_blurb_tiny ( $echo = true ) {
 	global $artist;
-	
+
 	if ($echo)
 		echo wptexturize($artist['artist_blurb_tiny']);
-	
+
 	return $artist['artist_blurb_tiny'];
 }
 
@@ -1183,10 +1183,10 @@ function artist_blurb_tiny ( $echo = true ) {
  */
 function artist_blurb_short ( $echo = true ) {
 	global $artist;
-	
+
 	if ($echo)
 		echo wptexturize($artist['artist_blurb_short']);
-	
+
 	return $artist['artist_blurb_short'];
 }
 
@@ -1199,10 +1199,10 @@ function artist_blurb_short ( $echo = true ) {
  */
 function artist_picture_1 ( $echo = true ) {
 	global $artist;
-	
+
 	if ($echo)
 		echo $artist['artist_picture_1'];
-	
+
 	return $artist['artist_picture_1'];
 }
 
@@ -1215,10 +1215,10 @@ function artist_picture_1 ( $echo = true ) {
  */
 function artist_picture_2 ( $echo = true ) {
 	global $artist;
-	
+
 	if ($echo)
 		echo $artist['artist_picture_2'];
-	
+
 	return $artist['artist_picture_2'];
 }
 
@@ -1231,10 +1231,10 @@ function artist_picture_2 ( $echo = true ) {
  */
 function artist_picture_3 ( $echo = true ) {
 	global $artist;
-	
+
 	if ($echo)
 		echo $artist['artist_picture_3'];
-	
+
 	return $artist['artist_picture_3'];
 }
 
@@ -1247,10 +1247,10 @@ function artist_picture_3 ( $echo = true ) {
  */
 function artist_picture_zip ( $echo = true ) {
 	global $artist;
-	
+
 	if ( $echo )
 		echo $artist['artist_picture_zip'];
-	
+
 	return $artist['artist_picture_zip'];
 }
 
@@ -1263,10 +1263,10 @@ function artist_picture_zip ( $echo = true ) {
  */
 function artist_thumb ( $echo = true ) {
 	global $artist;
-	
+
 	if ($echo)
 		echo $artist['artist_thumb'];
-	
+
 	return $artist['artist_thumb'];
 }
 
@@ -1278,7 +1278,7 @@ function artist_thumb ( $echo = true ) {
  */
 function have_artists () {
 	global $artists, $current_artist;
-	
+
 	$have_artists = ( !empty($artists[$current_artist]) );
 
 	if ( !$have_artists ) {
@@ -1310,10 +1310,10 @@ function the_artist (){
  */
 function track_title ( $echo = true ) {
 	global $track;
-	
+
 	if ($echo)
 		echo wptexturize($track['track_title']);
-	
+
 	return $track['track_title'];
 }
 
@@ -1326,10 +1326,10 @@ function track_title ( $echo = true ) {
  */
 function track_stream ( $echo = true ) {
 	global $track;
-	
+
 	if ($echo)
 		echo $track['track_stream'];
-	
+
 	return $track['track_stream'];
 }
 
@@ -1342,10 +1342,10 @@ function track_stream ( $echo = true ) {
  */
 function track_no ( $echo = true ) {
 	global $track;
-	
+
 	if ($echo)
 		echo $track['track_number'];
-	
+
 	return $track['track_number'];
 }
 
@@ -1358,10 +1358,10 @@ function track_no ( $echo = true ) {
  */
 function track_id ( $echo = true ) {
 	global $track;
-	
+
 	if ($echo)
 		echo $track['track_id'];
-	
+
 	return $track['track_id'];
 }
 
@@ -1374,10 +1374,10 @@ function track_id ( $echo = true ) {
  */
 function track_time ( $echo = true ) {
 	global $track;
-	
+
  	$split = explode (':', $track['track_time']);
 	$str = str_split ($split[1]);
-	
+
 	if ($echo) {
 		if ($str[0] == 0) {
 			echo $str[1].'.'.$split[2];
@@ -1386,7 +1386,7 @@ function track_time ( $echo = true ) {
 			echo $split[1].'.'.$split[2];
 		}
 	}
-	
+
 	return $split[1].'.'.$split[2];
 }
 
@@ -1398,7 +1398,7 @@ function track_time ( $echo = true ) {
  */
 function have_tracks () {
 	global $tracks, $current_track;
-	
+
 	$have_tracks = ( !empty($tracks[$current_track]) );
 
 	if ( !$have_tracks ) {
@@ -1429,7 +1429,7 @@ function the_track (){
  */
 function have_releases () {
 	global $releases, $current_release;
-	
+
 	$have_releases = ( !empty($releases[$current_release]) );
 
 	if ( !$have_releases ) {
@@ -1461,7 +1461,7 @@ function the_release (){
  */
 function have_reviews () {
 	global $reviews, $current_review;
-	
+
 	$have_reviews = ( !empty($reviews[$current_review]) );
 
 	if ( !$have_reviews ) {
@@ -1493,10 +1493,10 @@ function the_review (){
  */
 function review_text ( $echo=true ){
 	global $review;
-	
+
 	if ($echo)
 		echo $review['review_text'];
-	
+
 	return $review['review_text'];
 }
 
@@ -1509,10 +1509,10 @@ function review_text ( $echo=true ){
  */
 function review_author ( $echo=true ){
 	global $review;
-	
+
 	if ($echo)
 		echo $review['review_author'];
-	
+
 	return $review['review_author'];
 }
 
@@ -1525,10 +1525,10 @@ function review_author ( $echo=true ){
  */
 function review_link ( $echo=true ){
 	global $review;
-	
+
 	if ($echo)
 		echo $review['review_link'];
-	
+
 	return $review['review_link'];
 }
 
@@ -1545,7 +1545,7 @@ add_shortcode('total_downloads','ribcage_total_downloads_shortcode');
  */
 function have_products () {
 	global $products, $current_product;
-	
+
 	$have_products = ( !empty($products[$current_product]) );
 
 	if ( !$have_products ) {
